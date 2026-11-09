@@ -1,0 +1,172 @@
+<mujoco model="xgoduck_scs0009_h0.75">
+  <compiler angle="radian" meshdir="assets" autolimits="true" />
+  <default>
+    <default class="microduck">
+      <joint frictionloss="0.1" armature="0.005" />
+      <position kp="50" dampratio="1" />
+      <default class="visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2" />
+      </default>
+      <default class="collision">
+        <geom group="3" conaffinity="0" />
+      </default>
+    </default>
+  </default>
+  <default>
+    <default class="chosen_actuator">
+      
+      <geom contype="0" conaffinity="0" />
+      <joint damping="0.0215855" frictionloss="0.01" armature="0.0015" />
+      <position kp="4.34615" kv="0" forcerange="-0.226 0.226" ctrlrange="-10.0 10.0" />
+    </default>
+  </default>
+  <sensor>
+    <framequat name="orientation" objtype="site" noise="0.001" objname="imu" />
+    <gyro name="angular-velocity" site="imu" noise="0.005" />
+    <gyro name="imu_ang_vel" site="imu" />
+    <velocimeter name="imu_lin_vel" site="imu" />
+    <accelerometer name="imu_accel" site="imu" />
+    <subtreeangmom name="root_angmom" body="trunk_base" />
+  </sensor>
+  <default>
+    <default class="self_collision_only">
+      <geom group="3" contype="0" conaffinity="0" />
+    </default>
+    <equality solref="0.002 1" solimp="0.99 0.999 0.0005 0.5 2" />
+  </default>
+
+  <worldbody>
+    <body name="trunk_base" pos="0 0 0.11904248" quat="1 0 0 0" childclass="microduck">
+      <freejoint name="trunk_base_freejoint" />
+      <inertial pos="-0.01313392 -1.16432072e-05 -0.0216686151" mass="0.195317788" fullinertia="0.000114034597 0.000161132222 0.000135290255 3.67519326e-08 -3.06866091e-05 4.29524881e-08" />
+      <geom type="mesh" class="visual" mesh="trunk_base" />
+      <geom type="mesh" name="trunk_collision" class="collision" mesh="trunk_base" />
+      <site group="3" name="imu" pos="-0.01286344 -1.196e-05 -0.02196316" />
+      <body name="yaw2roll" pos="0.0184 0.0161 -0.02392" quat="-2.59734e-06 0.707105 -0.707108 2.59735e-06">
+        <joint axis="0 0 1" name="left_hip_yaw" type="hinge" range="-0.22 0.45" class="chosen_actuator" />
+        <inertial pos="-2.56466491e-10 -0.00168951894 0.0173915757" mass="0.0200571482" fullinertia="3.11898999e-06 2.39466356e-06 1.95609943e-06 -1.55353333e-14 -7.55074683e-14 -9.19329883e-08" />
+        <geom type="mesh" class="visual" mesh="left_hip_yaw" />
+        <geom type="mesh" name="left_hip_yaw_collision" class="collision" mesh="left_hip_yaw" />
+        <body name="hip_l" pos="0 -0.01334 0.01334" quat="0.499998 0.5 -0.5 0.500002">
+          <joint axis="0 0 1" name="left_hip_roll" type="hinge" range="-0.3839724354387525 0.3839724354387525" class="chosen_actuator" />
+          <inertial pos="6.38378239e-18 0.0149840024 -0.00826792981" mass="0.0075187827" fullinertia="1.24071787e-06 9.75106401e-07 7.21886078e-07 -2.80476325e-22 2.77889718e-22 4.47998874e-07" />
+          <geom type="mesh" class="visual" mesh="left_hip_roll" />
+          <geom type="mesh" name="left_hip_roll_collision" class="collision" mesh="left_hip_roll" />
+          <body name="upper_leg_left" pos="0 0.0207 -0.01518" quat="0.617278 -0.61728 0.344915 0.344916">
+            <joint axis="0 0 1" name="left_hip_pitch" type="hinge" range="-1.570796326795005 1.5707963267947882" class="chosen_actuator" />
+            <inertial pos="0.0219694193 0.00500012409 0.0132141514" mass="0.036491121" fullinertia="5.08123663e-06 1.25852725e-05 1.26301775e-05 -3.79606266e-07 6.36038157e-07 -2.55008329e-07" />
+            <geom type="mesh" class="visual" mesh="left_hip_pitch" />
+            <geom type="mesh" name="left_thigh_collision" class="collision" mesh="left_hip_pitch" />
+            <body name="leg" pos="0.03861884 0 0" quat="-3.20658e-06 0.872964 -0.487784 1.79173e-06">
+              <joint axis="0 0 1" name="left_knee" type="hinge" range="-1.570796326795012 1.570796326794781" class="chosen_actuator" />
+              <inertial pos="0.0290822658 3.98986399e-18 -0.00677518617" mass="0.0146107868" fullinertia="1.27467774e-06 2.96920473e-06 2.47517905e-06 -1.09061135e-22 4.79020785e-07 1.28665978e-22" />
+              <geom type="mesh" class="visual" mesh="left_knee" />
+              <geom type="mesh" name="left_shin_collision" class="collision" mesh="left_knee" />
+              <body name="ankle_left" pos="0.03864 0 -0.02208" quat="-3.67321e-06 -1 0 0">
+                <joint axis="0 0 1" name="left_ankle" type="hinge" range="-1.5707963267949019 1.5707963267948912" class="chosen_actuator" />
+                <inertial pos="0.013588037 -0.00698479623 -0.0143887651" mass="0.0228074257" fullinertia="7.58432239e-06 3.28889284e-06 5.42158383e-06 1.21387653e-08 1.89997833e-07 -1.94636725e-08" />
+                <geom type="mesh" class="visual" mesh="left_ankle" />
+                <geom type="mesh" name="left_foot_collision" class="collision" mesh="left_ankle" />
+                <site group="3" name="left_foot" pos="0.0211442358 -0.00493884824 -0.0306621344" />
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="neck" pos="0.03772 0.01334 0.00874" quat="0.499998 0.5 -0.5 0.500002">
+        <joint axis="0 0 1" name="neck_pitch" type="hinge" range="-2.356194490192345 1.0471975511965976" class="chosen_actuator" />
+        <inertial pos="0.023 4.78783679e-16 0.0131994716" mass="0.0271395469" fullinertia="1.98042346e-06 1.07929557e-05 1.02699205e-05 2.94401988e-21 6.93994003e-22 1.29942996e-23" />
+        <geom type="mesh" class="visual" mesh="neck_pitch" />
+        <geom type="mesh" name="neck_collision" class="collision" mesh="neck_pitch" />
+        <body name="neck_pitch" pos="0.046 0 0" quat="-2.59734e-06 0.707105 -0.707108 2.59735e-06">
+          <joint axis="0 0 1" name="head_pitch" type="hinge" range="-1.8325957145940461 1.8325957145940461" class="chosen_actuator" />
+          <inertial pos="1.82706865e-10 -0.00859026884 -0.0133399999" mass="0.0031185146" fullinertia="5.72502103e-07 5.0483501e-07 2.21037727e-07 8.65665032e-14 -5.80301667e-14 1.56048371e-15" />
+          <geom type="mesh" class="visual" mesh="head_pitch" />
+          <geom type="mesh" name="head_pitch_collision" class="collision" mesh="head_pitch" />
+          <body name="yaw_roll_motion" pos="0 -0.01771 -0.01334" quat="0.499998 0.5 0.5 -0.500002">
+            <joint axis="0 0 1" name="head_yaw" type="hinge" range="-2.967059728390373 2.967059728390348" class="chosen_actuator" />
+            <inertial pos="0.00448183445 -0.000376928774 0.0138439891" mass="0.0232673259" fullinertia="3.22285184e-06 2.82738978e-06 3.91897277e-06 -4.87149544e-08 -3.02662781e-08 7.7417131e-10" />
+            <geom type="mesh" class="visual" mesh="head_yaw" />
+            <geom type="mesh" name="head_yaw_collision" class="collision" mesh="head_yaw" />
+            <body name="jaw_soft" pos="0 -0.016468 0.01334" quat="0.707105 0.707108 0 0">
+              <joint axis="0 0 1" name="head_roll" type="hinge" range="-0.43633231299859127 0.4363323129985735" class="chosen_actuator" />
+              <inertial pos="-0.00100211342 0.00250547712 -0.0153391168" mass="0.0954863224" fullinertia="6.38586034e-05 8.12752636e-05 3.81326244e-05 1.62085283e-07 -2.34085874e-06 5.97056401e-06" />
+              <geom type="mesh" class="visual" mesh="head_roll" />
+              <geom type="mesh" name="head_collision" class="collision" mesh="head_roll" />
+              <site group="3" name="head_camera" pos="0.000260301065 0.0104302298 -0.0528374317" />
+              <camera name="head_camera" pos="0.000260301065 0.0104302298 -0.0528374317" quat="0 0 -1 0" />
+              <site group="3" name="tof" pos="-0.0135396989 0.0104301283 -0.0528374317" />
+              <site group="3" name="head_imu" pos="-0.000871539 0.001622673 -0.0155319" />
+              <site group="3" name="mouth_tip" pos="0 -0.0085214586 -0.0510574332" quat="0.5 -0.5 0.5 0.5" />
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="bearing_roll" pos="0.0184 -0.0161 -0.02392" quat="-2.59734e-06 0.707105 -0.707108 2.59735e-06">
+        <joint axis="0 0 1" name="right_hip_yaw" type="hinge" range="-0.45 0.22" class="chosen_actuator" />
+        <inertial pos="-2.56466485e-10 -0.00168951894 0.0173915757" mass="0.0200571482" fullinertia="3.11898999e-06 2.39466356e-06 1.95609943e-06 -1.55353333e-14 -7.55074683e-14 -9.19329883e-08" />
+        <geom type="mesh" class="visual" mesh="right_hip_yaw" />
+        <geom type="mesh" name="right_hip_yaw_collision" class="collision" mesh="right_hip_yaw" />
+        <body name="hip_l_2" pos="0 -0.01334 0.01334" quat="0.499998 0.5 0.5 -0.500002">
+          <joint axis="0 0 1" name="right_hip_roll" type="hinge" range="-0.3839724354387525 0.3839724354387525" class="chosen_actuator" />
+          <inertial pos="-1.5959456e-18 0.0149840024 -0.00826792981" mass="0.0075187827" fullinertia="1.24071787e-06 9.75106401e-07 7.21886078e-07 -8.99132868e-23 5.04784584e-23 4.47998874e-07" />
+          <geom type="mesh" class="visual" mesh="right_hip_roll" />
+          <geom type="mesh" name="right_hip_roll_collision" class="collision" mesh="right_hip_roll" />
+          <body name="upper_leg_right" pos="0 0.0207 -0.01518" quat="-0.344919 0.344913 -0.617281 -0.617276">
+            <joint axis="0 0 1" name="right_hip_pitch" type="hinge" range="-1.5707963267949268 1.5707963267948664" class="chosen_actuator" />
+            <inertial pos="0.0219694196 -0.00500012417 0.0132141516" mass="0.0364911217" fullinertia="5.08123672e-06 1.25852728e-05 1.26301777e-05 3.7960634e-07 6.36038025e-07 2.55008371e-07" />
+            <geom type="mesh" class="visual" mesh="right_hip_pitch" />
+            <geom type="mesh" name="right_thigh_collision" class="collision" mesh="right_hip_pitch" />
+            <body name="leg_2" pos="0.03861884 0 0" quat="-3.20658e-06 0.872964 0.487784 -1.79173e-06">
+              <joint axis="0 0 1" name="right_knee" type="hinge" range="-1.570796326794932 1.570796326794861" class="chosen_actuator" />
+              <inertial pos="0.0290822658 7.97972799e-18 -0.00677518617" mass="0.0146107868" fullinertia="1.27467774e-06 2.96920473e-06 2.47517905e-06 -4.63683357e-22 4.79020785e-07 3.3062928e-22" />
+              <geom type="mesh" class="visual" mesh="right_knee" />
+              <geom type="mesh" name="right_shin_collision" class="collision" mesh="right_knee" />
+              <body name="ankle_right" pos="0.03864 0 -0.02208" quat="-3.67321e-06 -1 0 0">
+                <joint axis="0 0 1" name="right_ankle" type="hinge" range="-1.5707963267949054 1.5707963267948877" class="chosen_actuator" />
+                <inertial pos="0.0135880368 0.0069846618 -0.0143887628" mass="0.0228074217" fullinertia="7.58435659e-06 3.2888923e-06 5.42161884e-06 -1.21506754e-08 1.89998185e-07 1.94110351e-08" />
+                <geom type="mesh" class="visual" mesh="right_ankle" />
+                <geom type="mesh" name="right_foot_collision" class="collision" mesh="right_ankle" />
+                <site group="3" name="right_foot" pos="0.0211442358 0.00493884814 -0.0306621354" />
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <asset>
+    <mesh file="trunk_base.stl" scale="0.92 0.92 0.92" />
+    <mesh file="left_hip_yaw.stl" scale="0.92 0.92 0.92" />
+    <mesh file="left_hip_roll.stl" scale="0.92 0.92 0.92" />
+    <mesh file="left_hip_pitch.stl" scale="0.92 0.92 0.92" />
+    <mesh file="left_knee.stl" scale="0.92 0.92 0.92" />
+    <mesh file="left_ankle.stl" scale="0.92 0.92 0.92" />
+    <mesh file="neck_pitch.stl" scale="0.92 0.92 0.92" />
+    <mesh file="head_pitch.stl" scale="0.92 0.92 0.92" />
+    <mesh file="head_yaw.stl" scale="0.92 0.92 0.92" />
+    <mesh file="head_roll.stl" scale="0.69 0.69 0.69" />
+    <mesh file="right_hip_yaw.stl" scale="0.92 0.92 0.92" />
+    <mesh file="right_hip_roll.stl" scale="0.92 0.92 0.92" />
+    <mesh file="right_hip_pitch.stl" scale="0.92 0.92 0.92" />
+    <mesh file="right_knee.stl" scale="0.92 0.92 0.92" />
+    <mesh file="right_ankle.stl" scale="0.92 0.92 0.92" />
+  </asset>
+  <actuator>
+    <position class="chosen_actuator" name="left_hip_yaw" joint="left_hip_yaw" />
+    <position class="chosen_actuator" name="left_hip_roll" joint="left_hip_roll" />
+    <position class="chosen_actuator" name="left_hip_pitch" joint="left_hip_pitch" />
+    <position class="chosen_actuator" name="left_knee" joint="left_knee" />
+    <position class="chosen_actuator" name="left_ankle" joint="left_ankle" />
+    <position class="chosen_actuator" name="neck_pitch" joint="neck_pitch" />
+    <position class="chosen_actuator" name="head_pitch" joint="head_pitch" />
+    <position class="chosen_actuator" name="head_yaw" joint="head_yaw" />
+    <position class="chosen_actuator" name="head_roll" joint="head_roll" />
+    <position class="chosen_actuator" name="right_hip_yaw" joint="right_hip_yaw" />
+    <position class="chosen_actuator" name="right_hip_roll" joint="right_hip_roll" />
+    <position class="chosen_actuator" name="right_hip_pitch" joint="right_hip_pitch" />
+    <position class="chosen_actuator" name="right_knee" joint="right_knee" />
+    <position class="chosen_actuator" name="right_ankle" joint="right_ankle" />
+  </actuator>
+  <equality />
+</mujoco>

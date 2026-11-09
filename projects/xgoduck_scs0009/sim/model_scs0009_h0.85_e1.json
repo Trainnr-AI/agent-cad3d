@@ -1,0 +1,85 @@
+{
+ "scale": 0.92,
+ "head_scale": 0.85,
+ "servo": "scs0009",
+ "servo_model": {
+  "stall": 0.226,
+  "w0": 10.47,
+  "armature": 0.0015,
+  "friction": 0.01,
+  "mass_g": 13.2,
+  "source": "FEETECH SCS0009 spec A/0 @6V (stall, no-load speed, mass); armature and friction ESTIMATED - identify on hardware"
+ },
+ "kp": 12.948846169956605,
+ "sat_err_deg": 1.0,
+ "fixed_mass_g": {
+  "trunk_base": 120.0,
+  "jaw_soft": 40.0
+ },
+ "mass_g": {
+  "original": 797.8,
+  "new": 560.6
+ },
+ "bodies": {
+  "trunk_base": [
+   228.6,
+   195.3
+  ],
+  "yaw2roll": [
+   31.7,
+   20.1
+  ],
+  "hip_l": [
+   9.7,
+   7.5
+  ],
+  "upper_leg_left": [
+   58.8,
+   36.5
+  ],
+  "leg": [
+   24.7,
+   14.6
+  ],
+  "ankle_left": [
+   29.3,
+   22.8
+  ],
+  "neck": [
+   46.7,
+   27.1
+  ],
+  "neck_pitch": [
+   4.0,
+   3.1
+  ],
+  "yaw_roll_motion": [
+   35.8,
+   23.3
+  ],
+  "jaw_soft": [
+   174.3,
+   108.7
+  ],
+  "bearing_roll": [
+   31.7,
+   20.1
+  ],
+  "hip_l_2": [
+   9.7,
+   7.5
+  ],
+  "upper_leg_right": [
+   58.8,
+   36.5
+  ],
+  "leg_2": [
+   24.7,
+   14.6
+  ],
+  "ankle_right": [
+   29.3,
+   22.8
+  ]
+ }
+}

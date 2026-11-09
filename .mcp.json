@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "blender": {
+      "command": "uvx",
+      "args": [
+        "mcp-for-blender==2.2.7",
+        "--port",
+        "9877"
+      ],
+      "env": {
+        "DISABLE_TELEMETRY": "true",
+        "BLENDER_PORT": "9877"
+      }
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+ "scale": 1.0,
+ "servo": "hls1910",
+ "servo_model": {
+  "stall": 1.04,
+  "w0": 9.5,
+  "armature": 0.0018,
+  "friction": 0.012,
+  "mass_g": 22.9,
+  "source": "XGO-Duck sim model chosen_actuator (BAM HLS1910 fit); mass from neck link"
+ },
+ "kp": 20.0,
+ "fixed_mass_g": {
+  "trunk_base": 120.0,
+  "jaw_soft": 40.0
+ },
+ "mass_g": {
+  "original": 797.8,
+  "new": 797.8
+ },
+ "bodies": {
+  "trunk_base": [
+   228.6,
+   228.6
+  ],
+  "yaw2roll": [
+   31.7,
+   31.7
+  ],
+  "hip_l": [
+   9.7,
+   9.7
+  ],
+  "upper_leg_left": [
+   58.8,
+   58.8
+  ],
+  "leg": [
+   24.7,
+   24.7
+  ],
+  "ankle_left": [
+   29.3,
+   29.3
+  ],
+  "neck": [
+   46.7,
+   46.7
+  ],
+  "neck_pitch": [
+   4.0,
+   4.0
+  ],
+  "yaw_roll_motion": [
+   35.8,
+   35.8
+  ],
+  "jaw_soft": [
+   174.3,
+   174.3
+  ],
+  "bearing_roll": [
+   31.7,
+   31.7
+  ],
+  "hip_l_2": [
+   9.7,
+   9.7
+  ],
+  "upper_leg_right": [
+   58.8,
+   58.8
+  ],
+  "leg_2": [
+   24.7,
+   24.7
+  ],
+  "ankle_right": [
+   29.3,
+   29.3
+  ]
+ }
+}

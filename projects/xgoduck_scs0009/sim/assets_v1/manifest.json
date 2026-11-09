@@ -1,0 +1,159 @@
+{
+ "trunk_base": {
+  "stl": "trunk_base.stl",
+  "triangles": 15411,
+  "objects": [
+   "body_neck_bearing_plate",
+   "body_neck_mount",
+   "brg_neck_pitch",
+   "duck_scs0009:trunk_base.001",
+   "hip_yaw_support",
+   "scs_left_hip_yaw_case",
+   "scs_left_hip_yaw_spline",
+   "scs_neck_pitch_horn_cross",
+   "scs_right_hip_yaw_case",
+   "scs_right_hip_yaw_spline"
+  ]
+ },
+ "yaw_roll_motion": {
+  "stl": "yaw_roll_motion.stl",
+  "triangles": 3716,
+  "objects": [
+   "duck_scs0009:head_yaw",
+   "scs_head_roll_horn_cross",
+   "scs_head_yaw_case",
+   "scs_head_yaw_spline"
+  ]
+ },
+ "jaw_soft": {
+  "stl": "jaw_soft.stl",
+  "triangles": 17264,
+  "objects": [
+   "duck_scs0009:head_roll",
+   "scs_head_roll_case",
+   "scs_head_roll_spline"
+  ]
+ },
+ "upper_leg_left": {
+  "stl": "upper_leg_left.stl",
+  "triangles": 2500,
+  "objects": [
+   "left_thigh",
+   "scs_left_hip_pitch_case",
+   "scs_left_hip_pitch_spline",
+   "scs_left_knee_case",
+   "scs_left_knee_spline"
+  ]
+ },
+ "hip_l": {
+  "stl": "hip_l.stl",
+  "triangles": 4278,
+  "objects": [
+   "left_l_bracket",
+   "scs_left_hip_pitch_horn_cross",
+   "scs_left_hip_roll_horn_cross"
+  ]
+ },
+ "leg": {
+  "stl": "leg.stl",
+  "triangles": 2902,
+  "objects": [
+   "left_shin",
+   "scs_left_ankle_case",
+   "scs_left_ankle_spline",
+   "scs_left_knee_horn_cross"
+  ]
+ },
+ "ankle_left": {
+  "stl": "ankle_left.stl",
+  "triangles": 2954,
+  "objects": [
+   "left_brg_ankle",
+   "left_foot",
+   "left_foot_bearing_plate",
+   "scs_left_ankle_horn_cross"
+  ]
+ },
+ "neck": {
+  "stl": "neck.stl",
+  "triangles": 1544,
+  "objects": [
+   "neck_cradle",
+   "scs_head_pitch_case",
+   "scs_head_pitch_spline",
+   "scs_neck_pitch_case",
+   "scs_neck_pitch_spline"
+  ]
+ },
+ "neck_pitch": {
+  "stl": "neck_pitch.stl",
+  "triangles": 5024,
+  "objects": [
+   "brg_head_pitch",
+   "head_pitch_bearing_plate",
+   "head_pitch_u",
+   "scs_head_pitch_horn_cross",
+   "scs_head_yaw_horn_cross"
+  ]
+ },
+ "upper_leg_right": {
+  "stl": "upper_leg_right.stl",
+  "triangles": 2476,
+  "objects": [
+   "right_thigh",
+   "scs_right_hip_pitch_case",
+   "scs_right_hip_pitch_spline",
+   "scs_right_knee_case",
+   "scs_right_knee_spline"
+  ]
+ },
+ "hip_l_2": {
+  "stl": "hip_l_2.stl",
+  "triangles": 4260,
+  "objects": [
+   "right_l_bracket",
+   "scs_right_hip_pitch_horn_cross",
+   "scs_right_hip_roll_horn_cross"
+  ]
+ },
+ "leg_2": {
+  "stl": "leg_2.stl",
+  "triangles": 2900,
+  "objects": [
+   "right_shin",
+   "scs_right_ankle_case",
+   "scs_right_ankle_spline",
+   "scs_right_knee_horn_cross"
+  ]
+ },
+ "ankle_right": {
+  "stl": "ankle_right.stl",
+  "triangles": 2912,
+  "objects": [
+   "right_brg_ankle",
+   "right_foot",
+   "right_foot_bearing_plate",
+   "scs_right_ankle_horn_cross"
+  ]
+ },
+ "yaw2roll": {
+  "stl": "yaw2roll.stl",
+  "triangles": 3944,
+  "objects": [
+   "left_yaw_connector",
+   "scs_left_hip_roll_case",
+   "scs_left_hip_roll_spline",
+   "scs_left_hip_yaw_horn_cross"
+  ]
+ },
+ "bearing_roll": {
+  "stl": "bearing_roll.stl",
+  "triangles": 3948,
+  "objects": [
+   "right_yaw_connector",
+   "scs_right_hip_roll_case",
+   "scs_right_hip_roll_spline",
+   "scs_right_hip_yaw_horn_cross"
+  ]
+ }
+}
