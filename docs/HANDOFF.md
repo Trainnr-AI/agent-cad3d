@@ -14,7 +14,7 @@ or `scripts/blender_doctor.py` over the same socket) while you watch and take ov
 ```bash
 git clone git@github.com:Trainnr-AI/agent-cad3d.git && cd agent-cad3d
 ./scripts/setup.sh            # uv, Blender 5.2.3 (tarball -> ~/.local/opt), add-on, vendor/ sources
-blender projects/xgoduck_scs0009/xgoduck_scs0009.blend &      # needs WSLg for the window
+WAYLAND_DISPLAY= blender projects/xgoduck_scs0009/xgoduck_scs0009.blend &   # WSLg; X11 — native Wayland dies (EGL_BAD_MATCH)
 python3 scripts/blender_doctor.py                              # should print "Blender 5.2.3 LTS" + objects
 claude                                                          # approve the 'blender' MCP server
 ```
@@ -47,6 +47,44 @@ claude                                                          # approve the 'b
 | Servos mounted only by their two ears (pads + M2 self-tap) | SCS0009 has no case screw holes |
 | Power: decide later; leave room for a 6 V buck | SCS0009 max 7.4 V, original pack is 8.4 V |
 
+## Servo model (2026-11-10): exact SCS0009 from Feetech's CAD
+
+`tools/blender/parts/scs0009.py` now builds the servo from Feetech's own STEP (assembly
+SCS009-20201118-S, `vendor/feetech/`, fetched by `fetch_vendor.sh`; converted by
+`tools/cad/scs0009_from_step.py` into `parts/scs0009_mesh/*.stl`, 5 µm tolerance, committed). Object
+names are unchanged (`<name>_case`, `<name>_spline`, `<name>_horn_<type>`); new: `_case_screws`,
+`_horn_screw`, optional `_ear_screws`. Facts that differ from the old box model (all read from the B-rep):
+
+- Spline: 20 T, OD 3.95, **root Ø3.45**, teeth 25.95–28.45 above the bottom (0.29 tip chamfer); Ø3.45 neck below.
+- **Boss Ø5.76 × 0.3 on the tower top** (25.55) with a tongue toward the far end; horn hub sits on it.
+- Roof: flat 21.45 only to x = 20.84 (datasheet x), then slopes 6.5° down to ~20.7 at the connector end.
+- Ear underside recessed 0.6 inside a 0.7 rim → pads touch only the rim.
+- **Cable leaves the shaft-end face** (bottom, centred, ~3 × 2.3 slot) — `neck_orig_style.py` cuts its
+  cable notch at the far end: wrong, fix when the neck is regenerated.
+- Case screws: 4 from the bottom at x = 5.85 / 26.65, y = ±4.8 (Ø2.2 counterbores; ~Ø1.0 × 20).
+- Kit horn lengths: cross 23.88 tip-to-tip, disc Ø17.76, double arm 34.49, single arm 20.12.
+  Horn thickness/hub still NOMINAL (`horn["nominal"]`). Not in the STEP: screws (sizes inferred), horns, motor/PCB.
+
+## Joints v2 (2026-11-10)
+
+Knee (type C: cap + 16x22x4 + trimmed horn) and ankle (type F: captive M3 nut + 693ZZ axle + full
+horn) redesigned on the exact servo, verified (REVIEW.md "Joints v2"). New tools: `parts/joint_v2.py`,
+`parts/leg_v2.py`, `print_check.py` (overhang area per orientation), `refresh_servos.py` (rebuild the
+placed servos from the current model), `snap_servo_axes.py` (axes exactly on the joints; ankle servos
+slid 6.37 mm so the shin is one flat plate). Collection `leg_v2` (left: thigh, shin, foot, bearing
+plate, hardware dummies, trim jig); `leg_v1` still holds the hip parts and the superseded v1 leg.
+BOM v2: 16x22x4 x5, **693ZZ x4, M3x8 + M3 nut x4** (replace the 10x15x3), kit M2 self-tappers for
+ears, M2x6 machine screws for horns. Knee usable range +85° (collision at exactly +90°, as the original).
+Rolled out to both legs' hips and the neck (`parts/neck_v2.py`, collection `neck_v2`); two defects
+still open (right shin manifoldness, hip-roll servo vs yaw connector 24 mm3) — see REVIEW.md
+"Rollout". Branch `joints-v2`.
+
+Boolean hygiene (what finally made every part clean): combine simple cutters first and cut once
+(`combine_cutters`, `pocket_cutter`); never leave a face flush with another part face; keep round
+cutters on different vertex-angle grids; `print_check.py` before calling a part printable. To locate a
+collision: pose the body (`matrix_basis @ Quaternion(axis, angle)`), BVH `overlap`, print the hit
+triangles' centres in the servo frames.
+
 ## Current state
 
 Blender file `projects/xgoduck_scs0009/xgoduck_scs0009.blend` shows four labelled groups:
@@ -72,9 +110,10 @@ except knee at full 90° (the original collides there too). Details: `projects/x
 
 ## Open items / next steps
 
-1. **Measure the X horn** (centre-to-tip, arm width at hub and tip, thickness, hub Ø and height).
-   Pocket geometry is nominal until then. Then **test-print one knee joint** to tune crush ribs and
-   bearing fits.
+1. **Measure the X horn** (plate thickness, hub Ø and height below/above the plate, screw recess,
+   arm width at the hub and at r = 6 mm) and the kit ear-screw length. Then regenerate legs + neck
+   against the exact servo (boss, roof, cable slot at the shaft end, horn 11.94) and re-run all checks;
+   then **test-print one knee joint** to tune crush ribs and bearing fits.
 2. **Head:** head-yaw bearing cap in the yaw block, head-roll mount (pin + bearing plate), mouth
    servo, 0.85x head shell around the camera board (head-roll servo has only 1.4 mm to the outline
    on one side). The body/trunk shell still carries the original's neck arms — cut them.

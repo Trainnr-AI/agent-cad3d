@@ -170,3 +170,63 @@ Verified: all 18 printed parts one solid, watertight; horn pockets 1.0-1.9 mm³ 
 servos on cradles touching only; every assembly slide clear (ankle, knee, hip pitch, hip roll,
 hip yaw, neck pitch, head pitch); motion: all 13 leg+neck joints x 9 + 9 combined poses clear
 except knee at full 90° (foot bearing plate vs yaw connector) - the original also collides there.
+
+## Joints v2 (2026-11-10) — exact SCS0009, knee + ankle prototype
+
+Rethought from the servo's facts (Feetech STEP): no case holes, no output bearing (brass Ø4 journal in a
+3 mm plastic bore), no rear shaft, Ø12 half-round tower with a Ø5.76 x 0.3 boss, cable slot at the
+shaft end, kit X horn 23.88 tip-to-tip with ~Ø1 holes. Hence: the printed part is the link and the
+servo a cartridge in a cradle; every joint has its own bearing coaxial by construction (printed in the
+same part as the cradle); torque goes through a form-fit horn pocket + the M2 clamp.
+Two joint types (`tools/blender/parts/joint_v2.py`, built by `parts/leg_v2.py`):
+
+| | Type C — cap (hip yaw/roll/pitch, knee, head yaw) | Type F — fork (ankle, neck pitch, head pitch, head roll) |
+|---|---|---|
+| stator | cap plate on the tower top (16x22x4 seat), ear pads (M2 kit screws from below), **saddle walls** round the body (0.15 clearance, 8 deep) | 4 mm floor under the servo bottom with a **captive M3 nut** (hex pocket from the servo side: the servo itself traps it), ear pads, saddle walls, **cable channel at the shaft end** |
+| rotor | Ø15.95 boss in the bearing, horn **trimmed to r 6** (printed jig `horn_trim_jig_r6`), ribs r 0.5, M2x6 counterbored clamp | horn plate with the **full 23.88 cross at 45°** (no trimming), ribs; separate bearing plate: **693ZZ on an M3x8 axle** into the nut, 2x M2 csk |
+| why | the only compact coaxial layout for a 16-bore bearing (a fork is >=36 wide: the knees would touch) | metal pivot instead of a printed Ø10 pin; Ø8 seat instead of Ø15; nut trap prints without supports |
+
+Layout changes: all servo axes snapped exactly onto the joint axes (they were 0.35° off from the
+original servo fit, `snap_servo_axes.py`); **ankle servos slid 6.37 mm along their axis** toward the
+horn so the ankle floor lies in the knee plate's plane -> the **shin is one flat 4 mm plate**
+(knee boss + ankle cradle on the outboard face, flat inboard face = print bed; the 693's inner ring
+bears on a flush Ø4.5 island inside a Ø16 x 0.5 recess).
+
+Verified (left leg, v2 thigh 7.9 g, shin 9.1 g, foot 15.8 g, bearing plate 1.8 g; hips still v1):
+one solid watertight piece each; servo/cradle, bearings, nut, axle, plates: 0.00 mm3 overlap; horn in
+pocket 2.0 (knee) / 1.2 (ankle) mm3 = rib interference; assembly: knee servo up into the thigh cradle,
+shin onto the knee horn, ankle servo down into the shin cradle, foot onto the ankle horn, bearing plate
+from inboard — all clear; sweep over hip yaw/roll/pitch, knee, ankle (9 samples each) clean except
+knee **+90.0° only** (ankle-cradle wall vs hip-pitch cap ring, 17.5 mm3; clean at +85°; the original
+collides at +90° too) -> knee software limit +85°. Printability (`print_check.py`, 50°): foot 67 mm2,
+bearing plate 31, shin 211 (small bridges), thigh 373 (= the two 2 mm bearing-lip rings) unsupported.
+Horn section still nominal (plate 1.6, hub Ø6.5 x 4.0); the pockets are parametric on it.
+Open: roll out to hips, right leg, neck/head; head yaw/roll fit; ear-screw length.
+
+### Rollout to hips + right leg + neck (2026-11-10, in progress)
+
+Built with `leg_v2.py` (both sides, `with_support` on the left) and `neck_v2.py`; all type-F stators
+now use a 4 mm floor with the captive M3 nut and the cable channel at the shaft end (v1 had it at the
+far end). Boolean lessons that made the parts come out clean: one combined cutter per pocket (ribs
+subtracted from the cutter, not unioned into the part), one combined axle cutter (recess + hole +
+hex), no face flush with another (saddle walls 0.1 inside the plate edge, pads 0.05 inside the plate
+ends, trim annulus 0.01 into the plate top), no two round cutters on the same vertex-angle grid.
+
+State: left leg 7 parts + neck 5 parts + right leg 5 of 6 parts one solid watertight piece.
+Masses (g solid PLA): thigh 7.8, shin 9.0, foot 15.8, foot bearing plate 1.8, L-bracket 6.6, yaw
+connector 6.1, body plate 8.3; neck cradle 7.4, body mount 5.8 + plate 1.4, head-pitch U 9.2 + plate 2.1.
+Horn pockets 1.2-2.1 mm3 interference everywhere; nuts/bearings/axles/plates 0.00. Assembly: all 11
+steps (hips + neck) clear except the hip-roll servo (below). Printability (50°): body mount 0, bearing
+plates 0-34, L-bracket 143, head U 148, yaw connector 321, body plate 308, neck cradle 398 mm2.
+
+**Open (next session):**
+1. `right_shin` NOT MANIFOLD (10.8 g, one healed sliver; the left with identical plan geometry is
+   clean) — bisected: not the saddle walls, not the cable channel. Suspect the pad/plate union; try
+   building the cradle plate + pads as one hull or sinking the pads deeper.
+2. Hip-roll servo ∩ yaw connector 23.9 mm3 on both sides; insertion from below blocked at -13 mm.
+   New in v2 (v1 was 0.00): locate with the posed-overlap centroid script (see HANDOFF lessons),
+   probably the roll cap's saddle walls or the yaw rotor plate against the exact case.
+3. Re-run the full sweep (10 leg joints + neck pitch/head pitch, combined poses) with the final
+   meshes; re-check hip_yaw_support / yaw connector print orientation; the head-pitch U's bearing
+   block (BLOCK) still assumes the v1 10x15x3 plate thickness offsets - verify against the 693 plate.
+4. Regenerate the sim model (ankle servos moved 6.37 mm; new part meshes) and masses.
