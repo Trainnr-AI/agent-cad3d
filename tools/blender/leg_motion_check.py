@@ -104,5 +104,9 @@ bpy.context.view_layer.update()
 
 bad = {k: v for k, v in results.items() if v}
 print(f"poses checked: 1 + {len(args['joints'])} x {args.get('samples', 9)} + {len(args.get('poses', {}))} combined; poses with real collisions: {len(bad)}")
+if args.get("json_out"):        # every pair of every pose, for baseline subtraction (e.g. shells with servos fused in)
+    import json
+    json.dump(results, open(args["json_out"], "w"), indent=1)
+N = None if args.get("full") else 4
 for k, v in bad.items():
-    print(f"  {k}: " + "; ".join(v[:4]) + (f" (+{len(v) - 4} more)" if len(v) > 4 else ""))
+    print(f"  {k}: " + "; ".join(v[:N]) + (f" (+{len(v) - 4} more)" if N and len(v) > 4 else ""))

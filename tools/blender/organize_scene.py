@@ -30,7 +30,8 @@ for c in list(scene.collection.children):
     if c.name in keep or c == arch:
         continue
     scene.collection.children.unlink(c)
-    arch.children.link(c)
+    if c.name not in arch.children:        # already archived once and re-linked to the scene since
+        arch.children.link(c)
 # loose objects in the scene root (Cube, Light, Camera, agent_cam): hide the helpers, keep the light
 for o in scene.collection.objects:
     if o.type in {"MESH", "CAMERA"}:

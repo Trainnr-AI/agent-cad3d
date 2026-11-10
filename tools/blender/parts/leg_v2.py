@@ -5,7 +5,7 @@ Runs inside Blender after the servos are placed (scs_<side>_<joint> roots at the
   shin    type-C rotor at the knee (trimmed horn, 16x22x4) + type-F stator for the ankle servo
           (floor with captive M3 nut, pads, saddle walls, cable channel)
   foot    type-F rotor: full-cross horn plate (outboard) + sole
-  foot_bearing_plate   693ZZ on an M3x8 axle (inboard), 2x M2 csk into the sole
+  foot_bearing_plate   693ZZ on an M3x8 axle (inboard), 2x M2x6 pan-head self-tappers into the sole
 Hip parts (yaw connector, L-bracket, body plate) are left to leg_orig_style.py for now.
 
 ARGS = {"side": "left", "collection": "leg_v2", "joint_lib": "/abs/parts/joint_v2.py",
@@ -114,7 +114,7 @@ strip = [(kn.x - 7, kn.y, top_edge - 1.5), (kn.x + 7, kn.y, top_edge - 1.5)]   #
 la, ls, lr = L["link_features"](F["knee"], proj(F["knee"], strip))   # knee ring + 14 mm strip down to the cradle (20 clips the hip-pitch cradle at knee +90)
 cradle_plate = plate(F["knee"], L["PLATE_Z0"] + 0.02, L["PLATE_Z1"] - 0.02, proj(F["knee"], cradle))
 fa, fs = L["floor_features"](F["ankle"], include_floor=False, saddle=args.get("ankle_saddle", True), cable=args.get("cable", True))
-shin = finish("shin", L["build_part"](f"{prefix}shin", la + [cradle_plate] + fa, ls + fs, coll, mat_white, lr))
+shin = finish("shin", L["build_part"](f"{prefix}shin", la + [L["combine_cutters"]([cradle_plate] + fa)], ls + fs, coll, mat_white, lr))   # cradle = plate + pads + walls unioned first (simple shapes: robust)
 
 # ------------------------------------------------------------------ foot = full-cross horn plate (outboard) + sole
 fm = bpy.data.objects[args["foot_mesh"]]
@@ -124,15 +124,16 @@ sole_v = [v for v in fv if v.z < zmin + 4.0]
 sx0, sx1 = min(v.x for v in sole_v), max(v.x for v in sole_v)          # fore-aft: the original footprint
 # lateral: 1 mm beyond the two plates (bearing plate inboard, horn plate outboard)
 BP_Z0, BP_Z1 = L["BP_INNER_Z"] - L["BP_T"], L["BP_INNER_Z"]
-ys = [wr(F["ankle"], (0, 0, z)).y for z in (BP_Z0, L["ARM_Z"][1])]
-sy0, sy1 = min(ys) - 1.0, max(ys) + 1.0
+FLANGE_OUT, SCREW_OUT = 4.4, 2.3          # flange reach beyond the plate's outer face; screw line (pan head Ø3.5 clears the plate)
+ys = [wr(F["ankle"], (0, 0, z)).y for z in (BP_Z0 - FLANGE_OUT, L["ARM_Z"][1] + 1.0)]
+sy0, sy1 = min(ys), max(ys)               # the sole reaches under the whole flange (its screws must land in it) and 1 mm past the horn plate
 SOLE_T = 5.0
 sole = box_w(sx0, sx1, sy0, sy1, zmin, zmin + SOLE_T)
 top = zmin + SOLE_T
 reach = [(an.x - 9, an.y, top - 0.5), (an.x + 9, an.y, top - 0.5)]
 ha, hs, hr = L["horn_plate_features"](F["ankle"], proj(F["ankle"], reach), angle_deg=45.0)
 # bearing plate flange screws (2x M2 csk down into the sole): pilot holes in the sole
-y_scr = wr(F["ankle"], (0, 0, BP_Z0 - 3.0)).y
+y_scr = wr(F["ankle"], (0, 0, BP_Z0 - SCREW_OUT)).y
 M_sole = [Matrix.Translation(Vector((an.x + dx, y_scr, top)) * MM) for dx in (-5.5, 5.5)]
 hs += [c for M in M_sole for c in L["screw_holes"](M, [(0, 0)], 0.0, 0.0, 4.0, -1, csk=False)]
 foot = finish("foot", L["build_part"](f"{prefix}foot", [sole] + ha, hs, coll, mat_foot, hr))
@@ -140,10 +141,10 @@ foot = finish("foot", L["build_part"](f"{prefix}foot", [sole] + ha, hs, coll, ma
 # bearing plate (inboard): 693ZZ seat; flange onto the sole
 reach_b = [(an.x - 9, an.y, top + 0.3), (an.x + 9, an.y, top + 0.3)]
 ba, bs = L["bearing_plate_features"](F["ankle"], proj(F["ankle"], reach_b))
-y_a, y_b = wr(F["ankle"], (0, 0, BP_Z0 - 6.0)).y, wr(F["ankle"], (0, 0, BP_Z1)).y
+y_a, y_b = wr(F["ankle"], (0, 0, BP_Z0 - FLANGE_OUT + 0.02)).y, wr(F["ankle"], (0, 0, BP_Z1)).y
 flange = box_w(an.x - 9, an.x + 9, min(y_a, y_b), max(y_a, y_b), top, top + 2.5)
 M_scr = [Matrix.Translation(Vector((an.x + dx, y_scr, top + 2.5)) * MM) for dx in (-5.5, 5.5)]
-bs += [c for M in M_scr for c in L["screw_holes"](M, [(0, 0)], 0.0, 2.5, 0.0, -1)]
+bs += [c for M in M_scr for c in L["screw_holes"](M, [(0, 0)], 0.0, 2.5, 0.0, -1, csk=False)]   # pan head sits on the flange
 foot_bp = finish("foot_bearing_plate", L["build_part"](f"{prefix}foot_bearing_plate", ba + [flange], bs, coll, mat_foot))
 
 # ------------------------------------------------------------------ hips (type C, as v1 but with the v2 features)
@@ -158,16 +159,40 @@ if args.get("hips", True):
         b = getattr(wr(F[j], (0, 0, L["PLATE_Z1"])), coord)
         return a if abs(a - toward) > abs(b - toward) else b
 
+    # inboard flats: at 0.92x the two legs' roll joints sit so close that their round bearing rings meet when
+    # both hips yaw outward. Flat-cut the inboard side of the roll cap (0.8 mm wall left at the bearing seat)
+    # and of the L-bracket's ring (to just outside the Ø17.6 shoulder).
+    other = bpy.data.objects[f"scs_{'right' if SIDE == 'left' else 'left'}_hip_roll"].matrix_world.translation / MM
+    s_in = 1.0 if fr(F["hip_roll"], other).y > 0 else -1.0
+
+    def inboard_flat(y_keep, z0, z1):
+        ys_ = sorted((s_in * y_keep, s_in * 40.0))
+        return L["add_box"](L["new_bm"](), -40.0, 40.0, ys_[0], ys_[1], z0, z1, F["hip_roll"])
+
+    FLAT_CAP = args.get("flat_cap", L["SEAT_D"] / 2 + 0.8)
+    FLAT_LINK = args.get("flat_link", L["SHOULDER_D"] / 2 + 0.5)
     corner_x = far_face("hip_roll", "x", hp.x)
     corner_y = far_face("hip_pitch", "y", hr.y)
     ra, rs, rr = L["link_features"](F["hip_roll"], proj(F["hip_roll"], [(corner_x, corner_y, hr.z - 7), (corner_x, corner_y, hr.z + 7)]))
     pa, ps, pr = L["link_features"](F["hip_pitch"], proj(F["hip_pitch"], [(corner_x, corner_y, hp.z - 7), (corner_x, corner_y, hp.z + 7)]))
+    if FLAT_LINK:
+        ra[0] = L["combine_cutters"]([ra[0]], [inboard_flat(FLAT_LINK, L["PLATE_Z0"] - 1.0, L["PLATE_Z1"] + 1.0)])
     finish("l_bracket", L["build_part"](f"{prefix}l_bracket", ra + pa, rs + ps, coll, mat_white, rr + pr))
 
     # yaw_connector = hip-yaw rotor plate + hip-roll cap (saddle walls optional: they hang beside the yaw servo)
-    ya, ys, yr = L["link_features"](F["hip_yaw"], proj(F["hip_yaw"], [(wr(F["hip_roll"], (0, 0, 0)).x + L["CAP_T"], hr.y - 7, 0),
-                                                                       (wr(F["hip_roll"], (0, 0, 0)).x + L["CAP_T"], hr.y + 7, 0)]))
+    YAW_HW = args.get("yaw_hw", 8.5)   # strip half-width: 2.7 mm rails either side of the ear channel below
+    ya, ys, yr = L["link_features"](F["hip_yaw"], proj(F["hip_yaw"], [(wr(F["hip_roll"], (0, 0, 0)).x + L["CAP_T"], hr.y - YAW_HW, 0),
+                                                                       (wr(F["hip_roll"], (0, 0, 0)).x + L["CAP_T"], hr.y + YAW_HW, 0)]))
+    # the roll servo's shaft-end ear reaches 2.6 mm into the yaw plate's underside: channel for it along the
+    # servo's insertion path (roll -Z), 0.3 clearance; 1.1 mm of plate + the boss stay above it
+    ch = args.get("ear_ch", {})
+    ear_ch = L["add_box"](L["new_bm"](), L["J_EAR_X"][0] - 0.35, L["J_BODY_X"][0] + ch.get("x1", 0.3), -L["J_EAR_HW"] - ch.get("side", 0.3),
+                          L["J_EAR_HW"] + ch.get("side", 0.3), ch.get("z0", -45.0), L["J_EAR_Z"][1] + ch.get("top", 0.02), F["hip_roll"])
+    if args.get("ear_channel", True):
+        ya[0] = L["combine_cutters"]([ya[0]], [ear_ch])      # cut the simple plate first (robust), then union the rest
     rca, rcs = L["cap_features"](F["hip_roll"], saddle=args.get("roll_saddle", True))
+    if FLAT_CAP:
+        rca[0] = L["combine_cutters"]([rca[0]], [inboard_flat(FLAT_CAP, -1.0, L["CAP_T"] + 1.0)])
     trim = L["add_annulus"](L["new_bm"](), 9.2, 45.0, -20.0, L["PLATE_Z0"] + 0.01, F["hip_yaw"])   # nothing above the yaw plate but the boss (0.01 into the plate top: no shared plane)
     finish("yaw_connector", L["build_part"](f"{prefix}yaw_connector", ya + rca, ys + rcs + [trim], coll, mat_dark, yr))
 
@@ -184,6 +209,8 @@ if args.get("hips", True):
         finish("hip_yaw_support", L["build_part"]("hip_yaw_support", [sp] + c1 + c2, s1 + s2, coll, mat_dark))
 
 if args.get("hardware", True):
+    # the bearing plate's two M2x6 pan-head self-tappers: down through the flange (2.5) into the sole (3.5)
+    L["pan_screw_dummy"](f"{prefix}foot_plate_screws_M2x6st", [(M, 0, 0, 0.0, -1) for M in M_scr], coll)
     L["hardware_C"](f"{prefix}knee_", F["knee"], coll)
     L["hardware_C"](f"{prefix}hip_pitch_", F["hip_pitch"], coll)
     L["hardware_F"](f"{prefix}ankle_", F["ankle"], coll)

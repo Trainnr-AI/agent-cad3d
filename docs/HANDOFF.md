@@ -73,7 +73,7 @@ horn) redesigned on the exact servo, verified (REVIEW.md "Joints v2"). New tools
 placed servos from the current model), `snap_servo_axes.py` (axes exactly on the joints; ankle servos
 slid 6.37 mm so the shin is one flat plate). Collection `leg_v2` (left: thigh, shin, foot, bearing
 plate, hardware dummies, trim jig); `leg_v1` still holds the hip parts and the superseded v1 leg.
-BOM v2: 16x22x4 x5, **693ZZ x4, M3x8 + M3 nut x4** (replace the 10x15x3), kit M2 self-tappers for
+BOM v2: **6702ZZ (15x21x4) x9** (replaces the niche 16x22x4), **693ZZ x4, M3x8 + M3 nut x4** (replace the 10x15x3), kit M2 self-tappers for
 ears, M2x6 machine screws for horns. Knee usable range +85° (collision at exactly +90°, as the original).
 Rolled out to both legs' hips and the neck (`parts/neck_v2.py`, collection `neck_v2`); two defects
 still open (right shin manifoldness, hip-roll servo vs yaw connector 24 mm3) — see REVIEW.md
@@ -108,23 +108,46 @@ except knee at full 90° (the original collides there too). Details: `projects/x
   servos, bearings) for visual + collision. Holds every tested pose, incl. neck −135° where the
   original falls. Masses/inertias still come from the scaled model, not from the new parts.
 
+## State after the macOS session of 2026-11-10 (branch `joints-v2`) - read REVIEW.md from "Rollout fixes" down for the detail
+
+**Hardware decided (one screw type, standard parts):** 6702ZZ (15x21x4) x10 replaces the niche 16x22x4; 693ZZ x4;
+M3x8 socket + M3 nut x4; **M2x6 pan-head self-tapping x43** (28 servo ears, 8 bearing plates, 4 top plate, 3 enclosure);
+M2x6 pan-head machine x14 for the horns (shaft thread UNCONFIRMED: datasheet says "M2.0x4", type not given).
+Plates and servo floors are 4.5 mm (the M3x8 axle then stops 0.5 short of the servo). Bearing-plate lip 0.8 mm.
+
+**Printed parts (all one solid, watertight):** per leg yaw_connector, l_bracket, thigh, shin, foot, foot_bearing_plate;
+neck_cradle, body_neck_bearing_plate, head_pitch_u, head_pitch_bearing_plate (`neck_v2.py`); yaw_block (`head_v2.py`:
+holds the head-yaw servo, is the head-roll output; head roll is a CAP joint now); body_frame = motor body (deck with both
+hip-yaw caps, neck pedestal + horn plate), electronics_enclosure, body_lid (`body_v2.py`). `hip_yaw_support` and
+`body_neck_mount` are gone (absorbed into body_frame; the old mount cut into both hip-yaw servos).
+
+**Electronics (off the shelf, nothing bought or tested):** Arduino Uno Q on top of the enclosure (fits nowhere inside),
+Waveshare Bus Servo Adapter (A), Adafruit BNO085 (Qwiic), 6 V UBEC (Hobbywing 5 A), 3S LiPo (size ASSUMED 42x30x13),
+kit hubs + extension cables: 13 hubs (6 body, 2 per thigh, 2 on the neck cradle, 1 on the U), assuming ONE adapter socket.
+Accepted by the user: neck back limited to ~27 deg (cradle meets the Uno Q at 44; the original is clean to 36, hits at 60).
+
+**Tools added:** `fit_audit.py` (overlap + gap per fit vs intended fit), `swept_space.py` (free-space map around the body),
+`section_view.py` (cut-aways: aligned, in place, or through a point), `color_code.py` (colours + labels, any view side),
+`explode_all.py` / `explode_list.py`, `wiring.py` + `parts/cable_kit.py` (cables in place, assembled or exploded).
+Blender collections: `duck_v2_exploded` + `wiring_exploded` + `duck_v2_labels`, `sec_<joint>` (9), `body_exploded`,
+`body_sec_*` (from the FIRST body attempt - stale), `cable_kit`, `cables` (8 mm exit stubs), `electronics`, `wiring`.
+
 ## Open items / next steps
 
-1. **Measure the X horn** (plate thickness, hub Ø and height below/above the plate, screw recess,
-   arm width at the hub and at r = 6 mm) and the kit ear-screw length. Then regenerate legs + neck
-   against the exact servo (boss, roof, cable slot at the shaft end, horn 11.94) and re-run all checks;
-   then **test-print one knee joint** to tune crush ribs and bearing fits.
-2. **Head:** head-yaw bearing cap in the yaw block, head-roll mount (pin + bearing plate), mouth
-   servo, 0.85x head shell around the camera board (head-roll servo has only 1.4 mm to the outline
-   on one side). The body/trunk shell still carries the original's neck arms — cut them.
-3. Recompute masses/inertias from the new parts (+ battery/boards) and update the sim model.
-4. **Walking:** train a walk policy for the new duck with `xgoduck_rl` (mjlab, CUDA GPU), identify the
-   real SCS0009 dynamics from telemetry first (trainnr `identify_system`). Only a trained policy can
-   be shown in trainnr's embedded MuJoCo view (as `walk` or `deploy:<name>`).
-5. Styling: reshape the flat plates toward the original's rounded parts; STL export for printing.
-
-Parts list deltas vs the original BOM: 16x22x4 bearings 8 (legs) + yaw/neck as designed; 10x15x3
-bearings 2 (ankles) + 2 (neck); M2x6 machine screws 1 per horn; M2x6/M2x8 countersunk for bearing plates.
+1. **Re-run the checks**: fit audit + full motion sweep have NOT been run since the last body fixes and the split into
+   motor body + enclosure (see REVIEW.md "Body split"). Known before the fixes: L-bracket x centre strip at roll-out
+   (strip since narrowed), neck -135 deg cradle x motor body 13 mm3 (not located).
+2. **Cables**: blocked exits - head-pitch lead (the moving U passes 2.5 mm in front of the slot), hip-yaw leads (neck
+   horn plate / cradle), hip-roll leads (deck). Cables are curves through waypoints, not collision-checked. Hub mounts on
+   the thighs, cradle and U are not designed. How battery / adapter / regulator are held down is not designed.
+3. **Measure on real parts**: X horn (plate, hub, arm widths, holes), plug and hub board, the adapter's socket count and
+   UART pinout, the Uno Q's height and plug positions, a real 3S pack and UBEC; try an M2 machine screw in the shaft.
+4. **Head**: head core holding the roll servo (cap), mouth servo, 0.85x shell, camera/speaker if wanted.
+5. **Positive retention** of the ten one-sided joints (one M2 screw into the shaft each, as the original): user's call
+   (bayonet hooks proposed). Hips: both yawed fully out still touch (L-brackets 14.6 mm3 at 0.45 rad + roll).
+6. Recompute masses/inertias, regenerate the sim model (`scene_scs0009_v1` is the OLD v1 geometry), firmware for the SCS
+   protocol (1024 steps / 300 deg), walking policy.
+7. Test-print one knee joint; styling; STL export.
 
 ## How the agent should work here (lessons)
 

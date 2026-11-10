@@ -6,10 +6,10 @@
                    channels at the shaft ends. No saddle walls (the two servos sit 2 mm apart).
   body_neck_mount  type-F rotor, fixed to the body: full-cross horn plate + web in the sector the
                    neck never sweeps; slides along the shaft onto the horn.
-  body_neck_bearing_plate   separate: 693ZZ on the M3x8 axle into the cradle's nut; 2x M2x6 csk into the web.
+  body_neck_bearing_plate   separate: 693ZZ on the M3x8 axle into the cradle's nut; 2x M2x6 pan-head self-tappers (counterbored) into the web.
   head_pitch_u     type-F rotor at head pitch (full-cross horn plate) whose top plate is the head-yaw
                    type-C rotor (Ø15.95 boss into the 16x22x4 in the yaw block, trimmed horn pocket).
-  head_pitch_bearing_plate  separate: 693ZZ; 2x M2x8 csk down through the top plate.
+  head_pitch_bearing_plate  separate: 693ZZ; 2x M2x6 pan-head self-tappers (counterbored) down through the top plate.
 
 ARGS = {"robot": "duck_scs0009", "collection": "neck_v2", "joint_lib": "/abs/parts/joint_v2.py",
         "base_lib": "/abs/parts/joint_orig_style.py", "dims": "/abs/parts/scs0009_dims.py", "hardware": True}
@@ -105,6 +105,10 @@ cradle = finish("neck_cradle", L["build_part"]("neck_cradle", adds, subs, coll, 
 e_n = joint["neck_pitch"]
 neck_ray = (Fn.to_3x3() @ Vector((1, 0, 0))).normalized()          # along the neck (servo +X)
 wd, half = free_dir(e_n, Fn, neck_ray)
+if args.get("web_down", True):       # the web straight under the neck axis: the free-sector middle points at the hip-yaw servos
+    wd = Fn.inverted().to_3x3() @ Vector((0, 0, -1))
+    wd.z = 0
+    wd.normalize()
 t = Vector((-wd.y, wd.x, 0))
 web_xy = [tuple((wd * r + t * s * WEB_HW)[:2]) for r in WEB_R for s in (-1, 1)]
 arm_reach = [tuple((wd * r + t * s * (WEB_HW - 0.4))[:2]) for r in (WEB_R[0] + 0.4, WEB_R[1] - 0.4) for s in (-1, 1)]
@@ -112,9 +116,12 @@ web = L["add_hull"](L["new_bm"](), [(x, y, z) for x, y in web_xy for z in (BP_Z[
 web_screws = [tuple((wd * sum(WEB_R) / 2 + t * s * 3.5)[:2]) for s in (-1, 1)]
 a_add, a_sub, a_rib = L["horn_plate_features"](Fn, arm_reach, angle_deg=45.0)
 a_sub += L["screw_holes"](Fn, web_screws, BP_Z[1], 0.0, 7.0, +1, csk=False)           # pilots up into the web
-mount = finish("body_neck_mount", L["build_part"]("body_neck_mount", a_add + [web], a_sub, coll, mat_mount, a_rib))
+mount = None
+if not args.get("mount_in_body", True):   # default: the mount (horn plate + web) is part of body_frame (parts/body_v2.py)
+    mount = finish("body_neck_mount", L["build_part"]("body_neck_mount", a_add + [web], a_sub, coll, mat_mount, a_rib))
 b_add, b_sub = L["bearing_plate_features"](Fn, web_xy)
-b_sub += L["screw_holes"](Fn, web_screws, BP_Z[0], BP_Z[1] - BP_Z[0], 0.0, +1)
+HEAD_SEAT = 2.0                                                     # plastic left under a pan head: M2x6 then bites 4 mm into the next part
+b_sub += L["screw_holes"](Fn, web_screws, BP_Z[0], BP_Z[1] - BP_Z[0], 0.0, +1, csk=False, cbore=BP_Z[1] - BP_Z[0] - HEAD_SEAT)
 mount_plate = finish("body_neck_bearing_plate", L["build_part"]("body_neck_bearing_plate", b_add, b_sub, coll, mat_mount))
 print(f"neck web: free sector half-width {180 - half:.0f} deg each side of the web direction")
 
@@ -131,25 +138,33 @@ y_add, y_sub, y_rib = L["link_features"](Fy, [tuple(fr(Fy, p)[:2]) for p in corn
 blk_z = (BLOCK[0] + BLOCK[1]) / 2
 Ms = [Fh @ Matrix.Translation(Vector((top_x, yy, blk_z)) * MM) @ Matrix.Rotation(math.radians(90), 4, "Y") for yy in (-6.0, 6.0)]
 top_t = bot_x - top_x
-h_screws = [c for M in Ms for c in L["screw_holes"](M, [(0, 0)], 0.0, top_t, 0.0, +1)]
+h_screws = [c for M in Ms for c in L["screw_holes"](M, [(0, 0)], 0.0, top_t, 0.0, +1, csk=False, cbore=top_t - HEAD_SEAT)]
 u = finish("head_pitch_u", L["build_part"]("head_pitch_u", h_add + y_add, h_sub + y_sub + h_screws, coll, mat_u, h_rib + y_rib))
 blk = L["add_box"](L["new_bm"](), bot_x, bot_x + 5.0, -ARM_R, ARM_R, BLOCK[0], BLOCK[1], Fh)
-p_add, p_sub = L["bearing_plate_features"](Fh, [(bot_x + 0.3, -ARM_R), (bot_x + 0.3, ARM_R)])
+p_add, p_sub = L["bearing_plate_features"](Fh, [(bot_x + 0.3, -ARM_R + 0.3), (bot_x + 0.3, ARM_R - 0.3)])   # corners inside the block: no edge lying on its side face
 p_sub += [c for M in Ms for c in L["screw_holes"](M, [(0, 0)], top_t, 0.0, 5.5, +1, csk=False)]
-hp_plate = finish("head_pitch_bearing_plate", L["build_part"]("head_pitch_bearing_plate", p_add + [blk], p_sub, coll, mat_u))
+hp_plate = finish("head_pitch_bearing_plate", L["build_part"]("head_pitch_bearing_plate", [L["combine_cutters"](p_add + [blk])], p_sub, coll, mat_u))
 
 # =========================================================== hardware dummies + parenting
 hw = []
 if args.get("hardware", True):
-    hw += [(o, e_n.parent) for o in L["hardware_F"]("neck_", Fn, coll) if "brg" in o.name or "M3" in o.name or "M2x6" in o.name]
+    hw.append((L["pan_screw_dummy"]("neck_plate_screws_M2x6st", [(Fn, x, y, BP_Z[1] - HEAD_SEAT, +1) for x, y in web_screws], coll), e_n.parent))
+    hw.append((L["pan_screw_dummy"]("head_pitch_plate_screws_M2x6st", [(M, 0, 0, top_t - HEAD_SEAT, +1) for M in Ms], coll), joint["head_pitch"]))
+    hw += [(o, e_n.parent) for o in L["hardware_F"]("neck_", Fn, coll)]
     hw += [(o, joint["head_pitch"]) for o in L["hardware_F"]("head_pitch_", Fh, coll)]
     hw += [(o, joint["head_yaw"].parent) for o in L["hardware_C"]("head_yaw_", Fy, coll)]
 # the neck-pitch nut and M3 axle belong to the cradle (neck), the 693 + horn screw to the body side
 for o in list(coll.objects):
-    if o.name in ("neck_nut_M3", "neck_screw_M3x8"):
+    # things fixed to the cradle (neck): both servos' ear screws, both nuts and M3 axles
+    if o.name in ("neck_nut_M3", "neck_screw_M3x8", "neck_ear_screws_M2x6st", "head_pitch_nut_M3", "head_pitch_screw_M3x8", "head_pitch_ear_screws_M2x6st"):
         hw = [(p, b) for p, b in hw if p is not o] + [(o, e_n)]
+    # head yaw: the servo, its ear screws and the bearing sit in the yaw block; the horn screw turns with the U
+    if o.name in ("head_yaw_ear_screws_M2x6st", f"head_yaw_brg_{L['BRG_NAME']}"):
+        hw = [(p, b) for p, b in hw if p is not o] + [(o, joint["head_yaw"])]
 for part, body in ((cradle, e_n), (mount, e_n.parent), (mount_plate, e_n.parent), (u, joint["head_pitch"]),
                    (hp_plate, joint["head_pitch"])) + tuple(hw):
+    if part is None:
+        continue
     mw = part.matrix_world.copy()
     part.parent = body
     part.matrix_world = mw

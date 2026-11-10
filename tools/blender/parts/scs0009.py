@@ -270,6 +270,41 @@ if HORN:
                 cyl(bm, SHAFT_X + tip.x, tip.y, z_plate0, z_plate0 + HORN_PLATE_T, HORN_ARM_W_TIP, 24)
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces)      # hand-built arm prisms: make every shell face outward
     horn = replace_object(f"{NAME}_horn_{HORN}", bm, WHITE)
+    # detail as on the real horn (kit photo): hub bored for the spline and the screw, screw-head recess, a row of
+    # small holes along each arm. One boolean on the finished horn (use_self: its arms and hub overlap).
+    cut = bmesh.new()
+    top = z_hub0 + HORN_HUB_H
+    cyl(cut, SHAFT_X, 0, z_hub0 - 0.2, z_hub0 + (SPLINE_Z1 - SPLINE_Z0) + 0.3, SPLINE_OD + 0.05, 24)      # spline socket
+    cyl(cut, SHAFT_X, 0, z_hub0, top + 0.2, 2.2, 16)                                                       # screw hole
+    cyl(cut, SHAFT_X, 0, top - 0.8, top + 0.2, 3.9, 20)                                                    # head recess
+    if HORN != "disc":
+        limit = (args.get("horn_trim_r") or 1e9) - 1.2
+        n_arms = 1 if HORN == "arm" else 4
+        for i in range(n_arms):
+            rot = Matrix.Rotation(HORN_ANGLE + i * 1.5707963267948966, 3, "Z")
+            for r in HORN_HOLE_R:
+                if r <= limit:
+                    q = rot @ Vector((r, 0, 0))
+                    cyl(cut, SHAFT_X + q.x, q.y, top - HORN_PLATE_T - 0.2, top + 0.2, HORN_HOLE_D, 10)
+    else:
+        for i in range(8):
+            q = Matrix.Rotation(i * 0.7853981633974483, 3, "Z") @ Vector((HORN_DISC_D / 2 - 2.2, 0, 0))
+            cyl(cut, SHAFT_X + q.x, q.y, top - HORN_PLATE_T - 0.2, top + 0.2, HORN_HOLE_D, 10)
+    cutter = replace_object(f"{NAME}_horn_cut_tmp", cut, None)
+    mod = horn.modifiers.new("detail", "BOOLEAN")
+    mod.operation, mod.object = "DIFFERENCE", cutter
+    for attr, val in (("solver", "EXACT"), ("use_self", True)):
+        try:
+            setattr(mod, attr, val)
+        except (TypeError, AttributeError):
+            pass
+    bpy.context.view_layer.update()
+    detailed = bpy.data.meshes.new_from_object(horn.evaluated_get(bpy.context.evaluated_depsgraph_get()))
+    horn.modifiers.clear()
+    old_me = horn.data
+    horn.data = detailed
+    bpy.data.meshes.remove(old_me)
+    bpy.data.objects.remove(cutter, do_unlink=True)
     horn["nominal"] = True
     horn["angle_deg"] = args.get("horn_angle_deg", 0.0)
     parts.append(horn)

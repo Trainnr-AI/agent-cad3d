@@ -92,9 +92,10 @@ def add_annulus(bm, r_in, r_out, z0, z1, M=None, segs=64):
         for i in range(segs):
             j = (i + 1) % segs
             bm.faces.new((a[i], a[j], b[j], b[i]))
-    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
-    if M is not None:
-        bm.transform(M)
+    new_faces = [f for f in bm.faces if any(v in f.verts for v in rings[0])] + [f for f in bm.faces if any(v in f.verts for v in rings[2])]
+    bmesh.ops.recalc_face_normals(bm, faces=list(set(new_faces)))
+    if M is not None:                      # only the new verts: the bmesh may already hold other (placed) shapes
+        bmesh.ops.transform(bm, matrix=M, verts=[v for r in rings for v in r])
     return bm
 
 
@@ -203,9 +204,10 @@ def pivot_stub(name, M, floor_bottom_z, bearing_bottom_z, coll, mat=None):
     return stub
 
 
-def screw_holes(M, pts_xy, z_face, depth_through, pilot_depth, direction=+1, csk=True):
-    """Holes along frame Z: countersunk clearance through `depth_through` mm starting at z_face going
-    `direction`, then a Ø1.6 pilot `pilot_depth` mm further. Returns list of cutters."""
+def screw_holes(M, pts_xy, z_face, depth_through, pilot_depth, direction=+1, csk=True, cbore=0.0):
+    """Holes along frame Z: clearance through `depth_through` mm starting at z_face going `direction`
+    (countersunk if csk; or with a Ø3.9 counterbore `cbore` mm deep for a pan head), then a Ø1.6 pilot
+    `pilot_depth` mm further. Returns list of cutters."""
     cuts = []
     for x, y in pts_xy:
         through = pilot_depth <= 0                      # plain through hole: overshoot the far face
@@ -222,6 +224,9 @@ def screw_holes(M, pts_xy, z_face, depth_through, pilot_depth, direction=+1, csk
             if M is not None:
                 bmesh.ops.transform(tmp, matrix=M, verts=out["verts"])
             cuts.append(tmp)
+        if cbore > 0:
+            zc0, zc1 = z_face - direction * 0.7, z_face + direction * cbore
+            cuts.append(add_cyl(new_bm(), x, y, min(zc0, zc1), max(zc0, zc1), 3.9, 20, M))
         if not through:
             zp0, zp1 = z_face + direction * (depth_through - 0.4), z_face + direction * (depth_through + pilot_depth)
             cuts.append(add_cyl(new_bm(), x, y, min(zp0, zp1), max(zp0, zp1), PILOT_D, 16, M))

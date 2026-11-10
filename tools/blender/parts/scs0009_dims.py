@@ -43,6 +43,7 @@ HORN_CROSS_L = 11.94                    # 23.88 tip to tip; shaft centre -> oute
 HORN_ARM_L = 20.12 - HORN_HUB_D / 2     # single arm 20.12 overall (hub edge -> tip)
 HORN_DOUBLE_ARM_L = 34.49 / 2
 HORN_ARM_W_ROOT, HORN_ARM_W_TIP = 5.6, 3.6   # (NOMINAL)
+HORN_HOLE_D, HORN_HOLE_R = 1.0, (5.6, 7.6, 9.6)   # row of small holes along each arm (from the kit photo, NOMINAL)
 HORN_CROSS_STRAIGHT = HORN_CROSS_L - HORN_ARM_W_TIP / 2   # 10.14: where the straight arm ends and the round tip starts
 
 # ---- the same in the joint frame (mm) ----

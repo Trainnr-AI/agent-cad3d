@@ -2,7 +2,7 @@
 
 Two joint types (see projects/xgoduck_scs0009/REVIEW.md, "Joints v2"):
   C  cap (one-sided): stator = cap plate on the tower top + ear pads + saddle walls round the body;
-     16x22x4 bearing in the cap; rotor = Ø15.95 boss in the bearing with the X horn TRIMMED to r = 6
+     6702ZZ (15x21x4) bearing in the cap; rotor = Ø14.95 boss in the bearing with the X horn TRIMMED to r = 6
      in a crush-rib pocket; M2x6 clamp screw. (As v1 / the original; the only compact coaxial layout.)
   F  fork (two-sided): stator = floor under the servo bottom + ear pads + saddle walls + captive M3
      nut; rotor = horn plate with the FULL X horn in a pocket (any angle) + separate bearing plate
@@ -31,29 +31,34 @@ HORN_CLEAR, RIB_INTERF, RIB_R = 0.20, 0.25, 0.5      # loose walls; ribs (1 mm w
 CLEAR_D, PILOT_D = 2.3, 1.6                          # M2 clearance; M2 self-tap pilot
 HUB_D, HORN_TOP, PLATE_T_HORN = HORN_HUB_D, J_HORN_HUB_Z[1], HORN_PLATE_T
 # ---- type C
-BRG_ID, BRG_OD, BRG_W = 16.0, 22.0, 4.0
+BRG_ID, BRG_OD, BRG_W = 15.0, 21.0, 4.0              # 6702ZZ (ISO thin-section 61702): sold everywhere. The original
+#                                                      duck's 16x22x4 ("ET2216") is a niche size - not used.
+BRG_NAME = "6702ZZ"
 TRIM_R = 6.0
-CAP_T, LIP, LIP_HOLE_D = 5.0, 1.0, 18.0
+CAP_T, LIP, LIP_HOLE_D = 5.0, 1.0, BRG_OD - 4.0       # lip carries the outer ring only
 SEAT_D = BRG_OD + 0.1
 CAP_HW = J_BODY_HW + 1.6                             # 7.65: cap half-width = saddle wall outer face
 SADDLE_CLEAR, SADDLE_DEPTH = 0.15, 8.0               # walls cover the tower (3.8) + 4.2 of body
 SADDLE_T = CAP_HW - 0.1 - (J_BODY_HW + SADDLE_CLEAR)   # 1.35: outer face 0.1 inside the plate edge (no coincident faces)
 CAP_RING_R = SEAT_D / 2 + 2.2
-BOSS_D, BOSS_Z0, SHOULDER_D = BRG_ID - 0.05, 0.5, 17.6
+BOSS_D, BOSS_Z0, SHOULDER_D = BRG_ID - 0.05, 0.5, BRG_ID + 1.6   # shoulder bears on the inner ring only
 PLATE_Z0 = LIP + BRG_W + 0.4                         # 5.4
-PLATE_T = 4.0
-PLATE_Z1 = PLATE_Z0 + PLATE_T                        # 9.4
+PLATE_T = 4.5                                        # 4.5 (not 4.0): = FLOOR_T, see there
+PLATE_Z1 = PLATE_Z0 + PLATE_T                        # 9.9
 CB_D, CB_Z = 4.2, 6.0
 # ---- type F
-FLOOR_T = 4.0                                        # = PLATE_T: a type-C rotor plate and a type-F floor can be one plate;
+FLOOR_T = 4.5                                        # = PLATE_T: a type-C rotor plate and a type-F floor can be one plate.
+#                                                      4.5: 693 (4.0) + floor = 8.5 > the M3x8 axle, so its tip stops 0.5 short
+#                                                      of the servo bottom (with a 4.0 floor it touched it);
 #                                                      holds a captive M3 nut (2.4) under the servo bottom
-FLOOR_Z = (J_BOTTOM - FLOOR_T, J_BOTTOM)             # -28.85 .. -25.25
+FLOOR_Z = (J_BOTTOM - FLOOR_T, J_BOTTOM)             # -29.75 .. -25.25
 NUT_AF, NUT_T, NUT_HOLE_D = 5.5 + 0.25, 2.4 + 0.2, 3.3
 RING_ISLAND_D, RING_RECESS_D, RING_RECESS_H = 4.5, 16.0, 0.5   # floor underside: Ø16 x 0.5 recess round a flush Ø4.5
 #                                                      island -> the 693's inner ring bears on the island, the bearing plate
 #                                                      clears the floor by 0.5, and the floor's face stays flat (print bed)
 B693 = (3.0, 8.0, 4.0)
-BP_T = 4.2                                           # bearing plate thickness (seat 4.0 + 0.2 lip)
+BP_T = 4.8                                           # bearing plate thickness (seat 4.0 + 0.8 lip = 4 layers:
+#                                                      the lip is what keeps the rotor on the bearing in a fall)
 BP_INNER_Z = FLOOR_Z[0]                              # bearing plate inner face = floor's nominal underside
 BP_SEAT_D, BP_LIP_D = B693[1] + 0.1, 6.0
 ARM_Z = (2.6, 6.4)                                   # horn plate of a type-F rotor (2.1 above the horn top)
@@ -145,7 +150,7 @@ def cable_channel(M):
 
 # ================================================================== type C
 def cap_features(M, include_plate=True, saddle=True):
-    """(add, sub) for a type-C stator: cap plate on the tower top (z 0..CAP_T) with the 16x22x4 seat,
+    """(add, sub) for a type-C stator: cap plate on the tower top (z 0..CAP_T) with the 6702ZZ seat,
     pads hanging to the ear tops (servo screws from below), saddle walls round the body."""
     pts = [(x, y) for x in J_EAR_X for y in (-CAP_HW, CAP_HW)] + \
           [(CAP_RING_R * math.cos(2 * math.pi * i / 48), CAP_RING_R * math.sin(2 * math.pi * i / 48)) for i in range(48)]
@@ -169,8 +174,8 @@ def link_features(M, plate_outline_mm=None, angle_deg=0.0):
            add_cyl(new_bm(), 0, 0, BOSS_Z0, PLATE_Z0 + 1.0, BOSS_D, 64, M),
            add_cyl(new_bm(), 0, 0, LIP + BRG_W, PLATE_Z0 + 0.6, SHOULDER_D, 48, M)]
     sub = [pocket_cutter(M, BOSS_Z0 - 0.5, HORN_TOP + 0.1, TRIM_R, angle_deg),
-           add_cyl(new_bm(), 0, 0, BOSS_Z0 - 1.1, PLATE_Z1 + 1.1, CLEAR_D, 20, M),
-           add_cyl(new_bm(), 0, 0, CB_Z, PLATE_Z1 + 0.9, CB_D, 24, M)]
+           combine_cutters([add_cyl(new_bm(), 0, 0, BOSS_Z0 - 1.1, PLATE_Z1 + 1.1, CLEAR_D, 20, M),      # clamp hole + counterbore
+                            add_cyl(new_bm(), 0, 0, CB_Z, PLATE_Z1 + 0.9, CB_D, 26, M)])]                # as ONE cutter
     return add, sub, []
 
 
@@ -209,7 +214,7 @@ def horn_plate_features(M, plate_outline_mm=None, angle_deg=45.0, trim_r=None):
 
 def bearing_plate_features(M, plate_outline_mm=None):
     """(add, sub) for the far side of a type-F rotor: plate with the 693ZZ seat (open to the stator side,
-    0.2 lip outside) around the M3 axle. Screws to the rotor are added by the caller."""
+    0.8 lip outside) around the M3 axle. Screws to the rotor are added by the caller."""
     z1, z0 = BP_INNER_Z, BP_INNER_Z - BP_T
     r = BP_SEAT_D / 2 + 2.6
     pts = [(r * math.cos(2 * math.pi * i / 48), r * math.sin(2 * math.pi * i / 48)) for i in range(48)] + list(plate_outline_mm or [])
@@ -220,30 +225,64 @@ def bearing_plate_features(M, plate_outline_mm=None):
 
 
 # ================================================================== hardware dummies (for views and overlap checks)
+EAR_SCREW_LEN = 6.0          # M2x6 pan-head self-tapping: 1.6 through the ear + 4.4 into the printed pad
+RING_T = {"6702ZZ": 0.9, "693": 0.8}   # ring wall thickness of the bearing dummies (NOMINAL, for views/fit checks)
+
+
+def bearing_dummy(name, M, z0, z1, d_in, d_out, ring_t, coll, mat):
+    """Inner ring, outer ring and a recessed shield between them (three closed shells in one object)."""
+    bm = new_bm()
+    add_annulus(bm, d_in / 2, d_in / 2 + ring_t, z0, z1, M, segs=64)
+    add_annulus(bm, d_out / 2 - ring_t, d_out / 2, z0, z1, M, segs=64)
+    add_annulus(bm, d_in / 2 + ring_t + 0.02, d_out / 2 - ring_t - 0.02, z0 + 0.3, z1 - 0.3, M, segs=64)
+    return to_object(name, bm, coll, mat)
+
+
+def ear_screw_dummy(name, M, coll, mat, from_below):
+    """The servo's two ear screws. Type C: head under the ear, thread up into the pad; type F: head on the ear, thread down."""
+    bm = new_bm()
+    for hx in J_HOLE_X:
+        if from_below:
+            add_cyl(bm, hx, 0, J_EAR_Z[0] - 1.3, J_EAR_Z[0], 3.5, 20, M)
+            add_cyl(bm, hx, 0, J_EAR_Z[0] - 0.01, J_EAR_Z[0] + EAR_SCREW_LEN, 2.0, 16, M)
+        else:
+            add_cyl(bm, hx, 0, J_EAR_Z[1], J_EAR_Z[1] + 1.3, 3.5, 20, M)
+            add_cyl(bm, hx, 0, J_EAR_Z[1] - EAR_SCREW_LEN, J_EAR_Z[1] + 0.01, 2.0, 16, M)
+    return to_object(name, bm, coll, mat)
+
+
+def pan_screw_dummy(name, placements, coll, mat=None):
+    """M2x6 pan-head self-tapping screws: placements = [(M, x, y, z_seat, direction)], head on z_seat, thread 6 mm along direction."""
+    bm = new_bm()
+    for M, x, y, z, d in placements:
+        add_cyl(bm, x, y, min(z, z - d * 1.3), max(z, z - d * 1.3), 3.5, 20, M)
+        add_cyl(bm, x, y, min(z - d * 0.01, z + d * EAR_SCREW_LEN), max(z - d * 0.01, z + d * EAR_SCREW_LEN), 2.0, 16, M)
+    return to_object(name, bm, coll, mat or material("hw_steel", (0.6, 0.62, 0.66, 1)))
+
+
 def hardware_C(prefix, M, coll):
     steel = material("hw_steel", (0.6, 0.62, 0.66, 1))
-    brg = to_object(f"{prefix}brg_16x22x4", add_cyl(new_bm(), 0, 0, LIP, LIP + BRG_W, BRG_OD, 64, M), coll, steel)
-    apply_bool(brg, add_cyl(new_bm(), 0, 0, LIP - 1, LIP + BRG_W + 1, BRG_ID, 64, M), "DIFFERENCE", coll)
+    brg = bearing_dummy(f"{prefix}brg_{BRG_NAME}", M, LIP, LIP + BRG_W, BRG_ID, BRG_OD, RING_T["6702ZZ"], coll, steel)
     scr = new_bm()
     add_cyl(scr, 0, 0, CB_Z, CB_Z + 1.4, 3.6, 20, M)                     # M2x6 pan head in the counterbore
     add_cyl(scr, 0, 0, CB_Z - 6.0, CB_Z + 0.01, 2.0, 16, M)
-    return [brg, to_object(f"{prefix}screw_M2x6", scr, coll, steel)]
+    return [brg, to_object(f"{prefix}screw_M2x6", scr, coll, steel), ear_screw_dummy(f"{prefix}ear_screws_M2x6st", M, coll, steel, True)]
 
 
 def hardware_F(prefix, M, coll):
     steel = material("hw_steel", (0.6, 0.62, 0.66, 1))
     z1 = BP_INNER_Z
-    brg = to_object(f"{prefix}brg_693", add_cyl(new_bm(), 0, 0, z1 - B693[2], z1, B693[1], 48, M), coll, steel)
-    apply_bool(brg, add_cyl(new_bm(), 0, 0, z1 - B693[2] - 1, z1 + 1, B693[0], 32, M), "DIFFERENCE", coll)
+    brg = bearing_dummy(f"{prefix}brg_693", M, z1 - B693[2], z1, B693[0], B693[1], RING_T["693"], coll, steel)
     scr = new_bm()
     add_cyl(scr, 0, 0, z1 - B693[2] - 3.0, z1 - B693[2] + 0.01, 5.5, 24, M)   # M3 socket head outside the bearing
     add_cyl(scr, 0, 0, z1 - B693[2], z1 - B693[2] + 8.0, 3.0, 16, M)         # M3x8 shank: through bearing, island, floor, nut
-    nut = to_object(f"{prefix}nut_M3", add_cyl(new_bm(), 0, 0, FLOOR_Z[1] - NUT_T + 0.2, FLOOR_Z[1] - 0.05, 5.5 / math.cos(math.pi / 6), 6, M), coll, steel)
+    nut = to_object(f"{prefix}nut_M3", add_cyl(new_bm(), 0, 0, FLOOR_Z[1] - NUT_T + 0.2, FLOOR_Z[1] - 0.05, 5.5 / math.cos(math.pi / 6), 6, _rot(M, 11.0)), coll, steel)   # turned like its pocket
     apply_bool(nut, add_cyl(new_bm(), 0, 0, FLOOR_Z[1] - NUT_T - 1, FLOOR_Z[1] + 1, 3.0, 16, M), "DIFFERENCE", coll)
     horn_scr = new_bm()
     add_cyl(horn_scr, 0, 0, ARM_Z[1], ARM_Z[1] + 1.4, 3.6, 20, M)
     add_cyl(horn_scr, 0, 0, ARM_Z[1] - 6.0, ARM_Z[1] + 0.01, 2.0, 16, M)
-    return [brg, to_object(f"{prefix}screw_M3x8", scr, coll, steel), nut, to_object(f"{prefix}screw_M2x6", horn_scr, coll, steel)]
+    return [brg, to_object(f"{prefix}screw_M3x8", scr, coll, steel), nut, to_object(f"{prefix}screw_M2x6", horn_scr, coll, steel),
+            ear_screw_dummy(f"{prefix}ear_screws_M2x6st", M, coll, steel, False)]
 
 
 # ================================================================== horn trimming jig (type C horns)
