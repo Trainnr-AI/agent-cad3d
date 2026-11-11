@@ -392,3 +392,292 @@ strip from +15 deg roll-out (54 mm3 at 22) -> strip narrowed to +-9, pedestal ba
 (not located); layout faults fixed (IMU under the Uno's pins -> pocket; regulator 0.2 too long -> keel +1).
 NOT re-run since those fixes and the split: fit audit, motion sweep.
 Wiring (13 hubs: 6 body, 2 per thigh, 2 on the neck cradle, 1 on the U): all leads <= 92 mm, extensions <= 95 mm.
+
+### Cable routes + hub mounts, and the full verification run (2026-11-10)
+
+Design (no extra printed parts for the hubs):
+- hubs (13): 5 as a zip-tied stack between the hip-yaw servos, under a tongue of the top plate (x <= 15.5: further forward the
+  neck swings past); 2 flat on the battery in the pocket; per thigh one on the hip-pitch servo's bottom and one on the knee
+  servo's (foam tape + zip tie); 1 on the back of the neck cradle (short side along the neck, 2 zip-tie holes through the floor);
+  1 on the head-yaw servo's bottom. Head chain: body hub (neck lead) - cradle hub (head-pitch lead) - head hub (yaw, roll).
+- `joint_v2.cable_channel`: the lead of a type-F servo is folded in a pocket in the shaft-end pad and leaves SIDEWAYS.
+- routes (`wiring.py`): one extension across each hip (thigh hub -> over the hip-pitch servo -> behind the roll servo -> gap
+  between the yaw connectors -> deck slot); hip-roll lead by the same gap; hip-yaw leads folded inboard above the stack; neck
+  lead loops in front of the pedestal; enclosure wires rise in the 4.5 mm gap in front of the battery through a notch in the new
+  battery_shelf (3.3 g, loose plate on the pocket's ledges - without it the battery fell into the keel); 3 cables to the stack
+  through a notch in the pocket's front wall. Tie holes in each thigh's bridge.
+- IMU now stands in the keel between adapter and regulator; battery assumed 40 x 30 x 13; extension cables modelled as round
+  bundles (Ø2.7), leads as flat ribbons (orientation not modelled).
+- body_frame: no bearing-seat rings beyond the deck plate (L-brackets hit them at roll-out, 54 mm3); pedestal's front top corner
+  cut at 45 deg (cradle x pedestal 13 mm3 at neck -135 -> 0); enclosure screws seated on the keel wall's inner face.
+
+Verification (before the last three fixes unless noted):
+- cable reach, 211 poses: 0 short; worst ext cradle->head 155/165, body->thigh 141/165, ankle lead 108/150.
+- cables/hubs vs parts, 1495 pairs: 15 contacts, all <= 8.8 mm3 (enclosure wires vs walls 3.7-8.8; ankle leads vs shin 2.6; ...);
+  hubs clear of everything at rest.
+- fit audit: 416/421. Battery x step wall 69 mm3 (shelf raised it) -> wall raised, NOT re-audited; the other 4 are the old
+  straight 8 mm cable stubs (superseded by the routes).
+- motion sweep 14 joints x 13 + 24 poses: rest clean. Single-joint contacts: knee +-90 (thigh x shin 0.3; foot x thigh hub 9.2);
+  neck +44/+60 x Uno Q (accepted, clean at +27.5); head pitch -105: head-roll servo x right hip-yaw servo 404 (the original also
+  collides there). After the last fixes (re-swept neck + head pitch only): neck -135: hub C x body bearing plate 1.6 mm3;
+  head pitch +-88: hub C x head-pitch plate 3.5, +-105: 35 -> usable head pitch about +-70 deg with the hub there.
+- combined poses (feet folded into the hips, legs crossed / splayed in, extreme roll+pitch): still collide, incl. thigh / shin x
+  enclosure in "roll out + pitch", "yaw in + squat", "legs crossed" - the original collides in these poses too.
+
+### Review of the full exploded view; electronics fastening, part 1 (2026-11-10)
+
+- Exploded view: hubs now ride on their servos (they were drawn on the thigh, i.e. in front of the pulled-out servo).
+  `screw_audit.py`: 61 screws - direction, what the head clamps, what the thread enters, driver access. All clamp/thread as
+  designed except the head-roll ear screws (no head core yet). Exploded placement check: 67 screw/part relations, 0 wrong side.
+  Assembly order forced by driver access: ankle ear screws before the foot; hip-yaw horn screw before the roll servo; hip-pitch
+  horn screw before the L-bracket goes on the roll horn; head-yaw horn screw before the U goes on the cradle; head-roll horn
+  screw before the head-yaw servo; neck / head-pitch ear screws before the cradle is mounted; top plate before the Uno Q.
+- Printability (50 deg): enclosure 738, body_frame 485, neck_cradle 409, thigh 340, yaw_block 301, yaw_connector 290 mm2
+  unsupported; shin 222, U 157, L-bracket 141; foot 67; plates, lid, shelf ~0.
+- Fastening done: Uno Q on 4 posts at the UNO hole pattern (ASSUMED for the Uno Q) with 4x M3x8 into the top plate, which is
+  now as long as the board (x -52.8..16.0) with a wire notch at the rear; battery_shelf fixed (tab in a rear-wall slot + 2x
+  M2x6 into bosses under the ledges). Audit 28/28; neck re-swept: clean to +27.5 deg, 8.6 mm3 at +44.
+- NOT fastened yet: servo adapter, regulator, IMU (keel: 18.5 + 4.6 + 8 = 31.1 of 32.8 mm - no room for mounts as arranged),
+  battery (adhesive hook-and-loop on the shelf intended, not modelled), hub stack (trapped, not fixed).
+- Found while trying to make every cable end exact: a plug is ~6 mm long and needs ~4 mm more for the wire to bend. The 5-hub
+  stack between the hip-yaw servos has 1.5 mm beside it and 3.9 mm above; the two hubs in the pocket have 3.4 mm beside them.
+  So the body hubs as placed cannot be plugged in. Needs the hub's real socket orientation and the adapter's socket count.
+BOM now: M3x8 x8 (4 axles + 4 Uno Q), M2x6 pan self-tapping x45.
+
+### Hub board and plug, read from the photo (2026-11-10)
+
+8x enlargement of the kit photo, scaled by the sockets' pin pitch = 2.5 mm (5264-type 3-pin, as Feetech's SCS connector):
+hub = green PCB ~20 x 17 mm with THREE SIDE-ENTRY sockets (each ~12.3 wide x 9 deep x 6 high) opening in three directions -
+A and B opposite each other, C at 90 deg; ~24 x 20 x 7 mm overall. Plug ~10 wide x 9.5 long x 5.5 high. With a plug in and the
+wires bent, each used socket needs ~7 mm beyond its mouth -> a fully used hub occupies about 31 x 34 x 7 mm.
+Waveshare Bus Servo Adapter (A): its documentation lists ONE "Bus Servo Control Interface".
+`parts/cable_kit.py` updated (PLUG, HUB, SOCKET, SOCKETS, socket_mouths); `wiring.py` still ends each cable at the hub centre
+and still uses the old 17 x 20 x 6 boxes for the body hubs - the 13-hub layout does NOT fit with the real hub size (body: 7
+hubs; servo bottoms are 23 x 12 mm). Decision pending: replace the body hubs by one small bus strip, or fewer / other hubs.
+
+### Body hubs do not fit at their real size (2026-11-10) - DECISION OPEN
+
+- A hub with all three sockets used occupies about 31 x 34 x 9 mm (9.5 cm3): plugs enter from three sides, each needs ~7 mm.
+- The bus needs 13 hubs whatever the tree (14 servos + 1 adapter socket, 3-socket hubs -> 15 - 2). 7 of them are in the body
+  (2 hip yaw, 2 hip roll, neck, 2 junctions) = ~66 cm3 + cable slack; the enclosure has ~46 cm3 free, in fragments.
+- Seats that do exist in the body: 1 flat above the battery; 2 flat under the Uno Q between its posts (needs the Uno 6.5 mm
+  higher -> less neck-back range than the accepted 27 deg). Between the hip-yaw servos: gap 20 wide, a hub needs 24 / 31.
+- Growing the body is not free: swept-space map redone to x -90 (voxel 2 mm, 300 poses, scratchpad swept2.npz): behind the
+  enclosure (x -58..-70) the free half-width is only 8-18 mm at z 98-122 (legs swinging back with yaw); the keel's rear-bottom
+  corner (x -52, z 56-68: 8-12 mm free vs 18.4 half-width) is already inside the swept space of the combined walking poses.
+- Waveshare adapter: second search again finds ONE bus servo socket.
+- Options: (1) one small multi-socket bus board in the body instead of the 7 hubs (kit hubs stay on thighs / cradle / head = 6);
+  (2) kit hubs only, body 20+ mm longer, leg range limited; (3) kit hubs only, 3 per thigh + under the hips, exposed.
+
+### Wiring v3: bus board in the body, six kit hubs on the limbs, every cable in a named socket (2026-11-10)
+
+Decision (user): one bus board in the body instead of the 7 body hubs.
+- **Bus board** (not in the kit, to be made): 12 x 5-hole 2.54 mm perfboard (30.5 x 12.7), five top-entry 3-pin headers in
+  parallel (the mate of the kit plug - type still to be confirmed against a real plug, 2.5 mm pitch assumed), four kit
+  extension cables with one plug cut off soldered to it (to left thigh, right thigh, neck cradle: under the middle, leaving
+  down the deck slot / forward; to the servo adapter: from above at the rear end). Seat: between the two hip-yaw servos, on
+  three 3.5 mm posts + one boss of body_frame, 1x M2x6 self-tapper (`bus_screw_M2x6st`). Why not all plugs: 9 headers do not
+  fit a perfboard in the 20 mm gap; why top-entry here: the plugs come in from above, where the leads arrive.
+- **Kit hubs: 6** (real size, sockets A/B opposite + C): LTA/RTA on the hip-pitch servo's bottom, LTB/RTB on the knee servo's,
+  C on the back of the cradle floor (moved 7 mm down: 0.43 of the neck length), Y on the head-yaw servo's bottom.
+  Seat = 1.5 mm foam tape + zip tie (PCB centre 2.3 above the face).
+- `wiring.py`: each cable end is a plug in ONE socket (`wire_plug_<cable>_a/b`, 6 mm in, 3.5 mm out, then a 7 mm bend point);
+  the hub's turn on its seat (90 deg steps) and the socket per cable are chosen for the shortest runs. Result:
+  BUS 1 = L hip roll, 2 = neck pitch, 3 = L hip yaw, 4 = R hip yaw, 5 = R hip roll; LTA A = hip pitch lead, B = to LTB, C = from body;
+  LTB A = ankle, B = from LTA, C = knee; RTA A = to RTB, B = hip pitch, C = from body; RTB A = from RTA, B = ankle, C = knee;
+  C A = head pitch lead, B = from body, C = to head; Y A = from cradle, B = head yaw, C = head roll.
+- Kit parts used: 14 leads, 6 hubs, 8 extension cables (2 thigh A-B, 2 body-thigh, body-cradle, cradle-head, adapter-bus; 4 of
+  them soldered at the board end). Spare: 8 hubs, 6 cables.
+- Measured at rest (3,135 pairs, 0.3 mm sampling): hubs, sockets, plugs and the bus board against every printed part, servo
+  and electronics box: 0 contacts. Flexible cables: 13 grazes, 0.6 - 7.8 mm3 (ribbon model has no controlled twist).
+- Cable reach over 211 poses: 0 short. Slack to stow (cable length - run): hip-yaw leads ~120 mm, hip-pitch / knee / head-yaw
+  leads ~130 mm, thigh A-B ~135 mm: fold flat and tie under the zip tie that holds the hub. NOT modelled.
+- Not verified: plug / header type and sizes (photo estimate +-10 %), mated plug height on the bus board (13 mm assumed, 4.6 mm
+  spare under the top plate).
+
+### Electronics fastening, part 2 (2026-11-10)
+
+- Balance sensor: flat on four 3.4 mm bosses on the keel floor (x -29.5, centre), 4x M2x6 self-tappers from above
+  (`imu_screws_M2x6st`) - low, central, rigid; goes in first.
+- Servo adapter + regulator: stand on two rails across the keel's ends (8.6 mm, above the sensor), a fence post on each rail
+  between them; the adapter is captive between rails, wall, posts and the shelf (0.7 mm above it). Regulator: lateral only
+  (wall / posts) - add a strip of adhesive foam tape to the wall. Adapter's connector positions unknown: not checked.
+- Battery shelf lifted 1.6 mm (ledges thicker); battery seat = two side ribs + two front stops on the shelf, rear wall behind,
+  top plate 9.4 mm above: it cannot leave the pocket; a hook-and-loop patch underneath holds it down.
+- Bus board: see above. Uno Q: 4x M3x8 on the top plate's posts (earlier).
+- Masses: body_frame 19.5 g, enclosure 32.2 g (rails are solid: could be hollowed), top plate 9.2 g, shelf 4.0 g.
+
+### Cradle hub seat at real size (2026-11-10)
+
+Full sweep with all 53 wiring solids on their bodies: thigh hubs, head hub and bus board clear in every single-joint move; the
+real-size hub on the BACK of the cradle floor hit the body's bearing plate (neck -119..-135) and the head-pitch plate (head
+pitch +-88). Search (scratchpad seat_search.py: hub + three 7 mm plug rooms, 3 faces x 13 heights x 4 turns, BVH overlap at
+1.5 deg steps against everything on the trunk and on the head-pitch U): no seat clears the full range.
+Chosen: rear side wall, 0.30 of the neck length up, C socket toward the head -> neck -135..+19.5 deg (was +27.5, limited by the
+Uno Q), head pitch -76.5..+105 deg. Sockets: A = from the bus board, B = to the head hub, C = head-pitch lead.
+Neck-to-head cable re-routed: worst reach 164 of 165 mm (neck +60, head pitch 69, yaw 149 deg - outside the new neck limit).
+
+### Support-free printing, body parts (2026-11-10)
+
+print_check (faces within 50 deg of straight down, first layer excluded), best orientation = as assembled, standing on the bed:
+- electronics_enclosure 754 -> ~100 mm2: 55 deg undersides (SLOPE 1.45) under the pocket ledges, the four top-plate posts and
+  the tongue; step wall and shelf bosses removed. Left: shelf-tab slot (10.6 mm bridge), tops of round holes, 0.3 mm strips.
+- body_frame 485 -> 413 mm2: 55 deg gusset under the pedestal's wide top. Left: the two 6702 seat lips (2 mm annular ledge,
+  196 mm2) + 91 mm2 above them - shared cap design (joint_v2.cap_features), same on all ten type-C joints; NOT changed.
+- body_lid ~5, battery_shelf 0. Thigh, yaw connector, neck cradle, yaw block: not reworked.
+Sweep after the change (53 wiring solids included): no new contact at rest or in any single-joint move; four pairs in already
+colliding extreme combined poses got deeper (enclosure ledges, e.g. yaw in + squat right shin 535 -> 644 mm3).
+Stale check fixed: top-plate screws thread into the ENCLOSURE's posts (19.7 mm3), not the motor body.
+
+### Retention, step 3: bayonet built and tested on the two knees only (2026-11-10)
+
+`joint_v2.py`: `bayonet_hook(M, phi)` (stator: one L-section hook, 24 deg wide, on the cap plate at r 10.9..12.6, lip z 7.7..9.2 =
+below the rotor plate's top, no added height) and `bayonet_rim_cuts(M, phi, lo, hi, assemble, sign)` (rotor: disc turned down to
+r 9.0 above a 2 mm flange where the hook passes + one notch in the flange). `leg_v2.py`: knee, hook opposite the shin's strip,
+assembly angle -116 deg (left) / +116 deg (right) - probed clear of thigh, servos, L-bracket and hubs; switch off with
+`"bayonet": false`.
+Test (scratchpad bayonet_test.py, BVH overlap, 121 angles over -90..+90): shin held against pull-off at every angle; 0.3 mm
+axial play before the hook engages; no rubbing (only the old 0.3 mm3 thigh x shin touch at the range end); slides on freely at
+the assembly angle (0..8 mm path clear) and comes off only within 114..117 deg. Leg fit audits: no fit changed (6 "missing"
+rows per leg are stale checks against the removed hip_yaw_support).
+COST: the hook stands on the thigh's flat print face -> thigh unsupported area 340 -> 982 mm2 (shin 222 -> 275). Conflicts
+with the support-free goal. Alternative not built: a separate screw-on keeper clip (1 small print + 1x M2x6 per joint): all
+parts keep printing flat, no assembly angle, also possible on head yaw (+-150 deg leaves no assembly angle for a bayonet).
+NOT done: hips (6 joints), head yaw, head roll. Assumes the servo can be turned by hand to 116 deg (SCS0009 travel unverified).
+
+### Retention with a screw-on keeper clip, knees (2026-11-10) - replaces the built-in hook as default
+
+`joint_v2.py`: `keeper_features` / `keeper_seat_cuts` / `keeper_screw`; `leg_v2.py` arg `"retention": "clip" | "bayonet" | "none"`.
+Clip = the same 24 deg hook as a 0.27 g print with a foot: 1x M2x6 self-tapper (4.4 mm in the cap plate) + a rib in a slot
+through the cap plate (shear, anti-turn). Fitted after the shin is on: no assembly angle. Shin: stepped flange, no notch.
+Test (keeper_test.py, 121 angles -90..+90, both knees): held against pull-off at every angle, play 0.3 / 0.35 mm, clip never
+touches the shin. Fits 18/18 (clip on thigh gap 0.07, screw thread 4.4 mm3, clear of shin, servo, bearing, ear screws).
+Print: thigh 342 mm2 (was 340 before any retention, 982 with the built-in hook), shin 275, clip 10.
+Display for the user: collection `keeper_demo` (assembled / exploded / half section) at x +0.62..0.85 beside the robot.
+NOT done: hips, head yaw, head roll; motion sweep with the clip (started).
+
+### Retention dropped; bearing-seat lip made printable (2026-11-10)
+
+- User decision: NO keeper clip / hook (more parts and complexity). `leg_v2.py` default `"retention": "none"`; thigh and shin
+  are back to their pre-step-3 shape (340 / 222 mm2). Clip and hook code stay in `joint_v2.py`, unused. Build note: thread-
+  locker on the 14 horn screws + a pull test on the first printed knee.
+- Shared type-C cap (`cap_features`): lip hole is now a SQUARE opening (half-side LIP_SQ 8.6) clipped to the seat circle,
+  cut only 0.2 mm past the plate's servo face (was a round 17 mm hole cut 1 mm into the pads). With the seat open to the bed
+  the lip prints as four 12 mm wall-to-wall bridges instead of a 2 mm ring in the air. Outer ring carried over 4 arcs.
+- Rebuilt: both legs, body, yaw block. Bearing fits 36/36, horn fits 23/23 (three stale check targets pointed at removed
+  parts hip_yaw_support / body_neck_mount: now body_frame).
+- print_check (counts bridges and one-layer steps as unsupported): body_frame 413 -> 354, thigh 340 -> 264, yaw connector
+  290 -> 254, yaw block 301 -> 264. What is left per seat: ~65 mm2 lip bridges + ~65 mm2 where pads / saddle walls start over
+  the opening (walls bridge it; the pad edge is a 2.4 mm one-layer cantilever, as before).
+- Not external: no outside surface changed, so the motion sweep was not repeated.
+
+### Foot rebuilt on the original pad shape (2026-11-11)
+
+User: "the foot should be same as the original in shape not size ... every aspect ratio of the original duck must be there".
+Was: a flat, level 5 mm slab, 49.7 x 46.4 mm. Original (scaled 0.92): rounded pad 49.68 x 37.11, 12.2-15.5 mm thick, top 6.53 mm
+under the ankle axis, SOLE CANTED 5 deg about the fore-aft axis (normal (0, 0.087, -0.996) on the left foot: inner edge lower),
+side walls square to the sole, servo trough r 13.3.
+
+- `leg_v2.py` foot = the original mesh itself (welded, ears cut off 0.05 under the pad top, closed) + our ears. The original
+  mesh has ~80 open edges, all in its ears, so the pad is checked closed after the cut.
+- Pad cut only by the swept envelope of shin + ankle servo + cable stub over ankle +-90 deg (computed from the built shin: points
+  every 0.4 mm over every face, 1 deg steps, 0.5 mm clearance, 8 axial slices): trough r 14.53 (original 13.3), ~0.9 cm3 removed.
+  First version sampled vertices and edges only -> missed flat walls between slice ends -> 80 mm3 shin x foot at +-90; fixed.
+- Horn ear (outboard) one piece with the pad through a lug with a 55 deg underside. It stands 3.8 mm OUTSIDE the original
+  outline (servo + two plates = 40.95 mm > 37.11 mm pad); it starts 5.5 mm above the ground, so the footprint is the original's.
+- Bearing plate (inboard) now sits in a slot in the pad's side (x +-9.15, floor 3.6 above the sole), flush with the original
+  outline; 2x M2x6 pan-head self-tappers along the axle direction, heads in 2.3 mm counterbores (2.5 under the head, 3.5 in the pad).
+  All three inboard screws (axle + 2) go in from the same side.
+- Verified, both feet: one closed solid; sole normal, sole area (1543.5 mm2) and footprint below z 6 identical to the original;
+  rest fits 26 pairs clean, plate screws thread 7.5 mm3, horn crush ribs 1.4 mm3; print (sole down) 101 mm2, plate 15 mm2.
+- Mass 27.1 g solid PLA per foot (slab: 17.1) + plate 1.9. Sim masses not regenerated.
+- Range: shin x foot clear over ankle +-90. Thigh x foot toe corner beyond 86 deg in one direction (left -, right +) at knee 0:
+  2.0 mm3 at 87, 21.9 at 90. Not relieved (would bite the toe's front edge). The original's foot clears its thigh there.
+  Knee: foot x L-bracket from 70 deg (0.7 mm3; 48.5 at 75, 767 at 90), left +, right -. The ORIGINAL's own foot meets its own
+  hip-roll part from the same angle (triangle overlap: 0 at 60, 51 at 70), so this is the original's behaviour, not a loss.
+- `explode_all.py`: ankle inboard parts spread 3 / 9 / 17 / 20 mm (they crossed the mid-plane before and swapped sides).
+
+### Thigh: original outline, hubs re-packed on the outer side, optional cable cover (2026-11-11)
+
+User: hubs untidy on the thigh; wants a flush look; "the thigh plate should resemble the original design as much as possible";
+"the cover should be an optional add on but not necessary"; "all the faces rear, top, outer should be covered".
+- Original thigh (scaled) = rounded-triangle housing, x -28.7..27.6, z 50.3..94.0, walls ~6.35 mm outside the servo faces.
+- Tried first and dropped: hubs on the hip-pitch servo's TOP face and the knee servo's REAR face under an L-shaped box cover
+  (wiring.py `"thigh_hubs": "faces"` still builds it). A plugged hub stands 8.9 mm off its face -> 3.4 mm outside the original
+  outline top and rear, 7 mm overhang outboard, 0.5 mm from the shin's ankle end at full knee bend, box cover 8.9 g.
+- Packing search (scratch pack.py / pack3.py: 1 mm grid, 4 turns, PCB + socket + 7 mm plug rooms as rectangles, >= 50 % of the PCB
+  on a servo end face): two plugged hubs do NOT fit inside the original outline. One arrangement fits within 2.0 mm (left) /
+  2.5 mm (right) of it; that one is now the layout (wiring.py `plane_hub`; offsets differ per side, the hub is not mirror-symmetric).
+  Sockets: hub A (on the hip-pitch servo's end) = hip-pitch lead (front), cable from the body (rear), link (down); hub B (on the
+  knee servo's end) = link (front), ankle lead (rear), knee lead (top). Link cable now 13-18 mm of path (165 mm cable).
+- `leg_v2.py` thigh: + 2 mm web with the original outline (convex hull of the original mesh's side view) on the bed side of the plate;
+  + two posts (Ø5 rear top corner, Ø4.2 on the long front edge) out to the hub plane, pilot holes in their tips. Our two bearing
+  rings still stand 0.3-1.75 mm outside the outline (6702 seat + 2.2 wall). Thigh 7.7 -> 10.3 g.
+- Optional `thigh_cover` (arg `"thigh_cover"`, default on): 1 mm plate = original outline grown 4.1 mm, 0.8 mm walls down to the thigh
+  plate along the top and rear, 2 mm lip along the long front edge and round the knee (the shin's ankle end passes 16.65 mm from
+  the knee axis); 2x M2x6 pan-head self-tappers into the posts (5 mm of thread). 7.1 g. Thigh with cover 40.5 mm thick (original 30.8).
+- Rest: cover, hubs, sockets, plugs vs thigh, shin, foot, L-bracket, yaw connector, servos, body: 0 contacts (only the screws'
+  thread, 11.0 mm3). Print: thigh 266 mm2 (was 264), cover 0 (standing on its plate). Cable lengths at rest all inside the kit lengths.
+- Motion (full sweep, 14 joints x 13 + 24 poses, cover fitted): rest clean. First build of the web cost knee range: OUR shin carries
+  the ankle servo's cradle in the thigh plate's plane (the original's shin is a plate that stays inboard), so from ~68 deg of forward
+  knee bend the cradle ran into the web (15.5 mm3 at 75, 88 at 90; squat poses with knee 80 deg collided). Fixed with a relief in the
+  web's lower front (swept cradle, 50..90 deg): the plate's long edge now has a bite of about 18 x 11 mm; the original outline is
+  complete only on the optional cover. A first relief used the 3-D distance between knee and ankle axes (43.4 instead of 38.6) and
+  was 4.8 mm short; fixed. Cover lip shortened to 1.5 mm short of the servos' end faces (the foot's horn ear met it from 72 deg).
+- Sweep vs the one before the thigh work: single joints unchanged except knee 90 deg in the forward direction: foot x thigh 4.2 ->
+  55 mm3 (foot meets the front cover post; that pose is already blocked by foot x L-bracket from 70 deg, as on the original).
+  Squat A-D unchanged. New in already-colliding extreme poses: thigh x foot 15 mm3 (knee 85 deg poses), cover / thigh x top plate
+  and Uno Q in "yaw in + squat".
+- NOT verified: hub and plug sizes (photo estimate, +-10 %) - the packing margin is 2-2.5 mm, so a hub 10 % bigger does not fit
+  under the cover; spare cable (120-150 mm per cable) not modelled, intended in the empty triangle between the two servos; cover
+  never test-fitted or printed. Cable reach re-run with the new thigh routes: 0 short over 211 poses.
+
+### Kit hubs only: custom bus board removed (2026-11-11)
+
+User: "avoid any custom perf board and use off the shelf parts"; no hubs in the electronics bay; hubs may sit on motors, with optional covers.
+Facts: SCS0009 lead = Molex 5264-3P (datasheet). Waveshare Bus Servo Adapter (A) has TWO servo sockets (product photo; earlier text
+searches said one - wrong), 42 x 33 mm, available in India (Robu, Evelta, Amazon.in). 14 servos on 2 sockets need 12 three-socket hubs;
+the 14 servo kits bring 14. Only ready-made many-socket hub found: Juxi 8-channel (Amazon.com only) - not used.
+- Seat searches (scratch hub_seats.py fixed body, hub_seats_rel2.py per moving body; swept map swept3.npz: 300 poses, 1.5 mm voxels,
+  1 mm clearance; plugged hub = PCB + 3 sockets + 3 x 7 mm plug rooms): fixed body 0 seats except a chest pocket in front of the neck
+  pedestal (holds ONE hub: no pair of positions is disjoint); thigh outer side has a free second layer; thigh top rear corner free;
+  shin (foot motor) 0, hip-yaw link 0, L-bracket 0, neck cradle 0. The gap between the hip-yaw servos is below the search's resolution;
+  placed by hand and checked exactly.
+- Layout built (wiring.py; body_v2.py; leg_v2.py): each thigh 4 hubs on the outer side in two layers (A, B as before; C over A, D over B,
+  taped on the lower hub's sockets, PCB 7.5 mm further out); chest hub N on a new chest plate (22.5 wide, 1.6 thick, standing 11 mm up from the deck underside on the front of the centre strip); hub G standing in the
+  gap between the hip-yaw servos, socket C down in the deck's cable slot. Trees: adapter socket 1 -> out of a new port in the keel's
+  front wall (y +8.6..+16, z 86.5..93) -> left thigh C; socket 2 -> up the riser and the top notch -> G -> (down the slot) right
+  thigh C and (forward, beside the pedestal) N -> cradle hub -> head hub. Per thigh: C = cable from the body + hip-yaw lead + link,
+  D = link + hip-roll lead + link, A = link + hip-pitch lead + link, B = link + knee + ankle. 12 hubs, 12 extension cables, 14 leads.
+  Bus posts / boss / screw removed from the deck (body_frame 20.2 g with the chest plate; prints as before, 354 mm2). Thigh cover deepened for two layers
+  (thigh with cover ~48 mm thick, cover 8.1 g).
+- First tries dropped: both legs from a chest junction under the deck (161 of 165 mm); two hubs on the chest (they overlap).
+- Verified: rest 0 contacts between bodies; stacked hubs / cover / thigh and G, N vs body, servos, lid: 0 (boolean volumes against the
+  multi-shell screw and Uno dummies gave false 664 / 522 mm3 = the whole socket / plug; triangle test: none touching). Cable reach
+  0 short over 211 poses (longest at rest: left body-to-thigh 118 of 165, hip-yaw leads 94-95 of 150). Full sweep vs the previous
+  one: leg single joints unchanged; neck back beyond the existing +19.5 deg limit now also meets hub G (0.5 mm3 at +44, 12 at +60);
+  extreme pose "neck fwd head up" (-135 / +105 deg): head-pitch U and yaw block meet chest hub N (new, up to 296 mm3).
+- NOT verified / open: hub and plug sizes (photo estimate); every short hop uses a 165 mm kit cable -> ~150 mm of slack per hop
+  (9 hops), not modelled; second-layer hubs are held only by tape on the lower hub's sockets (or by the optional cover); adapter still
+  modelled standing as a 42 x 18.5 x 33 block, really flat with top-entry sockets; regulator current for 14 servos; chest cover not
+  designed; right-leg seats assumed mirror of the searched left leg (the sweep covers both legs).
+
+### Thigh hubs: no stacking - two on the outer side, one on top, one on the rear (2026-11-11)
+
+User: "stacking two on the side does not make sense"; hubs on the thigh's top and rear; fit into existing volume.
+- The coarse seat searches (1.5 mm voxels, 1 mm clearance) had ruled the top and rear faces out. EXACT tests (hub solid vs the real
+  meshes, scratch top_hub_test.py / rear_hub_test.py: hip pitch 13 steps x roll 3 x yaw 3, knee 13 x ankle 3, squat pairs = 172
+  poses; knee -90..90 in 5 deg steps) show both clear. Lesson: the voxel search is a filter, not a verdict.
+- wiring.py: hub C on the thigh's TOP, toward the rear (29.5 mm behind the hip-pitch shaft, 1.2 mm toward the outer side) on a new
+  printed shelf (leg_v2.py `top_shelf`: 16 x 28.6 x 1.6, level with the hip-pitch servo's top face, over the knee servo's upper end);
+  hub D on the knee servo's REAR face, 13.5 above the knee axis, seat 2.2 (clears the holder's side wall and hub B's board).
+  Further forward on top, or more toward the outer side, the top hub fouls hub A's plugs. Chain per thigh: C (hip-yaw + hip-roll
+  leads) - D (cable from the body) - A (hip-pitch lead) - B (knee + ankle leads). Second layer on the outer side removed.
+- Thigh 9.5 g with shelf, without cover posts. The OPTIONAL COVER IS OFF: hub D's upper plug stands where the rear post was; the
+  cover has to be reshaped for this layout (`thigh_posts` / `thigh_cover` args).
+- Verified: thigh hubs vs each other, thigh, servos: 0 overlaps; rest 0 contacts; cable reach 0 short over 211 poses (hip-yaw leads
+  98-99 of 150, body-to-thigh 103-105 of 165); full sweep: single joints identical to the stacked layout (and knee 90 deg foot x thigh
+  back to 4.2 mm3 without the post); three new sub-3 mm3 entries in already-colliding extreme poses.
+- Size against the original (scaled): top hub 1.9 mm above the original thigh's top, rear hub 2.5 mm behind its rear, the two
+  outer-side hubs 9.5 mm beyond its outer face (as since the first hub layout). Chest hub N: 2.1 mm in front of our own neck mount,
+  8.5 mm in front of the original body shell's foremost point. Hub G: inside. No ready seat found inside the body for N.

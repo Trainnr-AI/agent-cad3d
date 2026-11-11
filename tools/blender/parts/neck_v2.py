@@ -99,6 +99,9 @@ for M in (Fn, Fh):
     a, s = L["floor_features"](M, include_floor=False, saddle=False, pad_hw=PAD_Y)
     adds += a
     subs += s
+mid = (Vector((0, 0, 0)) + Vector((pH.x, pH.y, 0))) / 2
+for sy in (-4.4, 4.4):                                   # zip-tie holes: the hub sits on the floor's back between them
+    subs.append(L["add_cyl"](L["new_bm"](), mid.x, mid.y + sy, FLOOR_Z[0] - 1.0, FLOOR_Z[1] + 1.0, 3.0, 14, Fn))
 cradle = finish("neck_cradle", L["build_part"]("neck_cradle", adds, subs, coll, mat_cradle))
 
 # =========================================================== body neck mount (fixed to the body)

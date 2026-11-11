@@ -67,15 +67,22 @@ if "legs" in args.get("parts", ["legs", "neck"]):
         b["thigh"] = b["lb"] - ax["hip_pitch"] * G - Z * 12
         b["shin"] = b["thigh"] + ax["knee"] * G - Z * 22
         b["foot"] = b["shin"] + ax["ankle"] * G * 0.8 - Z * 30
-        b["bp"] = b["shin"] - ax["ankle"] * G * 0.8 - Z * 30
+        # inboard side of the ankle: only ~22 mm to the mid-plane, so bearing / plate / axle screw are spread by
+        # 3 / 9 / 20 mm - with gap-sized steps the two legs' plates and screws crossed over and swapped sides
+        low = b["shin"] - Z * 30
+        b["bp"] = low - ax["ankle"] * 9
         for k, n in (("yaw", "yaw_connector"), ("lb", "l_bracket"), ("thigh", "thigh"), ("shin", "shin"), ("foot", "foot"), ("bp", "foot_bearing_plate")):
             off[f"{s}_{n}"] = b[k]
+        off[f"{s}_thigh_cover"] = b["thigh"] - ax["hip_pitch"] * G * 3.0          # optional cable cover: off the thigh's outer side, beyond the pulled-out servos and hubs
+        off[f"{s}_thigh_cover_screws_M2x6st"] = b["thigh"] - ax["hip_pitch"] * G * 3.6
         cap_joint(f"scs_{s}_hip_yaw", f"{s}_hip_yaw_", b["plate"], b["yaw"], ax["hip_yaw"])
         cap_joint(f"scs_{s}_hip_roll", f"{s}_hip_roll_", b["yaw"], b["lb"], ax["hip_roll"])
         cap_joint(f"scs_{s}_hip_pitch", f"{s}_hip_pitch_", b["thigh"], b["lb"], ax["hip_pitch"])
         cap_joint(f"scs_{s}_knee", f"{s}_knee_", b["thigh"], b["shin"], ax["knee"])
         fork_joint(f"scs_{s}_ankle", f"{s}_ankle_", b["shin"], b["foot"], b["bp"], ax["ankle"])
-        off[f"{s}_foot_plate_screws_M2x6st"] = b["bp"] + Z * 14
+        off[f"{s}_ankle_brg_693"] = low - ax["ankle"] * 3
+        off[f"{s}_ankle_screw_M3x8"] = low - ax["ankle"] * 20
+        off[f"{s}_foot_plate_screws_M2x6st"] = low - ax["ankle"] * 17    # they go in along the axle direction, like the axle screw
 if "neck" in args.get("parts", ["legs", "neck"]):
     sh = args.get("shells", {"trunk": "duck_scs0009:trunk_base.001", "yaw_block": "yaw_block", "head": "duck_scs0009:head_roll"})
     an, ah, ay = axis("scs_neck_pitch"), axis("scs_head_pitch"), axis("scs_head_yaw")
@@ -84,11 +91,11 @@ if "neck" in args.get("parts", ["legs", "neck"]):
     if HAS_BODY:                                                  # motor body stays; the electronics enclosure comes off the back
         BK = Vector((-2.2 * G, 0, 0))
         off["body_frame"] = Z * 0
-        off.update({"electronics_enclosure": BK, "enclosure_screws_M2x6st": BK * 2.0, "servo_adapter": BK + Z * 1.9 * G, "ubec": BK + Z * 1.9 * G,
-                    "battery_3s": BK + Z * 2.6 * G, "imu": BK + Z * 3.2 * G, "hub_6": BK + Z * 3.2 * G, "body_lid": BK + Z * 3.9 * G,
-                    "body_lid_screws_M2x6st": BK + Z * 4.5 * G, "uno_q": BK + Z * 5.0 * G})
-        for i in range(1, 6):
-            off[f"hub_{i}"] = Z * 1.5 * G
+        off.update({"electronics_enclosure": BK, "enclosure_screws_M2x6st": BK * 2.0, "servo_adapter": BK + Z * 2.0 * G, "ubec": BK + Z * 2.0 * G,
+                    "battery_shelf": BK + Z * 2.5 * G, "battery_3s": BK + Z * 3.0 * G, "imu": BK + Z * 1.2 * G, "imu_screws_M2x6st": BK + Z * 1.5 * G, "body_lid": BK + Z * 3.9 * G,
+                    "bus_screw_M2x6st": Z * 2.0 * G,
+                    "body_lid_screws_M2x6st": BK + Z * 4.5 * G, "uno_q": BK + Z * 5.0 * G, "uno_screws_M3x8": BK + Z * 5.8 * G,
+                    "shelf_screws_M2x6st": BK + Z * 2.75 * G})
     cradle = Z * (1.5 * G) + (Vector((1.6 * G, 0, 0)) if HAS_BODY else Z * 0)      # forward, clear of the body's contents
     mount, mplate = Z * (1.2 * G) + an * G, (Z * 0 if HAS_BODY else Z * (1.2 * G)) - an * G
     u, uplate = cradle + Z * (1.6 * G) + ah * G * 0.9, cradle + Z * (1.6 * G) - ah * G * 0.9

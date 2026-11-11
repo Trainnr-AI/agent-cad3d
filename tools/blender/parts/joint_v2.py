@@ -37,6 +37,7 @@ BRG_NAME = "6702ZZ"
 TRIM_R = 6.0
 CAP_T, LIP, LIP_HOLE_D = 5.0, 1.0, BRG_OD - 4.0       # lip carries the outer ring only
 SEAT_D = BRG_OD + 0.1
+LIP_SQ = 8.6                                         # half-side of the square lip opening (see cap_features)
 CAP_HW = J_BODY_HW + 1.6                             # 7.65: cap half-width = saddle wall outer face
 SADDLE_CLEAR, SADDLE_DEPTH = 0.15, 8.0               # walls cover the tower (3.8) + 4.2 of body
 SADDLE_T = CAP_HW - 0.1 - (J_BODY_HW + SADDLE_CLEAR)   # 1.35: outer face 0.1 inside the plate edge (no coincident faces)
@@ -142,10 +143,20 @@ def ear_pads(M, z_lo, z_hi, hw=J_EAR_HW):
             for x0, x1 in ((J_EAR_X[0] + 0.05, J_BODY_X[0] - 0.2), (J_BODY_X[1] + 0.2, J_EAR_X[1] - 0.05))]
 
 
-def cable_channel(M):
-    """Channel for the cable leaving the shaft-end face at the bottom: through the shaft-end pad."""
+CABLE_SIDE = 1                                       # which side (+Y / -Y of the servo frame) the lead leaves a type-F cradle
+
+
+def cable_channel(M, side=None):
+    """Pocket for the lead where it leaves the servo (shaft-end face, at the bottom), inside the shaft-end pad: the lead
+    is folded 90 deg in it and leaves SIDEWAYS, then runs along the servo's side. (Straight on, it would run into the
+    part that turns on this joint: bearing plate, sole, U.) The pocket is closed toward the ear tip."""
+    side = side or CABLE_SIDE
     (x0, x1), (y0, y1), (z0, z1) = J_CABLE
-    return add_box(new_bm(), J_EAR_X[0] - 0.6, x1, y0 - 0.6, y1 + 0.6, z0 - 0.6, z1 + 1.2, M)
+    xa = J_EAR_X[0] + 0.4
+    along = add_box(new_bm(), xa, x1, y0 - 0.6, y1 + 0.6, z0 - 0.6, z1 + 1.2, M)
+    ys = sorted((0.0, side * (J_EAR_HW + 2.2)))
+    out = add_box(new_bm(), xa + 0.05, J_BODY_X[0] - 0.35, ys[0], ys[1], z0 - 0.55, z1 + 1.15, M)
+    return combine_cutters([along, out])
 
 
 # ================================================================== type C
@@ -158,8 +169,14 @@ def cap_features(M, include_plate=True, saddle=True):
     add += ear_pads(M, J_EAR_Z[1], 0.6)
     if saddle:
         add += saddle_walls(M, -SADDLE_DEPTH, 0.6)
+    # Lip hole: a SQUARE opening (clipped to the seat circle) instead of a round one. The cap prints with the seat open to the
+    # bed, so the lip is the seat's ceiling: with a round hole it is a 2 mm ring hanging in the air; with a square one it is
+    # four straight 12 mm bridges from wall to wall, which print without support. The outer ring is still carried over 4 arcs
+    # of about +-30 deg; the inner ring and the rotor's shoulder (16.6) stay clear (apothem LIP_SQ > LIP_HOLE_D / 2).
+    rc = SEAT_D / 2 - 0.05
+    sq = [(max(-LIP_SQ, min(LIP_SQ, rc * math.cos(2 * math.pi * i / 96))), max(-LIP_SQ, min(LIP_SQ, rc * math.sin(2 * math.pi * i / 96)))) for i in range(96)]
     sub = [add_cyl(new_bm(), 0, 0, LIP, CAP_T + 1, SEAT_D, 64, M),
-           add_cyl(new_bm(), 0, 0, -1, LIP + 0.01, LIP_HOLE_D, 48, M)]
+           add_hull(new_bm(), [(x, y, z) for x, y in sq for z in (-0.2, LIP + 0.03)], M)]      # 0.2 past the plate's servo face: one layer, no pocket in the pads
     for hx in J_HOLE_X:
         sub.append(add_cyl(new_bm(), hx, 0, J_EAR_Z[1] - 0.5, J_EAR_Z[1] + 4.4, PILOT_D, 16, M))
     return add, sub
@@ -177,6 +194,86 @@ def link_features(M, plate_outline_mm=None, angle_deg=0.0):
            combine_cutters([add_cyl(new_bm(), 0, 0, BOSS_Z0 - 1.1, PLATE_Z1 + 1.1, CLEAR_D, 20, M),      # clamp hole + counterbore
                             add_cyl(new_bm(), 0, 0, CB_Z, PLATE_Z1 + 0.9, CB_D, 26, M)])]                # as ONE cutter
     return add, sub, []
+
+
+# ---- bayonet retention for a type-C joint (keeps the rotor on if the horn screw or the horn lets go) -----------------------
+# One hook on the stator's cap plate, opposite the rotor's arm, reaches over a 2 mm flange left round the rotor's disc
+# (the disc above the flange is turned down to BAY_STEP_R where the hook passes: no added height). The flange has one notch:
+# the rotor only goes on at the assembly angle, outside the working range. 0.3 mm axial play: the hook never rubs.
+BAY_W = 24.0                                          # hook width, deg (4.9 mm of arc)
+BAY_R0, BAY_R1 = BOSS_D / 2 + 3.0 + 0.4, CAP_RING_R - 0.15   # hook post: 10.9 .. 12.6 (inside the cap ring's footprint)
+BAY_STEP_R = 9.0                                      # disc radius above the flange
+BAY_FLANGE_Z = PLATE_Z0 + 2.0                         # flange top (7.4)
+BAY_LIP_Z = (BAY_FLANGE_Z + 0.3, BAY_FLANGE_Z + 1.8)  # lip 7.7 .. 9.2 (below the rotor plate's top, 9.9)
+
+
+def _revolve(profile_rz, a0, a1, M):
+    """a closed (r, z) profile swept from angle a0 to a1 (deg) about Z: ONE closed solid, built directly"""
+    bm = new_bm()
+    n = max(2, int(math.ceil((a1 - a0) / 6.0)))
+    rings = [[bm.verts.new(J(r * math.cos(math.radians(a0 + (a1 - a0) * i / n)), r * math.sin(math.radians(a0 + (a1 - a0) * i / n)), z)) for i in range(n + 1)] for r, z in profile_rz]
+    for a, b in zip(rings, rings[1:] + rings[:1]):
+        for i in range(n):
+            bm.faces.new((a[i], a[i + 1], b[i + 1], b[i]))
+    bm.faces.new([r[0] for r in rings])
+    bm.faces.new([r[n] for r in rings][::-1])
+    bmesh.ops.recalc_face_normals(bm, faces=list(bm.faces))
+    if M is not None:
+        bmesh.ops.transform(bm, matrix=M, verts=list(bm.verts))
+    return bm
+
+
+def _sector(r0, r1, a0, a1, z0, z1, M):
+    return _revolve([(r1, z0), (r1, z1), (r0, z1), (r0, z0)], a0, a1, M)
+
+
+def bayonet_hook(M, phi_deg):
+    """[solid] to add to the stator: post on the cap plate + lip over the rotor's flange (one L-section solid), centred at angle phi (servo frame)"""
+    zb, (zl, zt), rl = CAP_T - 0.3, BAY_LIP_Z, BAY_STEP_R + 0.4
+    return [_revolve([(BAY_R0, zb), (BAY_R1, zb), (BAY_R1, zt), (rl, zt), (rl, zl), (BAY_R0, zl)], phi_deg - BAY_W / 2, phi_deg + BAY_W / 2, M)]
+
+
+def bayonet_rim_cuts(M, phi_deg, lo_deg, hi_deg, assemble_deg, sign=1.0, notch=True):
+    """[cutters] for the rotor: the step where the hook passes (working range + the way to the assembly angle) and the notch
+    in the flange under the hook at the assembly angle. sign: +1 if the rotor turns about the servo's +Z for a positive joint angle."""
+    th = sorted((lo_deg, hi_deg, assemble_deg))
+    ra = sorted((phi_deg - sign * th[0], phi_deg - sign * th[-1]))
+    m = BAY_W / 2 + 2.0
+    na = phi_deg - sign * assemble_deg
+    # (the two cutters share no face: different radii, heights and end angles)
+    step = _sector(BAY_STEP_R, BAY_R1 + 1.5, ra[0] - m - 1.5, ra[1] + m + 1.5, BAY_FLANGE_Z, PLATE_Z1 + 1.0, M)
+    return [step, _sector(BAY_STEP_R - 0.2, BAY_R1 + 2.0, na - m, na + m, PLATE_Z0 - 0.5, BAY_FLANGE_Z + 0.2, M)] if notch else [step]
+
+
+# ---- keeper clip: the same hook as a separate small print, screwed on AFTER the rotor is in place ------------------------------
+# No assembly angle, and both big parts keep their flat print face. One M2x6 self-tapper; a rib under the clip sits in a slot
+# through the cap plate (takes the pull-off load in shear and stops the clip turning). The clip prints lying on its side.
+KEEP_HW = 3.5                                         # half-width of the foot
+KEEP_RIB_X, KEEP_SCREW_X, KEEP_END_X = (13.2, 14.7), 17.2, 19.6
+KEEP_SEAT_Z = CAP_T + 1.65                            # screw head seat: 1.6 mm of clip under the head, 4.4 mm of thread in the plate
+
+
+def keeper_features(M, phi_deg):
+    """(add, sub) of the clip, in place on the stator; +X of the clip = direction phi"""
+    Mk = _rot(M, phi_deg)
+    zb, (zl, zt), rl = CAP_T + 0.09, BAY_LIP_Z, BAY_STEP_R + 0.4
+    add = [combine_cutters([_revolve([(BAY_R0, zb), (BAY_R1, zb), (BAY_R1, zt), (rl, zt), (rl, zl), (BAY_R0, zl)], -BAY_W / 2, BAY_W / 2, Mk),
+                            add_box(new_bm(), BAY_R0 + 1.2, KEEP_END_X, -KEEP_HW, KEEP_HW, CAP_T + 0.05, zt - 0.2, Mk),
+                            add_box(new_bm(), KEEP_RIB_X[0], KEEP_RIB_X[1], -KEEP_HW + 0.02, KEEP_HW - 0.02, CAP_T - 1.5, CAP_T + 0.5, Mk)])]
+    sub = [combine_cutters([add_cyl(new_bm(), KEEP_SCREW_X, 0, CAP_T - 1.0, zt + 1.0, CLEAR_D, 20, Mk),
+                            add_cyl(new_bm(), KEEP_SCREW_X, 0, KEEP_SEAT_Z, zt + 0.9, CB_D, 26, Mk)])]
+    return add, sub
+
+
+def keeper_seat_cuts(M, phi_deg):
+    """[cutters] for the stator's cap plate: the rib's slot (through) and the screw's pilot"""
+    Mk = _rot(M, phi_deg)
+    return [add_box(new_bm(), KEEP_RIB_X[0] - 0.15, KEEP_RIB_X[1] + 0.15, -KEEP_HW - 0.2, KEEP_HW + 0.2, -1.0, CAP_T + 1.0, Mk),
+            add_cyl(new_bm(), KEEP_SCREW_X, 0, CAP_T - 4.5, CAP_T + 0.5, PILOT_D, 14, Mk)]
+
+
+def keeper_screw(name, M, phi_deg, coll):
+    return pan_screw_dummy(name, [(_rot(M, phi_deg), KEEP_SCREW_X, 0, KEEP_SEAT_Z, -1)], coll)
 
 
 # ================================================================== type F

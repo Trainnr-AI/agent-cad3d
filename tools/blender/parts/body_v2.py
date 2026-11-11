@@ -6,11 +6,11 @@ Runs inside Blender after the servos, legs and neck are built.
                replaces hip_yaw_support; neck pedestal + horn plate (full X pocket) - replaces body_neck_mount, moved
                straight under the neck axis so it clears the hip-yaw servos (the old web cut into both of them).
   electronics_enclosure   separate part behind the hips, shaped to what the legs and the head leave free: a keel
-               (servo adapter, regulator) and a pocket above it (battery, a hub); hangs on the body by a tongue under
+               (balance sensor on the floor, servo adapter + regulator on two rails above it) and a pocket above it (battery on its shelf); hangs on the body by a tongue under
                the deck + 3x M2x6 into the deck's rear edge (driven from behind through access holes).
-  body_lid     top plate on the enclosure's posts, 4x M2x6: closes the pocket, carries the IMU and, on stand-offs,
+  body_lid     top plate on the enclosure's posts, 4x M2x6: closes the pocket and carries, on stand-offs,
                the Uno Q (it fits nowhere inside: 69 x 53 mm against a 36-44 mm wide free space).
-  electronics  collection of boxes: uno_q, battery_3s, servo_adapter, ubec, imu, hub_1..4 (sizes: see ELEC; the
+  electronics  collection of boxes: uno_q, battery_3s, servo_adapter, ubec, imu (the bus board is drawn by wiring.py; sizes: see ELEC; the
                battery and regulator sizes are ASSUMED, the others from the makers' pages)
 
 All boxes are given in "layout coordinates" = world mm with the duck at its usual place (trunk at 0, -100, 118.8),
@@ -55,6 +55,14 @@ def box(x0, x1, y0, y1, z0, z1):
     return L["add_box"](L["new_bm"](), x0 - HOME.x, x1 - HOME.x, y0 - HOME.y, y1 - HOME.y, z0 - HOME.z, z1 - HOME.z, Mt)
 
 
+SLOPE = 1.45                              # undersides rise 1.45 per 1 out (55 deg from the bed: inside print_check's 50 deg limit)
+
+
+def hull(pts):
+    """convex solid through points given in layout coordinates"""
+    return L["add_hull"](L["new_bm"](), [(x - HOME.x, y - HOME.y, z - HOME.z) for x, y, z in pts], Mt)
+
+
 def lay(M, p_frame_mm):
     """a servo-frame point -> layout coordinates"""
     return Mt.inverted() @ (M @ (Vector(p_frame_mm) * MM)) / MM + HOME
@@ -93,7 +101,14 @@ XP1 = -5.0                                # pocket front face (the hip-yaw servo
 XD = 43.0                                 # centre strip's front edge (under the neck)
 HS = 9.0                                  # centre strip half-width (the L-brackets rise beside it when the hips roll out)
 UNO = dict(len=68.85, wid=53.34, pcb=1.6, top=10.0, pins=3.0)
-ELEC = {"battery_3s": (42.0, 30.0, 13.0), "servo_adapter": (42.0, 18.5, 33.0), "ubec": (43.0, 8.0, 18.0), "imu": (25.6, 22.7, 4.6), "hub": (6.0, 17.0, 20.0)}
+ELEC = {"battery_3s": (40.0, 30.0, 13.0), "servo_adapter": (42.0, 18.5, 33.0), "ubec": (43.0, 8.0, 18.0), "imu": (25.6, 22.7, 4.6)}
+LIFT = 1.6                                # the battery shelf sits this much above the deck's top face (room for the adapter standing on its rails)
+z_sh = z_deck1 + LIFT
+# No electronics on the motor body: the custom bus board is gone (kit hubs only). What the body still offers the wiring:
+PORT = dict(y0=CY + 8.6, y1=CY + HK - T - 0.4, z0=86.5, z1=93.0)          # cable port through the keel's front wall, beside the tongue, under the deck
+CHEST = dict(x0=XD + 0.3, t=1.6, y0=CY - 1.5, y1=CY + 21.0, z0=None, z1=105.5)    # chest plate standing on the front of the centre strip: seat for ONE kit hub (hub_seats.py); from the deck's underside up, so the body still prints flat on that face
+IMU_XY, IMU_HOLES, IMU_BOSS = (-29.5, CY), (10.16, 8.89), 3.4               # balance sensor flat on the keel floor: centre, hole half-pitches, boss height
+RAIL_H = 8.6                              # the adapter and the regulator stand on two rails at the keel's ends, above the sensor
 Y = lambda h: (CY - h, CY + h)
 
 # ------------------------------------------------------------------ electronics enclosure: simple boxes unioned first
@@ -107,13 +122,16 @@ tub += [box(XR, XK1, y0, y1, ZB, ZB + T),                                  # flo
         box(XR + 0.3, XK1 - 0.3, y1 - T, y1, ZB + 0.3, z_deck1)]
 # pocket floor ring: joins the wider pocket to the keel (a 4 mm ledge each side), open in the middle
 (p0, p1) = Y(HP)
-tub += [box(XR, XP1, p0, y0 + T, z_deck0 + 2.0, z_deck1), box(XR, XP1, y1 - T, p1, z_deck0 + 2.0, z_deck1)]
+tub += [box(XR, XP1, p0, y0 + T, z_deck0 + 2.0, z_sh), box(XR, XP1, y1 - T, p1, z_deck0 + 2.0, z_sh)]
 # pocket walls: rear part low, front part high
 tub += [box(XR, XR + T, p0, p1, z_deck0 + 2.3, ZP_REAR),
         box(XR + 0.3, XP1, p0, p0 + T, z_deck0 + 2.3, ZP_REAR), box(XR + 0.3, XP1, p1 - T, p1, z_deck0 + 2.3, ZP_REAR),
         box(XP_STEP, XP1, p0, p0 + T, ZP_REAR - 0.3, ZP_FRONT), box(XP_STEP, XP1, p1 - T, p1, ZP_REAR - 0.3, ZP_FRONT),
-        box(XP_STEP, XP_STEP + T, p0 + 0.3, p1 - 0.3, ZP_REAR - 0.3, ZP_FRONT),      # step wall
         box(XP1 - T, XP1, p0 + 0.3, p1 - 0.3, z_deck0 + 2.3, ZP_FRONT)]              # front wall (behind the hip-yaw servos)
+# printable without supports (enclosure stands on its keel floor): every underside is at 45 deg or steeper
+for sgn in (-1, 1):                                                       # under the pocket's ledges
+    ya, yb = CY + sgn * (HK - 0.3), CY + sgn * HP
+    tub.append(hull([(x, y, z) for x in (XR, XP1) for y, z in ((ya, z_deck0 + 2.3), (yb, z_deck0 + 2.3), (ya, z_deck0 + 2.0 - SLOPE * (HP - HK) - 0.3))]))
 enc = list(tub)                                                           # everything so far is the enclosure
 tub = []
 # ------------------------------------------------------------------ motor body: deck with the two hip-yaw caps (as the old hip
@@ -124,20 +142,25 @@ cap_yR = sorted((lay(FyR, (0, -L["CAP_HW"], 0)).y, lay(FyR, (0, L["CAP_HW"], 0))
 X_JOIN = XP1 + 0.15                                                                 # deck's rear edge: 0.15 behind it starts the enclosure
 tub += [box(X_JOIN, cap_x[1], cap_yR[0], cap_yL[1], z_deck0, z_deck1),             # one plate under both servos
         box(cap_x[1] - 0.6, XD, CY - HS, CY + HS, z_deck0, z_deck1)]
-ring = [(L["CAP_RING_R"] * math.cos(2 * math.pi * i / 48), L["CAP_RING_R"] * math.sin(2 * math.pi * i / 48)) for i in range(48)]
-for F in (FyL, FyR):                                                              # the bearing seat's ring
-    tub.append(L["add_hull"](L["new_bm"](), [(x, y, z) for x, y in ring for z in (0.02, L["CAP_T"] - 0.02)], F))
+# (no ring round the bearing seats beyond this plate: outboard of it the L-bracket's pitch ring rises at roll-out,
+#  exactly as with the old hip plate - the seat is open over that arc)
+tub.append(box(CHEST["x0"] - 0.6, CHEST["x0"] + CHEST["t"], CHEST["y0"], CHEST["y1"], z_deck0, CHEST["z1"]))        # chest plate (0.6 into the strip's front end)
 body_solids = list(tub)
 tub = []
 # top plate posts: on the pocket's high walls (enclosure)
 POSTS = [(XP_STEP + T - 0.3, p0 + T - 0.3), (XP_STEP + T - 0.3, p1 - T - 5.0 + 0.3), (XP1 - T - 5.0 + 0.3, p0 + T - 0.3), (XP1 - T - 5.0 + 0.3, p1 - T - 5.0 + 0.3)]
 for px, py in POSTS:
-    enc.append(box(px, px + 5.0, py, py + 5.0, ZP_FRONT - 9.0, ZP_FRONT - 0.01))
+    enc.append(box(px, px + 5.0, py, py + 5.0, ZP_FRONT - 4.6, ZP_FRONT - 0.01))
+    yw = p0 + T - 0.3 if py < CY else p1 - T + 0.3                        # corbel under the post, down the side wall
+    yo = py + 5.0 if py < CY else py
+    enc.append(hull([(x, y, z) for x in (px, px + 5.0) for y, z in ((yw, ZP_FRONT - 4.3), (yo, ZP_FRONT - 4.3), (yw, ZP_FRONT - 4.6 - SLOPE * 5.3))]))      # short: cables pass under them
 # how the enclosure hangs on the body: a tongue under the deck (centre, between the hips) + 3x M2x6 through its front wall
 # into the deck's rear edge, driven from behind through access holes in the rear wall
 TONGUE = (XP1 - 0.3, 3.0, 8.0, 3.0)                                        # from x, to x, half-width, thickness
 enc.append(box(TONGUE[0], TONGUE[1], CY - TONGUE[2], CY + TONGUE[2], z_deck0 - 0.2 - TONGUE[3], z_deck0 - 0.2))
 enc.append(box(XK1 - 0.3, TONGUE[0] + 0.3, CY - TONGUE[2], CY + TONGUE[2], z_deck0 - 0.2 - TONGUE[3], z_deck0 - 0.2))   # ties the tongue to the keel's front wall
+zt = z_deck0 - 0.2 - TONGUE[3]                                             # gusset under the tongue, down the keel's front wall
+enc.append(hull([(x, y, z) for y in (CY - TONGUE[2], CY + TONGUE[2]) for x, z in ((XK1 - 0.3, zt + 0.3), (TONGUE[1], zt + 0.3), (XK1 - 0.3, zt - SLOPE * (TONGUE[1] - XK1) - 0.3))]))
 JOIN_Y = (-8.0, 0.0, 8.0)
 z_join = (z_deck0 + z_deck1) / 2
 # neck pedestal: straight under the neck axis, between the horn plate and the bearing plate
@@ -155,6 +178,8 @@ z_web = lay(Fn, (0, 0, 0)).z - WEB_R[0]
 # full fork width only near the top; below that the pedestal keeps to the strip's +Y edge (room for the left L-bracket at roll-out)
 pedestal = L["combine_cutters"]([box(nx - WEB_HW + 0.2, nx + WEB_HW - 0.2, y_in + 0.2, y_out - 0.2, z_web - 6.0, z_web - 1.0),
                                  box(nx - WEB_HW + 0.25, nx + WEB_HW - 0.25, y_in + 0.25, CY + HS - 0.3, z_deck1 - 0.5, z_web - 5.7)])
+ped_w = y_out - 0.2 - (CY + HS - 0.3)                                      # how far the wide top overhangs the narrow base
+ped_gusset = hull([(x, y, z) for x in (nx - WEB_HW + 0.25, nx + WEB_HW - 0.25) for y, z in ((CY + HS - 0.6, z_web - 5.7), (y_out - 0.2, z_web - 5.7), (CY + HS - 0.6, z_web - 6.0 - SLOPE * ped_w - 0.3))])
 ped_foot = box(nx - WEB_HW + 0.2, nx + WEB_HW - 0.2, y_in + 0.3, CY + HS - 0.35, z_deck0 + 0.02, z_deck1 + 2.0)   # ties the pedestal into the strip
 arm_reach = [tuple((wd * r + tn * s * (WEB_HW - 0.4))[:2]) for r in (WEB_R[0] + 0.4, WEB_R[1] - 0.4) for s in (-1, 1)]
 a_add, a_sub, a_rib = L["horn_plate_features"](Fn, arm_reach, angle_deg=45.0)
@@ -174,36 +199,66 @@ def xpt(y, z):
 
 
 cuts = [box(servo_front - 12.0, servo_front + 1.5, y_out - (ARM[1] - ARM[0]) - 0.6, y_out + 2.0, z_holder_top + 2.0, ZP_FRONT + 30.0),   # horn plate, where it nears the left servo
-        box(4.0, 24.0, CY - 4.5, CY + 4.5, z_deck0 - 1.0, z_deck1 + 1.0)]                                                               # cable slot between the two servos
+        box(6.5, 23.0, CY - 4.5, CY + 4.5, z_deck0 - 1.0, z_deck1 + 1.0)]      # cable slot through the deck slot between the two servos (clear of the enclosure's tongue)
+# the pedestal's front top corner, cut at 45 deg: the cradle's edge passes there when the neck is fully forward
+Mc = Mt @ Matrix.Translation(Vector((nx + 3.1 - HOME.x, 0.0, z_web - HOME.z)) * MM) @ Matrix.Rotation(math.radians(45), 4, "Y")
+cuts.append(L["add_box"](L["new_bm"](), -12.0, 12.0, y_in - 1.0 - HOME.y, y_out - (ARM[1] - ARM[0]) - 0.35 - HOME.y, 0.0, 14.0, Mc))
 for y in JOIN_Y:                                                           # pilots in the deck's rear edge for the enclosure's screws
     cuts.append(L["add_cyl"](L["new_bm"](), *xpt(CY + y, z_join), X_JOIN - HOME.x - 0.5, X_JOIN - HOME.x + 4.6, L["PILOT_D"], 14, MX))
-frame = finish("body_frame", L["build_part"]("body_frame", [L["combine_cutters"](body_solids + [pedestal, ped_foot, web] + cL + cR)] + a_add,   # all simple solids unioned first
+frame = finish("body_frame", L["build_part"]("body_frame", [L["combine_cutters"](body_solids + [pedestal, ped_gusset, ped_foot, web] + cL + cR)] + a_add,   # all simple solids unioned first
                                              a_sub + [L["combine_cutters"](sL), L["combine_cutters"](sR)] + cuts, coll, mat_frame, a_rib))   # each cap's cuts as ONE cutter
 enc_cuts = []
 for px, py in POSTS:
-    enc_cuts.append(L["add_cyl"](L["new_bm"](), px + 2.5 - HOME.x, py + 2.5 - HOME.y, ZP_FRONT - 8.0 - HOME.z, ZP_FRONT + 1.0 - HOME.z, L["PILOT_D"], 14, Mt))
+    enc_cuts.append(L["add_cyl"](L["new_bm"](), px + 2.5 - HOME.x, py + 2.5 - HOME.y, ZP_FRONT - 5.5 - HOME.z, ZP_FRONT + 1.0 - HOME.z, L["PILOT_D"], 14, Mt))
+enc_cuts.append(box(XR - 0.5, XR + T + 0.5, CY - 5.3, CY + 5.3, z_sh + 0.0, z_sh + 2.0))            # slot for the battery shelf's tab
+for sgn in (-1, 1):                                                        # pilots for the shelf's two screws, down through the ledge and its boss
+    enc_cuts.append(L["add_cyl"](L["new_bm"](), XP1 - T - 4.2 - HOME.x, CY + sgn * (HP - T - 2.0) - HOME.y, z_sh - 4.7 - HOME.z, z_sh + 0.5 - HOME.z, L["PILOT_D"], 14, Mt))
+enc_cuts.append(box(XP1 - T - 0.5, XP1 + 0.5, CY - 8.5, CY + 8.5, ZP_FRONT - 5.5, ZP_FRONT + 1.0))      # cable notch in the pocket's front wall: the servo adapter's cable to the bus board
+enc_cuts.append(box(XK1 - T - 0.5, XK1 + 0.5, PORT["y0"], PORT["y1"], PORT["z0"], PORT["z1"]))       # cable port: the adapter's two cables leave the keel here
 for y in JOIN_Y:
-    enc_cuts.append(L["add_cyl"](L["new_bm"](), *xpt(CY + y, z_join), XP1 - T - 0.6 - HOME.x, XP1 + 0.6 - HOME.x, L["CLEAR_D"], 16, MX))      # clearance through the front wall
+    enc_cuts.append(L["add_cyl"](L["new_bm"](), *xpt(CY + y, z_join), XK1 - T - 0.6 - HOME.x, XP1 + 0.6 - HOME.x, L["CLEAR_D"], 16, MX))      # clearance through the front walls (keel + pocket: 2.6 mm)
     enc_cuts.append(L["add_cyl"](L["new_bm"](), *xpt(CY + y, z_join), XR - 0.6 - HOME.x, XR + T + 0.6 - HOME.x, 4.6, 20, MX))                 # driver access through the rear wall
+# keel fittings: sensor bosses on the floor, two rails across the ends (adapter + regulator stand on them, above the sensor),
+# and a fence post on each rail between the adapter and the regulator
+zk0 = ZB + T
+for sx in (-1, 1):
+    for sy in (-1, 1):
+        ix, iy = IMU_XY[0] + sx * IMU_HOLES[0], IMU_XY[1] + sy * IMU_HOLES[1]
+        enc.append(L["add_cyl"](L["new_bm"](), ix - HOME.x, iy - HOME.y, zk0 - 0.3 - HOME.z, zk0 + IMU_BOSS - HOME.z, 4.6, 20, Mt))
+        enc_cuts.append(L["add_cyl"](L["new_bm"](), ix - HOME.x, iy - HOME.y, zk0 + IMU_BOSS - 4.6 - HOME.z, zk0 + IMU_BOSS + 0.5 - HOME.z, L["PILOT_D"], 14, Mt))
+y_ad = CY - HK + T + 0.4 + ELEC["servo_adapter"][1]                          # the adapter's inner face
+y_ub = CY + HK - T - 0.4 - ELEC["ubec"][1]                                   # the regulator's inner face
+for xa, xb in ((XR + T - 0.3, XR + T + 5.4), (XK1 - T - 5.4, XK1 - T + 0.3)):
+    enc.append(box(xa, xb, CY - HK + T - 0.3, CY + HK - T + 0.3, zk0 - 0.3, zk0 + RAIL_H))
+    enc.append(box(xa, xb, y_ad + 0.4, y_ub - 0.4, zk0 + RAIL_H - 0.3, zk0 + RAIL_H + 16.0))
 mat_enc = L["material"]("electronics_enclosure", (0.35, 0.55, 0.75, 1))
 enclosure = finish("electronics_enclosure", L["build_part"]("electronics_enclosure", [L["combine_cutters"](enc)], enc_cuts, coll, mat_enc))
-enc_screws = L["pan_screw_dummy"]("enclosure_screws_M2x6st", [(MX, *xpt(CY + y, z_join), XP1 - T - HOME.x, +1) for y in JOIN_Y], coll)
+enc_screws = L["pan_screw_dummy"]("enclosure_screws_M2x6st", [(MX, *xpt(CY + y, z_join), XK1 - T - HOME.x, +1) for y in JOIN_Y], coll)   # head on the keel wall's inner face
 
 # ------------------------------------------------------------------ top plate: closes the pocket and carries the Uno Q above the body
 LID_T = 2.0
 ZL = ZP_FRONT + 0.1
-UX0 = XP1 + 3.0 - UNO["len"] + 21.0                                       # Uno Q: over the pocket and the hip-yaw servos (x -50 .. 19)
-lid_add = [box(XP_STEP + 0.3, XP1 + 17.0, CY - UNO["wid"] / 2 - 0.5, CY + UNO["wid"] / 2 + 0.5, ZL, ZL + LID_T)]
-STAND = 3.5                                                                # stand-offs under the board (clear of its underside pins)
+UX0 = XR + 0.2                                                             # Uno Q: from the enclosure's rear face forward (x -52.8 .. 16.1)
+UY0 = CY - UNO["wid"] / 2
+UNO_HOLES = [(14.0, 2.5), (15.2, 50.7), (66.0, 7.6), (66.0, 35.5)]         # UNO form-factor mounting holes (Ø3.2), from the board's corner - ASSUMED for the Uno Q
+STAND = 4.5                                                                # posts under the board (its underside pins clear the top plate's screw heads)
 uno_z = ZL + LID_T + STAND
-for sx in (XP_STEP + 2.0, XP1 + 13.0):
-    for sy in (CY - UNO["wid"] / 2 + 0.2, CY + UNO["wid"] / 2 - 3.2):
-        lid_add.append(box(sx, sx + 4.0, sy, sy + 3.0, ZL + LID_T - 0.3, uno_z))
+lid_add = [box(XR + 0.3, UX0 + UNO["len"] - 0.5, CY - UNO["wid"] / 2 - 0.5, CY + UNO["wid"] / 2 + 0.5, ZL, ZL + LID_T)]      # as long as the board: also covers the pocket's rear part
+for hx, hy in UNO_HOLES:
+    lid_add.append(L["add_cyl"](L["new_bm"](), UX0 + hx - HOME.x, UY0 + hy - HOME.y, ZL + LID_T - 0.3 - HOME.z, uno_z - HOME.z, 6.4, 28, Mt))
 lid_sub = []
 for px, py in POSTS:
     M = Mt @ Matrix.Translation(Vector((px + 2.5 - HOME.x, py + 2.5 - HOME.y, ZL + LID_T - HOME.z)) * MM)
     lid_sub += L["screw_holes"](M, [(0, 0)], 0.0, LID_T, 0.0, -1, csk=False)
+for hx, hy in UNO_HOLES:                                                   # M3 thread-forming pilots down the posts and through the plate
+    lid_sub.append(L["add_cyl"](L["new_bm"](), UX0 + hx - HOME.x, UY0 + hy - HOME.y, ZL - 1.0 - HOME.z, uno_z + 1.0 - HOME.z, 2.5, 16, Mt))
+lid_sub.append(box(XR - 1.0, XR + 9.0, CY - 12.0, CY + 12.0, ZL - 1.0, ZL + LID_T + 1.0))      # wire notch at the rear: battery / IMU / UART wires come up here to the board
 lid = finish("body_lid", L["build_part"]("body_lid", [L["combine_cutters"](lid_add)], lid_sub, coll, mat_lid))
+us = L["new_bm"]()
+for hx, hy in UNO_HOLES:                                                   # M3x8 socket-head screws: through the board (1.6) into the posts (6.4)
+    L["add_cyl"](us, UX0 + hx - HOME.x, UY0 + hy - HOME.y, uno_z + UNO["pcb"] - HOME.z, uno_z + UNO["pcb"] + 3.0 - HOME.z, 5.5, 24, Mt)
+    L["add_cyl"](us, UX0 + hx - HOME.x, UY0 + hy - HOME.y, uno_z + UNO["pcb"] - 8.0 - HOME.z, uno_z + UNO["pcb"] + 0.01 - HOME.z, 3.0, 16, Mt)
+uno_screws = L["to_object"]("uno_screws_M3x8", us, coll, L["material"]("hw_steel", (0.6, 0.62, 0.66, 1)))
 lid_screws = L["pan_screw_dummy"]("body_lid_screws_M2x6st", [(Mt @ Matrix.Translation(Vector((px + 2.5 - HOME.x, py + 2.5 - HOME.y, ZL + LID_T - HOME.z)) * MM), 0, 0, 0.0, -1) for px, py in POSTS], coll)
 
 # ------------------------------------------------------------------ electronics (boxes)
@@ -217,21 +272,42 @@ elec = []
 u = L["new_bm"]()
 for b in (box(UX0, UX0 + UNO["len"], CY - UNO["wid"] / 2, CY + UNO["wid"] / 2, uno_z, uno_z + UNO["pcb"]),
           box(UX0 + 2.0, UX0 + UNO["len"] - 2.0, CY - UNO["wid"] / 2 + 1.3, CY + UNO["wid"] / 2 - 1.3, uno_z + UNO["pcb"], uno_z + UNO["pcb"] + UNO["top"]),
-          box(UX0 + 3.0, UX0 + UNO["len"] - 3.0, CY - UNO["wid"] / 2 + 4.5, CY + UNO["wid"] / 2 - 4.5, uno_z - UNO["pins"] + 0.3, uno_z)):
+          box(UX0 + 19.5, UX0 + 61.5, CY - UNO["wid"] / 2 + 6.5, CY + UNO["wid"] / 2 - 6.5, uno_z - UNO["pins"] + 0.3, uno_z)):      # underside pins: not at the mounting holes
     b.to_mesh(tmp := bpy.data.meshes.new("t"))
     u.from_mesh(tmp)
     bpy.data.meshes.remove(tmp)
 elec.append(L["to_object"]("uno_q", u, ecoll, L["material"]("elec_uno", (0.0, 0.45, 0.55, 1))))
-zk = ZB + T + 0.5                                                           # keel floor
+zk = ZB + T + RAIL_H                                                        # top of the rails
 elec.append(ebox("servo_adapter", XR + T + 0.4, CY - HK + T + 0.4, zk, ELEC["servo_adapter"], (0.1, 0.25, 0.7, 1)))
 elec.append(ebox("ubec", XR + T + 0.4, CY + HK - T - 0.4 - ELEC["ubec"][1], zk, ELEC["ubec"], (0.75, 0.1, 0.1, 1)))
-elec.append(ebox("battery_3s", XR + T + 0.6, CY - ELEC["battery_3s"][1] / 2, z_deck1 + 0.4, ELEC["battery_3s"], (0.15, 0.15, 0.15, 1)))
-elec.append(ebox("imu", XP_STEP + T + 0.6, CY - HP + T + 0.5, ZP_REAR + 1.2, ELEC["imu"], (0.5, 0.1, 0.6, 1)))      # in the pocket's front part, above the battery
-for i in range(5):                                                          # hubs: in the slot between the two hip-yaw servos
-    elec.append(ebox(f"hub_{i + 1}", -3.0 + i * 6.4, CY - ELEC["hub"][1] / 2, z_deck1 + 2.0, ELEC["hub"], (0.05, 0.5, 0.15, 1)))
-elec.append(ebox("hub_6", XP_STEP + T + 0.6, CY + HP - T - 0.5 - 17.0, ZP_REAR + 1.2, (20.0, 17.0, 6.0), (0.05, 0.5, 0.15, 1)))     # flat, beside the IMU
+SHELF_T = 1.6                                                               # loose shelf on the pocket's ledges: the battery lies on it, above the keel
+SH_SCREW = (XP1 - T - 4.2, HP - T - 2.0)                                   # shelf screws: x, |y - CY| (over the ledges, where the legs leave most room)
+shelf_add = [box(XR + T + 0.3, XP1 - T - 0.3, CY - HP + T + 0.3, CY + HP - T - 0.3, z_sh + 0.1, z_sh + 0.1 + SHELF_T),
+             box(XR + 0.25, XR + T + 0.6, CY - 5.0, CY + 5.0, z_sh + 0.15, z_sh + 0.05 + SHELF_T)]       # tab into the rear wall's slot
+BAT = ELEC["battery_3s"]
+for sgn in (-1, 1):                                                         # battery seat: a rib each side and two stops at its front end (hook-and-loop patch underneath)
+    ya = sorted((CY + sgn * (BAT[1] / 2 + 0.4), CY + sgn * (BAT[1] / 2 + 1.6)))
+    shelf_add.append(box(XR + T + 4.0, XR + T + 34.0, ya[0], ya[1], z_sh + SHELF_T - 0.2, z_sh + 0.1 + SHELF_T + 6.0))
+    yb = sorted((CY + sgn * 8.6, CY + sgn * 14.0))
+    shelf_add.append(box(XR + T + 0.3 + BAT[0] + 0.4, XR + T + 0.3 + BAT[0] + 1.6, yb[0], yb[1], z_sh + SHELF_T - 0.2, z_sh + 0.1 + SHELF_T + 6.0))
+shelf_sub = [box(XP1 - T - 7.0, XP1 - T + 1.0, CY - 8.0, CY + 8.0, z_sh - 1.0, z_sh + 3.0)]      # notch at the front: wires from the keel come up here
+Msh = [Mt @ Matrix.Translation(Vector((SH_SCREW[0] - HOME.x, CY + sgn * SH_SCREW[1] - HOME.y, z_sh + 0.1 + SHELF_T - HOME.z)) * MM) for sgn in (-1, 1)]
+for M in Msh:
+    shelf_sub += L["screw_holes"](M, [(0, 0)], 0.0, SHELF_T, 0.0, -1, csk=False)
+shelf = finish("battery_shelf", L["build_part"]("battery_shelf", [L["combine_cutters"](shelf_add)], shelf_sub, coll, mat_lid))
+shelf_screws = L["pan_screw_dummy"]("shelf_screws_M2x6st", [(M, 0, 0, 0.0, -1) for M in Msh], coll)
+elec.append(ebox("battery_3s", XR + T + 0.3, CY - ELEC["battery_3s"][1] / 2, z_sh + 0.1 + SHELF_T + 0.2, ELEC["battery_3s"], (0.15, 0.15, 0.15, 1)))
+z_top = z_sh + 0.1 + SHELF_T + 0.2 + ELEC["battery_3s"][2] + 0.3          # top of the battery
+# balance sensor: flat on four bosses on the keel floor (low, central, rigid), 4x M2x6 from above before the adapter goes in
+elec.append(ebox("imu", IMU_XY[0] - ELEC["imu"][0] / 2, IMU_XY[1] - ELEC["imu"][1] / 2, ZB + T + IMU_BOSS, ELEC["imu"], (0.5, 0.1, 0.6, 1)))
+imu_screws = L["pan_screw_dummy"]("imu_screws_M2x6st", [(Mt @ Matrix.Translation(Vector((IMU_XY[0] + sx * IMU_HOLES[0] - HOME.x, IMU_XY[1] + sy * IMU_HOLES[1] - HOME.y, ZB + T + IMU_BOSS + 1.6 - HOME.z)) * MM), 0, 0, 0.0, -1)
+                                                          for sx in (-1, 1) for sy in (-1, 1)], coll)
+for _n in ("bus_screw_M2x6st",):                                              # left over from the bus board
+    _o = bpy.data.objects.get(_n)
+    if _o:
+        bpy.data.objects.remove(_o, do_unlink=True)
 ZT = ZP_FRONT
-for o in [frame, enclosure, enc_screws, lid, lid_screws] + elec:
+for o in [frame, enclosure, enc_screws, lid, lid_screws, shelf, shelf_screws, uno_screws, imu_screws] + elec:
     mw = o.matrix_world.copy()
     o.parent = trunk
     o.matrix_world = mw

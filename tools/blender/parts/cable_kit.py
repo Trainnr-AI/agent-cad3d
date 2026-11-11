@@ -3,8 +3,9 @@ Sizes are ESTIMATED from the product photo, scaled by the servo and its horns (a
 with caliper values. Each servo has ONE fixed lead; the kit adds a 3-socket hub board and an extension cable.
 
   servo lead       flat 3-wire, 3.0 x 1.0 mm, 150 mm (datasheet), ends in a 3-pin plug
-  plug             6.0 long x 8.0 wide x 4.5 high (3-pin, 2.0-2.5 mm pitch)
-  hub board        17 x 20 x 1.2 mm green PCB, three 3-pin sockets (8 x 5.5 x 5 each), all in parallel
+  plug             9.5 long x 10 wide x 5.5 high (3-pin, 2.5 mm pitch, 5264 type)
+  hub board        20 x 17 mm green PCB with three SIDE-entry 3-pin sockets (12.3 wide x 9 deep x 6 high) opening in three
+                   directions (A and B opposite, C at 90 deg); about 24 x 20 x 7 overall, all three in parallel
   extension cable  three round wires (bundle 4.2 x 1.4), 165 mm between two plugs (180 overall)
 
 ARGS = {"collection": "cable_kit", "location": [0.3, 0.0, 0.0], "path": None}
@@ -15,9 +16,15 @@ import bpy
 from mathutils import Matrix, Vector
 
 LEAD_W, LEAD_T, LEAD_L = 3.0, 1.0, 150.0
-PLUG = (6.0, 8.0, 4.5)                  # length along the cable, width across the pins, height
-HUB = (17.0, 20.0, 1.2)
-SOCKET = (5.5, 8.0, 5.0)                # depth into the board, width, height above the board
+# Read from an 8x enlargement of the kit photo, scaled by the sockets' pin pitch taken as 2.5 mm (Feetech's SCS connector
+# is the 3-pin 5264 type). About +-10 %: replace with caliper values.
+PLUG = (9.5, 10.0, 5.5)                 # length along the cable, width across the pins, height
+HUB = (20.0, 17.0, 1.2)                 # the green PCB; with its sockets the hub is about 24 x 20 x 7
+SOCKET = (9.0, 12.3, 6.0)               # depth (along the plug), width, height above the board
+# three SIDE-entry sockets (plugs slide in parallel to the board), opening in three directions:
+#   A opens toward +Y, B toward -Y (opposite A), C toward +X.  (centre x, centre y, opening direction) on the PCB, mm
+SOCKETS = [(-3.9, 4.0, (0, 1)), (-0.8, -5.0, (0, -1)), (9.6, 3.2, (1, 0))]
+PLUG_ROOM = 7.0                         # what sticks out of a socket once the plug is in: ~3 mm of plug + the wires' bend
 EXT_W, EXT_T, EXT_L = 4.2, 1.4, 165.0
 MM = 0.001
 _args = globals().get("ARGS", {})
@@ -52,15 +59,51 @@ def plug(name, M, coll):
 
 
 def hub(name, M, coll):
-    """hub board; M: origin at the board centre, Z = up. Sockets: two side by side on -X, one on +X."""
+    """hub board; M: origin at the PCB centre, Z = up (component side). Returns [pcb, socket A, B, C]."""
     parts = [_box(name, HUB, M, coll, GREEN)]
     z = (HUB[2] + SOCKET[2]) / 2
-    for i, (x, y) in enumerate(((-HUB[0] / 2 + SOCKET[0] / 2, -HUB[1] / 4), (-HUB[0] / 2 + SOCKET[0] / 2, HUB[1] / 4), (HUB[0] / 2 - SOCKET[0] / 2, 0))):
-        s = _box(f"{name}_socket{i + 1}", SOCKET, M @ Matrix.Translation(Vector((x, y, z)) * MM), coll, WHITE)
-        s.parent = parts[0]
-        s.matrix_parent_inverse = parts[0].matrix_world.inverted()
-        parts.append(s)
+    for i, (x, y, (dx, dy)) in enumerate(SOCKETS):
+        size = (SOCKET[1], SOCKET[0], SOCKET[2]) if dy else (SOCKET[0], SOCKET[1], SOCKET[2])
+        sk = _box(f"{name}_socket{'ABC'[i]}", size, M @ Matrix.Translation(Vector((x, y, z)) * MM), coll, WHITE)
+        sk.parent = parts[0]
+        sk.matrix_parent_inverse = parts[0].matrix_world.inverted()
+        parts.append(sk)
     return parts
+
+
+def socket_mouths(M):
+    """[(mouth point, outward direction)] of the three sockets, in world coordinates"""
+    out = []
+    for x, y, (dx, dy) in SOCKETS:
+        m = Vector((x + dx * SOCKET[0] / 2, y + dy * SOCKET[0] / 2, HUB[2] / 2 + SOCKET[2] / 2)) * MM
+        out.append((M @ m, (M.to_3x3() @ Vector((dx, dy, 0))).normalized()))
+    return out
+
+
+# Bus board for the body (not in the kit): 12 x 5-hole 2.54 mm perfboard with five top-entry 3-pin headers (the mate of the
+# kit's plug) wired in parallel; the sixth cell takes its one M2 screw and the soldered ends of four extension cables.
+BUS = (30.5, 12.7, 1.6)
+BUS_SOCKET = (9.9, 5.8, 8.5)            # length along the pins, width, height above the board
+BUS_CELLS = [(0.0, 3.81), (10.16, 3.81), (-10.16, 3.81), (0.0, -3.81), (10.16, -3.81)]
+BUS_FREE = (-10.16, -3.81)
+BUS_PLUG_TOP = 13.0                     # top of an inserted plug above the board's top face
+
+
+def bus_board(name, M, coll):
+    """M: origin at the PCB centre, Z = up (socket side), X = the long side"""
+    parts = [_box(name, BUS, M, coll, GREEN)]
+    for i, (x, y) in enumerate(BUS_CELLS):
+        sk = _box(f"{name}_socket{i + 1}", BUS_SOCKET, M @ Matrix.Translation(Vector((x, y, (BUS[2] + BUS_SOCKET[2]) / 2)) * MM), coll, WHITE)
+        sk.parent = parts[0]
+        sk.matrix_parent_inverse = parts[0].matrix_world.inverted()
+        parts.append(sk)
+    return parts
+
+
+def bus_mouths(M):
+    """[(mouth point = top of the socket, outward direction = board normal)]"""
+    n = (M.to_3x3() @ Vector((0, 0, 1))).normalized()
+    return [(M @ (Vector((x, y, BUS[2] / 2 + BUS_SOCKET[2])) * MM), n) for x, y in BUS_CELLS]
 
 
 def ribbon(name, pts, width_mm, thick_mm, coll, mat):
@@ -72,8 +115,11 @@ def ribbon(name, pts, width_mm, thick_mm, coll, mat):
     for bp, p in zip(sp.bezier_points, pts):
         bp.co = p
         bp.handle_left_type = bp.handle_right_type = "AUTO"
-    cu.bevel_depth = thick_mm * MM / 2
-    cu.extrude = max(0.0, (width_mm - thick_mm) * MM / 2)
+    if width_mm > thick_mm * 2.5 and thick_mm > 1.2:        # three loose round wires (extension cable): a round bundle of the same area
+        cu.bevel_depth = (width_mm * thick_mm / 3.14159) ** 0.5 * MM
+    else:                                                   # bonded flat lead / single wire
+        cu.bevel_depth = thick_mm * MM / 2
+        cu.extrude = max(0.0, (width_mm - thick_mm) * MM / 2)
     cu.materials.append(mat)
     ob = bpy.data.objects.new(name, cu)
     coll.objects.link(ob)
