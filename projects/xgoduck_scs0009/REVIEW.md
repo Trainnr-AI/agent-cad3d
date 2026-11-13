@@ -1504,3 +1504,28 @@ Everything re-run on the current files (joints at rest before and after every st
   inside the other: seated surfaces, not interference.
 - Not covered by any of this: real-part measurements, printer tolerance, firmware (limits, interlocks, IMU balance, overload
   settings), walking, getting up (torque, see the comparison with the original), fall loads, cables against moving parts.
+
+## Power switch: the lever was never modelled (2026-11-14)
+
+The MTS-102 stand-in was body + pins only, so "lever tip flush with the outside" (2026-11-12) was never checked. Listings: M6 x 0.75
+bushing, 9 mm thread, overall 29-33 mm -> lever tip ~15.5-19.5 mm from the body face, i.e. ~4-8 mm proud of the left wall (the body
+face is 11.6 mm in). The left leg passes that spot: knee cap 4.8 mm from the wall face during sit/stand, ankle screw 2.2 mm at hip
+pitch +85 -> at most ~2 mm may stand proud there. Recessing the lever fully needs ~18 mm depth and ~22 mm height (lever throw about
++-22 deg); the room between the IMU (x <= -42.4), battery (x >= -28.9), servo adapter (z <= 100.9) and regulator (z >= 119.5) is
+13.5 x 18.6 mm. **User (2026-11-14): keep the MTS-102 where it is, sticking out.** Clearance to the lever's real envelope (Ø4,
+z 99..117 for the full throw): sit/stand 6.2 / 4.4 / 2.9 / 2.3 mm at 2 / 4 / 6 / 8 mm proud; single-joint hip pitch +85 2.4 / 0.4 / 0 / 0.
+So <= 4 mm proud needs nothing; more needs a hip-pitch-back servo limit of ~+60 / -60 (to be set from the measured lever).
+
+Also found while measuring: 4 of 20 hip corners (yaw -6.3 with roll -12 or +19.5 and hip pitch +45 / +85; yaw +19 / roll +19.5 /
+pitch +85) collide with the bay / lid / cover inside the servo limits. Roll-out with the leg back is the known interlock (REVIEW
+"Power switch" section, 2026-11-12); **roll-in -12 with pitch +45 (foot bearing plate into the adapter / enclosure, 122 mm3) is not
+in JOINT_LIMITS.md yet** - the interlock table needs a hip roll x hip pitch rule. The readiness pass covered single joints and the
+17 planned motions, not these combinations.
+
+## Hip map: roll x pitch x yaw x knee (2026-11-14)
+
+1,248 left-leg poses on the exact parts (pitch -90..+85, roll -12..+19.5, yaw -6.3 / 0 / +19, knee -90 / -45 / 0 / +68, ankle 0): 245
+collide - the knee cap, shin and foot bearing plate on the enclosure / body frame / lid / Uno Q cover with the leg swung back, the
+foot on the Uno Q cover with the leg far forward and toed out. Leg forward to -45: nothing collides. Toed in (-6.3) the leg cannot go
+back past ~+15 at any roll. The right leg matches the mirrored left in 40/40 sampled poses. Table and firmware rule in
+JOINT_LIMITS.md ("Hip map"), data in data/hip_collision_map.json. Not covered: ankle angles, both legs together at large pitch.

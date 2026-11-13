@@ -59,6 +59,34 @@ while abs(head yaw) <= 2.5.
 | head roll with head yaw | roll only while abs(head yaw) <= 2.5, then abs(roll) <= 15; yaw only while abs(roll) <= 1 | U vs head base / jaw |
 | hip pitch + knee + ankle + roll (walking envelope corners) | e.g. yaw -6.3, roll +10.9, pitch +45.8, knee -55: shin vs enclosure 182-200 mm3 (old shin too); pitch -45.8 + knee +55 + ankle -23: L-bracket vs foot 20 mm3 | keep the gait's actual trajectories inside the swept-clear set (to be checked per gait in the sim) |
 | hip pitch + knee (fold / sit-up) | left hip +60 with knee -90: foot vs Uno Q cover / body lid | sit / stand only by the checked path: STAND <-> SIT (hip 70, knee 18, ankle -16, hip yaw -3, roll -4) in a straight joint-space line, >= 3 s each way, IMU ankle balance on, not facing uphill > ~4 deg (exact parts clear >= 1.58 mm along it) |
+| hip pitch x hip roll x hip yaw x knee (each leg) | the hip map below (2026-11-14) | leg swung back: knee cap / shin / foot bearing plate vs enclosure, body frame, lid, Uno Q cover; swung far forward with toe-out: foot / shin vs the Uno Q cover |
+
+### Hip map: allowed hip roll by hip pitch and hip yaw (left leg; right = mirror, all signs flipped)
+
+Measured 2026-11-14 on the exact parts: 1,248 poses (hip pitch -90..+85, roll -12..+19.5, yaw -6.3 / 0 / +19, knee -90 / -45 / 0 /
++68; ankle 0), 245 collide. Full data: `data/hip_collision_map.json`. The hip yaw / roll servo box above was found with the leg near
+straight down; it does not hold with the leg swung back. Signs: pitch + = leg back toward the bay, roll + = out, yaw + = toe out.
+
+Allowed roll (deg) with the knee in -45..+68 (with the knee folded below -45, use the stricter row in brackets):
+
+| hip pitch | yaw -6.3 (toe in) | yaw 0 | yaw +19 (toe out) |
+|---|---|---|---|
+| -90 | -12..+15 | -12..+10 | -12..0 |
+| -75 | -12..+19.5 | -12..+19.5 | -12..0 |
+| -60 | -12..+19.5 | -12..+19.5 | -12..+15 |
+| -45..0 | all (knee folded at 0: +5..+19.5) | all | all |
+| +15 | -8..+10 (folded: none) | -8..+19.5 | -8..+19.5 |
+| +30 | -8..+5 (folded: none) | -8..+15 (folded: -8..+5) | -8..+19.5 |
+| +45 | **none** | -12..+10 (folded: -12..-4) | all |
+| +60 | **none** | -12..0 (folded: -12..-8) | -12..+15 (folded: -12..+10) |
+| +75 | **none** | -12..-8 | -12..+10 (folded: -12..+5) |
+| +85 | **none** | -12..-8 | -12..+10 (folded: -12..+5) |
+
+Firmware rule: between grid values use the stricter neighbour (pitch and yaw). In words: **with the hip toed in at all, keep hip
+pitch back under ~+15 deg**; with yaw 0, roll the leg out no more than the row allows (at +45 back: <= +10). The original's walking
+envelope (yaw -6.3..+12.6, roll +-10.9, pitch +-45.8, knee +-55, ankle +-23) crosses this map (toe-in with the leg back) - a gait must
+be checked against it. Not covered: ankle angles (ankle 0 here; the walking-corner row above found an ankle -23 case), and both legs
+at once at large pitch.
 
 ## 3. Overload protection (all 15 servos, values to confirm on a servo)
 
