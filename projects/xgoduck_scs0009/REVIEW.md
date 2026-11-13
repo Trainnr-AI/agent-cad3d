@@ -681,3 +681,774 @@ User: "stacking two on the side does not make sense"; hubs on the thigh's top an
 - Size against the original (scaled): top hub 1.9 mm above the original thigh's top, rear hub 2.5 mm behind its rear, the two
   outer-side hubs 9.5 mm beyond its outer face (as since the first hub layout). Chest hub N: 2.1 mm in front of our own neck mount,
   8.5 mm in front of the original body shell's foremost point. Hub G: inside. No ready seat found inside the body for N.
+
+### Servo adapter drawn as the real board (2026-11-11)
+
+Was a 42 x 18.5 x 33 block standing between the keel wall and two fence posts. Product photo: a 42 x 33 x 1.6 board with parts on one
+side. `body_v2.py`: the board stands on the rails on a long edge, 2.5 mm off the keel's side wall, parts toward the keel's middle, its
+two short ends in guide slots on the keel's end walls (1.5 mm of board in each slot, 0.15 clearance per face); the battery shelf above
+keeps it down; no screws. Parts as boxes (ESTIMATED from the photo): two servo sockets top front, UART header top rear, DC jack bottom
+front, screw terminal bottom middle, USB-C bottom rear. Deepest part (jack) reaches 12.6 mm from the board's back; 9.3 mm are left to
+the regulator. `wiring.py`: both servo cables start 9 mm out of the sockets; 6 V wire to the screw terminal; UART wires to the header.
+Checked: adapter touches the enclosure only where its lower edge rests on the rails; clear of regulator, sensor, shelf, battery and
+screws; enclosure prints as before (119 mm2), 34.8 g; rest 0 contacts; cable reach 0 short over 211 poses (left body-to-thigh 98 of
+165, adapter-to-gap 54). NOT verified: part positions and heights on the board, plug height on the sockets (13 mm assumed), the UART
+side's voltage (the Uno Q's pins are 3.3 V), whether the board's standoffs must come off (the guide slots need bare board ends).
+
+### Chest hub moved to the front of the neck (2026-11-11)
+
+User: wanted the chest hub on the neck; "fully forward is not needed".
+- Exact tests (hub solid with its three plug rooms vs the real meshes; scratch neck_hub_test.py, neck_front_map2.py): 240 positions on
+  the cradle's two side walls; none is clear over the whole allowed neck x head-pitch range. Back wall: 10 fit at rest beside hub C,
+  best collides in 88 of 148 poses. Front wall, mid-length, plug toward the head: neck to about -115, head up only to about +45.
+  Front wall, mid-length, plug toward the BODY: neck to about -80, head up to about +90 (coarse grid) -> chosen.
+- The gap between the two neck servo bodies (11.2 mm) is filled by their ears and the cradle's ear pads: no recess possible.
+- `wiring.py`: hub N on the cradle's front side wall at 0.50 of the neck length, mid-depth, socket C toward the neck's pivot;
+  cables: G -> N (beside the pedestal, up the front, 54 mm), neck-pitch lead -> N (60), N -> C round the cradle's floor (86).
+  `body_v2.py`: chest plate off (`chest_plate` arg); body_frame 19.7 g.
+- MEASURED limits with hub N (1 deg steps, hub + its plugs vs body, head parts, hub G): neck forward clear to -91 deg (body at -92;
+  was -135); head pitch up clear to +85 deg at every neck angle (head-pitch U at +86; was +105); neck back, head down and head yaw
+  +-90 deg: no contact from this hub. Existing limits unchanged: neck back +19.5, head pitch down -76.5. The joint_range properties
+  in the scene still hold the original declared ranges.
+- Verified: N vs cradle, servos, hub C and its plugs: none touching; rest 0 contacts; cable reach 0 short over 211 poses after
+  restoring hub C's socket order (with N-to-C arriving on the head-side socket the cradle-to-head cable was 167 of 165 at one extreme
+  head pose). Full sweep (run with the swapped socket order): contacts of hub N only beyond the measured limits (neck -103 and
+  further, head pitch +88 and +105); legs unchanged.
+- Process note: a failed scan left the rig posed (neck +20, head +105) in the live scene and corrupted the next scan, which took
+  that pose as rest. Restored by the inverse rotations and checked against the cradle's rest bounding box; the saved file was never
+  affected. Scan scripts now restore the pose in a `finally` block.
+
+### Full fit, screw and assembly audit (2026-11-11)
+
+User: "look each and every servo motor, its horn design, size, all the joints, spaces, clearances and make sure everything fits".
+- fit_audit.py on the whole robot (list from audit_all_args.json refreshed against the scene: 325 fits; the 98 dropped were the
+  old body hubs): 321 as designed. Per fit type (min..max over all joints):
+  horn in its crush-rib pocket 1.04..2.16 mm3 press (14 of 14); horn screw in the shaft 2.46..3.00 mm3 (13: head roll has no holder
+  yet); ear screws in the pads 9.2..9.6 mm3 per pair (13); 6702ZZ in seat and on boss: touching, no overlap (9 + 10); 693ZZ on the
+  island and in the plate: 0..0.02 gap (4 + 4); M3 axle tip 0.44 short of the servo bottom; M3 nut 0.12 in its pocket; 6702 to the
+  servo tower 0.84; ear-screw heads to the moving part >= 1.84; servo body to the moving part >= 0.20 (the two 0.20 mm gaps: head-pitch
+  U to the head-yaw servo, head-roll servo body to the yaw block); shin to thigh web 0.42; foot trough to shin 0.81, to ankle servo 0.66;
+  adapter to sensor 0.60, to shelf 0.68, to battery 2.48.
+  The 4 not as designed (unchanged since the previous audit): the straight 8 mm cable stubs of left hip yaw (11.0 mm3), both hip roll
+  (8.3) vs the motor body and head pitch (11.6) vs the U - those leads must bend within 8 mm of the servo.
+- screw_audit.py: 71 screws, 61 ok. To check: 4 M3 axles (thread into steel nuts, which the tool does not treat as a part - fine),
+  2 head-roll ear screws (thread into nothing: the head's servo holder is not designed), 4 Uno Q screws (tool does not see the 2.5 mm
+  thread-forming hole as a thread; driver meets the Uno's modelled top block at 7 mm).
+- assembly_path_check.py, 30 steps (every servo into its holder, every moving part onto horn / bearing, every bearing plate): 27
+  passed at first. FOUND AND FIXED: both feet could not slide onto the horn - the original-shape pad stopped the horn's arms 4-6 mm
+  before home (14-22 mm3). `leg_v2.py` horn_room now runs 7.5 mm inboard: path clear to 1 mm, then the crush fit (1.7 mm3); foot 26.9 g,
+  one solid, prints as before (101 mm2), fits unchanged. FOUND, NOT A PART CHANGE: the LEFT hip-yaw servo cannot drop straight in - the
+  neck's horn plate overhangs its front ear (12.4 mm3 from 8 mm above home upward; trimming the plate would open the neck horn's
+  pocket). It goes in with a slide: 4 mm toward the rear, down to 5 mm above home, forward 4, down (0 contact along the path). That
+  needs the space behind the servo free -> hip-yaw servos go in BEFORE the electronics enclosure is attached. The right one drops in.
+- Horn caveat: hub Ø6.5 x 4, plate 1.6, arm widths 5.6 -> 3.6 are NOMINAL (listing + photo); every horn fit above is against that
+  assumed horn. Servo body: exact (Feetech STEP).
+
+### Head: study of the original (2026-11-11) - no part built yet
+
+Sources: vendor/xgoduck_hardware (STL set V5 "audio/video", Assembly_Guide.pdf p.16-21, BOM, readme), press coverage for Microduck.
+- XGO-Duck head = 15th servo for the beak (ID 34, outside the walking policy) + printed parts: head.stl (yellow base tray = upper
+  bill, 88.3 x 118.9 x 16), head_shell.stl (white dome with grille slots, 88 x 124.1 x 48.1), jaw.stl (U-frame lower bill: front bar
+  + two side arms up to the pivots, 88 x 67.7 x 30.1), head_servo_support.stl (clamps the servos to the base, 4 screws), eye.stl,
+  FACE / FACE_CAMERA / FACE_LIGHT / FACE_TOF (front panel of the audio/video version), two TPU bill pads (double-sided tape).
+  Guide p.19: servo 34 sits beside servos 32 / 33 on the base; the jaw arm screws to its horn. p.20: support over the servos, base
+  has an opening underneath for the yaw servo's bracket. Microduck: same joints + beak, camera, ToF, mics, speaker, head IMU, NFC
+  (hardware closed).
+- Scene: collection `orig_head_parts` (hidden by default) = original STLs at our head scale (0.782 = 0.92 x 0.85), registered to the
+  merged head mesh by a 24-orientation search + refinement: head base mean 0.17 mm, shell 0.10 mm (trustworthy); jaw, servo support,
+  eye, FACE and the pads 0.4-1.0 mm and visibly misplaced (the merged sim mesh does not contain them as separate shapes) - NOT usable
+  as placed. Collection `orig_head_row` = the same parts side by side at full size, for looking at.
+- Our head now: merged old shell x -11.9..85.4 (bill end at +x, wide and blunt; rounded end at the back), y +-34.5, z 190.9..235.4.
+  Head-roll servo lies across the head behind the yaw block (x -8.4..17.3, z 198.5..210.7), shaft forward along x at z 204.6;
+  base tray z 191.3..203.8; a standard cap ring (r 12.75) about the roll axis spans z 191.85..217.35 - it fits the tray's depth.
+
+## Head fit study: beak servo option A + head electronics (2026-11-11)
+
+Collection `head_fit` (study objects only, nothing printable yet). Layout coordinates in mm.
+
+- **Beak servo** (15th SCS0009, `scs_mouth`): in the front of the head ahead of the yaw block, shaft along +Y toward the
+  left side wall, long axis vertical, connector end up. Case x 52.4..64.6, y -101.6..-76.0, z 196.5..229.0.
+  Hinge at x 58.5, z 207.0 (original hinge is about x 33, z 210, so ours is ~25 mm further forward and 3 mm lower).
+- **Dome**: servo top (z 229.0) is 1.6 mm or more under the original dome's inside skin (230.6+ above the top ear,
+  229.3+ elsewhere). The BVH contact with `orig_head_shell` is one internal rib of the original at x 52.5..53.8,
+  which our dome will not have. Hinge at z 210 or 208.5 did poke into the skin; 207.0 does not.
+- **Tray**: servo bottom (z 196.5) sits inside the original tray's ribs (tray z 191.3..203.8): material to remove.
+- **Head roll -25..+25 deg**: no contact between anything in the front of the head and the yaw block, head-yaw and
+  head-roll servos, U, hub Y and its plugs.
+- **Jaw** (original jaw cut off behind the new hinge): opening about the new hinge lowers the bill tip 6.6 mm at
+  30 deg, ~7.8 mm at 40 deg.
+- **Electronics stand-ins** (assumed sizes, not real parts yet), all clear of each other, the servo and the dome skin:
+  camera 15x30x25 at the face (2.3 mm to dome), depth sensor 3x12x13 beside it (1.0 mm), light 8x5x5,
+  speaker 5x20x20 (1.3 mm), USB hub/audio board 6x24x18 (0.8 mm to dome, 0.2 mm to tray rib).
+- Not verified: real part sizes, cable/plug room, how the dome/tray/jaw print and screw together (not designed).
+
+## Head v2 built on the original parts (2026-11-11) - supersedes the fit study above
+
+`tools/blender/parts/head_shell_v2.py` (collection `head_shell_v2`), check `tools/blender/head_check.py`, exploded view
+`tools/blender/head_explode.py` (collection `head_exploded`, 0.3 m to the robot's right).
+
+What the fit study got wrong (found when checked against the real original tray / dome):
+- the jaw was registered back to front (bar at the back); the opening figure was meaningless;
+- an upright beak servo pokes ~3 mm through the upper bill plate (plate top z 202.3) -> it now lies flat, shaft to the left wall;
+- the head-roll servo's rear corner sticks 3-4.5 mm out of the original dome's round back (the earlier "fits" was a bbox estimate)
+  -> user decision: bulge the dome's back;
+- hub Y on top of the yaw servo is inside the dome's roof (even at roll 0) -> must move (NOT done yet);
+- with the original base, the right side wall meets the head-pitch U from 3 deg of head roll -> user decision: cut the wall.
+
+Parts (solid PLA, one piece each, watertight):
+- `head_base` 20.9 g: original tray; rear tub cleared, head-roll holder (cap plate with 6702ZZ seat as a bulkhead on the floor,
+  ear pads to the floor, block under the servo); floor opening x 21.9..52.5, y up to -75.6 and right wall open x 23.0..52.5
+  (swept reach of yaw block / U over roll +-25 deg + 0.8); beak-servo ear pads (front one a column on the bill plate, rear one
+  on a web to the left wall), 2 rails under its body, jaw pivot post, 2 slots in the bill plate for the jaw arms; 4 dome screw seats.
+- `head_dome` 23.5 g: original dome; back squared off by a hollow bulge (about 6 mm at the rear corners), right skirt trimmed
+  to z 204.3 over x 23..52.5, original ribs removed where the beak servo lies, 4 screw posts. The dome was cut by the base,
+  so the two mate with zero overlap (as registered they overlapped by a few tenths).
+- `head_jaw` 6.9 g: original lower bill from x 64 forward; arms INSIDE the head through the slots: left = horn plate on the beak
+  servo's trimmed horn (r 6, as the cap joints), right = M2x6 screw pivot (free in the post, threaded in the arm).
+- Beak servo: hinge x 58.5, z 210.8, tower top y -77.8. Screws: 4 dome (2 rear at x 5, y -100 +-22.2 from below with 2 mm seat;
+  2 front through the bill plate at the original's holes, heads proud under the plate), 2 beak ear, 1 jaw pivot, 2 roll ear
+  (these now thread into pads - the earlier "2 screws into nothing" is closed).
+
+Checked (exact: boolean common volume / sampled penetration / edge-through-triangle; NOT voxels):
+- no part sits inside another by more than 0.03 mm at rest; roll servo to dome 0.54 mm, to base seated; yaw block to base
+  0.40 mm; U to base 2.17 mm; jaw to base 0.36 mm (arm / pivot post), to dome 1.07 mm; beak servo to jaw 2.30, to dome 6.3,
+  to yaw block 6.8 mm.
+- head roll -25..25 deg (1 deg steps), yaw 0: no contact.
+- jaw 0..35 deg: no contact with base, dome, servo, yaw block, U. Lowest point of the bill drops 6.1 mm at 20 deg, 8.1 mm at 30 deg.
+- head yaw -170..170 at roll 0: no contact.
+- **yaw and roll together do NOT work**: with the head yawed more than about 10 deg, any roll beyond about +-5 deg puts the
+  head base (and from ~15 deg the jaw / dome) on the head-pitch U or its bearing plate (U is r 31.7 about the yaw axis, the
+  base tub is 30 wide). Open - needs a narrower U top / bearing plate or a limit in the controller.
+- Tool lesson: triangulate BEFORE changing frame (n-gons with holes triangulate wrongly once rotated -> phantom contacts), and
+  BVHTree.overlap alone is not proof of contact.
+
+Not done / not verified: hub Y and the beak servo's lead + 13th hub (wiring.py still has the old hub on the yaw servo);
+face panel, eyes, camera / speaker mounts (the dome's front is open, as on the original before its FACE part); TPU bill pads;
+assembly path and driver access (planned: jaw up through the slots, pivot screw from the left, beak servo slides onto the horn,
+ear screws from the right, horn screw from the left, all with the dome off); print orientation / overhang check (bearing seat
+prints with its axis horizontal); head pitch / neck poses with the new shell; sim masses.
+
+### Face panel + camera (2026-11-11)
+
+`head_face` (8.4 g, part "face" of head_shell_v2.py), after the original FACE: D panel in the dome's 1.9 mm front groove
+(x 75.6..77.5, found by probing the dome; 0.13 mm to the dome), round camera collar in the middle, one opening each side.
+Ours is a hollow box to x 84.1 (beak servo's front ear and the camera board lie in it); the collar is a hood round the lens,
+dia 29.8, to x 100.4 = 15 mm past the dome's top front edge, 19 mm past the bill plate (user asked for a walled bulge
+instead of a bare lens). Side openings (distance sensor 8 x 5 window right, 5.2 hole for a 5 mm light left) sit ABOVE the camera
+row at z 226, y -100 -+ 14. Held by the groove and the base: no screws. Camera stand-in `cam_ov5640_usb`: Waveshare OV5640 5MP USB
+Camera (A)/(C), board 18 x 36 at x 78.4, body 18 x 18 x 19.4 at the board's left end, lens centre y -99.6, z 212.0 - the body's
+place on the board and the parts on its back are NOMINAL. Board slides into end grooves from below.
+Checked: no penetration face/dome/base/servo/camera; face to beak servo 0.55 mm, to jaw 3.3 mm; roll +-25 and jaw 0..35 no contact.
+Not done: distance-sensor and speaker/mic mounts (no confirmed board sizes), USB hub, cables, whether the real camera's layout matches.
+Whole-duck exploded view (`duck_v2_exploded`) now carries the new head as one unit (explode_all.py updated); `sec_head_roll`
+still shows the old shell. Blender crashed twice from a scratch script that iterated a freed bmesh (fixed).
+
+### All-USB rear bay variant, beside the current duck (2026-11-11)
+
+User wants no loose jumper wires. Variant `duck_usb_bay` (tools/blender/parts/rear_bay_usb.py): a copy of the assembled duck
+0.30 m behind the current one (world x -0.30) with `electronics_enclosure_usb` instead of the enclosure; the current duck is untouched.
+- Idea: Arduino's documented USB arrangement - a USB-C Power Delivery hub powers the Uno Q and carries data; servo adapter on its
+  own USB-C (switch B), camera and sound card on the hub; distance / balance sensors on Qwiic. No VIN wires, no header cap.
+- Enclosure: same cross-section (keel 36, pocket 44 wide), rear face x -53 -> -97 (+44 mm), old rear wall opened, own lid
+  (2x M2x6), 7 sound holes in the floor, 3 driver holes in the new rear wall for the body screws. 53.8 g solid (was 34.8 g).
+- Stand-ins, on end, from the old rear wall backward: Waveshare USB TO AUDIO 53 x 23.5 x 14.6 (retailer figures); battery->USB-C
+  PD module 35 x 25 x 12 (NOMINAL, no part chosen); bare 4-port USB 2.0 hub board 28 x 18 x 6 above it; 1-port PD dongle
+  60 x 28 x 12 (NOMINAL, no part chosen); 28 mm speaker flat on the floor (NOMINAL). No crossings; gaps 0.4..5.6 mm.
+- Legs: 1323 poses (hip yaw x roll x pitch x knee x ankle at range ends and steps, both legs, sampled points, 1 mm margin):
+  a leg already enters the PRESENT bay's envelope in 538 of them (range-end combinations); the extension adds 8 (0.6 %), all
+  at hip roll +-22 deg with the foot folded behind the body.
+- Not done: USB plugs and cables (bulky, not modelled), real part choices and sizes, mounts for the boards, extra mass behind
+  the hips (balance / simulation), ground clearance when leaning back, wiring.py, whether a USB speaker works on the Uno Q.
+
+### Rear bay restart from the UNO Q datasheet (2026-11-11)
+
+The all-USB variant (+44 mm rear bay) was rejected by the user as too big; its collection and script are removed.
+Source now: the user's datasheet ABX00162-ABX00173 (44 pages, modified 11/11/2026). `tools/blender/parts/uno_q.py` draws the
+board from it (objects `unoq_*`, the old `uno_q` box hidden).
+
+Mechanical (datasheet section 12): 68.58 x 53.34 mm (body_v2.py has len 68.85 - a typo, 0.27 too long); 4 holes R1.6 at
+(13.97, 2.54) (15.24, 50.80) (66.04, 7.62) (66.04, 35.56) from the corner under the USB-C end; two 3.6 x 45 deg chamfers at the
+far end; tallest top part 8.5 mm above the PCB; underside parts under 2 mm (our stand-offs are 4.5); USB-C 3 mm high, 1 mm past
+the edge; two 60-pin connectors UNDER the board (JMISC, JMEDIA), 3.01 x 38.5. The lid's four M3 stand-offs sit within 0.10 mm
+of the exact holes. USB-C end drawn at the REAR: socket at x -53.8..-46.4, y -93.4..-84.4, z 133.2..136.2.
+Positions of USB-C / button / JCTL / JSPI / Qwiic and the header ends are scaled from the drawing (+-0.5 mm).
+
+Electrical facts that change the design:
+- Power: VIN 7-24 V on JANALOG pin 8 (GND pins 6, 7); or 5 V on the 5V pin (JANALOG 5 / JSPI 2), up to 3 A; or USB-C 5 V / 3 A.
+- "A protected P-channel MOSFET (Q2801) can source USB VBUS from 5V_SYS when the board operates as a USB host/OTG" (4.3): the
+  board itself can power a USB device while fed from VIN. JCTL pin 10 = VBUS_DISABLE. (An Arduino forum reply said the opposite;
+  the host-mode switch is also reported as a software issue on older images - to be tested on the real board.)
+- Servo bus: D0 = PB7 USART1_RX, D1 = PB6 USART1_TX, 3.3 V, FT pads (5 V tolerant as inputs) -> servo adapter's UART header.
+- Qwiic = I2C4 (PD13 SDA, PD12 SCL), 3.3 V: balance sensor + distance sensor chain.
+- Light: any PWM pin, e.g. ~D9 (PB8); not ~D3 (not 5 V tolerant, op-amp output).
+- Audio: the board has analog audio (mic, headphone, line out, earpiece) only on JMISC under the board (needs a carrier).
+- Do not use A0 / A1 above 3.3 V; JCTL / JMISC MPU pins are 1.8 V.
+
+### Head-chain hubs and UNO Q connections rerouted (2026-11-11/12)
+
+User: keep the present bay; a few header wires are acceptable; hubs may use the head if needed, neck preferred.
+- Hub on top of the head-yaw servo: NO seat there clears the dome through head roll (search, 7 and 4 mm plug room) - removed.
+- **Hub Y** now on the head-pitch U's LEFT arm, outer face, over the head-pitch horn screw (layout 38.0, -82.2, 168.5, board normal +y):
+  takes the head-yaw lead, the cable from cradle hub C and the cable to the head. Needs a ~2 mm printed pad on the U (not built;
+  it covers the horn screw, so it goes on after that screw).
+- **Hub M** in the head, flat above the beak servo (64.5, -104.0, 219.5): head-roll lead, beak lead, cable from Y. Rests ~1 mm above
+  the servo's top (pad / foam, not built).
+- Exact check of both hubs with their plugs (edge-through-triangle, as drawn): rest + 117 poses neck -80..+19.5 x head pitch -75..+85
+  + 175 poses yaw +-170 x roll +-25: no contact. (The right arm's outer face has no seat. Two plugged hubs do not fit in the head
+  together with 7 mm plug room.)
+- wiring.py: 13 hubs, 35 cables. New: lead_mouth, ext_cradle_to_U, ext_U_to_head, usb_camera_to_uno, signal_light_to_uno;
+  VIN / UART / Qwiic now end on the real pins (VIN+GND = JANALOG 8/7, D0/D1 + GND, Qwiic socket, light on ~D9).
+  Reach over 211 poses: 0 short. head yaw lead 82/150, head roll lead 111/150, beak lead 29/150, cradle->U 113/165, U->head
+  115/165; camera USB cable needs >= 328 mm, light wires >= 314 mm (routes along the bus cable up the rear of the cradle).
+- NOT done: USB-C plug shape at the rear of the UNO Q (a straight plug sticks ~20 mm out behind the duck), which connector the
+  camera board has, housings on the header wires, distance sensor (no room in the face: proposed on the body's chest, on Qwiic),
+  cable collision checks (only lengths are checked), hub pads on the U and the beak servo, host-mode USB test on the real board.
+- Fixed: the beak servo's horn and horn screw had drifted out of place in the scene (re-parenting on re-runs in head_shell_v2.py);
+  back on the servo, script corrected; horn to base 2.45 mm, horn screw to dome 3.57 mm.
+
+### Audio tray, block battery, USB hub, switch (2026-11-12, user: "do with the audio parts")
+
+body_v2.py options `audio_tray`, `battery`, `battery_y0` (run with audio_tray true, battery [40.2, 24.3, 24.2], battery_y0 -114.7); also
+corrected: Uno Q length 68.58 and its exact hole positions (datasheet). Then uno_q.py and wiring.py re-run.
+- `body_lid` 14.9 g: walls round the Uno Q's outline 17 mm high (posts fused into them) = tray under the board; the board's underside
+  is now at z 144.1 (was 131.6, +12.5). Openings: rear (USB-C cable down), front (cables to the neck), 18 sound holes left, 5 slots right.
+  Window over the battery (the block pack reaches 126.9, into the plate's thickness).
+- Battery stand-in: 3S 450 mAh block 40.2 x 24.3 x 24.2 (JSumo listing), to the right between the lid posts; switch stand-in 12 x 6 x 6
+  (NOMINAL) beside it at the open rear, where the battery's main and balance plugs are reached for charging (plugs not drawn).
+- Tray: `usb_audio` = Waveshare USB TO AUDIO 53 x 23.5 x 14.6 flat (0.3 under the board's underside connectors), `speaker` 25 x 15 x 4
+  (NOMINAL) on edge behind the sound holes. `usb_hub` = Adafruit CH334F 2-port 24 x 20.1 x 5 flat above the regulator (0.7 to the adapter).
+- Exact crossing check of the new / changed parts against everything: none (screws in holes aside).
+- wiring: usb_uno_to_hub 128, usb_hub_to_audio 125, usb_camera_to_hub worst 284, light wires worst 319 mm; 0 kit cables short.
+  The shelf's front notch now carries 7 cables incl. three USB cables - NOT checked for room.
+- Head over the back (672 poses neck x head pitch x yaw x roll): lowest point over the board's footprint reaches below the board's top
+  parts (now z 154) in 84 poses, was 50 with the board at 142; below upright wire plugs on the headers (~z 166) in 181. Needs a combined
+  neck / head-pitch limit; low or right-angle housings on the header wires.
+- Open: real sound card connector / mic positions, hub's solder-pad outputs, USB speaker support on the Uno Q, which packs can be bought,
+  balance charging via the rear plugs (no charger on board), plugs / housings / cable collisions, mass and balance, exploded labels.
+
+### Optional covers: thighs and neck (2026-11-12)
+
+`tools/blender/parts/covers.py` (collection `covers`), built from the hubs / plugs as placed by wiring.py. The duck works without them.
+- **Thigh cover** (each 8.1 g): outer plate + top and rear walls down to the thigh plate, short lip elsewhere; outline = the original
+  thigh outline grown 4.1 mm, squared out only at the top rear corner where a plug lies beyond it; plate 9.7 mm beyond the servos'
+  end faces. 2x M2x6: from outside into a post on the web, from the top into a boss above the hip-pitch servo's rear part.
+  The post and boss are now part of the thigh (leg_v2.py `cover_mounts`, thigh 10.4 g; both legs rebuilt, parent_hw.py re-run).
+  Checks: no crossing with the thigh, servos, hubs, plugs at rest; over 229 poses per leg (hip yaw x roll x pitch, knee x ankle,
+  pitch x knee) the cover is reached only by the foot at knee +-90 with ankle -+45 (1 pose each) - the bare thigh is reached by the
+  foot in 30 poses of the same grid.
+- **Neck cover** (4.8 g, one C-shaped piece, snaps on from the left, no screws): caps over hubs N (front) and C (rear), strap along
+  the servos' left side (z 143..158), two 0.8 mm snap tabs behind the cradle floor's right face, rib in the gap between the servo
+  cases, open underneath, notch for the cable to hub Y. No crossing at rest (0.85 mm to the nearest socket).
+  It COSTS range (5 deg grid): head pitch forward free to +70 (contact from +75; was +85), neck forward free to -65 (contact from
+  -70 with the body's bearing plate; was -80), neck back free to +5 (contact from +10 with the lid / Uno Q, which now sits 12.5 mm
+  higher; was +19.5), and head pitch -75 with the head yawed / rolled brings the head base onto it.
+- A first attempt edited the thigh meshes in the scene and broke them; restored from the saved file, then done in leg_v2.py.
+- Not done: snap-tab flex and print check of the neck cover, cover copies' labels in the exploded view, trimming the neck caps to
+  win range back, thigh cover vs cables (lengths only).
+
+### Soles, chest distance sensor, light, mounts, Uno Q cover; neck cover dropped (2026-11-12)
+
+User: no neck cover (removed; covers.py builds it only with "neck": true). Built instead:
+- **Soles** (`parts/soft_parts.py`, collection `soft_parts`): the original 2x_foot_bottom_tpu.stl at 0.92, 11.1 g TPU each, plate 2.3 mm
+  under the pad, its raised middle up into the pad. Our pad (from the simulation mesh) had a closed underside, so leg_v2.py (`sole_stl`)
+  now cuts the sole's own shape out of it: foot 26.9 -> 23.8 g, sole in pocket 0.00 mm. Both legs rebuilt (twice today: cover mounts, pocket).
+  The duck stands 2.3 mm higher on them than the model without.
+- **Distance sensor** `tof_sensor` (25.5 x 17.7 x 4.6, Adafruit VL53L1X STEMMA QT size, NOMINAL) on a wider, taller chest plate of the
+  body frame (body_v2.py `tof`), Qwiic cable from the balance sensor through the keel's port (106 mm path). NOT fastened (board holes unknown).
+  Motion: reached only at neck -80 (hub N's plug) and with the head folded onto the chest (neck <= -60 with head pitch +85) -> neck
+  forward free to -75.
+- **Light** `light_led_5mm` in the face panel's hole (5 mm LED, flange behind the wall, 1 mm proud); hole lowered 1.8 mm so it clears the
+  roof. Wires to ~D9 + GND as before.
+- **Mounts** (body_v2.py): sound card between two rails and two stops on the tray floor, kept down by the board above (0.3); speaker in
+  a three-sided pocket against the left wall; USB hub now ON EDGE on the battery shelf between the battery and the left lid posts (rail +
+  rear stop; 0.4 / 0.35 mm side gaps - tight); power switch in a pocket on the shelf at the open rear; battery between its ribs and stops,
+  under the lid window, held down only by the sound card above it (foam) - no strap (no room beside it).
+- **Uno Q cover** `uno_cover` (10.8 g, optional): skirt over the tray walls, ceiling 4 mm above the headers (so the header wires need
+  RIGHT-ANGLE housings), front top edge chamfered 5.5 mm, window over the LED matrix (board x 31.3..58.8, y 4.4..20.7 scaled from the
+  datasheet drawing), notches for the USB-C plug, VIN, Qwiic, light and UART wires, 2x M2x6 into the tray wall beside a board post.
+  Tray posts trimmed flush with the walls.
+- Neck pitch x head pitch map (yaw 0, roll 0, hubs included): WITHOUT the cover the raised board / tray already blocks neck back from
+  +15 (all head pitches) and head pitch back (-75..-45) at neck -40..+10; so neck back is now free to +10, was +19.5 before the tray.
+  The cover adds: neck +10 blocked (free to +5) and one more 10-deg step of head pitch back at neck -20..+5. Head pitch forward unaffected.
+- Exact crossing checks of every new / changed part at rest: none. Cables: 0 short over 211 poses (USB runs 66 / 55 / 263, sensor 106).
+- Open: fastening of the distance sensor; real connector positions on the sound card / hub; hub fit is tight; right-angle housings;
+  bill pads; eyes; body side shells; yaw + roll; simulation with the new masses; print / assembly checks.
+
+### Simulation of the full v2 assembly (2026-11-12)
+
+Pipeline (all re-runnable): `tools/blender/body_mass.py` (mass / COM / inertia per body from the built parts: printed = solid PLA x 0.75,
+servo 13.2 g, bearings 4.0 / 1.0 g ASSUMED, steel by volume, electronics by table, wiring 31 g spread over the nearest bodies) ->
+`sim/body_mass_v2.json`; `tools/blender/export_bodies.py` (now decimates a body over 190 k faces - MuJoCo's STL limit is 200 k - and no
+longer skips render-hidden servos) -> `sim/assets_v2`; `tools/sim/apply_body_meshes.py` + new `tools/sim/apply_body_inertia.py` (masses,
+inertias, sites imu / tof / head_camera moved to the real parts) -> `sim/robot_scs0009_v2.xml`, `scene_scs0009_v2.xml`; fix_key_heights.
+Clean copy `exports/xgoduck_scs0009/sim_v2/`; trainnr robot **xgoduck_scs0009_v2@9cbc173ecab9** (project xgoduck_scs0009). Studio
+recording `xgoduck_v2_vs_original` (original grey, v1 yellow, v2 blue, 8 tests back to back).
+- Mass 682 g (sim model before: 561 g): trunk + bay 233 (was 195), head 89 (was 109), thigh 58 (was 37), foot 33 (was 23), shin 22 (15).
+- Bug found by the sim: the TPU soles were laid level in Blender's display pose, but the original pad's underside is the plane that is
+  level at the STAND keyframe (5 deg off). Standing on the soles' outer edges, the hip rolls fought each other (93 N mm, 41 % of stall).
+  Fixed: soft_parts.py `sole_matrix` puts the sole on that plane (floor-down direction from MuJoCo), the foot pocket in leg_v2.py uses the
+  same function; legs and covers rebuilt. Now 4 contacts per foot, hip roll 30 / 21 N mm. Foot 22.2 g.
+- Servo tests (servo_tests.py, `sim/v2_tests.json`), worst servo % of stall: stand 33 (knee; before 33), squat 0.3 41 (37), shift 32 (33),
+  neck -1.2 rad 56 (59), neck +60 deg 47 (50), head pitch -1.5 37 (40), neck to -135 deg 80 (83). Fast neck -135 in 0.75 s: tilt 2 deg (before
+  42 deg; the original falls). Neck back + head pitch back (1.047 / -1.2): v2 stays up, the original and the previous model fall.
+  sit_stand and one_leg fall for all three robots (scripted, too abrupt) - not a v2 difference.
+- NOT shown by these tests: self-collision is off in the model (neck -135 passes in sim, the real neck now stops at about -75 with the chest
+  sensor; head over the back stops on the Uno Q); the masses rest on the assumptions above; no walking policy has been run on v2.
+
+### Sole merged into the foot: one printable piece (2026-11-12, user decision)
+
+leg_v2.py: the original sole's shape (2x_foot_bottom_tpu.stl x 0.92) is now UNIONED into the foot instead of a pocket for a TPU part
+(`sole_merge`, default true), plus a skirt that carries the pad's underside outline down to the sole's bottom so nothing overhangs.
+Placement fixed on the way: the sole had been centred on the mean of the pad's vertices (4 mm off at the rear, 5 mm proud on one side,
+and the left foot's union came out non-manifold); now on the middle of the pad's underside outline. Separate sole objects removed.
+- foot 32.4 g solid PLA each, one piece, watertight, footprint = the original pad exactly (x -34.7..15.0), sole face 2.0 mm below the old pad.
+- Printed sole-down (on the plane that is level when the duck stands): 133 mm2 of overhang left, largest face 13 mm2 (was 516 mm2 / 202 mm2
+  before the skirt).
+- Knee x ankle grid (left, 15 x 10 deg): the merged foot collides in exactly the same poses as the foot without a sole (knee forward
+  limit 45..75 deg depending on ankle, ankle -90 end stop) - nothing lost.
+- No soft TPU under the foot any more: grip is PLA on the floor (sim friction unchanged; the real duck may slip - a TPU sole could
+  still be printed separately with sole_merge false).
+- Sim rebuilt: 675 g; trainnr robot **xgoduck_scs0009_v2b@2b7873e6e299** (v2@9cbc173ecab9 kept: trainnr never overwrites). Worst servo:
+  stand 33 %, squat 42 %, shift 33 %, neck -1.2 rad 56 %, neck +60 deg 47 %, head pitch -1.5 37 %; all tests upright.
+
+### Review of all 15 servos, horns and grooves; strip camera in a brow band (2026-11-12)
+
+- `tools/blender/servo_review.py` (data/servo_review.json): every shaft on its joint axis (0.00 deg, <= 0.03 mm), each case in the
+  right holder, each horn only in the part it drives, holder / output bodies = the joint's two bodies. Head yaw range +-170 deg exceeds
+  the SCS0009's 300 deg travel (+-150) - to be limited (joint_range props not changed yet).
+- `tools/blender/horn_check.py` (data/horn_check.json) found and the fixes removed: (1) beak groove in the jaw turned 45 deg to the
+  horn (36 mm3 overlap) -> angle 0; (2) trimmed horns (10 cap joints + beak) had NO end clearance -> joint_v2 pocket_cutters +0.2 at
+  the flat end; (3) three different tapers for the same star horn (model: to the tip width at the round tip's start, 10.14; grooves /
+  ribs: at 11.94; trimmed model: 11.94) -> one taper (HORN_CROSS_STRAIGHT) in scs0009.py, pocket_cutters, rib_adds; all 15 servo models
+  regenerated (refresh_servos.py; scs_mouth tagged servo_joint "mouth"), all grooved parts rebuilt. Now: trimmed + beak side 0.20,
+  end 0.20, rib bite 0.22, top 0.13, hole 2.28 / cbore 4.18; full cross side 0.30, end 0.30, ribs 0.19. Hub below the plate sits in
+  the arm-shaped void (the shaft centres it). Lid screw heads cleared from the sound card's rails. Horn section is still NOMINAL:
+  Feetech's spec sheet lists no accessories (no horn drawing) - real horn to be measured.
+- Feetech spec (Seeed PDF): stall 2.3 kg cm / 0.8 A at 6 V, no-load 120 mA, 330 deg pot / 300 deg used, connector 5264-3P, lead 15 cm.
+- Camera: Waveshare OV5640 5MP USB Camera (B) (the only one available) per Waveshare's drawing: PCB 62 x 9 x 1.0, camera 8.5 x 8.5 x 5.6 at
+  29.5 from the socket end (lens D5.5, FOV 68), socket J1 3.2 high on the camera side at the end, LED ~49.4 (scaled), 3 x D2.1 holes
+  (10.2, 7.0) (60, 2.75) (60, 6.75). It cannot sit inside the dome (61 inside < 62), so head_shell_v2.py `camera: ov5640_b` builds a
+  BROW BAND across the face in front of the dome's edge (x 83.4..90.5, y -134.3..-66.0 within the dome's outside, z 203.6..216.4):
+  lens on the centre line 0.5 proud, LED window (the separate 5 mm LED and its wires are gone, D9 free), socket at the duck's right,
+  cable straight back through an opening; 3x M2x6 from behind into bosses in the front wall (5 mm thread, tips 0.1 short). Face 8.8 g,
+  watertight; hollow skin otherwise. No penetration with dome / base / board; jaw 0..35 deg and head roll +-25 deg: no contact; camera
+  cable 270 of 400 mm. Prints on its side with 409 mm2 of supports (largest face 34 mm2).
+
+## Joint ranges, neck clearance, sim v2c (2026-11-12)
+
+**Problem found.** The original STAND (neck +20°, head +20°) and SIT (neck +29°, head +92°) poses collided. The Uno Q sits
+12.5 mm higher for the audio tray, so when the neck leans back the neck-side parts come down on the board, its cover and lid.
+Hub C (cradle rear wall) hit at neck +10°. The cradle hit the full cover at +25°. Original neck range: −135…+60°.
+
+| neck-back limit (rigid parts) | cover on | cover off |
+|---|---|---|
+| board as built (raised) | ~20–24° | ~30–34° |
+| board 12.5 mm lower | ~35–39° | ~45–49° |
+
+**Fixes**
+- Hub C is now **stacked on hub N** on the cradle's front wall, a quarter turn round (`wiring.py`). No seat on the rear/front wall
+  was clear. Its cables were rerouted, and all 37 cables still reach over 211 poses.
+- Hub Y stays on the U's left arm, turned 2 (`y_turn`). No turn is clean at neck +30°.
+- **Uno Q cover cut** by the space the neck and U sweep (neck 0…+30°, head pitch −45…+90°, 1.5 mm clearance). The cutter is one
+  side-profile prism (`parts/neck_sweep.py`, also in `body_v2.py` via `"neck_sweep"`). The piece cut loose at the front is
+  dropped, so the cover is now a hood over the board's rear ⅔ (7.1 g solid, one shell, manifold). The board's front ~20 mm,
+  including the front of the left header row, is open under the neck's swing.
+
+**Usable ranges** (`sim/joint_ranges_v2.json`; Blender `joint_range`; MJCF):
+
+| joint | new (deg) | original | limit by |
+|---|---|---|---|
+| knee L / R | −90…+68 / −68…+90 | ±90 | foot reaches the hip L-bracket |
+| ankle L / R | −86…+90 / −90…+86 | ±90 | shin |
+| neck pitch | −80…+25 | −135…+60 | forward: tof/chest; back: hub Y plug on the header row (>+20), neck on board (+35) |
+| head pitch | −35…+65 | ±105 | ≥+70: jaw / yaw block on stacked hub C; back: head on bay |
+| head yaw | ±150 | ±170 | leads |
+| hips, head roll | unchanged | | |
+
+Coupled, for the controller (MuJoCo has no self-collision here): neck 0 → head ≥ −35; +10 → ≥ −15; +20 → ≥ 0; +25 → 0…+25.
+Head yaw beyond ±45° with full roll still meets the U.
+
+Keyframes: STAND unchanged (clear). SIT is now neck 20 / head 65 (was 29 / 92). FOLD can't be reached; it is clamped to
+neck 25 / head 25 / knees 68.
+
+**Verified** (exact intersection volumes, `leg_motion_check.py`): each of the 14 joints alone over its whole new range (9 samples):
+clean. STAND, coupled-boundary poses, head 65 at yaw ±150: clean. SIT and neck 20 / head 65 show a 0.1 mm³ graze of a cable
+plug on the left header. Still touching, as before: the 46°/55° hip/knee crouch combos (foot on the L-bracket), leg folded up
+behind (foot on the bay), yaw > ±45° with full roll.
+
+**Sim** (`xgoduck_scs0009_v2c@8425d4c7ff9a`, `exports/xgoduck_scs0009/sim_v2/`): 667.7 g, OV5640 (B) mass 5 g ASSUMED, head
+camera site moved to the strip's lens. Servo tests (`v2_tests_c.json`) all upright, no saturation. Worst loads: stand / shift
+32% (right knee), squat 41%, neck −69° 55%. The original duck at our scale: 39 / 52 / 58%.
+
+**User decision (2026-11-12):** the limited neck range is accepted. The audio tray stays under the raised Uno Q; FOLD is dropped.
+
+## Camera only: audio dropped, board lowered (2026-11-12)
+
+**User decision:** no speaker and no USB sound card ("mic is already there in the camera"). That also removes the USB hub: the
+OV5640 (B) camera's USB cable runs straight from the Uno Q's USB-C to the head (`usb_camera_to_uno`; worst reach 335 mm, so buy a
+40 cm cable). **User chose to lower the board** back to its old height (4.5 mm posts, 12.5 mm lower).
+
+- `body_v2.py`: new flags `"audio": false` (no sound card, speaker, hub or their rails, sound holes or mic slots) and
+  `"board_stand": 4.5`. The tray walls, Uno Q cover, power-switch pocket and battery window stay. Cover screws sit halfway up
+  the low walls. Build arguments are saved in `projects/xgoduck_scs0009/data/build_args/`.
+- The board is at z 131.6–133.2. The battery top clears the board's underside connectors by 2.8 mm.
+- Cover recut by the swept space of the neck, the U and hub Y with its plugs (neck 0…+40°): one shell, manifold, 9.6 g solid.
+
+**Ranges** (replace the table above): neck **−80…+40°** (was +25°). Head pitch −45…+65°. Hip pitch, leg back: 85° (a straight
+leg's foot reaches the lower cover at 88°). Knees, ankles, yaw and roll as before. Coupled: neck 0 → head ≥ −45; +10 → ≥ −35;
++20/+25 → ≥ −15; +30/+35 → ≥ 0; +40 → ≥ +20.
+
+Keyframes: STAND unchanged. SIT is neck 28.6° (original) / head 65°. FOLD is neck 40°, head 57° (original), knees 68°, hips 85°.
+
+Verified (exact volumes): each joint alone over its full range is clean, except neck +40° with head 0°, which is the coupled
+limit. STAND, SIT, FOLD and the coupled-boundary poses are clean. The usual combined extremes still touch.
+
+**Sim** `xgoduck_scs0009_v2d@09a2f6a0dd50` (`exports/xgoduck_scs0009/sim_v2/`): 646.4 g. Servo tests (`v2_tests_d.json`) all
+upright, no saturation, worst servo load 32–55% (original duck at our scale: 39–58%).
+
+## Battery: Pro-Range 850 mAh 3S 30C, bay lengthened (2026-11-12)
+
+**User decision:** Pro-Range 850/3S-30C (57 × 31 mm, 75 g, Deans T-plug, JST-XH balance; height not listed, so ≤ 22 mm is
+assumed, and the lid window takes up to ~24 mm). The battery pocket is **23 mm longer toward the rear** (`"pocket_ext": 23`).
+The keel, servo adapter, regulator, IMU, Uno Q and its cover did not move.
+
+- The pocket is 67.8 mm long inside. The battery sits centred, 6.3 mm from the rear wall, which leaves room for its leads.
+- The extension has full-height walls up to the lid, two more lid posts and screws in its rear corners, and the shelf runs on
+  into it. Its underside starts at **z 99**, so nothing hangs below that behind the keel where the feet pass. That overhang
+  **needs print supports** (tree supports under the extension).
+- **Power switch:** now under the lid's rear end, in the leads' space, with its slider up through a 3 × 7 mm slot in the lid
+  (reachable from outside). Side rails and the rear wall locate it; add a dot of hot glue. It is still NOMINAL 12 × 6 × 6.
+- Part weights: enclosure 39.0 g, lid 9.9 g, shelf 5.5 g. Duck total **680.2 g** (was 646.4).
+- Fits: 31 bay fits, all as designed. The battery has 0.2 mm side gaps to the posts and walls and 0.4 mm under the lid.
+
+**Motion:** every joint alone over its full range is clean (hip 85° back included); only neck +40° with head 0° touches,
+which is the coupled limit. A backward step clears the new rear section up to about 34° of hip pitch with the knee folded and
+the hip rolled out. At 40° and beyond the foot reaches it. A 29° step with the hip rolled in touches the **original keel**
+(this was already so). The extreme "walk" combinations (46°) still touch, as before.
+
+**Sim** `xgoduck_scs0009_v2e@842feeddc827`: 680.2 g. All servo tests (`v2_tests_e.json`) upright, no saturation. Worst loads:
+stand 28%, squat 38%, neck −69° 55% (original at our scale: 39 / 52 / 58%). Runtime estimate ~50–75 min (not measured).
+
+## Battery standing upright, regulator Mini560 5 V (2026-11-12) - replaces the lengthened bay
+
+**User:** the horizontal 850 mAh pack stuck out at the back. Stand it upright and keep the centre of gravity near the middle.
+The bay is back to its original length (`pocket_ext` dropped). Section view: `data/bay_upright_battery_section.png`.
+
+- **Battery** (Pro-Range 850 3S, 57 × 31, thickness assumed 21) stands at the keel's front, 0.3 mm from the front wall, between
+  side ribs, leads at the top. It runs from the keel floor (z 58.9) to z 115.9. The trunk's centre of mass is 8 mm further forward
+  and 5 mm lower than with the lengthened bay.
+- **Servo adapter**: the real board, from Waveshare's STEP (42 × 33 × 14.6 incl. pins; `parts/adapter_mesh/`). It stands across
+  the keel behind the battery, sockets toward it, its edges in rib slots (ribs at the top and bottom of each edge only: the power
+  edge's DC jack, terminal and USB-C, and the socket edge's sockets and header pins, reach the edge). **Power and UART wires are
+  soldered on the back**: the screw terminal faces the side wall, 0.4 mm away. There is a 4 mm gap behind the board for those
+  wires. The servo cables leave the plugs and bend up in a ~6 mm gap in front of the adapter, cross over the battery and leave
+  through the pocket's front notch.
+- **Keel** 0.5 mm wider each side (`keel_hw` 18.5) for the 33 mm board. The 3 front screws are sunk flush (M2 countersunk,
+  Ø4.0 seats) because the battery stands against that wall.
+- **Balance sensor** upright on 4 bosses on the pocket's rear wall, above the adapter (the wall is now full height).
+  The software has to know its new orientation.
+- **Regulator: Mini560 5 V / 5 A** (29 × 18 × 5.4 mm, ~₹93 at Zbotic/Robodo), clipped under the lid's rear part. No 6 V module that
+  small is sold in India. The SCS0009 datasheet allows a 4–7.4 V input, so at 5 V stall torque is about 0.188 N·m instead of
+  0.226 (`servo_torque_nm` in `sim/joint_ranges_v2.json`). Listings say "5 A max, about 3 A continuous without heat dissipation",
+  so this is to be measured on the robot.
+- **Power switch** under the lid's rear part, slider out of the left side opening.
+- **Cables:** the adapter → left thigh cable now needs **250 mm** (it runs over the battery and down the deck slot). Distance
+  sensor and IMU Qwiic cables are rerouted.
+- Fits: all as designed. The tightest is the adapter in its rib slots (0.15 mm); IMU on its bosses is touching (designed).
+  Weights: enclosure 30.0 g, lid 11.1 g, no shelf. Duck 660.3 g.
+- Motion: same as before, except at neck +40° hub Y's plugs needed the cover recut after rewiring (build order step 4, see
+  `data/build_args/README.md`). Every joint alone is clean except neck +40° with head 0° (coupled limit); the extreme walking
+  combinations touch as before.
+- **Sim** `xgoduck_scs0009_v2f@4642785293d4` with 5 V torque: all servo tests upright, no saturation. Worst loads: stand 40%,
+  squat 50%, neck −69° 66% (at 6 V the same body would be ~33 / 42 / 55%).
+
+Buy list changes: Mini560 **5V** 5 A (not the 6 V UBEC); one **250 mm** 3-pin servo extension (adapter → left thigh);
+M2 **countersunk** screws ×3 for the bay front wall.
+
+## Distance sensor dropped (2026-11-12)
+
+**User:** remove the distance sensor for now; the camera covers obstacle sensing. The chest plate (its only job was to carry it)
+and the IMU → sensor Qwiic cable are gone (`"tof": false`). The body frame is now 19.7 g, and the duck 657.6 g (sim
+`xgoduck_scs0009_v2g@76bf53a86cf7`, all servo tests upright, worst 65%). Fix made on the way: `parts/neck_sweep.py` now carries
+the hubs and plugs with their anchor part (the U or the neck). The wiring makes them as free objects, so before this the cover
+cut missed hub Y's plugs whenever the wiring had just been rebuilt. Neck +40° is clean again (the coupled limit is unchanged).
+The neck's forward limit (−80°) was partly set by the sensor; it is unchanged here (hub N / C also limit it) and can be
+re-checked if more forward reach is wanted.
+
+## Balance sensor: 7Semi BNO086 Qwiic (2026-11-12)
+
+User's choice (Robocraze, ₹2,294). The 7Semi datasheet ES-12243 gives the board as 27.89 × 20.87 mm; the hole positions are not
+given, so they are ESTIMATED (±11.35 × ±7.83 mm, 2.6 mm in from the corners) and need measuring on arrival. It is mounted upright
+on the bay's rear wall, long side across, 0.5 mm right of centre (`"imu": [27.89, 20.87, 6.0]`, `"imu_holes"`, `"imu_dy": -0.5`). The
+regulator moved 1.5 mm forward to clear its ~6 mm depth. Fits: all as designed (≥ 0.2 mm). I²C address 0x4B (default). The
+software must use the board's mounted orientation. Mass change −0.5 g (sim not re-onboarded for that).
+
+## Power switch: MTS-102-A2T mini toggle in a side-wall recess (2026-11-12)
+
+The battery-side current is about 2–3 A at peak (estimate), so the 12 × 6 × 6 slide switch stand-in (SS-12F15 class, 0.3–0.5 A) was
+too weak. User's choice: **MTS-102-A2T** (Robu, 6 A 125 VAC, ON-ON: use the middle pin and one outer pin). It is mounted through a
+6.3 mm hole in a 1.6 mm plate at the bottom of a 7 × 8 mm recess in the bay's left side wall (x −37.5, z 108). The lever tip is flush
+with the outside, so nothing sticks out for a leg to catch. The body sits inside, between the balance sensor and the battery, above
+the adapter. The switch clips under the lid are gone. Fits: the switch touches its plate (as designed), 1.0 mm to the IMU, 2.45 mm
+to the battery. Left-leg check: nothing reaches the recess.
+
+**New combined limit found** (it was there before this change too): leg swung back ≥ 45° *and* hip rolled fully out (22°) puts
+the thigh on the hip-yaw servo and the bay's front sides (x −26…−5). Controller: limit hip roll-out when hip pitch is back beyond
+~40°. The other combined extremes are as before.
+
+## Screws: few standard types, servo kit screws at the joints (2026-11-13)
+
+User's choices: machine screws everywhere, all bought from Robu, as few types as possible; each SCS0009 comes with its horn screw
+(M2 machine screw, pan head; the output spline is brass) and two self-tapping mounting screws. So the screw set is:
+
+- **Joints (14):** the servo's own horn screw. It is shorter than the M2 × 6 it replaces, so every joint's head seat went down
+  (type C 0.6, type F 1.0, in a Ø4.2 counterbore), leaving 1.86 mm of print over the horn and ~1.8 mm of thread in the spline.
+- **Servo ears (30):** the servo's own mounting screws (2 per servo).
+- **Everything else (30):** M2 × 6 socket head (Robu EasyMech, k 2.0, dk 3.7), threaded into the printed Ø1.6 pilots.
+- **Bay front wall (3):** M2 × 10 countersunk (Robu has no M2 × 6 CSK); deck pilots deepened from 5.1 to 8.5 mm.
+- **M3 × 8 (8) + M3 nuts (4)** as before (the model already had their real heads).
+
+Head room, measured at every screw head (99) with its real size: before this, the **hip yaw** screws' heads had only 1.09 mm under
+the hip-roll servo's ear (the old stand-in already overlapped it) and the head-roll rear ear screw 1.24 mm under the dome. Fixed by
+the kit screw + lowered seat (hip yaw: 0.39 mm left) and two Ø4.4 recesses inside the dome (camera upper screw, head-roll ear screw;
+≥ 2.2 mm of wall left behind them). Now every head fits at rest; smallest gaps 0.14 (dome screws under the jaw) and 0.15 (mouth ear).
+All cut parts are single watertight shells; their volumes dropped by exactly the counterbore volumes.
+
+Code: `joint_v2.py` (SOCKET_HEAD, KIT_SCREW, KIT_SEAT; type-F counterbore; `screw_heads`, `head_room_cut`), joint screws renamed
+`*_screw_M2x4kit` (explode_all, head_v2 updated), `head_shell_v2.py` (dome recesses), `body_v2.py` (countersunk M2 × 10).
+**To measure on arrival:** the kit horn screw (assumed 4.0 long, head Ø3.5 × 1.3) and the kit mounting screws (if longer than
+6 mm, the pads' 4.9 mm pilots must go deeper).
+
+## Hardware review: screws, holes, fits, assembly, margins (2026-11-13)
+
+Full rebuild with these changes, then every check rerun on the rebuilt model.
+
+**Tolerances (FDM):** M2 pilot 1.6 -> 1.7, M2 clearance 2.3 -> 2.4, servo saddle clearance 0.15 -> 0.25 per side, 6702 rotor boss
+14.95 -> 14.9, kit-screw counterbore 4.2 -> 4.4. Bearing seats unchanged (6702 Ø21.1, 693 Ø8.1). A tolerance test print of
+these features before the full print is advisable (printers differ).
+
+**Fixes found by the review:**
+- Servo-ear screw pilots ended exactly at a 6 mm screw's tip: now type C +1.5 (to 0.6 under the bearing lip; screws up to ~7.2),
+  type F 8.5 deep. If the kit mounting screws are longer than 7.2: an M2 nut under the head as spacer.
+- Camera board: its bosses were cut away again by the room cut in front of the board (held by 1.25 mm of thread; screw tip 0.1
+  from the face). Bosses now added last, 5 mm of thread; front wall 1.5 -> 2.2 (pilot end 0.5 inside, camera 0.2 back).
+- Uno Q: lid screws in 0.7 counterbores (socket heads clear the board by 0.4); cover-screw pilots were 0.15 from the M3 bore ->
+  moved to 1.0, on their own bosses, 1 mm longer (they bottomed out).
+- Left hip-yaw servo: only a 0.5 mm window to go in under the neck fork. Saddle walls 8 -> 6 and a 1 mm relief in the pedestal
+  over its front ear tip: now in from the rear or either side at 6.5-8.5 mm lift (L-shaped insertion).
+- Unused keel cable port removed (upright bay: no cable uses it). Ear holes filled into the dome (left fully, right above the U).
+- Tools: joint lookups (wiring reach, neck sweep, swept space, head check) now ignore copies outside the scene - stray copies from
+  a library load had frozen the neck in the cover sweep and in the cable reach check (cover uncut; neck/head reach at rest only).
+
+**Verified after the rebuild:** fit audit 309 pairs, 308 as designed (battery vs enclosure 0.27 mm3 = sampling: no surface
+intersects). Assembly paths: all 30 leg / neck / head-pitch / head-yaw / head-roll-servo / beak-servo steps OK. Head room: all 99
+screw heads fit at real size (smallest 0.14 under the jaw). Cable reach over 211 poses: none short; least slack: left body-to-thigh
+extension 224 of 250 (26), usb camera 335 of 400, ext U-to-head 100 of 165. Motion: only the known coupled limits (neck +40 with the
+head below +20; head yaw beyond +-45 with roll; legs folded up behind; deep crouch foot on the L-bracket).
+
+**Still open:**
+- **Head-roll yaw block** cannot be fitted: alone along the roll axis it meets the head base (9 -> 2.5 mm of travel, up to 1.0 mm
+  deep); with its servo, either side, or up through the floor opening also blocked. Needs a relief in the head base along its path
+  (~1.2 mm) or a different order.
+- **Jaw** cannot be fitted onto the beak servo in the head base (alone either way, or with the servo from above / the front: up to
+  4.6 mm). Needs an assembly concept (e.g. a removable part of the base, or the jaw's arm entering from a slot).
+- Kit screws (horn and mounting) and horn: measure on arrival.
+
+## Head assembly and driver access (2026-11-13, after the hardware review)
+
+- **Jaw**: no change needed, an ORDER: jaw straight up through the bill-plate slots with the beak servo not yet in, pivot screw,
+  then the beak servo lowered ~4.5 mm toward the middle and slid outward onto the jaw arm (all paths clear in the model).
+- **Yaw block**: goes onto the roll horn from the front (3.5 mm of travel to clear the horn) - up through the floor opening
+  4.3 mm forward, then back. Its front end stood 2.0 mm from the support under the beak servo: relief in the head base = the
+  block's front outline (an inverted T) + 0.3, 4.6 mm deep, 0.9 mm under the beak servo. Path clear (0.2 mm touch at the very
+  start, 20 mm below the head).
+- **Driver access** (new check, a straight tool line ~35 mm along every screw): fixed - Ø4.6 driver holes through the face
+  behind the 3 camera screws and through the jaw under the 2 front dome screws; Uno Q cover screws moved to the rear side of
+  their posts, one each side (the front one had the neck plate 6.5 mm away; in front the right head sat half over the skirt's
+  opening and the left boss met the board's underside parts). The left hip-yaw servo's front ear screw is reachable only at
+  20-25 deg (neck fork 8 mm above, a hole would pass 0.66 from the neck horn): an M2 × 6 socket screw + ball-end key there.
+  All other blocked lines are assembly order (e.g. lid screws before the Uno Q, joint screws before the next servo) or leave
+  ≥ 15 mm for an L-key. The order is written down in **ASSEMBLY.md**.
+- Checks after the rebuild: head fits 17/17, body + head fits 153 (only the battery sampling artifact), Uno Q fits 39/39, head
+  motion only the known limits, cable reach none short.
+
+## Horn from the kit photo (2026-11-13)
+
+The user's STEP (fs90-horn.step) is an FS90 servo with its single-arm horn: Ø4.8 spline (the SCS0009's is 20T Ø3.95), so not
+our horn. Measured instead from Feetech's SCS0009 kit photo: the X horn has 4 equal arms (not long/short pairs). Scale from the
+listing's lengths: X 23.88 tip to tip = 175.8 px (7.36 px/mm), double arm 34.49 = 251 px (7.28 px/mm); the servo's ears give
+8.15 px/mm at its top face, 12 mm nearer the camera - consistent with a close camera. Arm width 4.84 at r 4.1, 4.60 at r 6.8,
+4.32 at r 9.6 -> 5.2 at the axis tapering to 4.3 where the round tip starts (was nominal 5.6 -> 3.6): the full-length pockets
+(ankles, neck, head pitch) were 0.3 too narrow near the tips, the r-6 trimmed ones 0.24 tight. Holes at r 4.9 / 7.4 / 9.8.
+Hub Ø/height and plate thickness are not visible from above: still nominal (the rotor is located by its bearing, not by the
+horn's top). Uncertainty +-0.15 on widths, inside the pocket's 0.20 clearance + 0.25 crush ribs. Rebuilt every servo horn and
+all 15 pockets, rechecked.
+Rechecked after the horn update: horn in groove on all 15 joints (side gap 0.20 trimmed / 0.30 full, ribs 0.19-0.20 on 14-17
+points, top gap 0.13; the jaw's tightest spot went from 0.002 to 0.094), fit audit 308/309 (battery sampling artifact), all
+assembly paths (left hip-yaw by its L-path), head room 99/99, cable reach none short, motion: only the 20 known limit poses.
+
+## Full kit horn, uncut: knees done (2026-11-13)
+
+User: use the full horn everywhere (the 9 bearing joints trimmed it to r 6 to fit inside the 6702ZZ). The horn plate is then wider
+than the bearing, so the bearing cannot sit round it on the fixed side.
+
+- **Test joint (type C2, `tools/blender/parts/c2_proto.py`)**: bearing in a bridge above a full-horn plate. One-piece fixed part:
+  **not assemblable** (the moving plate is trapped between base and bridge; every path blocked) - caught by assembly_path_check
+  before showing. Fix chosen by the user: a **bolt-on bearing cap**. Then verified: 3 single-piece parts, 21 fits as designed,
+  7-step build path, cap screws 5.0 mm in the post, the post blocks 132 deg for a 10 mm link.
+- **Knee: type C2M** (`joint_v2.c2m_*`), because the C2 layout would have made the shin unprintable flat (boss 4.5 mm out of its
+  print face) and moved the ankle and foot 2.8 mm. The **6702ZZ sits in the shin** (seat in its flat inboard face, outer ring turns
+  with the shin, inner-ring relief in the seat floor); the **cap** carries a fixed tube boss into the bore (3.9 of 4.0 mm), a shoulder
+  on the inner ring (0.1 axial play), its own **post down onto the thigh's face** (the thigh prints on that face), **2 × M2 × 6
+  socket** in clearance holes (the cap centres on the bearing, then is clamped - countersunk heads would force it onto the pilots).
+  Ø5.2 hole through the cap to the horn screw. Thigh: plate thinned to 1.8 under the shin's disc (room r 14.29), relief over the
+  servo's boss. Shin, ankle and foot otherwise unchanged.
+- **Checks (both legs)**: all leg parts one piece, watertight; 46 knee fits as designed (horn press 2.05 mm³, horn-holder 0.38,
+  shin-thigh 0.38, shin-cap 0.10 at the shoulder); 12 build steps clear; cap screws 3.4-3.5 mm in the thigh (wall >= 1.28), ear
+  screws 4.4-4.5. **Motion**: the first cap (top 13.8 over the shin's 9.9) hit the electronics enclosure at the **hip-yaw limit
+  (-12.6 deg, 58 mm³)** and hip roll -22 deg. Clearance mapped by ray casts (hip-yaw limit: 6.9 mm over the shin face at the cap's
+  front edge -> 2.2 at its rear). Cap lowered to 10.2..13.3 and its rear top edge chamfered 45 deg from 4 mm behind the axis ->
+  the sweep is back to exactly the 20 poses of before the knee change. Remaining: in the 2 walking-corner poses (yaw -0.11, roll
+  +0.19, pitch +-0.8, knee -+0.96), where the shin already hit the enclosure (182 mm³, a known limit), the cap now also does (200 mm³).
+- **Fixed on the way**: the horn pocket cutter (pocket minus ribs) came out non-manifold when built in place at the left knee -
+  now built in the joint's own frame and moved (all joints). Screw audit: long shanks (> ~8 mm) were skipped (axis from the largest
+  face) - fixed; it then flagged the bay's 3 countersunk screws sitting on a flat counterbore -> 90 deg countersink (body_v2;
+  **rebuilt and checked in the next full rebuild**).
+- **Horn screw** (all joints, unchanged): 1.80-1.85 mm of thread in the brass spline (probed directly; the screw audit reads 1.46
+  at the knees - its sampling, not the geometry). Measure the real screw.
+- **Hip pitch: stays trimmed (user decision).** Built as C2M first (cap post off-centre, clear of the body-to-thigh cable; disc
+  r 9.5): fits 96/96, build steps and screws fine, but the motion sweep showed the **yaw connector hitting the cap at hip roll
+  +11..+22 deg and in all 12 walking-corner poses**, and the L-bracket could no longer be fitted to the roll horn with the cap on.
+  My first clearance map had swung only the hip pitch; swinging pitch and roll together: the yaw connector passes **0.3-2 mm**
+  over the L-bracket's inboard face almost everywhere (5.9 at best; a cap needs >= 3.9). Options shown: trimmed (chosen),
+  full horn without a bearing, a 6706 thin-section bearing round the full horn (thigh ring ~Ø41), widening the hips.
+- Thigh zip-tie holes: the knee cap's post now stands on the bridge's knee end over one of them -> both holes moved straight
+  across the bridge, 0.9 mm before the knee post. Holder base under the moving disc thinned to 1.6 (1.0 mm under the disc): it
+  prints as a ~28 mm bridge; print_check counts the new bridges (shin seat floor, thigh room) as unsupported.
+- **Hip roll: stays trimmed (user decision).** Space check first (cap_space.py, all left-hip joints + knee swung together): the
+  front of the L-bracket's roll plate looked free - but that check held the OTHER leg still. Both legs moved (corrected run -
+  the first run started from a bent pose, see below): a test cap (plate 10.2..13.3 on both roll joints) **touches/overlaps the
+  other leg with both hips rolled -22 deg (any yaw, already at 0)** and **from 18 deg of outward yaw of both hips**; at the
+  walking yaw (12.6) with roll 0 it clears by 2.9 mm. A C2M roll joint would also move the L-bracket's inboard flat from 8.8 to
+  11.35 (bearing seat wall). Options shown: trimmed (chosen), widen the hips, full horn without a bearing.
+- **Pose corruption (my error, fixed):** a pose script crashed mid-loop and left 4 hip joints rotated (left yaw -12.6, right yaw
+  -25.8, both rolls -22); the next checks started from that pose. The figures first shown to the user for the hip roll (0.12 mm,
+  overlap from 5 deg) came from it; corrected above (same conclusion, smaller limits). Joints restored and compared with their
+  stored rest (`q0` prop): all equal. Pose scripts now restore every joint in a try/finally.
+- **New finding about TODAY's parts** (12 both-hips poses added to the motion sweep): with **both hips yawed fully outward
+  (+-25.8 deg)** the two L-brackets overlap (0.1 mm3 at roll 0, 14.3 mm3 at roll +-22) and the yaw connectors (1.8 mm3); the gap at
+  roll 0 just before is 0.05 mm. Yawed fully inward with roll -22 the legs cross (feet, shins: expected). Yawed inward 12.6 with
+  roll +22: thighs vs enclosure 1.2 mm3 (knee caps add 2 mm3). Not caused by the full-horn work; needs a yaw limit or a fix.
+- Still to do: hip yaw (same cramped hip cluster: check the space first, with all hip joints of BOTH legs swung together), head
+  roll, head yaw (±150 deg: no free sector for a post), then the full rebuild with every check, the exploded view (it still holds
+  the old thigh and shin copies) and the screw/bearing counts.
+
+## Joint limits, part 1: the hips (2026-11-13)
+
+Single joints never collide over their full ranges; combinations do. A servo's own angle limits (Feetech SCS/SCSCL memory table:
+Min Angle Limit reg 9, Max Angle Limit reg 11, 2 bytes, 0..1023 steps - SCS0009 table not found, confirm on a servo; never 0/0 =
+motor mode) act per joint, so the hardware limits are chosen as a **box in which every combination of the coupled joints is clear**.
+
+- **Both hips, yaw x roll** (leg_motion_check exact volumes on a both-legs grid, then min gaps at the box corners, both legs moving):
+  outward yaw 25.8 collides at every roll (L-brackets 14.3, yaw connectors 1.8 mm3 - today's parts); roll -22 (feet together)
+  collides at every yaw (feet); inward yaw + inward roll: the knee caps reach the electronics enclosure's lower edge first.
+  **Safe box: hip yaw -6.3 .. +19 deg (+ = outward), hip roll -12 .. +19.5 deg (- = feet together)**, corners: (-6.3, -10.9)
+  0.97 mm, (-6.3, -12) 0.57, (-6.3, +19.5) 2.66, (+19, -12) 1.39, (+19, +19.5) 0.65. Walking (yaw -6.3..+12.6, roll +-10.9) fits.
+- **Enclosure chamfer (user: try it)**: 45 deg 2.5 mm on the keel's lower outer edges along x -30..-5 (where the knees pass), 1.2
+  inner fillet keeps the corner wall >= 1.3 (battery 0.35 clear). Knee cap at the walking corner 0.50 -> 0.97 mm, roll -12 became
+  safe (0.10 -> 0.57). It cannot extend the inward yaw: at -8 deg the cap meets the flat wall higher up.
+- Body rebuild found and fixed: the **IMU pilots ended exactly on the rear wall's outer face** (coincident faces: 56 non-manifold
+  edges; the earlier builds were clean by luck) -> pilots through the wall. **Bay screws M2x10 countersunk now seat** in a 90 deg
+  countersink (screw audit ok, 7.6 mm in the body frame). Body fits 86/86 apart from the known battery sampling artifact (6 scattered
+  points mid-battery, not at the walls or the fillet).
+- Sitting with the legs straight forward (hip pitch at -90): the heels and the thighs' rear corners touch first, the wire hubs and
+  plugs on the thighs are 3.5-3.8 mm above the ground, the body 27 mm. User: sit/stand is wanted but not a glute sit; hardware first,
+  MuJoCo sit/stand study after.
+
+## Joint limits, part 2: neck, head; the head-roll rework that did not work (2026-11-13)
+
+- Every joint alone in 5 deg steps: only **neck pitch +40** collides (head base vs Uno Q cover, 71 mm3). Neck x head pitch grid
+  (10 deg): clean except neck +10..+40 with the head tilted down. **User: neck -80..+30, head pitch -5..+65** (corners >= 1.36 mm,
+  closest pair the U and its own servo; the bearing plate's contact with the cradle at the axle is the joint itself, excluded).
+- **Head yaw x roll: roll is free only facing straight** (+-15 within +-2.5 deg of yaw; at yaw +-5 a 5 deg roll touches; up to
+  550 mm3 at +-45). Cause: the head base's floor opening was generated from the roll sweep at yaw 0 only; yawed, the U's top-plate
+  corners (21-32 mm from the yaw axis, 1.2 mm under the floor) meet the floor as it rolls (r x sin roll).
+- Rework tried (user: rework, target +-10 at every yaw, head stays put): U trimmed by the head-side parts' sweep as a solid of
+  revolution about the yaw axis (computed in neck_v2, `u_roll_clear_deg`), far corner lowered 5 mm into the bearing plate's old
+  block. Built clean (one piece each, screws 4.0 mm bite) - but **the U could no longer be assembled** (it slides along the
+  pitch axis over the head-pitch servo; the lowered corner would pass through the cradle and the servo) and the M3 axle head hit
+  the moved block. Moving the corner to the bearing plate instead leaves 1.4 mm of height above the cradle to join them. My
+  estimate that reshaping the U would do was wrong: it missed the U's assembly path. Reverted (option kept, default off);
+  the restored U: fits 56/56, paths 4/4.
+- Options shown: raise the head on a taller U centre (+-5: ~2 mm, +-10: ~4.5, +-15: ~7), software interlock, smaller raise.
+  **User: software interlock** (servo limits yaw +-150, roll +-15; roll only while facing straight). JOINT_LIMITS.md updated.
+- Head yaw / head roll full horn: no room for a cap (the U's plate sits between the floor and the servo top with 1.2 / 1.5 mm)
+  -> both stay trimmed.
+- **Hip yaw full horn: no room** (cap_space.py, both legs' yaw/roll + left pitch swung): under the yaw connector's plate the
+  hip-roll servo (turning with yaw) is 1.6-1.8 mm away over the whole cap footprint, 0.1-0.2 at its edges; a cap needs ~3.9.
+  Stays trimmed. **Horns as read from the servos**: full on 6 (knees - new, C2M + bolt-on cap - ankles, neck pitch, head pitch);
+  trimmed on 9 (hip yaw / roll / pitch x2, head yaw, head roll, the beak servo). The beak's jaw arm was not part of the rollout
+  (not a bearing joint): still to check for a full horn.
+
+## Trimmed horn, jig; full rebuild with every check (2026-11-13)
+
+- **Trimmed horns** (user: the beak stays trimmed too): all 9 trimmed pockets fit the trimmed horn model (sides 0.20, end at the cut
+  0.20, ribs 0.20, top 0.13); the beak's "side min 0.094" in horn_check is its sampling at a corner - measured directly, the nearest
+  surface is the designed 0.1 top gap. **Trim jig fixed**: its slots had 0.06-0.10 per side at the wall (an FDM slot prints 0.1-0.2
+  narrow: the horn would not have dropped in) and its wall sat at r 6.0 exactly (a flush cut = the pocket's end). Now: slots 0.25
+  along the arm's real taper, a Ø8.0 recess at the plate (the horn's plate fills the corners between the arms to r 3.76), hub hole
+  +0.4, wall r 5.65 -> cut arms end 5.45..6.15 < the pocket's 6.2. Tested with the horn model: seats (0.012 mm3 = contact), arm slots
+  0.24, hub 0.20. Lives in collection `print_tools` (in leg_v2 it was 300 mm away and made the duck "487 mm wide" in the labels).
+- **Full rebuild** (legs, neck, head joints, head shell, ear fill, body, Uno Q, covers, wiring, cover recut) then every check. Found
+  and fixed:
+  - **left foot non-manifold** (108 edges, +1.5 g): the horn ear's lug started exactly in the horn plate's outer face (coplanar
+    union) - clean until the wiring rebuild changed the boolean order. Lug face 0.05 inside; build_part can now report the
+    manifold state per step (`PROBE["steps"]`, leg_v2 `foot_steps`).
+  - **yaw block's assembly path** scraped 0.2 mm (also in the earlier runs - not caught then): going up 4.3 forward its roll boss
+    stayed 0.18 behind the floor opening's rear edge. Now 4.8 forward (0.3 clear), front relief to 5.2 (0.3 from the beak servo's
+    rails). ASSEMBLY.md updated.
+  - **camera screws**: tip 0.3 before the pilot's end, pilot end 0.5 inside the face's front skin (audit limits 0.3 / 0.6) -> front
+    wall 2.2 -> 2.5, pilot 0.4 past the tip, skin 0.7 (the face's front moves 0.3: duck depth 145.5 -> 145.8). A nut spacer was not
+    possible: the heads have 0.3 to the dome.
+  - **knee order**: driver access - with the leg on the body the knee cap screws and horn screw face the enclosure at 13-16 mm. The
+    leg below the hip is now built off the robot and hung on the hip-roll horn last (path checked for every leg part, both sides).
+  - IMU pilots (coincident with the rear wall's outer face, broke the enclosure) and the bay's countersinks: see "Joint limits,
+    part 1".
+- **Screw audit (94 heads), dispositions** of what it still flags (28): servo horn screws 13 (1.80-1.85 mm in the brass spline,
+  probed; measure the kit screw); M3x8 axles 3 (tip 1.8 into the nylon nut by design - snug-only bearing axles); ear screws "bite
+  2 parts" 5 (the servo's ear hole is drawn at the screw's 2.0: model artifact); Uno Q M3 posts 4 ("wall 0.15" is sampling; measured
+  along the screw: >= 0.98 at the rear posts, 0.83 in the bottom 2 mm of the front posts, 1.35-1.87 above); the C2 test rig 1 (not
+  part of the robot; the rig is removed from the scene).
+- **Final pass after the fixes**: 27 printed parts one piece, watertight; horns 15/15; fits 333 (only the battery sampling artifact);
+  all assembly paths (the left hip-yaw servo by its L-path: lift 7-8.5, from the rear or a side); screws as above, none new; head
+  room 77/77; cables 29/29 reach (least slack 16 mm); motion: the 20 known limits + the both-hips poses outside the limit box.
+- Printability (50 deg, supports per part in its best orientation): feet 436-438 mm2, head base 1719, dome 1937, thigh 678, shin
+  523, face 466, body lid 594 - bridges are counted as unsupported; the head shell parts need supports.
+- **Exploded view** regenerated (170 elements, the knee caps and their screws in build order along the knee axis; no stale copies);
+  size labels: nanoduck H 237.5 x W 162.5 x D 145.8 mm. **Print files**: `exports/xgoduck_scs0009/print/` - 30 STL (mm) + manifest,
+  310 g solid PLA (`tools/blender/export_print.py`, refuses non-closed parts).
+
+## MuJoCo on the rebuilt parts; sit and stand (2026-11-13)
+
+Model `sim/scene_scs0009_v2.xml` re-exported from the rebuilt parts (665.7 g, servo 0.1883 N m at 5 V, limits from
+JOINT_LIMITS.md; trainnr bundle `xgoduck_scs0009_v2h`, `_v2i` with the new SIT). Recordings streamed into the trainnr Studio (the Studio's live Simulator
+runs only its built-in rigs): `nanoduck_v2h_moves`, `nanoduck_v2h_sit_attempt` (the old SIT), `nanoduck_v2h_sit_stand`.
+
+- **Moves that work**: stand hold (knees ~40 % of stall), crouch 0.3, side shift 0.12 rad, neck / head / head yaw / hip yaw within
+  the limits. Crouch >= 0.4 needs the knee past its 68 deg limit.
+- **The old SIT cannot work**: hip -30 / knee 60 / ankle 0 with the feet flat needs the trunk pitched ~90 deg; in the sim it falls on
+  its face at 0.8 s (neck and head servos at 100 %). No blend of it, and no open-loop search around it, stayed up.
+- **New SIT** (found by a quasi-static planner: feet flat, root pose solved from the feet, CoM vs the soles, static per-leg
+  torques, MuJoCo self-collision): **hip pitch 70, knee 18, ankle -16** (left; right mirrored), hip roll / yaw, neck and head as
+  STAND. The duck leans back ~35 deg and sets the rear of the electronics enclosure on the floor (two points 37 mm apart, 58 % of
+  the weight; the next part, the servo adapter, is 6 mm off the floor; no screw head, switch or battery near it).
+  - Straight line in joint space from STAND: the CoM stays >= 15.5 mm inside the soles all the way (STAND itself has 16.4).
+  - MuJoCo, STAND -> SIT -> STAND: **108 / 108 variations pass** (move 1.5 / 2 / 3 s, friction 0.4 / 0.7 / 1.0, servo stiffness
+    x1 / x0.5, trunk CoM -6 / 0 / +6 mm, trunk mass x1 / x1.15): no fall, no saturation, trunk down in every one, back to the
+    same standing height. Peak servo load at 3 s per move: 61 % median, 69 % max (2 s: 67 / 74; 1.5 s: 74 / 80). **Use 3 s.**
+  - servo_tests `sit_stand:3:2`: upright, peaks hip pitch 57 %, knee 40 %, tracking error <= 0.5 deg.
+  - **Exact parts in Blender** (leg_motion_check, 21 poses along the path): no collision; control pose (hip +60, knee -90) does
+    collide as expected. Smallest gap that closes along the path: shin to foot-plate screw heads 2.21 mm (2.54 at STAND).
+  - Written to `sim/joint_ranges_v2.json` (keyframe override) and the SIT key in the scene (settled pose, `tools/sim/settle_key.py`).
+- Not modelled: servo deadband / backlash / gear friction, real print mass (solid-PLA estimate - real parts lighter), floor other
+  than flat and rigid. Check on the robot with the servos' overload protection set (JOINT_LIMITS.md part 3) and a hand ready.

@@ -9,7 +9,8 @@
   body_neck_bearing_plate   separate: 693ZZ on the M3x8 axle into the cradle's nut; 2x M2x6 pan-head self-tappers (counterbored) into the web.
   head_pitch_u     type-F rotor at head pitch (full-cross horn plate) whose top plate is the head-yaw
                    type-C rotor (Ø15.95 boss into the 16x22x4 in the yaw block, trimmed horn pocket).
-  head_pitch_bearing_plate  separate: 693ZZ; 2x M2x6 pan-head self-tappers (counterbored) down through the top plate.
+  head_pitch_bearing_plate  separate: 693ZZ; 2x M2x6 (counterbored) down through the U's lowered far corner (head rework
+                   2026-11-13: the U is trimmed so the head can roll +-10 deg at every yaw - see U_ROLL).
 
 ARGS = {"robot": "duck_scs0009", "collection": "neck_v2", "joint_lib": "/abs/parts/joint_v2.py",
         "base_lib": "/abs/parts/joint_orig_style.py", "dims": "/abs/parts/scs0009_dims.py", "hardware": True}
@@ -135,24 +136,83 @@ top_x = fr(Fh, wr(Fy, (0, 0, L["PLATE_Z0"]))).x
 bot_x = fr(Fh, wr(Fy, (0, 0, L["PLATE_Z1"]))).x
 assert top_x < bot_x
 BLOCK = (BP_Z[0] - 3.0, BP_Z[1])                                    # bearing-plate block thickened outward by 3 mm
+# ---- head rework 2026-11-13 (user: head roll +-10 deg at EVERY head yaw, head stays put). Yawed, the U's top-plate corners sit
+# under the head's floor 21-32 mm from the yaw axis and roll dips the floor onto them (r x sin roll). So: (1) the U is trimmed by a
+# solid of revolution about the yaw axis = everything the head-side parts sweep (roll +-U_ROLL, every yaw), less U_CLEAR; (2) the
+# far corner over the bearing plate is lowered: the U takes the bearing plate's old 5 mm top block (DROP) and the bearing plate
+# starts DROP lower; its 2 screws go down through the U's lowered corner (HEAD_SEAT under the head) into the plate's new block.
+U_ROLL = args.get("u_roll_clear_deg", 0.0)                          # 0 (default): the U as before. 11: trim + lowered corner - NOT USABLE: the U then cannot slide over the head-pitch servo onto its horn (2026-11-13)
+U_CLEAR, DROP, U_R0 = 0.6, (5.0 if U_ROLL else 0.0), 15.0
 h_add, h_sub, h_rib = L["horn_plate_features"](Fh, [(bot_x - 1.0, -ARM_R), (bot_x - 1.0, ARM_R)], angle_deg=45.0)
 corners = [wr(Fh, (top_x, y, z)) for y in (-ARM_R, ARM_R) for z in (ARM[1], BLOCK[0])]
 y_add, y_sub, y_rib = L["link_features"](Fy, [tuple(fr(Fy, p)[:2]) for p in corners])
 blk_z = (BLOCK[0] + BLOCK[1]) / 2
 Ms = [Fh @ Matrix.Translation(Vector((top_x, yy, blk_z)) * MM) @ Matrix.Rotation(math.radians(90), 4, "Y") for yy in (-6.0, 6.0)]
 top_t = bot_x - top_x
-h_screws = [c for M in Ms for c in L["screw_holes"](M, [(0, 0)], 0.0, top_t, 0.0, +1, csk=False, cbore=top_t - HEAD_SEAT)]
-u = finish("head_pitch_u", L["build_part"]("head_pitch_u", h_add + y_add, h_sub + y_sub + h_screws, coll, mat_u, h_rib + y_rib))
-blk = L["add_box"](L["new_bm"](), bot_x, bot_x + 5.0, -ARM_R, ARM_R, BLOCK[0], BLOCK[1], Fh)
-p_add, p_sub = L["bearing_plate_features"](Fh, [(bot_x + 0.3, -ARM_R + 0.3), (bot_x + 0.3, ARM_R - 0.3)])   # corners inside the block: no edge lying on its side face
-p_sub += [c for M in Ms for c in L["screw_holes"](M, [(0, 0)], top_t, 0.0, 5.5, +1, csk=False)]
+IFACE = top_t + DROP                                                # U / bearing plate interface, below the screws' frame origin (top face)
+h_screws = [c for M in Ms for c in L["screw_holes"](M, [(0, 0)], 0.0, IFACE, 0.0, +1, csk=False, cbore=IFACE - HEAD_SEAT)]
+u_cut = None
+if U_ROLL:
+    import numpy as np
+    import bmesh as _bm
+
+    def _body(o):
+        while o is not None and not o.name.startswith(R + ":"):
+            o = o.parent
+        return o
+    head_body = bpy.data.objects[R + ":jaw_soft"]                   # the body the head roll turns
+    yo = wr(Fy, (0, 0, 0))
+    Myaw = Matrix.Translation(yo * MM) @ (Fy.to_3x3() @ Matrix(((1, 0, 0), (0, -1, 0), (0, 0, -1)))).to_4x4()   # z UP the yaw axis
+    Mi = Myaw.inverted()
+    rax = (Myaw.inverted() @ joint["head_roll"].matrix_world.translation) / MM                       # roll axis point, yaw frame
+    rdir = (Mi.to_3x3() @ (joint["head_roll"].matrix_world.to_3x3() @ Vector(joint["head_roll"]["joint_axis"]))).normalized()
+    pts = []
+    for o in bpy.context.view_layer.objects:
+        if o.type != "MESH" or _body(o) != head_body or ".x" in o.name or o.name.startswith("_") or not o.visible_get():
+            continue
+        b = _bm.new()
+        b.from_mesh(o.data)
+        _bm.ops.triangulate(b, faces=b.faces[:])
+        T = Matrix.Scale(1000, 4) @ Mi @ o.matrix_world
+        for f in b.faces:
+            a_, b_, c_ = (T @ v.co for v in f.verts)
+            n_ = max(1, int(max((b_ - a_).length, (c_ - a_).length, (c_ - b_).length) / 0.6))
+            for i in range(n_ + 1):
+                for j in range(n_ + 1 - i):
+                    pts.append(a_ + (b_ - a_) * (i / n_) + (c_ - a_) * (j / n_))
+        b.free()
+    if not pts:
+        raise RuntimeError("U trim: no head-side parts in the scene (build the head once with u_roll_clear_deg 0, then again)")
+    P = np.array([p[:] for p in pts])
+    rb = 0.5
+    zlow = np.full(int(60 / rb) + 1, 1e9)
+    for ang in np.arange(-U_ROLL, U_ROLL + 0.01, 0.5):
+        Rm = Matrix.Rotation(math.radians(ang), 3, rdir)
+        Q = (P - np.array(rax[:])) @ np.array(Rm).T + np.array(rax[:])
+        r = np.hypot(Q[:, 0], Q[:, 1])
+        k = np.clip((r / rb).astype(int), 0, len(zlow) - 1)
+        np.minimum.at(zlow, k, Q[:, 2])
+    zs = np.array([zlow[max(0, i - 2):i + 3].min() for i in range(len(zlow))])     # +-1 mm in radius: no gap between bins
+    TOP = 40.0
+    prof = [(U_R0, TOP)] + [(i * rb, min(TOP - 0.5, float(zs[i]) - U_CLEAR)) for i in range(int(U_R0 / rb), int(45 / rb) + 1)] + [(45.0, TOP)]
+    u_cut = lambda: L["combine_cutters"]([L["_revolve"](prof, -180.0, 172.0, Myaw), L["_revolve"](prof, 166.0, 196.0, Myaw)])
+    report.append("U trim: allowed top above the yaw origin r16 %.1f, r20 %.1f, r24 %.1f, r30 %.1f mm" % tuple(dict(prof)[r] for r in (16.0, 20.0, 24.0, 30.0)))
+u_adds = h_add + y_add
+if DROP:
+    u_adds = u_adds + [L["add_box"](L["new_bm"](), bot_x - 0.6, bot_x + DROP, -ARM_R, ARM_R, BLOCK[0], BLOCK[1], Fh)]   # the far corner, lowered
+u = finish("head_pitch_u", L["build_part"]("head_pitch_u", u_adds, h_sub + y_sub + h_screws + ([u_cut()] if u_cut else []), coll, mat_u, h_rib + y_rib))
+blk = L["add_box"](L["new_bm"](), bot_x + DROP, bot_x + DROP + 5.0, -ARM_R, ARM_R, BLOCK[0], BLOCK[1], Fh)
+p_add, p_sub = L["bearing_plate_features"](Fh, [(bot_x + DROP + 0.3, -ARM_R + 0.3), (bot_x + DROP + 0.3, ARM_R - 0.3)])   # corners inside the block: no edge lying on its side face
+p_sub += [c for M in Ms for c in L["screw_holes"](M, [(0, 0)], IFACE, 0.0, 4.6 if DROP else 5.5, +1, csk=False)]
+if u_cut:
+    p_sub.append(u_cut())
 hp_plate = finish("head_pitch_bearing_plate", L["build_part"]("head_pitch_bearing_plate", [L["combine_cutters"](p_add + [blk])], p_sub, coll, mat_u))
 
 # =========================================================== hardware dummies + parenting
 hw = []
 if args.get("hardware", True):
     hw.append((L["pan_screw_dummy"]("neck_plate_screws_M2x6st", [(Fn, x, y, BP_Z[1] - HEAD_SEAT, +1) for x, y in web_screws], coll), e_n.parent))
-    hw.append((L["pan_screw_dummy"]("head_pitch_plate_screws_M2x6st", [(M, 0, 0, top_t - HEAD_SEAT, +1) for M in Ms], coll), joint["head_pitch"]))
+    hw.append((L["pan_screw_dummy"]("head_pitch_plate_screws_M2x6st", [(M, 0, 0, IFACE - HEAD_SEAT, +1) for M in Ms], coll), joint["head_pitch"]))
     hw += [(o, e_n.parent) for o in L["hardware_F"]("neck_", Fn, coll)]
     hw += [(o, joint["head_pitch"]) for o in L["hardware_F"]("head_pitch_", Fh, coll)]
     hw += [(o, joint["head_yaw"].parent) for o in L["hardware_C"]("head_yaw_", Fy, coll)]

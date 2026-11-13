@@ -25,7 +25,7 @@ R = args.get("robot", "duck_scs0009")
 VOX, CLR = args.get("voxel_mm", 1.5), args.get("clear_mm", 1.5)
 BOX = np.array(args.get("box_mm", [[-75, 60], [-45, 45], [-90, 35]]), float)
 trunk = bpy.data.objects[f"{R}:trunk_base"]
-joints = {e["joint"]: e for e in bpy.data.objects if e.name.startswith(R + ":") and e.type == "EMPTY" and "joint" in e}
+joints = {e["joint"]: e for e in bpy.data.objects if e.name.startswith(R + ":") and e.type == "EMPTY" and "joint" in e and e.users_collection}   # (in the scene: not a stray copy pulled in by a library load)
 q0 = {n: e.rotation_quaternion.copy() for n, e in joints.items()}
 skip = tuple(args.get("skip_prefix", ["wire_", "cable_stub"]))
 movers = []

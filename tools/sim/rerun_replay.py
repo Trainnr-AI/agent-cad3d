@@ -27,10 +27,11 @@ st = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(st)
 
 COLORS = {"original": [200, 200, 200], "scs0009": [240, 190, 60], "scs0009_h1.0": [240, 190, 60],
-          "scs0009_h0.85_e1": [90, 200, 120], "scs0009_v1": [240, 175, 40]}
+          "scs0009_h0.85_e1": [90, 200, 120], "scs0009_v1": [240, 175, 40], "scs0009_v2": [80, 160, 240]}
 LABELS = {"original": "original (grey)", "scs0009": "SCS0009 (yellow)", "scs0009_h1.0": "SCS0009 first version (yellow)",
           "scs0009_h0.85_e1": "SCS0009 fixed: 0.85x head + stiffer gain (green)",
-          "scs0009_v1": "NEW duck v1: redesigned legs + neck (yellow)"}
+          "scs0009_v1": "NEW duck v1: redesigned legs + neck (yellow)",
+          "scs0009_v2": "NEW duck v2: full assembly - head, bay, electronics, soles, covers (blue)"}
 CENTER_Y = [-0.11]
 
 

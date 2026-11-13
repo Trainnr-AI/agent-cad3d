@@ -1,0 +1,1 @@
+{"kit": "<repo>/tools/blender/parts/cable_kit.py", "joint_lib": "<repo>/tools/blender/parts/joint_v2.py", "base_lib": "<repo>/tools/blender/parts/joint_orig_style.py", "dims": "<repo>/tools/blender/parts/scs0009_dims.py", "collection": "wiring_bay_exploded", "exploded": "bay_exploded", "scale": 1.5, "partial": true}

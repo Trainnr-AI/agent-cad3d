@@ -1,0 +1,27 @@
+<mujoco model="scene">
+    <include file="robot_scs0009_v2.xml" />
+
+    <visual>
+        <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0" />
+        <rgba haze="0.15 0.25 0.35 1" />
+        <global azimuth="160" elevation="-20" />
+    </visual>
+
+    <asset>
+        <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072" />
+        <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8" width="300" height="300" />
+        <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2" />
+    </asset>
+
+    <worldbody>
+        <light pos="0 0 3.5" dir="0 0 -1" directional="true" />
+        <geom name="floor" size="0 0 0.05" pos="0 0 0" type="plane" material="groundplane" />
+    </worldbody>
+    <keyframe>
+        
+        <key name="STAND" qpos="0 0 0.130406 1 0 0 0 0 -0.087266463 -0.38397244 -0.00494 0.38397244 0.34906585 0.34906585 0 0 0 0.087266463 0.38397244 0.00494 -0.38397244" ctrl="0 -0.087266463 -0.38397244 -0.00494 0.38397244 0.34906585 0.34906585 0 0 0 0.087266463 0.38397244 0.00494 -0.38397244" />
+        <key name="SIT" qpos="0 0 0.0809011103 0.953259264 0.000344652122 -0.30214917 0.00159209687 -0.00119428715 -0.0889600157 1.22189728 0.315384238 -0.281200325 0.35452167 0.347716329 1.62724549e-06 5.74732082e-05 0.00105992211 0.088770253 -1.22136949 -0.316408099 0.282363637" ctrl="0 -0.0872664626 1.22173048 0.314159265 -0.27925268 0.34906585 0.34906585 0 0 0 0.0872664626 -1.22173048 -0.314159265 0.27925268" />
+        <key name="FOLD" qpos="0 0 0.076409 1 0 0 0 0 0 1.48352986 1.18682389 0 0.523598776 1.00007366 0 0 0 0 -1.48352986 -1.18682389 0" ctrl="0 0 1.48352986 1.18682389 0 0.523598776 1.00007366 0 0 0 0 -1.48352986 -1.18682389 0" />
+        <key name="INIT" qpos="0 0 0.121808 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0" ctrl="0 0 0 0 0 0 0 0 0 0 0 0 0 0" />
+    </keyframe>
+</mujoco>

@@ -132,6 +132,28 @@ Accepted by the user: neck back limited to ~27 deg (cradle meets the Uno Q at 44
 Blender collections: `duck_v2_exploded` + `wiring_exploded` + `duck_v2_labels`, `sec_<joint>` (9), `body_exploded`,
 `body_sec_*` (from the FIRST body attempt - stale), `cable_kit`, `cables` (8 mm exit stubs), `electronics`, `wiring`.
 
+## State after the session of 2026-11-13 (branch `kit-hubs-original-shapes`) - REVIEW.md from "Full kit horn, uncut" down
+
+- **Horns**: full kit X horn on 6 servos (knees - new type C2M: 6702ZZ in the shin + bolt-on cap with 2 x M2x6 socket - ankles,
+  neck pitch, head pitch); trimmed to r 6 with the printed jig on 9 (hips, head yaw / roll, beak): no room for a cap there
+  (measured with all coupled joints and both legs moving). Trim jig redesigned and tested against the horn model.
+- **Joint limits**: `projects/xgoduck_scs0009/JOINT_LIMITS.md` - servo angle limits (hip yaw -6.3..+19, hip roll -12..+19.5,
+  neck -80..+30, head pitch -5..+65, head roll +-15), software interlocks (head roll only facing straight; walking-envelope
+  corners), overload protection settings. Values in steps to be confirmed on a servo.
+- **Body**: keel's lower outer edges chamfered for the knee caps; IMU pilots and bay countersinks fixed.
+- **Head**: roll is free only facing straight (the U's corners under the floor) - user chose a software interlock; raising the
+  head ~4.5 mm on a taller U centre would give +-10 at every yaw (not done). Yaw block goes in 4.8 mm forward; face front 2.5 mm.
+- **Verified after the full rebuild**: 27 printed parts one piece; horns 15/15; fits 333; all assembly paths (leg built off the
+  robot, hung on the hip-roll horn last); screws dispositioned; head room 77/77; cables 29/29; motion = known limits only.
+- **Files**: `exports/xgoduck_scs0009/print/` 30 STL + manifest (git-ignored); ASSEMBLY.md (build order, horn trimming), BOM.md.
+- **Sim** (re-exported from these parts, trainnr bundle `xgoduck_scs0009_v2i` = v2h + the new SIT; recordings in the trainnr Studio): stand, crouch
+  0.3, shift, neck / head moves work. **Sit/stand solved**: new SIT hip 70 / knee 18 / ankle -16 (leans back onto the
+  enclosure's rear edge), straight path from STAND over 3 s - balanced all the way, 108/108 robustness variations, peak load
+  <= 69 %, exact parts clear >= 2.2 mm (REVIEW.md "MuJoCo on the rebuilt parts; sit and stand"). The old SIT face-plants.
+- **Next**: measure the real parts (horn, kit screws, battery, IMU holes, servo steps/deg and protection registers); print a
+  tolerance coupon (6702 pocket, 28 mm bridge); then the gait inside the limits (no walking policy exists for this robot yet -
+  trainnr's walk families are fixed rigs).
+
 ## Open items / next steps
 
 1. **Re-run the checks**: fit audit + full motion sweep have NOT been run since the last body fixes and the split into

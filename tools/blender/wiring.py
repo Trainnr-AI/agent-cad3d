@@ -12,7 +12,8 @@ Bus tree (kit hubs have 3 sockets; the adapter is assumed to offer ONE bus socke
   head chain: body hub (neck pitch) - cradle hub (head pitch) - head hub on the head-yaw servo (head yaw, head roll)
 
 ARGS = {"kit": "/abs/parts/cable_kit.py", "joint_lib": ..., "base_lib": ..., "dims": ..., "collection": "wiring",
-        "exploded": None | "duck_v2_exploded", "scale": 1.0}
+        "exploded": None | "duck_v2_exploded", "scale": 1.0, "partial": False (exploded view of a few parts only: cables cut off where they
+        reach a part that is not in it)}
 """
 import bpy
 from mathutils import Matrix, Vector
@@ -106,7 +107,7 @@ def cable(name, pts, width, thick, mat, limit=None):
 
 # ------------------------------------------------------------------ hubs: 6 kit hubs on the limbs + one bus board in the body.
 #   thigh    one on the hip-pitch servo's top face, one on the knee servo's rear face (foam tape; held down by its cover)
-#   neck     one on the cradle's rear side wall, 0.30 of the neck length up (foam tape + zip tie round the cradle)
+#   neck     two on the cradle's front wall, C stacked on N (foam tape + zip tie round the cradle)
 #   head     one on the flat bottom of the head-yaw servo (foam tape + zip tie)
 #   body     bus board between the two hip-yaw servos, on the deck's three posts + one M2x6 (five leads plug in from above;
 #            the cables to the two thighs, the neck and the servo adapter are soldered to it and leave underneath)
@@ -179,7 +180,6 @@ def body_hub(name, x, y, z, zdir, xdir):
     add_hub(name, "body_frame", trunk_M @ M, turn=False)
 
 
-body_hub("N", 47.2, -90.2, 95.5, (1, 0, 0), (0, -1, 0))
 body_hub("G", 16.0, -103.6, 109.5, (0, 1, 0), (0, 0, -1))
 for s in ("left", "right"):
     T = s[0].upper() + "T"
@@ -210,11 +210,35 @@ pH = Mn.inverted() @ axis("head_pitch") / MM            # head-pitch axis in the
 un = Vector((pH.x, pH.y, 0)).normalized()
 vn = Vector((0, 0, 1)).cross(un)
 C_SIDE, C_MIDZ = -7.6, -19.05                            # the rear side wall's face and the cradle's mid-depth, in the neck frame
-Mc_ = Matrix((un, (-vn).cross(un), -vn)).transposed().to_4x4()
-Mc_.translation = (un * pH.length * 0.30 + vn * (C_SIDE - SEAT) + Vector((0, 0, C_MIDZ))) * MM
+# Second neck hub N (neck-pitch lead, cable from hub G, cable to hub C): on the cradle's FRONT side wall, halfway up, between the two
+# servos, socket C pointing down toward the neck's pivot. Exact tests (scratch neck_hub_test.py / neck_front_map2.py): no seat on the
+# cradle is clear over the whole neck x head-pitch range; this one keeps neck -80..+19.5 deg and head pitch -75..+90 deg
+# (user: full neck-forward is not needed). The chest seat it replaces kept everything but stood in front of the body.
+Mf_ = Matrix((un, vn.cross(un), vn)).transposed().to_4x4() @ Matrix.Rotation(PI, 4, "Z")
+Mf_.translation = (un * Vector((pH.x, pH.y, 0)).length * 0.50 + vn * (-C_SIDE + SEAT) + Vector((0, 0, C_MIDZ))) * MM
+add_hub("N", "neck_cradle", Mn @ Mf_, turn=False)
+cF, nF, wN = centre("N"), (Mn.to_3x3() @ vn).normalized(), (Mn.to_3x3() @ Vector((0, 0, 1))).normalized()
+# Cradle hub C (head-pitch lead, cable from N, cable to Y): STACKED on hub N (taped on N's sockets, board LAYER2 further out),
+# turned a quarter turn. Its old seat on the rear wall swung into the Uno Q / its cover when the neck leans back (the audio tray
+# raised the board 12.5 mm): the original STAND (+20 deg) and SIT (+29 deg) poses collided. No seat on the rear or front wall is
+# clear (scratch neck_hub_test2/3.py); this one is clear over neck -90..+30 x head pitch -40..+80 (scratch neck_hub_stack.py;
+# head pitch >= 85 meets the yaw block, as hub N's own plugs do at ~90).
+Mc_ = Mf_ @ Matrix.Rotation(PI / 2, 4, "Z")
+Mc_.translation = Mf_.translation + vn * LAYER2 * MM
 add_hub("C", "neck_cradle", Mn @ Mc_, turn=False)
-cC, cN, cU = centre("C"), (Mn.to_3x3() @ -vn).normalized(), (Mn.to_3x3() @ un).normalized()
-servo_hub("Y", "head_yaw", "scs_head_yaw_case")
+cC, cN, cU = centre("C"), nF.copy(), (Mn.to_3x3() @ un).normalized()
+# Head hubs. The old seat on top of the head-yaw servo is inside the dome's roof (head v2), and no seat on that servo clears the dome
+# through head roll. Two seats found by search + exact tests (scratch u_hub_seats.py / head_hub_seats.py), full 7 mm plug room each:
+#   Y  on the head-pitch U's LEFT arm, outer face, over the horn screw (raised 1.5: its board clears the screw head by 0.4) - clear of
+#      body / neck over neck -80..+19.5 x head pitch -75..+85 and of the head over yaw +-170 x roll +-25. Takes the head-yaw lead.
+#   M  in the head, flat above the beak servo. Takes the head-roll and beak leads.
+def layout_hub(name, owner, x, y, z, normal, k):
+    Rm = Vector((0, 0, 1)).rotation_difference(Vector(normal)).to_matrix() @ Matrix.Rotation(k * PI / 2, 3, "Z")
+    add_hub(name, owner, trunk_M @ Matrix.Translation(Vector((x, y + 100.0, z - 118.8)) * MM) @ Rm.to_4x4(), turn=False)
+
+
+layout_hub("Y", "head_pitch_u", 38.0, -82.2, 168.5, (0, 1, 0), args.get("y_turn", 2))
+layout_hub("M", "head_base", 64.5, -104.0, 219.5, (0, 0, 1), 2)
 
 
 def c_lead(j):
@@ -236,7 +260,23 @@ YG = 8.4                                                # the gap beside the bus
 # ------------------------------------------------------------------ servo leads (150 mm each)
 bay = bpy.data.objects["servo_adapter"]
 bbz = [bay.matrix_world @ Vector(b) for b in bay.bound_box]
-adapter = ("servo_adapter", Vector((max(v.x for v in bbz) - 0.002, sum(v.y for v in bbz) / 8, max(v.z for v in bbz))))      # top, front end (its two sockets)
+VERT = bay.get("layout") == "vertical"                                       # upright battery (body_v2.py "battery_vertical"): adapter across the keel
+if VERT:
+    _s1, _s2 = (Vector(p) for p in bay["sockets_xyz"])
+    GX = bay["gap_x"]                                                       # the cable gap between the adapter's parts and the battery
+    adapter = wp("servo_adapter", _s1.x + 7.0, _s1.y, _s1.z)                # 7 mm out of the lower socket, toward the battery, then up the gap
+    adapter2 = wp("servo_adapter", _s2.x + 7.0, _s2.y, _s2.z)
+    ad_term = wp("servo_adapter", *bay["term_back_xyz"])                    # soldered on the back (no room for the terminal's screws at the wall)
+    ad_uart = wp("servo_adapter", *bay["uart_back_xyz"])
+    zbt = max((trunk_M.inverted() @ (bpy.data.objects["battery_3s"].matrix_world @ Vector(c))).z for c in bpy.data.objects["battery_3s"].bound_box) / MM + 118.8
+    UPWAY = lambda y: [wp("servo_adapter", GX, y, 100.0), wp("battery_3s", GX, y, zbt + 2.5),
+                       wp("battery_3s", -20.0, -104.0, zbt + 3.5), wp("electronics_enclosure", -6.0, -104.0, 121.5)]   # over the battery, out of the pocket's front notch
+    DOWNSLOT = lambda y: [wp("body_frame", 4.0, y, 112.0), wp("body_frame", 14.5, y, 100.5), wp("body_frame", 14.5, y, 90.0)]   # down the deck's cable slot
+else:
+    _sx, _sy, _sz = bay["socket_xyz"]                                           # the adapter's two top-entry sockets (body_v2.py), layout mm
+    adapter = wp("servo_adapter", _sx, _sy + 9.0, _sz)                         # 9 mm out of the sockets: plug + first bend, toward the keel's middle
+    ad_term = wp("servo_adapter", _sx - 6.7, _sy + 5.0, _sz - 24.0)            # its screw terminal (6 V in)
+    ad_uart = wp("servo_adapter", _sx - 22.4, _sy + 4.0, _sz + 1.5)            # its UART header
 XG = -8.6                                                                  # the 4.5 mm gap between the battery's front end and the pocket's front wall
 PORT = [wp("electronics_enclosure", -9.5, -88.0, 89.8), wp("electronics_enclosure", -4.5, -88.0, 89.8)]      # through the keel's front wall, under the deck (body_v2.py: PORT)
 
@@ -275,27 +315,36 @@ for s, m in (("left", 1), ("right", -1)):
     cable(f"ext_{s}_thigh_A_to_B", [H(T + "A"), wp(f"{s}_thigh", 4.0, yo - m * 1.5, 63.5), H(T + "B")], K["EXT_W"], K["EXT_T"], m_ext, 165)
     # the one cable that crosses the hip: (left: straight from the adapter's first socket, out of the keel's port; right: from hub G, down the
     # deck slot) -> under the deck -> behind the roll servo -> over the thigh plate's rear -> hub D's inboard socket
-    start = [adapter] + PORT if s == "left" else [H("G"), wp("body_frame", 14.5, -100.4, 90.0)]
+    start = ([adapter] + UPWAY(-112.0) + DOWNSLOT(-97.5) if VERT else [adapter] + PORT) if s == "left" else [H("G"), wp("body_frame", 14.5, -100.4, 90.0)]
+    _lim = 250 if (VERT and s == "left") else 165                         # upright battery: over the battery and down the deck slot - a 250 mm extension
     cable(f"ext_{s}_body_to_thigh", start + [wp(f"{s}_yaw_connector", -1.0, -100.0 + m * 12.0, 86.0), wp(f"{s}_thigh", -2.0, -100.0 + m * 33.0, 92.0),
                                              wp(f"{s}_thigh", -24.0, -100.0 + m * 33.0, 92.0), wp(f"{s}_thigh", -31.5, -100.0 + m * 37.5, 84.0), H(T + "D")],
-          K["EXT_W"], K["EXT_T"], m_ext, 165)
+          K["EXT_W"], K["EXT_T"], m_ext, _lim)
 # adapter's second socket -> hub G: up the riser in front of the battery, through the notch at the top of the pocket's front wall
-cable("ext_adapter_to_gap", [adapter] + riser(-104.5) + [wp("electronics_enclosure", -8.0, -104.5, 121.9), wp("body_frame", -2.5, -102.5, 118.5), H("G")], K["EXT_W"], K["EXT_T"], m_ext, 165)
+cable("ext_adapter_to_gap", ([adapter2] + UPWAY(-114.5) + [wp("body_frame", -2.5, -102.5, 118.5), H("G")]) if VERT else
+      [adapter] + riser(-104.5) + [wp("electronics_enclosure", -8.0, -104.5, 121.9), wp("body_frame", -2.5, -102.5, 118.5), H("G")], K["EXT_W"], K["EXT_T"], m_ext, 165)
 # hub G -> chest hub N: forward out of the gap, beside the neck pedestal, down to the chest
-cable("ext_gap_to_chest", [H("G"), wp("body_frame", 38.0, -106.0, 104.0), wp("body_frame", 50.0, -106.0, 99.0), H("N")], K["EXT_W"], K["EXT_T"], m_ext, 165)
-# neck pitch: out sideways at the front of the cradle's foot, down in front of the pedestal to chest hub N
-cable("lead_neck_pitch", f_lead("neck_pitch", 1, 9.2)[:3] + [wp("body_frame", 50.0, -112.0, 104.0), H("N")], K["LEAD_W"], K["LEAD_T"], m_lead, 150)
-# head pitch: out sideways at the back of the cradle's top, down its side, round the floor's edge to the hub on its back
-cable("lead_head_pitch", f_lead("head_pitch", 1, 9.2) + [("neck_cradle", cC + cU * 0.030 + cN * 0.004), ("neck_cradle", cC + cU * 0.024 + cN * 0.005), H("C")], K["LEAD_W"], K["LEAD_T"], m_lead, 150)
-cable("lead_head_yaw", c_lead("head_yaw") + [H("Y")], K["LEAD_W"], K["LEAD_T"], m_lead, 150)
-cable("lead_head_roll", [sp("head_roll", XS, 0, ZC), sp("head_roll", XS - 3.0, 0, ZC), wp("yaw_block", 16.0, -94.0, 221.5), H("Y")], K["LEAD_W"], K["LEAD_T"], m_lead, 150)
-# extension up the neck: chest hub N -> beside the pedestal -> up behind it -> the hub on the cradle's rear side wall
-cable("ext_body_to_cradle", [H("N"), wp("body_frame", 40.0, -114.0, 97.0), wp("body_frame", 29.6, -106.0, 110.0),
-                            wp("body_frame", 27.5, -104.5, 124.5), ("neck_cradle", cC - cU * 0.014 + cN * 0.010), H("C")],
+cable("ext_gap_to_neck", [H("G"), wp("body_frame", 38.0, -106.0, 104.0), wp("body_frame", 49.5, -106.0, 110.0), ("neck_cradle", cF - cU * 0.026 + nF * 0.005), H("N")],
       K["EXT_W"], K["EXT_T"], m_ext, 165)
-# extension to the head: hub on the cradle -> up the cradle's back edge -> behind the U's top plate -> beside the yaw block -> hub on the head-yaw servo
-cable("ext_cradle_to_head", [H("C"), ("neck_cradle", cC + cU * 0.026 + cN * 0.009), wp("head_pitch_u", 21.5, -113.0, 188.0),
-                            wp("yaw_block", 22.0, -116.0, 201.0), wp("scs_head_yaw_case", 31.0, -120.5, 226.0), H("Y")], K["EXT_W"], K["EXT_T"], m_ext, 165)
+# neck pitch: out sideways at the front of the cradle's foot, up the front wall into hub N
+cable("lead_neck_pitch", f_lead("neck_pitch", 1, 9.2)[:3] + [H("N")], K["LEAD_W"], K["LEAD_T"], m_lead, 150)
+# head pitch: out sideways at the cradle's top, on the side toward the front, down the front wall into hub C (stacked on N)
+_hp_side = max((1, -1), key=lambda s_: (f_lead("head_pitch", s_, 9.2)[2][1] - cC).dot(cN))       # the side facing the front
+cable("lead_head_pitch", f_lead("head_pitch", _hp_side, 9.2)[:3] + [("neck_cradle", cC + wN * 0.016 + cN * 0.004), H("C")], K["LEAD_W"], K["LEAD_T"], m_lead, 150)
+# head yaw (shaft down, so its lead leaves at the TOP of the servo's left end): down the servo's side, out under the head, to hub Y on the U
+cable("lead_head_yaw", [sp("head_yaw", XS, 0, ZC), sp("head_yaw", XS - 3.0, 0, ZC), sp("head_yaw", XS - 3.0, 0, -6.0), wp("yaw_block", 38.0, -89.0, 192.0), H("Y")], K["LEAD_W"], K["LEAD_T"], m_lead, 150)
+# head roll (lead leaves at the servo's rear left): forward along the dome's left shoulder, above the yaw block's swing, to hub M
+cable("lead_head_roll", [sp("head_roll", XS, 0, ZC), sp("head_roll", XS - 3.0, 0, ZC), wp("head_base", 10.0, -90.5, 213.0), wp("head_dome", 26.0, -86.0, 222.5),
+                        wp("head_dome", 46.0, -88.0, 225.0), wp("head_dome", 58.0, -96.0, 224.0), H("M")], K["LEAD_W"], K["LEAD_T"], m_lead, 150)
+# beak servo (lead leaves its rear face): up behind it to hub M
+cable("lead_mouth", [sp("mouth", XS, 0, ZC), sp("mouth", XS - 3.0, 0, ZC), wp("head_base", 49.5, -103.0, 219.0), H("M")], K["LEAD_W"], K["LEAD_T"], m_lead, 150)
+# hub N -> hub C stacked on it: a short loop below the pair (the 165 mm kit cable's slack is coiled and tied to the cradle)
+cable("ext_neck_N_to_C", [H("N"), ("neck_cradle", cF - wN * 0.016 + nF * 0.004), ("neck_cradle", cC - wN * 0.016 + cN * 0.004), H("C")], K["EXT_W"], K["EXT_T"], m_ext, 165)
+# cradle hub C (front, stacked on N) -> up the front wall -> round the cradle's left front edge, close to the head-pitch axis -> hub Y
+cable("ext_cradle_to_U", [H("C"), ("neck_cradle", cC + wN * 0.014 + cN * 0.004), wp("neck_cradle", 47.0, -95.0, 167.0), wp("head_pitch_u", 42.0, -83.0, 175.0), H("Y")], K["EXT_W"], K["EXT_T"], m_ext, 165)
+# hub Y -> up past the U's top plate on the left, into the head through the floor opening -> hub M (crosses head yaw and head roll)
+cable("ext_U_to_head", [H("Y"), wp("head_pitch_u", 40.0, -80.5, 181.0), wp("yaw_block", 44.0, -86.5, 196.0), wp("head_base", 49.0, -82.0, 206.0),
+                       wp("head_base", 50.0, -92.0, 219.5), H("M")], K["EXT_W"], K["EXT_T"], m_ext, 165)
 
 # ------------------------------------------------------------------ power and signal
 def top_of(n):
@@ -305,14 +354,69 @@ def top_of(n):
 
 
 rear = wp("electronics_enclosure", -47.0, -96.0, 119.0)                    # the pocket's open rear part, above the battery
-cable("power_battery_to_regulator", [top_of("battery_3s")] + riser(-93.6)[::-1] + [wp("electronics_enclosure", -14.0, -89.0, 90.0), top_of("ubec")], 2.4, 2.4, m_pwr)
-cable("power_regulator_to_adapter_6V", [top_of("ubec"), wp("electronics_enclosure", -30.0, -88.0, 88.0), wp("electronics_enclosure", -30.0, -106.0, 94.5), top_of("servo_adapter")], 2.4, 2.4, m_pwr)
-cable("power_battery_to_uno_VIN", [top_of("battery_3s"), rear, wp("electronics_enclosure", -47.0, -96.0, 131.5)], 1.8, 1.8, m_pwr)
-cable("signal_uno_UART_to_adapter", [wp("electronics_enclosure", -47.0, -104.0, 131.5), wp("electronics_enclosure", -47.0, -104.0, 118.0), wp("electronics_enclosure", -20.0, -100.0, 122.6),
-                                    wp("electronics_enclosure", -9.0, -100.0, 120.5)] + riser(-100.0)[::-1] + [wp("electronics_enclosure", -14.0, -106.0, 93.5), top_of("servo_adapter")], 2.5, 1.0, m_sig)
-cable("signal_imu_qwiic_to_uno", [top_of("imu"), wp("electronics_enclosure", -20.0, -94.8, 68.0), wp("electronics_enclosure", -15.0, -94.8, 78.0), wp("electronics_enclosure", -14.0, -94.8, 92.0),
-                                 wp("electronics_enclosure", -11.5, -96.5, 99.5)] + riser(-97.0) + [wp("electronics_enclosure", -20.0, -98.0, 122.4), wp("electronics_enclosure", -47.5, -108.0, 119.0),
-                                 wp("electronics_enclosure", -47.5, -108.0, 131.5)], 2.0, 1.0, m_sig)
+# ---- UNO Q (drawn by parts/uno_q.py from the datasheet): wires end on its real pins. Board frame -> layout: x - 52.8, y - 126.67; header tops z 141.7
+_ub = bpy.data.objects["uno_q"]
+UZ = min((trunk_M.inverted() @ (_ub.matrix_world @ Vector(c))).z for c in _ub.bound_box) / MM + 118.8 + 2.7 - 131.6     # how much higher than 131.6 the board's underside is (audio tray)
+UQ = lambda bx, by, z=141.7: wp("uno_q", bx - 52.8, by - 126.67, z + UZ)       # owner = the board's (hidden) box, which the exploded views copy
+if VERT:
+    # upright battery: its leads leave at the top; regulator + switch under the lid's rear part; adapter's power + UART soldered on its back;
+    # balance sensor on the pocket's rear wall. Wires to the Uno Q go up through the lid's rear notch.
+    btop = top_of("battery_3s")
+    cable("power_battery_to_regulator", [btop, wp("battery_3s", -21.0, -100.0, zbt + 4.0), top_of("ubec")], 2.4, 2.4, m_pwr)
+    cable("power_regulator_to_adapter_6V", [top_of("ubec"), wp("ubec", -45.5, -87.0, 119.0), wp("servo_adapter", -49.5, -84.5, 104.0),
+                                           wp("servo_adapter", -49.5, -84.5, 92.0), ad_term], 2.4, 2.4, m_pwr)
+    cable("power_battery_to_uno_VIN", [btop, wp("battery_3s", -24.0, -110.0, zbt + 4.0), wp("body_lid", -46.0, -110.5, 123.0),
+                                      wp("body_lid", -48.0, -110.5, 127.5), wp("body_lid", -30.0, -128.6, 128.0),
+                                      UQ(44.4, -2.0, 139.5), UQ(44.4, 2.54, 144.6), UQ(44.4, 2.54)], 2.6, 1.3, m_pwr)
+    cable("signal_uno_UART_to_adapter", [UQ(62.2, 50.8), UQ(62.2, 50.8, 144.6), UQ(62.2, 55.3, 139.5), wp("body_lid", -40.0, -73.0, 128.0),
+                                        wp("body_lid", -49.0, -90.0, 127.5), wp("servo_adapter", -50.0, -93.0, 120.0),
+                                        wp("servo_adapter", -50.0, -100.0, 100.0), ad_uart], 2.5, 1.0, m_sig)
+    _it = top_of("imu")
+    cable("signal_imu_qwiic_to_uno", [_it, wp("imu", -47.0, -106.0, 124.0), wp("body_lid", -47.0, -110.5, 127.5),
+                                     wp("body_lid", -40.0, -129.5, 130.0), UQ(21.5, -3.5, 134.7), UQ(21.5, 0.6, 134.7)], 2.0, 1.0, m_sig)
+    if "tof_sensor" in bpy.data.objects:
+        cable("signal_tof_qwiic_to_imu", [_it, wp("imu", -40.0, -96.0, 123.0), wp("battery_3s", -20.0, -96.0, zbt + 3.0),
+                                         wp("electronics_enclosure", -6.0, -96.0, 121.5)] + DOWNSLOT(-95.8) +
+              [wp("body_frame", 40.0, -90.0, 92.5), wp("tof_sensor", 47.5, -90.0, 93.5), wp("tof_sensor", 48.0, -90.0, 96.0)], 2.0, 1.0, m_sig, 200)
+else:
+    cable("power_battery_to_regulator", [top_of("battery_3s")] + riser(-93.6)[::-1] + [wp("electronics_enclosure", -14.0, -89.0, 90.0), top_of("ubec")], 2.4, 2.4, m_pwr)
+    cable("power_regulator_to_adapter_6V", [top_of("ubec"), wp("electronics_enclosure", -30.0, -88.0, 88.0), wp("electronics_enclosure", -30.0, -96.0, 78.0), ad_term], 2.4, 2.4, m_pwr)
+    cable("power_battery_to_uno_VIN", [top_of("battery_3s"), rear, wp("electronics_enclosure", -50.0, -113.0, 121.0), wp("electronics_enclosure", -30.0, -128.6, 128.0),
+                                      UQ(44.4, -2.0, 139.5), UQ(44.4, 2.54, 144.6), UQ(44.4, 2.54)], 2.6, 1.3, m_pwr)            # VIN (JANALOG 8) + GND (JANALOG 7), 2 wires in one housing
+    cable("signal_uno_UART_to_adapter", [UQ(62.2, 50.8), UQ(62.2, 50.8, 144.6), UQ(62.2, 55.3, 139.5), wp("electronics_enclosure", -3.0, -73.0, 128.0), wp("electronics_enclosure", -7.5, -82.0, 123.3),
+                                        wp("electronics_enclosure", -9.0, -100.0, 120.5)] + riser(-100.0)[::-1] + [wp("electronics_enclosure", -14.0, -100.0, 99.0), wp("electronics_enclosure", -40.0, -100.0, 99.0), ad_uart], 2.5, 1.0, m_sig)   # D0 = RX, D1 = TX (+ GND from JDIGITAL 15)
+    cable("signal_imu_qwiic_to_uno", [top_of("imu"), wp("electronics_enclosure", -20.0, -94.8, 68.0), wp("electronics_enclosure", -15.0, -94.8, 78.0), wp("electronics_enclosure", -14.0, -94.8, 92.0),
+                                     wp("electronics_enclosure", -11.5, -96.5, 99.5)] + riser(-97.0) + [wp("electronics_enclosure", -20.0, -98.0, 122.4), wp("electronics_enclosure", -47.5, -108.0, 119.0),
+                                     wp("electronics_enclosure", -50.0, -116.0, 122.0), wp("electronics_enclosure", -40.0, -129.5, 130.0), UQ(21.5, -3.5, 134.7), UQ(21.5, 0.6, 134.7)], 2.0, 1.0, m_sig)   # Qwiic socket (I2C4)
+    if "tof_sensor" in bpy.data.objects:                                       # distance sensor on the chest: second Qwiic cable, from the balance sensor out of the keel's port, forward under the deck
+        cable("signal_tof_qwiic_to_imu", [top_of("imu"), wp("electronics_enclosure", -13.0, -90.5, 70.0), wp("electronics_enclosure", -11.0, -89.5, 88.0)] + PORT +
+              [wp("body_frame", 12.0, -88.5, 91.5), wp("body_frame", 40.0, -90.0, 92.5), wp("tof_sensor", 47.5, -90.0, 93.5), wp("tof_sensor", 48.0, -90.0, 96.0)], 2.0, 1.0, m_sig, 200)
+# ---- up the neck to the head: camera USB cable and the light's two wires, along the bus cable's way (rear of the cradle), into the head at the
+# rear right of its floor opening, forward under the dome's right shoulder. Lengths are what has to be bought / made; nothing here is a kit cable.
+if "head_face" in bpy.data.objects:
+    neck_way = [wp("body_frame", 22.0, -112.0, 128.0), wp("neck_cradle", 28.5, -110.0, 146.0), wp("neck_cradle", 28.5, -110.0, 168.0), wp("head_pitch_u", 22.0, -112.0, 188.0),
+                wp("yaw_block", 23.5, -118.5, 198.0), wp("head_base", 30.0, -124.5, 207.0), wp("head_dome", 52.0, -126.0, 219.0)]
+    if "cam_ov5640_b" in bpy.data.objects:                              # strip camera in the brow band: its socket faces into the head at the right end
+        _sx, _sy, _sz = bpy.data.objects["cam_ov5640_b"]["socket_xyz"]
+        cam_end = [wp("head_face", 74.0, _sy + 3.0, _sz + 6.0), wp("cam_ov5640_b", _sx - 1.0, _sy, _sz)]
+    else:
+        cam_end = [wp("head_face", 77.0, -122.0, 214.0), wp("cam_ov5640_usb", 79.2, -124.5, 212.0)]
+    usb_mat = K["_mat"]("kit_usb", (0.15, 0.15, 0.15, 1))
+    if "usb_hub" in bpy.data.objects:                                   # audio tray layout: the Uno Q's one USB-C socket feeds a hub in the keel; camera and sound card hang on the hub
+        # the hub stands on the battery shelf at the left, under the lid: short runs to the Uno Q's socket (rear) and up through the lid's rear notch to the
+        # sound card; the camera's cable leaves through the notch at the top of the pocket's front wall
+        cable("usb_uno_to_hub", [wp("uno_q", -62.0, -88.9, 134.7 + UZ), wp("uno_q", -62.0, -89.0, 128.0), wp("electronics_enclosure", -52.5, -88.5, 121.0),
+                                wp("electronics_enclosure", -40.0, -88.0, 124.0), top_of("usb_hub")], 3.2, 3.2, usb_mat, 300)
+        cable("usb_hub_to_audio", [top_of("usb_hub"), wp("electronics_enclosure", -42.0, -89.5, 124.0), wp("electronics_enclosure", -51.0, -98.0, 124.0),
+                                  wp("usb_audio", -47.5, -108.0, 134.0), wp("usb_audio", -44.5, -108.0, 134.5)], 3.2, 3.2, usb_mat, 300)
+        cable("usb_camera_to_hub", [top_of("usb_hub"), wp("electronics_enclosure", -11.5, -87.5, 123.0), wp("electronics_enclosure", -8.0, -93.5, 122.0), wp("body_frame", -2.5, -95.0, 118.5),
+                                   wp("body_frame", 14.0, -106.0, 124.0)] + neck_way + cam_end, 3.2, 3.2, usb_mat, 400)
+    else:
+        cable("usb_camera_to_uno", [wp("uno_q", -62.0, -88.9, 134.7), wp("uno_q", -62.0, -104.0, 134.7), wp("body_lid", -56.0, -123.0, 128.0), wp("body_lid", -20.0, -129.5, 126.5),
+                                   wp("body_frame", 8.0, -128.5, 126.5)] + neck_way + cam_end, 3.2, 3.2, usb_mat, 400)
+    if "light_led_5mm" in bpy.data.objects:                             # separate light (with the (A)/(C) camera); the (B) strip has its own LED
+      cable("signal_light_to_uno", [UQ(39.1, 50.8), UQ(39.1, 50.8, 144.6), UQ(39.1, 55.3, 139.5), wp("uno_q", 5.0, -72.0, 131.0 + UZ / 2), wp("body_frame", 18.0, -92.0, 127.0)] + neck_way +
+            [wp("head_dome", 66.0, -112.0, 228.0), wp("head_face", 80.0, -86.0, 226.0)], 2.0, 1.0, m_sig, 400)                                                              # ~D9 (PWM) + GND
 
 
 # ------------------------------------------------------------------ sockets: every cable end gets its own socket and a plug.
@@ -353,7 +457,10 @@ for hn, lst in ends.items():
     for (cn, e, nbp), si in zip(lst, perm):
         assign[(cn, e)] = (h["owner"], *ms[si])
         h.setdefault("used", {})[si] = cn
-for hn, h in hubs.items():                                                 # draw the boards
+PARTIAL = EX is not None and args.get("partial", False)                    # exploded view of only some parts: draw what lies on them,
+for hn, h in hubs.items():                                                 # cut cables off where they reach a part not in the view
+    if PARTIAL and copy_of(h["owner"]) is None:
+        continue
     (K["bus_board"] if h["kind"] == "bus" else K["hub"])("wire_hub_" + hn, xf(h["owner"]) @ h["M"], coll)
 
 
@@ -369,6 +476,8 @@ n_sol = [0]
 for name, pts, width, thick, mat, limit in specs:
     full = []
     for i, q in enumerate(pts):
+        if PARTIAL and copy_of(hubs[q[1]]["owner"] if q[0] in ("@", "@S") else q[0]) is None:
+            break
         if q[0] == "@":
             e = 0 if i == 0 else -1
             pair = plug_at(name, e, *assign[(name, e)])
@@ -382,6 +491,8 @@ for name, pts, width, thick, mat, limit in specs:
                 full.append((h["owner"], h["M"] @ (Vector((-8.0 + 4.0 * n_sol[0], 0.0, -K["BUS"][2] / 2 - 0.8)) * MM)))
         else:
             full.append(q)
+    if PARTIAL and len(full) < 2:
+        continue
     ob, length = K["ribbon"]("wire_" + name, [W(o, p) for o, p in full], width * SC, thick * SC, coll, mat)
     if EX is None:
         report.append((name, length, limit))
@@ -393,7 +504,7 @@ if EX is None and args.get("motion"):
     import math
     from mathutils import Quaternion
     R = args.get("robot", "duck_scs0009")
-    joints = {e["joint"]: e for e in bpy.data.objects if e.name.startswith(R + ":") and e.type == "EMPTY" and "joint" in e}
+    joints = {e["joint"]: e for e in bpy.data.objects if e.name.startswith(R + ":") and e.type == "EMPTY" and "joint" in e and e.users_collection}   # (in the scene: not a stray copy pulled in by a library load)
     q0 = {n: e.rotation_quaternion.copy() for n, e in joints.items()}
     ENDS = args.get("ends_mm", 6.0)
     local = []

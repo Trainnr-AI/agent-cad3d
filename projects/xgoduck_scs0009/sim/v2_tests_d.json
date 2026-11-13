@@ -1,0 +1,1424 @@
+{
+ "stand_hold": {
+  "scs0009_v1": {
+   "fell": false,
+   "t_end": 4.01,
+   "sag_mm": 1.9,
+   "max_tilt_deg": 0.8,
+   "joints": {
+    "left_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "left_hip_roll": {
+     "peak_pct": 39.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "left_hip_pitch": {
+     "peak_pct": 13.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "left_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "left_ankle": {
+     "peak_pct": 10.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "neck_pitch": {
+     "peak_pct": 14.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "head_pitch": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_roll": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_roll": {
+     "peak_pct": 39.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "right_hip_pitch": {
+     "peak_pct": 13.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "right_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "right_ankle": {
+     "peak_pct": 10.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    }
+   }
+  },
+  "scs0009_v2": {
+   "fell": false,
+   "t_end": 4.01,
+   "sag_mm": 1.3,
+   "max_tilt_deg": 0.2,
+   "joints": {
+    "left_hip_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "left_hip_roll": {
+     "peak_pct": 8.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "left_hip_pitch": {
+     "peak_pct": 16.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "left_knee": {
+     "peak_pct": 29.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "left_ankle": {
+     "peak_pct": 4.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "neck_pitch": {
+     "peak_pct": 12.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "head_pitch": {
+     "peak_pct": 2.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_roll": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_roll": {
+     "peak_pct": 4.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_pitch": {
+     "peak_pct": 19.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "right_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "right_ankle": {
+     "peak_pct": 4.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    }
+   }
+  }
+ },
+ "squat_0.3": {
+  "scs0009_v1": {
+   "fell": false,
+   "t_end": 5.01,
+   "sag_mm": 1.9,
+   "max_tilt_deg": 0.7,
+   "joints": {
+    "left_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "left_hip_roll": {
+     "peak_pct": 52.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.5
+    },
+    "left_hip_pitch": {
+     "peak_pct": 16.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "left_knee": {
+     "peak_pct": 33.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "left_ankle": {
+     "peak_pct": 10.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "neck_pitch": {
+     "peak_pct": 14.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "head_pitch": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_roll": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_roll": {
+     "peak_pct": 52.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.5
+    },
+    "right_hip_pitch": {
+     "peak_pct": 16.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "right_knee": {
+     "peak_pct": 33.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "right_ankle": {
+     "peak_pct": 10.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    }
+   }
+  },
+  "scs0009_v2": {
+   "fell": false,
+   "t_end": 5.01,
+   "sag_mm": 1.3,
+   "max_tilt_deg": 0.1,
+   "joints": {
+    "left_hip_yaw": {
+     "peak_pct": 2.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "left_hip_roll": {
+     "peak_pct": 27.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "left_hip_pitch": {
+     "peak_pct": 15.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "left_knee": {
+     "peak_pct": 33.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "left_ankle": {
+     "peak_pct": 10.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "neck_pitch": {
+     "peak_pct": 12.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "head_pitch": {
+     "peak_pct": 2.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_roll": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_yaw": {
+     "peak_pct": 2.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_roll": {
+     "peak_pct": 28.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "right_hip_pitch": {
+     "peak_pct": 17.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "right_knee": {
+     "peak_pct": 41.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.5
+    },
+    "right_ankle": {
+     "peak_pct": 11.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    }
+   }
+  }
+ },
+ "shift_0.12": {
+  "scs0009_v1": {
+   "fell": false,
+   "t_end": 4.01,
+   "sag_mm": 1.9,
+   "max_tilt_deg": 5.0,
+   "joints": {
+    "left_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "left_hip_roll": {
+     "peak_pct": 49.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.5
+    },
+    "left_hip_pitch": {
+     "peak_pct": 13.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "left_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "left_ankle": {
+     "peak_pct": 9.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "neck_pitch": {
+     "peak_pct": 14.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "head_pitch": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_roll": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_roll": {
+     "peak_pct": 40.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "right_hip_pitch": {
+     "peak_pct": 13.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "right_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "right_ankle": {
+     "peak_pct": 10.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    }
+   }
+  },
+  "scs0009_v2": {
+   "fell": false,
+   "t_end": 4.01,
+   "sag_mm": 1.3,
+   "max_tilt_deg": 4.1,
+   "joints": {
+    "left_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "left_hip_roll": {
+     "peak_pct": 15.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "left_hip_pitch": {
+     "peak_pct": 16.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "left_knee": {
+     "peak_pct": 29.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "left_ankle": {
+     "peak_pct": 12.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "neck_pitch": {
+     "peak_pct": 12.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "head_pitch": {
+     "peak_pct": 2.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_roll": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_roll": {
+     "peak_pct": 22.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "right_hip_pitch": {
+     "peak_pct": 19.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "right_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "right_ankle": {
+     "peak_pct": 6.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    }
+   }
+  }
+ },
+ "neck_to_-1.2": {
+  "scs0009_v1": {
+   "fell": false,
+   "t_end": 4.01,
+   "sag_mm": 1.9,
+   "max_tilt_deg": 1.1,
+   "joints": {
+    "left_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "left_hip_roll": {
+     "peak_pct": 40.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "left_hip_pitch": {
+     "peak_pct": 20.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "left_knee": {
+     "peak_pct": 42.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "left_ankle": {
+     "peak_pct": 27.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "neck_pitch": {
+     "peak_pct": 58.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.7
+    },
+    "head_pitch": {
+     "peak_pct": 20.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "head_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_roll": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_roll": {
+     "peak_pct": 40.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "right_hip_pitch": {
+     "peak_pct": 20.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "right_knee": {
+     "peak_pct": 42.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "right_ankle": {
+     "peak_pct": 27.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    }
+   }
+  },
+  "scs0009_v2": {
+   "fell": false,
+   "t_end": 4.01,
+   "sag_mm": 1.3,
+   "max_tilt_deg": 0.8,
+   "joints": {
+    "left_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "left_hip_roll": {
+     "peak_pct": 10.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "left_hip_pitch": {
+     "peak_pct": 17.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "left_knee": {
+     "peak_pct": 41.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "left_ankle": {
+     "peak_pct": 26.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "neck_pitch": {
+     "peak_pct": 55.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.7
+    },
+    "head_pitch": {
+     "peak_pct": 17.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "head_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_roll": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_roll": {
+     "peak_pct": 11.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "right_hip_pitch": {
+     "peak_pct": 19.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "right_knee": {
+     "peak_pct": 41.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "right_ankle": {
+     "peak_pct": 24.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    }
+   }
+  }
+ },
+ "set:neck_pitch:0.698": {
+  "scs0009_v1": {
+   "fell": false,
+   "t_end": 4.01,
+   "sag_mm": 1.9,
+   "max_tilt_deg": 1.0,
+   "joints": {
+    "left_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "left_hip_roll": {
+     "peak_pct": 39.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "left_hip_pitch": {
+     "peak_pct": 18.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "left_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "left_ankle": {
+     "peak_pct": 13.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "neck_pitch": {
+     "peak_pct": 33.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "head_pitch": {
+     "peak_pct": 7.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "head_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_roll": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_roll": {
+     "peak_pct": 39.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "right_hip_pitch": {
+     "peak_pct": 18.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "right_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "right_ankle": {
+     "peak_pct": 13.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    }
+   }
+  },
+  "scs0009_v2": {
+   "fell": false,
+   "t_end": 4.01,
+   "sag_mm": 1.3,
+   "max_tilt_deg": 0.5,
+   "joints": {
+    "left_hip_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "left_hip_roll": {
+     "peak_pct": 8.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "left_hip_pitch": {
+     "peak_pct": 16.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "left_knee": {
+     "peak_pct": 29.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "left_ankle": {
+     "peak_pct": 12.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "neck_pitch": {
+     "peak_pct": 30.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "head_pitch": {
+     "peak_pct": 4.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_roll": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_roll": {
+     "peak_pct": 4.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_pitch": {
+     "peak_pct": 18.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "right_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "right_ankle": {
+     "peak_pct": 12.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    }
+   }
+  }
+ },
+ "set:head_pitch:-0.785": {
+  "scs0009_v1": {
+   "fell": false,
+   "t_end": 4.01,
+   "sag_mm": 1.9,
+   "max_tilt_deg": 1.1,
+   "joints": {
+    "left_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "left_hip_roll": {
+     "peak_pct": 39.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "left_hip_pitch": {
+     "peak_pct": 19.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "left_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "left_ankle": {
+     "peak_pct": 14.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "neck_pitch": {
+     "peak_pct": 29.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "head_pitch": {
+     "peak_pct": 25.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "head_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_roll": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_roll": {
+     "peak_pct": 39.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "right_hip_pitch": {
+     "peak_pct": 19.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "right_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "right_ankle": {
+     "peak_pct": 14.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    }
+   }
+  },
+  "scs0009_v2": {
+   "fell": false,
+   "t_end": 4.01,
+   "sag_mm": 1.3,
+   "max_tilt_deg": 0.6,
+   "joints": {
+    "left_hip_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "left_hip_roll": {
+     "peak_pct": 8.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "left_hip_pitch": {
+     "peak_pct": 16.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "left_knee": {
+     "peak_pct": 29.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "left_ankle": {
+     "peak_pct": 13.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "neck_pitch": {
+     "peak_pct": 24.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "head_pitch": {
+     "peak_pct": 24.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "head_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_roll": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_roll": {
+     "peak_pct": 4.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_pitch": {
+     "peak_pct": 19.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "right_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "right_ankle": {
+     "peak_pct": 13.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    }
+   }
+  }
+ },
+ "set:head_pitch:1.134": {
+  "scs0009_v1": {
+   "fell": false,
+   "t_end": 4.01,
+   "sag_mm": 1.9,
+   "max_tilt_deg": 0.8,
+   "joints": {
+    "left_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "left_hip_roll": {
+     "peak_pct": 39.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "left_hip_pitch": {
+     "peak_pct": 13.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "left_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "left_ankle": {
+     "peak_pct": 10.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "neck_pitch": {
+     "peak_pct": 14.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "head_pitch": {
+     "peak_pct": 21.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "head_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_roll": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_roll": {
+     "peak_pct": 39.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "right_hip_pitch": {
+     "peak_pct": 13.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "right_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "right_ankle": {
+     "peak_pct": 10.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    }
+   }
+  },
+  "scs0009_v2": {
+   "fell": false,
+   "t_end": 4.01,
+   "sag_mm": 1.3,
+   "max_tilt_deg": 0.2,
+   "joints": {
+    "left_hip_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "left_hip_roll": {
+     "peak_pct": 8.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "left_hip_pitch": {
+     "peak_pct": 16.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "left_knee": {
+     "peak_pct": 29.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "left_ankle": {
+     "peak_pct": 4.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "neck_pitch": {
+     "peak_pct": 12.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "head_pitch": {
+     "peak_pct": 22.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "head_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_roll": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_roll": {
+     "peak_pct": 4.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_pitch": {
+     "peak_pct": 19.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "right_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "right_ankle": {
+     "peak_pct": 4.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    }
+   }
+  }
+ },
+ "pose:neck_pitch=0.5;head_pitch=1.134": {
+  "scs0009_v1": {
+   "fell": false,
+   "t_end": 4.01,
+   "sag_mm": 1.9,
+   "max_tilt_deg": 0.8,
+   "joints": {
+    "left_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "left_hip_roll": {
+     "peak_pct": 39.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "left_hip_pitch": {
+     "peak_pct": 13.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "left_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "left_ankle": {
+     "peak_pct": 10.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "neck_pitch": {
+     "peak_pct": 15.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "head_pitch": {
+     "peak_pct": 19.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "head_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_roll": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_roll": {
+     "peak_pct": 39.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "right_hip_pitch": {
+     "peak_pct": 13.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "right_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "right_ankle": {
+     "peak_pct": 10.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    }
+   }
+  },
+  "scs0009_v2": {
+   "fell": false,
+   "t_end": 4.01,
+   "sag_mm": 1.3,
+   "max_tilt_deg": 0.2,
+   "joints": {
+    "left_hip_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "left_hip_roll": {
+     "peak_pct": 8.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "left_hip_pitch": {
+     "peak_pct": 16.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "left_knee": {
+     "peak_pct": 29.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "left_ankle": {
+     "peak_pct": 4.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "neck_pitch": {
+     "peak_pct": 12.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "head_pitch": {
+     "peak_pct": 20.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "head_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_roll": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_roll": {
+     "peak_pct": 4.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_pitch": {
+     "peak_pct": 19.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "right_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "right_ankle": {
+     "peak_pct": 4.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    }
+   }
+  }
+ },
+ "pose:neck_pitch=0.698;head_pitch=0.349": {
+  "scs0009_v1": {
+   "fell": false,
+   "t_end": 4.01,
+   "sag_mm": 1.9,
+   "max_tilt_deg": 1.0,
+   "joints": {
+    "left_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "left_hip_roll": {
+     "peak_pct": 39.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "left_hip_pitch": {
+     "peak_pct": 18.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "left_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "left_ankle": {
+     "peak_pct": 13.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "neck_pitch": {
+     "peak_pct": 33.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "head_pitch": {
+     "peak_pct": 7.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "head_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_roll": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_yaw": {
+     "peak_pct": 1.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_roll": {
+     "peak_pct": 39.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.4
+    },
+    "right_hip_pitch": {
+     "peak_pct": 18.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "right_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "right_ankle": {
+     "peak_pct": 13.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    }
+   }
+  },
+  "scs0009_v2": {
+   "fell": false,
+   "t_end": 4.01,
+   "sag_mm": 1.3,
+   "max_tilt_deg": 0.5,
+   "joints": {
+    "left_hip_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "left_hip_roll": {
+     "peak_pct": 8.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "left_hip_pitch": {
+     "peak_pct": 16.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "left_knee": {
+     "peak_pct": 29.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "left_ankle": {
+     "peak_pct": 12.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    },
+    "neck_pitch": {
+     "peak_pct": 30.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "head_pitch": {
+     "peak_pct": 4.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "head_roll": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_yaw": {
+     "peak_pct": 0.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_roll": {
+     "peak_pct": 4.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.0
+    },
+    "right_hip_pitch": {
+     "peak_pct": 18.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.2
+    },
+    "right_knee": {
+     "peak_pct": 32.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.3
+    },
+    "right_ankle": {
+     "peak_pct": 12.0,
+     "sat_pct": 0.0,
+     "max_err_deg": 0.1
+    }
+   }
+  }
+ }
+}

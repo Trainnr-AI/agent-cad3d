@@ -46,7 +46,7 @@ SEAT_D = BRG_OD + 0.1
 LIP_HOLE_D = 18.0
 CAP_HW = BODY_HW + 1.6           # cap half-width across the servo
 CAP_RING_R = (BRG_OD + 0.1) / 2 + 2.2   # material ring around the bearing seat
-PILOT_D = 1.6
+PILOT_D = 1.7                    # (2026-11-13: 1.6 -> 1.7, FDM holes print small)
 # link (moving)
 BOSS_D = BRG_ID - 0.05           # light press into the inner ring
 BOSS_Z0 = 0.5
@@ -55,7 +55,7 @@ PLATE_Z0 = LIP + BRG_W + 0.4     # 5.4
 PLATE_T = 4.0
 PLATE_Z1 = PLATE_Z0 + PLATE_T    # 9.4
 CB_D, CB_Z = 4.2, 6.0            # counterbore for the M2x6 machine screw head
-CLEAR_D = 2.3
+CLEAR_D = 2.4                    # (2026-11-13: 2.3 -> 2.4)
 
 
 def J(x, y, z):
@@ -204,7 +204,7 @@ def pivot_stub(name, M, floor_bottom_z, bearing_bottom_z, coll, mat=None):
     return stub
 
 
-def screw_holes(M, pts_xy, z_face, depth_through, pilot_depth, direction=+1, csk=True, cbore=0.0):
+def screw_holes(M, pts_xy, z_face, depth_through, pilot_depth, direction=+1, csk=True, cbore=0.0, cbore_d=3.9):
     """Holes along frame Z: clearance through `depth_through` mm starting at z_face going `direction`
     (countersunk if csk; or with a Ø3.9 counterbore `cbore` mm deep for a pan head), then a Ø1.6 pilot
     `pilot_depth` mm further. Returns list of cutters."""
@@ -226,7 +226,7 @@ def screw_holes(M, pts_xy, z_face, depth_through, pilot_depth, direction=+1, csk
             cuts.append(tmp)
         if cbore > 0:
             zc0, zc1 = z_face - direction * 0.7, z_face + direction * cbore
-            cuts.append(add_cyl(new_bm(), x, y, min(zc0, zc1), max(zc0, zc1), 3.9, 20, M))
+            cuts.append(add_cyl(new_bm(), x, y, min(zc0, zc1), max(zc0, zc1), cbore_d, 20, M))
         if not through:
             zp0, zp1 = z_face + direction * (depth_through - 0.4), z_face + direction * (depth_through + pilot_depth)
             cuts.append(add_cyl(new_bm(), x, y, min(zp0, zp1), max(zp0, zp1), PILOT_D, 16, M))
@@ -294,6 +294,12 @@ def build_part(name, adds, subs, coll, mat=None, rib_list=()):
         after = _vol(part)
         if after < 0.5 * before:
             DEBUG.append(f"{name}: step {i} ({kind}) volume {before:.0f} -> {after:.0f} mm3")
+        if PROBE.get("steps") == name:                                   # debug: manifold check after every step
+            _b = bmesh.new()
+            _b.from_mesh(part.data)
+            _nm = sum(not e.is_manifold for e in _b.edges)
+            _b.free()
+            DEBUG.append(f"{name}: step {i} ({kind}) vol {before:.0f}->{after:.0f}, non-manifold edges {_nm}")
         if PROBE.get("point") is not None and PROBE.get("part") == name:
             DEBUG.append(f"{name}: step {i} ({kind}) vol {before:.0f}->{after:.0f}, probe inside={_inside(part, PROBE['point'])}")
     heal_slivers(part, name)

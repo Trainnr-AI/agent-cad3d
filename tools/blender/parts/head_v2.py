@@ -85,7 +85,7 @@ e_yaw, e_roll = joint["head_yaw"], joint["head_roll"]
 pairs = [(block, e_yaw)]
 if args.get("hardware", True):
     for o in L["hardware_C"]("head_roll_", Fr, coll):
-        pairs.append((o, e_yaw if "screw_M2x6" in o.name and "ear" not in o.name else e_roll))   # bearing + ear screws stay with the head
+        pairs.append((o, e_yaw if "screw_M2x4kit" in o.name else e_roll))   # bearing + ear screws stay with the head
 for part, body in pairs:
     mw = part.matrix_world.copy()
     part.parent = body

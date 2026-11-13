@@ -248,7 +248,7 @@ if HORN:
         reach = HORN_ARM_L if HORN == "arm" else HORN_CROSS_L
         trim = args.get("horn_trim_r")          # arms cut flat at this radius (fits inside a bearing bore)
         if trim and HORN != "arm":
-            arm_l, w_end, round_tip = trim, HORN_ARM_W_ROOT + (HORN_ARM_W_TIP - HORN_ARM_W_ROOT) * trim / HORN_CROSS_L, False
+            arm_l, w_end, round_tip = trim, HORN_ARM_W_ROOT + (HORN_ARM_W_TIP - HORN_ARM_W_ROOT) * trim / HORN_CROSS_STRAIGHT, False   # the full horn, cut: same taper
         else:
             arm_l, w_end, round_tip = reach - HORN_ARM_W_TIP / 2, HORN_ARM_W_TIP, True
         for i in range(arms):  # tapered arm: shaft centre -> arm end, plus a round tip

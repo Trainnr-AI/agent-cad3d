@@ -1,0 +1,1072 @@
+{
+ "fill": 0.75,
+ "electronics": {
+  "unoq_pcb": [
+   26.0,
+   "ASSUMED (UNO form factor SBC)"
+  ],
+  "battery_3s": [
+   75.0,
+   "Pro-Range 850 mAh 3S 30C listing (57 x 31, 75 g)"
+  ],
+  "servo_adapter": [
+   12.0,
+   "ASSUMED"
+  ],
+  "ubec": [
+   3.0,
+   "Mini560 5 V 5 A buck module (ASSUMED ~3 g)"
+  ],
+  "imu": [
+   2.0,
+   "7Semi BNO086 Qwiic breakout (ASSUMED)"
+  ],
+  "usb_audio": [
+   12.0,
+   "ASSUMED (Waveshare 0.055 kg is the packed weight)"
+  ],
+  "usb_hub": [
+   2.0,
+   "ASSUMED"
+  ],
+  "speaker": [
+   4.0,
+   "ASSUMED"
+  ],
+  "power_switch": [
+   2.0,
+   "ASSUMED"
+  ],
+  "tof_sensor": [
+   2.0,
+   "ASSUMED"
+  ],
+  "cam_ov5640_usb": [
+   10.0,
+   "ASSUMED incl. a short cable"
+  ],
+  "cam_ov5640_b": [
+   5.0,
+   "ASSUMED: Waveshare OV5640 (B) 9 x 62 strip board + short USB lead"
+  ],
+  "light_led_5mm": [
+   0.4,
+   "5 mm LED"
+  ]
+ },
+ "wiring_g": 31.200000000000028,
+ "unknown": [],
+ "total_kg": 0.6656582729760498,
+ "bodies": {
+  "neck": {
+   "mass": 0.039273350722726016,
+   "pos": [
+    0.022940560287764103,
+    -0.0017705402972584693,
+    0.01986503479444469
+   ],
+   "fullinertia": [
+    5.234043997604996e-06,
+    1.7888359817569005e-05,
+    1.5764823501053664e-05,
+    -1.966266501812145e-08,
+    -1.5098641892516417e-09,
+    2.2545880318750197e-07
+   ],
+   "parts": [
+    [
+     "scs_head_pitch_case",
+     12.4,
+     "SCS0009 13.2 g datasheet, less the horn"
+    ],
+    [
+     "scs_neck_pitch_case",
+     12.4,
+     "SCS0009 13.2 g datasheet, less the horn"
+    ],
+    [
+     "neck_cradle",
+     5.82,
+     "PLA solid x 0.75"
+    ],
+    [
+     "neck_screw_M3x8",
+     0.99,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "head_pitch_screw_M3x8",
+     0.99,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "neck_ear_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "head_pitch_ear_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "neck_nut_M3",
+     0.36,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "head_pitch_nut_M3",
+     0.36,
+     "steel 7.85 g/cm3"
+    ]
+   ]
+  },
+  "neck_pitch": {
+   "mass": 0.015330048861693249,
+   "pos": [
+    -2.1744585680219282e-05,
+    -0.007039436394122094,
+    -0.014928767777133574
+   ],
+   "fullinertia": [
+    5.694718282205903e-06,
+    5.144113754581923e-06,
+    2.254174775022845e-06,
+    -1.9281886139752423e-08,
+    2.7225496098821193e-08,
+    -9.727802450224553e-07
+   ],
+   "parts": [
+    [
+     "head_pitch_u",
+     7.34,
+     "PLA solid x 0.75"
+    ],
+    [
+     "head_pitch_bearing_plate",
+     1.69,
+     "PLA solid x 0.75"
+    ],
+    [
+     "head_pitch_brg_693",
+     1.0,
+     "ASSUMED"
+    ],
+    [
+     "scs_head_pitch_horn_cross",
+     0.8,
+     "ASSUMED"
+    ],
+    [
+     "scs_head_yaw_horn_cross",
+     0.8,
+     "ASSUMED"
+    ],
+    [
+     "head_pitch_plate_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "head_pitch_screw_M2x4kit",
+     0.19,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "head_yaw_screw_M2x4kit",
+     0.19,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "scs_head_pitch_horn_screw",
+     0.1,
+     "M2 x 4"
+    ],
+    [
+     "scs_head_yaw_horn_screw",
+     0.1,
+     "M2 x 4"
+    ]
+   ]
+  },
+  "jaw_soft": {
+   "mass": 0.08591991997551869,
+   "pos": [
+    -0.0010835892939497506,
+    0.0042375957909358795,
+    -0.02332649232058172
+   ],
+   "fullinertia": [
+    9.733664204271164e-05,
+    0.00011443492110504332,
+    3.5508709183654746e-05,
+    2.554032531824955e-07,
+    -5.743341123096976e-06,
+    8.059606934346877e-06
+   ],
+   "parts": [
+    [
+     "head_dome",
+     17.61,
+     "PLA solid x 0.75"
+    ],
+    [
+     "head_base",
+     15.15,
+     "PLA solid x 0.75"
+    ],
+    [
+     "scs_head_roll_case",
+     12.4,
+     "SCS0009 13.2 g datasheet, less the horn"
+    ],
+    [
+     "scs_mouth_case",
+     12.4,
+     "SCS0009 13.2 g datasheet, less the horn"
+    ],
+    [
+     "head_face",
+     7.3,
+     "PLA solid x 0.75"
+    ],
+    [
+     "head_jaw",
+     5.04,
+     "PLA solid x 0.75"
+    ],
+    [
+     "cam_ov5640_b",
+     5.0,
+     "ASSUMED: Waveshare OV5640 (B) 9 x 62 strip board + short USB lead"
+    ],
+    [
+     "head_roll_brg_6702ZZ",
+     4.0,
+     "ASSUMED"
+    ],
+    [
+     "dome_screws_M2x6st",
+     1.28,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "cam_screws_M2x6st",
+     0.96,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "scs_mouth_horn_cross",
+     0.8,
+     "ASSUMED"
+    ],
+    [
+     "head_roll_ear_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "mouth_ear_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "jaw_pivot_screw_M2x6st",
+     0.32,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "scs_mouth_horn_screw",
+     0.1,
+     "M2 x 4"
+    ]
+   ]
+  },
+  "yaw_roll_motion": {
+   "mass": 0.023202102581727536,
+   "pos": [
+    0.0038664697416806878,
+    -0.002103799934768716,
+    0.011528540408812129
+   ],
+   "fullinertia": [
+    2.999661229285679e-06,
+    3.4948478870339946e-06,
+    2.8800924282925413e-06,
+    -1.76337734079769e-07,
+    -2.2115546423078814e-07,
+    1.5009488672730175e-08
+   ],
+   "parts": [
+    [
+     "scs_head_yaw_case",
+     12.4,
+     "SCS0009 13.2 g datasheet, less the horn"
+    ],
+    [
+     "yaw_block",
+     4.96,
+     "PLA solid x 0.75"
+    ],
+    [
+     "head_yaw_brg_6702ZZ",
+     4.0,
+     "ASSUMED"
+    ],
+    [
+     "scs_head_roll_horn_cross",
+     0.8,
+     "ASSUMED"
+    ],
+    [
+     "head_yaw_ear_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "head_roll_screw_M2x4kit",
+     0.19,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "scs_head_roll_horn_screw",
+     0.1,
+     "M2 x 4"
+    ]
+   ]
+  },
+  "leg": {
+   "mass": 0.026570869833976045,
+   "pos": [
+    0.023918214758364358,
+    -2.7851444571067965e-06,
+    -0.005677158902475268
+   ],
+   "fullinertia": [
+    3.1280475407046167e-06,
+    1.0345339130235279e-05,
+    8.606152456875199e-06,
+    4.992729255140931e-09,
+    2.074225159882632e-06,
+    8.1459157025363e-10
+   ],
+   "parts": [
+    [
+     "scs_left_ankle_case",
+     12.4,
+     "SCS0009 13.2 g datasheet, less the horn"
+    ],
+    [
+     "left_shin",
+     7.1,
+     "PLA solid x 0.75"
+    ],
+    [
+     "left_knee_brg_6702ZZ",
+     4.0,
+     "ASSUMED"
+    ],
+    [
+     "left_ankle_screw_M3x8",
+     0.99,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "scs_left_knee_horn_cross",
+     0.8,
+     "ASSUMED"
+    ],
+    [
+     "left_ankle_ear_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "left_ankle_nut_M3",
+     0.36,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "left_knee_screw_M2x4kit",
+     0.19,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "scs_left_knee_horn_screw",
+     0.1,
+     "M2 x 4"
+    ]
+   ]
+  },
+  "ankle_left": {
+   "mass": 0.028307099037814462,
+   "pos": [
+    0.013391246105652923,
+    -0.005753945657563395,
+    -0.013269098766761574
+   ],
+   "fullinertia": [
+    9.855169409730132e-06,
+    5.980789119301809e-06,
+    6.858096495947336e-06,
+    2.95933247266168e-07,
+    6.391809465037197e-07,
+    -1.0372966758104415e-07
+   ],
+   "parts": [
+    [
+     "left_foot",
+     24.13,
+     "PLA solid x 0.75"
+    ],
+    [
+     "left_foot_bearing_plate",
+     1.44,
+     "PLA solid x 0.75"
+    ],
+    [
+     "left_ankle_brg_693",
+     1.0,
+     "ASSUMED"
+    ],
+    [
+     "scs_left_ankle_horn_cross",
+     0.8,
+     "ASSUMED"
+    ],
+    [
+     "left_foot_plate_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "left_ankle_screw_M2x4kit",
+     0.19,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "scs_left_ankle_horn_screw",
+     0.1,
+     "M2 x 4"
+    ]
+   ]
+  },
+  "yaw2roll": {
+   "mass": 0.022167100361425128,
+   "pos": [
+    -3.555959625424395e-05,
+    -0.0018092382552775562,
+    0.01588843381951146
+   ],
+   "fullinertia": [
+    3.9234068924285415e-06,
+    2.778063226240933e-06,
+    2.2642729937562537e-06,
+    -3.9824912881576696e-09,
+    6.084116774694695e-10,
+    -1.77977302408151e-07
+   ],
+   "parts": [
+    [
+     "scs_left_hip_roll_case",
+     12.4,
+     "SCS0009 13.2 g datasheet, less the horn"
+    ],
+    [
+     "left_yaw_connector",
+     4.04,
+     "PLA solid x 0.75"
+    ],
+    [
+     "left_hip_roll_brg_6702ZZ",
+     4.0,
+     "ASSUMED"
+    ],
+    [
+     "scs_left_hip_yaw_horn_cross",
+     0.8,
+     "ASSUMED"
+    ],
+    [
+     "left_hip_roll_ear_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "left_hip_yaw_screw_M2x4kit",
+     0.19,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "scs_left_hip_yaw_horn_screw",
+     0.1,
+     "M2 x 4"
+    ]
+   ]
+  },
+  "hip_l": {
+   "mass": 0.007023393420780791,
+   "pos": [
+    7.542033969900655e-07,
+    0.010945660770057574,
+    -0.0057450641181236
+   ],
+   "fullinertia": [
+    1.1813753786774058e-06,
+    6.668159305942984e-07,
+    7.883405123770919e-07,
+    -2.7171049044650997e-10,
+    2.181884912525478e-10,
+    4.17031090667493e-07
+   ],
+   "parts": [
+    [
+     "left_l_bracket",
+     4.84,
+     "PLA solid x 0.75"
+    ],
+    [
+     "scs_left_hip_roll_horn_cross",
+     0.8,
+     "ASSUMED"
+    ],
+    [
+     "scs_left_hip_pitch_horn_cross",
+     0.8,
+     "ASSUMED"
+    ],
+    [
+     "left_hip_pitch_screw_M2x4kit",
+     0.19,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "left_hip_roll_screw_M2x4kit",
+     0.19,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "scs_left_hip_roll_horn_screw",
+     0.1,
+     "M2 x 4"
+    ],
+    [
+     "scs_left_hip_pitch_horn_screw",
+     0.1,
+     "M2 x 4"
+    ]
+   ]
+  },
+  "trunk_base": {
+   "mass": 0.22047268533557315,
+   "pos": [
+    -0.012492746006261294,
+    -0.00012458775500202054,
+    -0.014692391618315405
+   ],
+   "fullinertia": [
+    0.000141758308812655,
+    0.00022850990586016257,
+    0.00016576134997430247,
+    3.937067568803271e-06,
+    -1.1996969788242537e-05,
+    1.7154748620074465e-07
+   ],
+   "parts": [
+    [
+     "battery_3s",
+     75.0,
+     "Pro-Range 850 mAh 3S 30C listing (57 x 31, 75 g)"
+    ],
+    [
+     "unoq_pcb",
+     26.0,
+     "ASSUMED (UNO form factor SBC)"
+    ],
+    [
+     "electronics_enclosure",
+     22.91,
+     "PLA solid x 0.75"
+    ],
+    [
+     "body_frame",
+     14.38,
+     "PLA solid x 0.75"
+    ],
+    [
+     "scs_left_hip_yaw_case",
+     12.4,
+     "SCS0009 13.2 g datasheet, less the horn"
+    ],
+    [
+     "scs_right_hip_yaw_case",
+     12.4,
+     "SCS0009 13.2 g datasheet, less the horn"
+    ],
+    [
+     "servo_adapter",
+     12.0,
+     "ASSUMED"
+    ],
+    [
+     "body_lid",
+     8.36,
+     "PLA solid x 0.75"
+    ],
+    [
+     "uno_cover",
+     6.47,
+     "PLA solid x 0.75"
+    ],
+    [
+     "left_hip_yaw_brg_6702ZZ",
+     4.0,
+     "ASSUMED"
+    ],
+    [
+     "right_hip_yaw_brg_6702ZZ",
+     4.0,
+     "ASSUMED"
+    ],
+    [
+     "uno_screws_M3x8",
+     3.95,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "ubec",
+     3.0,
+     "Mini560 5 V 5 A buck module (ASSUMED ~3 g)"
+    ],
+    [
+     "power_switch",
+     2.0,
+     "ASSUMED"
+    ],
+    [
+     "imu",
+     2.0,
+     "7Semi BNO086 Qwiic breakout (ASSUMED)"
+    ],
+    [
+     "body_lid_screws_M2x6st",
+     1.28,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "imu_screws_M2x6st",
+     1.28,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "body_neck_bearing_plate",
+     1.18,
+     "PLA solid x 0.75"
+    ],
+    [
+     "neck_brg_693",
+     1.0,
+     "ASSUMED"
+    ],
+    [
+     "scs_neck_pitch_horn_cross",
+     0.8,
+     "ASSUMED"
+    ],
+    [
+     "enclosure_screws_M2x6st",
+     0.79,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "left_hip_yaw_ear_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "right_hip_yaw_ear_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "neck_plate_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "uno_cover_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "neck_screw_M2x4kit",
+     0.19,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "scs_neck_pitch_horn_screw",
+     0.1,
+     "M2 x 4"
+    ]
+   ]
+  },
+  "leg_2": {
+   "mass": 0.026570871419335913,
+   "pos": [
+    0.0239182184580578,
+    -2.769785101499622e-06,
+    -0.005677181637445415
+   ],
+   "fullinertia": [
+    3.1280439300314324e-06,
+    1.0345331942546104e-05,
+    8.606148946580842e-06,
+    4.991737776731746e-09,
+    2.0742234821116693e-06,
+    8.142002616882161e-10
+   ],
+   "parts": [
+    [
+     "scs_right_ankle_case",
+     12.4,
+     "SCS0009 13.2 g datasheet, less the horn"
+    ],
+    [
+     "right_shin",
+     7.1,
+     "PLA solid x 0.75"
+    ],
+    [
+     "right_knee_brg_6702ZZ",
+     4.0,
+     "ASSUMED"
+    ],
+    [
+     "right_ankle_screw_M3x8",
+     0.99,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "scs_right_knee_horn_cross",
+     0.8,
+     "ASSUMED"
+    ],
+    [
+     "right_ankle_ear_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "right_ankle_nut_M3",
+     0.36,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "right_knee_screw_M2x4kit",
+     0.19,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "scs_right_knee_horn_screw",
+     0.1,
+     "M2 x 4"
+    ]
+   ]
+  },
+  "ankle_right": {
+   "mass": 0.028299600315256218,
+   "pos": [
+    0.013390849660440816,
+    0.005753324798974417,
+    -0.013269778762641493
+   ],
+   "fullinertia": [
+    9.853382795618265e-06,
+    5.97972925541097e-06,
+    6.856834611001754e-06,
+    -2.962349941149525e-07,
+    6.389683008269425e-07,
+    1.0414118932726164e-07
+   ],
+   "parts": [
+    [
+     "right_foot",
+     24.13,
+     "PLA solid x 0.75"
+    ],
+    [
+     "right_foot_bearing_plate",
+     1.44,
+     "PLA solid x 0.75"
+    ],
+    [
+     "right_ankle_brg_693",
+     1.0,
+     "ASSUMED"
+    ],
+    [
+     "scs_right_ankle_horn_cross",
+     0.8,
+     "ASSUMED"
+    ],
+    [
+     "right_foot_plate_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "right_ankle_screw_M2x4kit",
+     0.19,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "scs_right_ankle_horn_screw",
+     0.1,
+     "M2 x 4"
+    ]
+   ]
+  },
+  "bearing_roll": {
+   "mass": 0.022167101252560557,
+   "pos": [
+    2.1047261653458557e-05,
+    -0.0018092482562928971,
+    0.01588842034808258
+   ],
+   "fullinertia": [
+    3.923408479340001e-06,
+    2.7780807620163283e-06,
+    2.2642931298546656e-06,
+    8.199843460382936e-09,
+    3.4506107560765107e-09,
+    -1.7797696795436575e-07
+   ],
+   "parts": [
+    [
+     "scs_right_hip_roll_case",
+     12.4,
+     "SCS0009 13.2 g datasheet, less the horn"
+    ],
+    [
+     "right_yaw_connector",
+     4.04,
+     "PLA solid x 0.75"
+    ],
+    [
+     "right_hip_roll_brg_6702ZZ",
+     4.0,
+     "ASSUMED"
+    ],
+    [
+     "scs_right_hip_yaw_horn_cross",
+     0.8,
+     "ASSUMED"
+    ],
+    [
+     "right_hip_roll_ear_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "right_hip_yaw_screw_M2x4kit",
+     0.19,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "scs_right_hip_yaw_horn_screw",
+     0.1,
+     "M2 x 4"
+    ]
+   ]
+  },
+  "hip_l_2": {
+   "mass": 0.0070233940698424,
+   "pos": [
+    3.5875017277332895e-06,
+    0.010941733955823986,
+    -0.005745752362543566
+   ],
+   "fullinertia": [
+    1.1819975950911201e-06,
+    6.6681239371089e-07,
+    7.889662461508106e-07,
+    -6.093092192747096e-11,
+    1.0731634432263139e-10,
+    4.17197003090703e-07
+   ],
+   "parts": [
+    [
+     "right_l_bracket",
+     4.84,
+     "PLA solid x 0.75"
+    ],
+    [
+     "scs_right_hip_roll_horn_cross",
+     0.8,
+     "ASSUMED"
+    ],
+    [
+     "scs_right_hip_pitch_horn_cross",
+     0.8,
+     "ASSUMED"
+    ],
+    [
+     "right_hip_pitch_screw_M2x4kit",
+     0.19,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "right_hip_roll_screw_M2x4kit",
+     0.19,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "scs_right_hip_roll_horn_screw",
+     0.1,
+     "M2 x 4"
+    ],
+    [
+     "scs_right_hip_pitch_horn_screw",
+     0.1,
+     "M2 x 4"
+    ]
+   ]
+  },
+  "upper_leg_left": {
+   "mass": 0.05666161790030993,
+   "pos": [
+    0.019769139722494274,
+    0.00655715882950129,
+    0.016192685205525362
+   ],
+   "fullinertia": [
+    1.5234525460013492e-05,
+    2.561054136602374e-05,
+    2.267127820492359e-05,
+    -1.7813849648286003e-06,
+    -6.611818319546478e-07,
+    -5.186747031814299e-07
+   ],
+   "parts": [
+    [
+     "scs_left_knee_case",
+     12.4,
+     "SCS0009 13.2 g datasheet, less the horn"
+    ],
+    [
+     "scs_left_hip_pitch_case",
+     12.4,
+     "SCS0009 13.2 g datasheet, less the horn"
+    ],
+    [
+     "left_thigh",
+     7.43,
+     "PLA solid x 0.75"
+    ],
+    [
+     "left_thigh_cover",
+     6.07,
+     "PLA solid x 0.75"
+    ],
+    [
+     "left_hip_pitch_brg_6702ZZ",
+     4.0,
+     "ASSUMED"
+    ],
+    [
+     "left_knee_cap",
+     2.21,
+     "PLA solid x 0.75"
+    ],
+    [
+     "left_knee_ear_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "left_knee_cap_screws_M2x6",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "left_hip_pitch_ear_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "left_thigh_cover_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ]
+   ]
+  },
+  "upper_leg_right": {
+   "mass": 0.05666911788750968,
+   "pos": [
+    0.019866540841970374,
+    -0.006686234451180848,
+    0.01619091628768193
+   ],
+   "fullinertia": [
+    1.5243289928221145e-05,
+    2.5424231677854265e-05,
+    2.2492811574134964e-05,
+    1.734633324578505e-06,
+    -7.143438365439028e-07,
+    6.517421665669611e-07
+   ],
+   "parts": [
+    [
+     "scs_right_knee_case",
+     12.4,
+     "SCS0009 13.2 g datasheet, less the horn"
+    ],
+    [
+     "scs_right_hip_pitch_case",
+     12.4,
+     "SCS0009 13.2 g datasheet, less the horn"
+    ],
+    [
+     "right_thigh",
+     7.43,
+     "PLA solid x 0.75"
+    ],
+    [
+     "right_thigh_cover",
+     6.07,
+     "PLA solid x 0.75"
+    ],
+    [
+     "right_hip_pitch_brg_6702ZZ",
+     4.0,
+     "ASSUMED"
+    ],
+    [
+     "right_knee_cap",
+     2.21,
+     "PLA solid x 0.75"
+    ],
+    [
+     "right_knee_ear_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "right_knee_cap_screws_M2x6",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "right_hip_pitch_ear_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "right_thigh_cover_screws_M2x6st",
+     0.64,
+     "steel 7.85 g/cm3"
+    ]
+   ]
+  }
+ }
+}

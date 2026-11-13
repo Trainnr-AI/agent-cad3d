@@ -22,8 +22,17 @@ R = args["robot"]
 body = lambda n: bpy.data.objects[f"{R}:{n}"]
 bpy.context.view_layer.update()
 
+def _owned(o):
+    q = o.parent
+    while q is not None and not q.name.startswith(R + ":"):
+        q = q.parent
+    return q is not None
+
+
 for pname, bname in args["parts"].items():
     p, b = bpy.data.objects[pname], body(bname)
+    if _owned(p):                                      # already rides on a robot body (perhaps via a sub-frame such as the jaw's pivot): keep it
+        continue
     mw = p.matrix_world.copy()
     p.parent = b
     p.matrix_world = mw
@@ -80,27 +89,31 @@ def check(label):
 
 
 results = {"rest": check("rest")}
-for jn in args["joints"]:
-    e = joints[jn]
-    lo, hi = e["joint_range"]
-    n = args.get("samples", 9)
-    for k in range(n):
-        ang = lo + (hi - lo) * k / (n - 1)
-        e.rotation_quaternion = q0[e.name] @ Quaternion(Vector(e["joint_axis"]), ang)
-        h = check(f"{jn} {math.degrees(ang):+.0f}")
-        if h:
-            results[f"{jn} {math.degrees(ang):+.0f}°"] = h
-    e.rotation_quaternion = q0[e.name]
-for label, q in args.get("poses", {}).items():          # combined poses: {joint: rad}
-    for jn, ang in q.items():
+try:
+    for jn in args["joints"]:
         e = joints[jn]
-        e.rotation_quaternion = q0[e.name] @ Quaternion(Vector(e["joint_axis"]), ang)
-    h = check(label)
-    if h:
-        results[label] = h
-    for jn in q:
-        joints[jn].rotation_quaternion = q0[joints[jn].name]
-bpy.context.view_layer.update()
+        lo, hi = e["joint_range"]
+        n = args.get("samples", 9)
+        for k in range(n):
+            ang = lo + (hi - lo) * k / (n - 1)
+            e.rotation_quaternion = q0[e.name] @ Quaternion(Vector(e["joint_axis"]), ang)
+            h = check(f"{jn} {math.degrees(ang):+.0f}")
+            if h:
+                results[f"{jn} {math.degrees(ang):+.0f}°"] = h
+        e.rotation_quaternion = q0[e.name]
+    for label, q in args.get("poses", {}).items():          # combined poses: {joint: rad}
+        for jn, ang in q.items():
+            e = joints[jn]
+            e.rotation_quaternion = q0[e.name] @ Quaternion(Vector(e["joint_axis"]), ang)
+        h = check(label)
+        if h:
+            results[label] = h
+        for jn in q:
+            joints[jn].rotation_quaternion = q0[joints[jn].name]
+finally:                                                 # never leave the user's robot posed, even on an error
+    for e in joints.values():
+        e.rotation_quaternion = q0[e.name]
+    bpy.context.view_layer.update()
 
 bad = {k: v for k, v in results.items() if v}
 print(f"poses checked: 1 + {len(args['joints'])} x {args.get('samples', 9)} + {len(args.get('poses', {}))} combined; poses with real collisions: {len(bad)}")

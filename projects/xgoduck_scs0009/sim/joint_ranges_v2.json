@@ -1,0 +1,99 @@
+{
+ "joints": {
+  "left_hip_yaw": [
+   -6.3,
+   19.0
+  ],
+  "right_hip_yaw": [
+   -19.0,
+   6.3
+  ],
+  "left_hip_roll": [
+   -12.0,
+   19.5
+  ],
+  "right_hip_roll": [
+   -19.5,
+   12.0
+  ],
+  "left_hip_pitch": [
+   -90.0,
+   85.0
+  ],
+  "right_hip_pitch": [
+   -85.0,
+   90.0
+  ],
+  "left_knee": [
+   -90.0,
+   68.0
+  ],
+  "right_knee": [
+   -68.0,
+   90.0
+  ],
+  "left_ankle": [
+   -86.0,
+   90.0
+  ],
+  "right_ankle": [
+   -90.0,
+   86.0
+  ],
+  "neck_pitch": [
+   -80.0,
+   30.0
+  ],
+  "head_pitch": [
+   -5.0,
+   65.0
+  ],
+  "head_yaw": [
+   -150.0,
+   150.0
+  ],
+  "head_roll": [
+   -15.0,
+   15.0
+  ]
+ },
+ "keyframes": {
+  "SIT": {
+   "left_hip_yaw": 0.0,
+   "right_hip_yaw": 0.0,
+   "left_hip_roll": -5.0,
+   "right_hip_roll": 5.0,
+   "left_hip_pitch": 70.0,
+   "right_hip_pitch": -70.0,
+   "left_knee": 18.0,
+   "right_knee": -18.0,
+   "left_ankle": -16.0,
+   "right_ankle": 16.0,
+   "neck_pitch": 20.0,
+   "head_pitch": 20.0,
+   "head_yaw": 0.0,
+   "head_roll": 0.0
+  },
+  "FOLD": {
+   "neck_pitch": 40.0,
+   "head_pitch": 57.3
+  }
+ },
+ "notes": {
+  "sit_2026_11_13": "SIT replaced (the original's hip -30 / knee 60 cannot be reached with the feet flat: it needs the trunk pitched ~90 deg and face-plants). New SIT = feet flat, trunk leaned back ~31 deg onto its tail: hip pitch 70, knee 18, ankle -16 (left; right mirrored), hip roll / neck / head as STAND. Found by a quasi-static search (CoM over the soles >= 15.5 mm all the way from STAND, static torque <= 60 %) and checked in MuJoCo: 108/108 variations pass (move 1.5-3 s, friction 0.4-1.0, servo stiffness x0.5-1, trunk CoM +-6 mm, trunk mass +15 %); trunk down on the floor in all; peak servo load 61 % median / 69 % max at 3 s per move (80 % max at 1.5 s). Use 3 s moves.",
+  "source": "exact collision checks in Blender on the v2 parts (2026-11-12): servo travel 300 deg, horn zero in the middle",
+  "hips": "hip yaw / roll unchanged. Hip pitch: leg back limited to 85 deg (straight leg: the foot reaches the Uno Q cover at 88)",
+  "knee": "folding further than 68 deg (left +, right -) brings the foot onto the hip's L-bracket",
+  "ankle": "the last 4 deg on the foot-up side meet the shin",
+  "neck_pitch": "forward -80 (tof sensor / chest). Back +40 (board back at its low height, no audio tray; cover cut to the swept space of neck, U and hub Y). Original: -135..+60",
+  "head_pitch": "box -45..+65 (>= +70 the jaw / yaw block meet hub C stacked on the neck's front). COUPLED with neck (the head comes down on the bay): neck 0 -> head >= -45, +10 -> >= -35, +20/+25 -> >= -15, +30/+35 -> >= 0, +40 -> >= +20. Original: -105..+105",
+  "head_yaw": "+-150 (original +-170): the lead / hubs to the head",
+  "head_roll": "+-25; with yaw beyond +-45 the head meets the U at full roll (controller limit)",
+  "keyframes": "STAND unchanged. SIT neck 28.6 (original), head 92 -> 65. FOLD neck 57 -> 40, head 57 (original), knees 90 -> 68",
+  "layout": "2026-11-12: audio dropped (camera only, its mic); Uno Q back on 4.5 mm posts; camera USB straight to the Uno Q (no hub)",
+  "combined": "still touching (as before): hip pitch 46 deg + knee 55 deg crouch (foot on the L-bracket), leg folded up behind (foot on the bay), head yaw beyond +-45 with full roll (U on the head)",
+  "servo_torque": "SCS0009 stall 2.3 kg.cm at 6 V (0.226 N m); powered at 5 V by the Mini560 regulator: 0.226 x 5/6 = 0.1883 N m (datasheet input range 4-7.4 V)",
+  "limits_2026_11_13": "servo angle limits from JOINT_LIMITS.md (user decisions 2026-11-13): hip yaw/roll = the box in which every combination of BOTH legs is clear by >= 0.5 mm; neck -80..+30 / head pitch -5..+65 (box A); head roll +-15 (+ software interlock: roll only within +-2.5 deg of head yaw 0). Was: {\"left_hip_yaw\": [-12.6, 25.8], \"right_hip_yaw\": [-25.8, 12.6], \"left_hip_roll\": [-22.0, 22.0], \"right_hip_roll\": [-22.0, 22.0], \"neck_pitch\": [-80.0, 40.0], \"head_pitch\": [-45.0, 65.0], \"head_roll\": [-25.0, 25.0]}"
+ },
+ "servo_torque_nm": 0.1883
+}

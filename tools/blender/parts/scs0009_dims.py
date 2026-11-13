@@ -42,9 +42,13 @@ HORN_DISC_D = 17.76
 HORN_CROSS_L = 11.94                    # 23.88 tip to tip; shaft centre -> outermost point (round tip included)
 HORN_ARM_L = 20.12 - HORN_HUB_D / 2     # single arm 20.12 overall (hub edge -> tip)
 HORN_DOUBLE_ARM_L = 34.49 / 2
-HORN_ARM_W_ROOT, HORN_ARM_W_TIP = 5.6, 3.6   # (NOMINAL)
-HORN_HOLE_D, HORN_HOLE_R = 1.0, (5.6, 7.6, 9.6)   # row of small holes along each arm (from the kit photo, NOMINAL)
-HORN_CROSS_STRAIGHT = HORN_CROSS_L - HORN_ARM_W_TIP / 2   # 10.14: where the straight arm ends and the round tip starts
+# arm widths and holes measured off Feetech's kit photo (2026-11-13), scaled by the listing's lengths (X 23.88 tip to tip:
+# 7.36 px/mm; double arm 34.49: 7.28 px/mm). Width 4.84 at r 4.1, 4.60 at r 6.8, 4.32 at r 9.6 -> linear 5.2 at the axis,
+# 4.3 where the round tip starts (+-0.15). Inner corner between arms 3.76 from the axis (fillet ~0.4). Was 5.6 -> 3.6 (nominal):
+# the full-length pockets would have been 0.3 too narrow near the tips. Hub and thicknesses still NOMINAL (not in a top view).
+HORN_ARM_W_ROOT, HORN_ARM_W_TIP = 5.2, 4.3
+HORN_HOLE_D, HORN_HOLE_R = 1.0, (4.9, 7.4, 9.8)   # row of small holes along each arm (photo; hole size not resolvable)
+HORN_CROSS_STRAIGHT = HORN_CROSS_L - HORN_ARM_W_TIP / 2   # 9.79: where the straight arm ends and the round tip starts
 
 # ---- the same in the joint frame (mm) ----
 J_BODY_X = (BODY_X0 - SHAFT_X, BODY_X1 - SHAFT_X)        # (-5.95, 17.35)
