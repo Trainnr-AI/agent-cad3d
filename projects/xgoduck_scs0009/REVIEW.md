@@ -1484,3 +1484,23 @@ kp x0.5-1.2, PLA fill 0.45-1.0 (573-743 g; the mass model was already at 0.75, n
   limit lag too much and fall more. **Trade-off**: at the 8 stacked worst-case corners (every servo extreme at once - 20 ms delay,
   1 deg backlash, 3-step deadband, half stiffness - plus +-5 deg slopes) the smoothed version falls in 6/8, the unfiltered in 2/8.
   Tune the filter once the real servo's delay / backlash are measured.
+
+## Build readiness pass (2026-11-14)
+
+Everything re-run on the current files (joints at rest before and after every step):
+- **MuJoCo, held in the air**: each of the 14 servos alone over its full servo range: 8-29 % of stall, never at the limit, lag
+  <= 0.1 deg. (The beak servo is not in the sim; the jaw is 6.7 g.)
+- **MuJoCo, on the floor** (ideal model): stand 40 %, crouch 0.3 50 %, shift +-0.12, neck -57 deg 62 %, neck +28.6, head pitch
+  -4.6 / +65, head yaw +-149, head roll +-15, hip yaw in / out both legs, sit/stand 52 %: all upright.
+- **Exact parts in Blender** (`leg_motion_check`, new `ranges_deg` option = the servo limits from joint_ranges_v2.json): every joint
+  at 9 points over its servo range + 296 poses sampled every 0.25 s from the 17 motions above: **0 collisions**. (Earlier sweeps used
+  the joint empties' stored, wider ranges - their "known limits" were outside the servo limits.)
+- Printed parts 27/27 one piece, watertight; horns 15/15 (same gaps as before); fits 333 (battery sampling artifact only);
+  assembly paths all OK (left hip-yaw servo by its L-path); screws 89, 27 flagged, none new (cam screws and the removed C2 rig no
+  longer flagged); printability unchanged.
+- **Head / beak**: head roll sweep clear; beak 0..35 deg open clear; closing past 0 hits the head base from 2 deg -> **beak servo
+  limit 0..+35** (added to JOINT_LIMITS.md). head_check lists base x dome, base x roll servo, base x beak servo as "not intended"
+  rest contacts; the boolean gives slivers 0-0.08 mm thick (mating faces) and a 9-ray majority vote finds no vertex of either part
+  inside the other: seated surfaces, not interference.
+- Not covered by any of this: real-part measurements, printer tolerance, firmware (limits, interlocks, IMU balance, overload
+  settings), walking, getting up (torque, see the comparison with the original), fall loads, cables against moving parts.

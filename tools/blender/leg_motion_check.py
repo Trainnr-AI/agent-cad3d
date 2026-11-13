@@ -93,6 +93,8 @@ try:
     for jn in args["joints"]:
         e = joints[jn]
         lo, hi = e["joint_range"]
+        if jn in args.get("ranges_deg", {}):                  # sweep the servo limits instead of the model's stored range
+            lo, hi = (math.radians(v) for v in args["ranges_deg"][jn])
         n = args.get("samples", 9)
         for k in range(n):
             ang = lo + (hi - lo) * k / (n - 1)

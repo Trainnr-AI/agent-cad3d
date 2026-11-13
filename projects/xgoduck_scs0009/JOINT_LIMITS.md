@@ -32,6 +32,7 @@ the position at two known angles) before writing limits. Example: a joint zero a
 | head pitch | -45..+65 | **-5..+65** (user: option A) | neck +10..+40 with head -45..-5: U / bearing plate vs head base | corners >= 1.36 mm |
 | head yaw | -150..+150 | **+-150** | alone: clear | 5 deg sweep |
 | head roll | -25..+25 | **+-15** + software interlock (user) | yawed, the U meets the head's floor | grid |
+| beak (mouth servo) | - | **0..+35** (0 = closed, + = open) | closing past 0: jaw on the head base from 2 deg, then face / dome / camera | 1 deg sweep, 2026-11-14 |
 
 Walking (yaw -6.3..+12.6, roll +-10.9, pitch +-45.8, knee +-55, ankle +-23), STAND (neck 20, head 20) and SIT fit inside the servo
 limits. SIT was replaced 2026-11-13 (the original hip -30 / knee 60 face-plants): now hip pitch 70, knee 18, ankle -16, hip yaw -3,
