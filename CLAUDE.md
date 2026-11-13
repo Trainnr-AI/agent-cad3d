@@ -45,8 +45,10 @@ Other backends (FreeCAD, SolidWorks) may be added later — keep work backend-ag
 - `.mcp.json` — pins `mcp-for-blender`, port 9877 (9876 is left for the trainnr Studio viewer).
 - `tools/blender/` — in-Blender tools: import (`import_mjcf`), parts (`parts/`), checks
   (`compare_kinematics`, `sweep_compare`, `leg_motion_check`, `assembly_path_check`,
-  `overlap_sample`, `overlap_volume`), views (`closeup`, `explode`, `explode_robot`, `organize_scene`),
-  export (`export_bodies`).
+  `overlap_sample`, `overlap_volume`, `fit_audit`, `swept_space`, `print_check`), views (`closeup`, `color_code`,
+  `section_view`, `explode_all`, `explode_list`, `wiring`, `organize_scene`), export (`export_bodies`).
+- `tools/cad/` — STEP → STL + feature report with cadquery (`uv run --with cadquery`), e.g. the exact
+  SCS0009 meshes in `tools/blender/parts/scs0009_mesh/`.
 - `tools/sim/` — MuJoCo: `build_scaled_mjcf`, `apply_body_meshes`, `fix_key_heights`, `servo_tests`,
   `rerun_replay` (into trainnr Studio), `mujoco_showcase` (native viewer).
 - `projects/<project>/` — .blend, `REVIEW.md`, `data/`, `sim/`. `exports/`, `vendor/` — git-ignored.

@@ -58,7 +58,7 @@ mkdir -p "$ADDONS_DIR"
 
 # 4. Install + enable the addon
 say "Installing MCP for Blender addon into $ADDONS_DIR"
-BLENDERMCP_ADDONS_DIR="$ADDONS_DIR" uvx "$MCP_PKG" install-addon
+BLENDERMCP_ADDONS_DIR="$ADDONS_DIR" uvx --from "$MCP_PKG" mcp-for-blender install-addon
 # No --factory-startup here: it would save factory defaults over the user's existing prefs
 "$BLENDER" --background --python "$REPO_ROOT/scripts/enable_addon.py"
 

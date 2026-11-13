@@ -1,0 +1,638 @@
+[
+ {
+  "servo": "scs_head_pitch",
+  "joint": "head_pitch",
+  "axis_deg": 0.0,
+  "axis_off_mm": 0.03,
+  "sense": 1,
+  "range_deg": [
+   -105.0,
+   105.0
+  ],
+  "travel_ok": true,
+  "joint_bodies": [
+   "neck",
+   "neck_pitch.001"
+  ],
+  "holder": [
+   [
+    "neck_cradle",
+    "neck",
+    717,
+    650
+   ]
+  ],
+  "output": [
+   [
+    "head_pitch_u",
+    "neck_pitch.001",
+    465,
+    558
+   ]
+  ],
+  "holder_body": "neck",
+  "output_body": "neck_pitch.001",
+  "bodies_ok": true,
+  "horn_in_output_crossing": 558,
+  "horn_vs_holder_crossing": 0
+ },
+ {
+  "servo": "scs_head_roll",
+  "joint": "head_roll",
+  "axis_deg": 0.0,
+  "axis_off_mm": 0.03,
+  "sense": -1,
+  "range_deg": [
+   -25.0,
+   25.0
+  ],
+  "travel_ok": true,
+  "joint_bodies": [
+   "yaw_roll_motion",
+   "jaw_soft"
+  ],
+  "holder": [
+   [
+    "head_base",
+    "jaw_soft",
+    302,
+    444
+   ],
+   [
+    "head_dome",
+    "jaw_soft",
+    474,
+    0
+   ],
+   [
+    "yaw_block",
+    "yaw_roll_motion",
+    40,
+    0
+   ]
+  ],
+  "output": [
+   [
+    "yaw_block",
+    "yaw_roll_motion",
+    140,
+    358
+   ]
+  ],
+  "holder_body": "jaw_soft",
+  "output_body": "yaw_roll_motion",
+  "bodies_ok": true,
+  "horn_in_output_crossing": 358,
+  "horn_vs_holder_crossing": 0
+ },
+ {
+  "servo": "scs_head_yaw",
+  "joint": "head_yaw",
+  "axis_deg": 0.0,
+  "axis_off_mm": 0.0,
+  "sense": -1,
+  "range_deg": [
+   -170.0,
+   170.0
+  ],
+  "travel_ok": false,
+  "joint_bodies": [
+   "neck_pitch.001",
+   "yaw_roll_motion"
+  ],
+  "holder": [
+   [
+    "yaw_block",
+    "yaw_roll_motion",
+    233,
+    0
+   ],
+   [
+    "head_pitch_u",
+    "neck_pitch.001",
+    40,
+    0
+   ]
+  ],
+  "output": [
+   [
+    "head_pitch_u",
+    "neck_pitch.001",
+    140,
+    358
+   ]
+  ],
+  "holder_body": "yaw_roll_motion",
+  "output_body": "neck_pitch.001",
+  "bodies_ok": true,
+  "horn_in_output_crossing": 358,
+  "horn_vs_holder_crossing": 0
+ },
+ {
+  "servo": "scs_left_ankle",
+  "joint": "left_ankle",
+  "axis_deg": 0.0,
+  "axis_off_mm": 0.0,
+  "sense": 1,
+  "range_deg": [
+   -90.0,
+   90.0
+  ],
+  "travel_ok": true,
+  "joint_bodies": [
+   "leg",
+   "ankle_left"
+  ],
+  "holder": [
+   [
+    "left_shin",
+    "leg",
+    1272,
+    1490
+   ]
+  ],
+  "output": [
+   [
+    "left_foot",
+    "ankle_left",
+    465,
+    562
+   ]
+  ],
+  "holder_body": "leg",
+  "output_body": "ankle_left",
+  "bodies_ok": true,
+  "horn_in_output_crossing": 562,
+  "horn_vs_holder_crossing": 0
+ },
+ {
+  "servo": "scs_left_hip_pitch",
+  "joint": "left_hip_pitch",
+  "axis_deg": 0.0,
+  "axis_off_mm": 0.03,
+  "sense": -1,
+  "range_deg": [
+   -90.0,
+   90.0
+  ],
+  "travel_ok": true,
+  "joint_bodies": [
+   "hip_l",
+   "upper_leg_left"
+  ],
+  "holder": [
+   [
+    "left_thigh",
+    "upper_leg_left",
+    236,
+    350
+   ],
+   [
+    "left_l_bracket",
+    "hip_l",
+    40,
+    0
+   ]
+  ],
+  "output": [
+   [
+    "left_l_bracket",
+    "hip_l",
+    140,
+    358
+   ]
+  ],
+  "holder_body": "upper_leg_left",
+  "output_body": "hip_l",
+  "bodies_ok": true,
+  "horn_in_output_crossing": 358,
+  "horn_vs_holder_crossing": 0
+ },
+ {
+  "servo": "scs_left_hip_roll",
+  "joint": "left_hip_roll",
+  "axis_deg": 0.0,
+  "axis_off_mm": 0.0,
+  "sense": 1,
+  "range_deg": [
+   -22.0,
+   22.0
+  ],
+  "travel_ok": true,
+  "joint_bodies": [
+   "yaw2roll",
+   "hip_l"
+  ],
+  "holder": [
+   [
+    "left_yaw_connector",
+    "yaw2roll",
+    244,
+    429
+   ],
+   [
+    "left_l_bracket",
+    "hip_l",
+    40,
+    0
+   ]
+  ],
+  "output": [
+   [
+    "left_l_bracket",
+    "hip_l",
+    140,
+    360
+   ]
+  ],
+  "holder_body": "yaw2roll",
+  "output_body": "hip_l",
+  "bodies_ok": true,
+  "horn_in_output_crossing": 360,
+  "horn_vs_holder_crossing": 0
+ },
+ {
+  "servo": "scs_left_hip_yaw",
+  "joint": "left_hip_yaw",
+  "axis_deg": 0.0,
+  "axis_off_mm": 0.0,
+  "sense": 1,
+  "range_deg": [
+   -12.6,
+   25.8
+  ],
+  "travel_ok": true,
+  "joint_bodies": [
+   "trunk_base",
+   "yaw2roll"
+  ],
+  "holder": [
+   [
+    "body_lid",
+    "trunk_base",
+    311,
+    0
+   ],
+   [
+    "body_frame",
+    "trunk_base",
+    233,
+    28
+   ],
+   [
+    "left_yaw_connector",
+    "yaw2roll",
+    40,
+    0
+   ]
+  ],
+  "output": [
+   [
+    "left_yaw_connector",
+    "yaw2roll",
+    140,
+    360
+   ]
+  ],
+  "holder_body": "trunk_base",
+  "output_body": "yaw2roll",
+  "bodies_ok": true,
+  "horn_in_output_crossing": 360,
+  "horn_vs_holder_crossing": 0
+ },
+ {
+  "servo": "scs_left_knee",
+  "joint": "left_knee",
+  "axis_deg": 0.0,
+  "axis_off_mm": 0.03,
+  "sense": 1,
+  "range_deg": [
+   -90.0,
+   90.0
+  ],
+  "travel_ok": true,
+  "joint_bodies": [
+   "upper_leg_left",
+   "leg"
+  ],
+  "holder": [
+   [
+    "left_thigh",
+    "upper_leg_left",
+    233,
+    167
+   ],
+   [
+    "left_shin",
+    "leg",
+    40,
+    0
+   ]
+  ],
+  "output": [
+   [
+    "left_shin",
+    "leg",
+    140,
+    360
+   ]
+  ],
+  "holder_body": "upper_leg_left",
+  "output_body": "leg",
+  "bodies_ok": true,
+  "horn_in_output_crossing": 360,
+  "horn_vs_holder_crossing": 0
+ },
+ {
+  "servo": "scs_mouth",
+  "joint": "mouth",
+  "axis_deg": 0.0,
+  "axis_off_mm": 0.0,
+  "sense": 1,
+  "range_deg": "jaw (not a robot joint)",
+  "travel_ok": true,
+  "joint_bodies": [
+   "jaw_soft",
+   "jaw (head_jaw_pivot)"
+  ],
+  "holder": [
+   [
+    "head_base",
+    "jaw_soft",
+    253,
+    389
+   ],
+   [
+    "head_face",
+    "jaw_soft",
+    35,
+    0
+   ]
+  ],
+  "output": [
+   [
+    "head_jaw",
+    "jaw_soft",
+    136,
+    554
+   ]
+  ],
+  "holder_body": "jaw_soft",
+  "output_body": "jaw_soft",
+  "bodies_ok": true,
+  "horn_in_output_crossing": 554,
+  "horn_vs_holder_crossing": 0
+ },
+ {
+  "servo": "scs_neck_pitch",
+  "joint": "neck_pitch",
+  "axis_deg": 0.0,
+  "axis_off_mm": 0.03,
+  "sense": -1,
+  "range_deg": [
+   -135.0,
+   60.0
+  ],
+  "travel_ok": true,
+  "joint_bodies": [
+   "trunk_base",
+   "neck"
+  ],
+  "holder": [
+   [
+    "neck_cradle",
+    "neck",
+    717,
+    648
+   ]
+  ],
+  "output": [
+   [
+    "body_frame",
+    "trunk_base",
+    465,
+    558
+   ]
+  ],
+  "holder_body": "neck",
+  "output_body": "trunk_base",
+  "bodies_ok": true,
+  "horn_in_output_crossing": 558,
+  "horn_vs_holder_crossing": 0
+ },
+ {
+  "servo": "scs_right_ankle",
+  "joint": "right_ankle",
+  "axis_deg": 0.0,
+  "axis_off_mm": 0.0,
+  "sense": 1,
+  "range_deg": [
+   -90.0,
+   90.0
+  ],
+  "travel_ok": true,
+  "joint_bodies": [
+   "leg_2",
+   "ankle_right"
+  ],
+  "holder": [
+   [
+    "right_shin",
+    "leg_2",
+    1271,
+    1403
+   ]
+  ],
+  "output": [
+   [
+    "right_foot",
+    "ankle_right",
+    465,
+    562
+   ]
+  ],
+  "holder_body": "leg_2",
+  "output_body": "ankle_right",
+  "bodies_ok": true,
+  "horn_in_output_crossing": 562,
+  "horn_vs_holder_crossing": 0
+ },
+ {
+  "servo": "scs_right_hip_pitch",
+  "joint": "right_hip_pitch",
+  "axis_deg": 0.0,
+  "axis_off_mm": 0.03,
+  "sense": -1,
+  "range_deg": [
+   -90.0,
+   90.0
+  ],
+  "travel_ok": true,
+  "joint_bodies": [
+   "hip_l_2",
+   "upper_leg_right"
+  ],
+  "holder": [
+   [
+    "right_thigh",
+    "upper_leg_right",
+    235,
+    204
+   ],
+   [
+    "right_l_bracket",
+    "hip_l_2",
+    40,
+    0
+   ]
+  ],
+  "output": [
+   [
+    "right_l_bracket",
+    "hip_l_2",
+    140,
+    358
+   ]
+  ],
+  "holder_body": "upper_leg_right",
+  "output_body": "hip_l_2",
+  "bodies_ok": true,
+  "horn_in_output_crossing": 358,
+  "horn_vs_holder_crossing": 0
+ },
+ {
+  "servo": "scs_right_hip_roll",
+  "joint": "right_hip_roll",
+  "axis_deg": 0.0,
+  "axis_off_mm": 0.0,
+  "sense": 1,
+  "range_deg": [
+   -22.0,
+   22.0
+  ],
+  "travel_ok": true,
+  "joint_bodies": [
+   "bearing_roll",
+   "hip_l_2"
+  ],
+  "holder": [
+   [
+    "right_yaw_connector",
+    "bearing_roll",
+    244,
+    428
+   ],
+   [
+    "right_l_bracket",
+    "hip_l_2",
+    40,
+    0
+   ]
+  ],
+  "output": [
+   [
+    "right_l_bracket",
+    "hip_l_2",
+    140,
+    359
+   ]
+  ],
+  "holder_body": "bearing_roll",
+  "output_body": "hip_l_2",
+  "bodies_ok": true,
+  "horn_in_output_crossing": 359,
+  "horn_vs_holder_crossing": 0
+ },
+ {
+  "servo": "scs_right_hip_yaw",
+  "joint": "right_hip_yaw",
+  "axis_deg": 0.0,
+  "axis_off_mm": 0.0,
+  "sense": 1,
+  "range_deg": [
+   -25.8,
+   12.6
+  ],
+  "travel_ok": true,
+  "joint_bodies": [
+   "trunk_base",
+   "bearing_roll"
+  ],
+  "holder": [
+   [
+    "body_lid",
+    "trunk_base",
+    311,
+    0
+   ],
+   [
+    "body_frame",
+    "trunk_base",
+    233,
+    28
+   ],
+   [
+    "right_yaw_connector",
+    "bearing_roll",
+    40,
+    0
+   ]
+  ],
+  "output": [
+   [
+    "right_yaw_connector",
+    "bearing_roll",
+    140,
+    360
+   ]
+  ],
+  "holder_body": "trunk_base",
+  "output_body": "bearing_roll",
+  "bodies_ok": true,
+  "horn_in_output_crossing": 360,
+  "horn_vs_holder_crossing": 0
+ },
+ {
+  "servo": "scs_right_knee",
+  "joint": "right_knee",
+  "axis_deg": 0.0,
+  "axis_off_mm": 0.03,
+  "sense": 1,
+  "range_deg": [
+   -90.0,
+   90.0
+  ],
+  "travel_ok": true,
+  "joint_bodies": [
+   "upper_leg_right",
+   "leg_2"
+  ],
+  "holder": [
+   [
+    "right_thigh",
+    "upper_leg_right",
+    233,
+    400
+   ],
+   [
+    "right_shin",
+    "leg_2",
+    40,
+    0
+   ]
+  ],
+  "output": [
+   [
+    "right_shin",
+    "leg_2",
+    140,
+    360
+   ]
+  ],
+  "holder_body": "upper_leg_right",
+  "output_body": "leg_2",
+  "bodies_ok": true,
+  "horn_in_output_crossing": 360,
+  "horn_vs_holder_crossing": 0
+ }
+]

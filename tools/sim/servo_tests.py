@@ -75,16 +75,20 @@ def script(m, test, sign=1):
     aid = {m.actuator(i).name: i for i in range(m.nu)}
     if test == "stand_hold":
         return 4.0, lambda t: stand
-    if test == "sit_stand":
+    if test == "sit_stand" or test.startswith("sit_stand:"):   # sit_stand[:<move seconds>[:<hold seconds>]]
+        parts = test.split(":")
+        mv = float(parts[1]) if len(parts) > 1 else 1.5
+        hold = float(parts[2]) if len(parts) > 2 else 1.0
+
         def f(t):
-            if t < 1.5:
-                return smooth(stand, sit, t / 1.5)
-            if t < 2.5:
+            if t < mv:
+                return smooth(stand, sit, t / mv)
+            if t < mv + hold:
                 return sit
-            if t < 4.0:
-                return smooth(sit, stand, (t - 2.5) / 1.5)
+            if t < 2 * mv + hold:
+                return smooth(sit, stand, (t - mv - hold) / mv)
             return stand
-        return 5.0, f
+        return 2 * mv + hold + 1.0, f
     if test.startswith("pose:"):               # pose:neck_pitch=-1.2;head_pitch=1.2 - several joints together
         lo = stand.copy()
         for kv in test[5:].split(";"):

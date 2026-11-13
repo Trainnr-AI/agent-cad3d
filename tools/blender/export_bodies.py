@@ -42,7 +42,7 @@ groups = {}
 seen = set()
 for cname in args["collections"]:
     for o in bpy.data.collections[cname].all_objects:
-        if o.type != "MESH" or o.name in seen or not o.visible_get() or o.hide_get() or o.hide_render \
+        if o.type != "MESH" or o.name in seen or not o.visible_get() or o.hide_get() \
                 or o.name.endswith(".x") or any(o.name.startswith(p) for p in args.get("exclude_prefix", [])):
             continue
         seen.add(o.name)
@@ -55,11 +55,23 @@ for cname in args["collections"]:
             continue
         groups.setdefault(b, []).append(o)
 
-dg = bpy.context.evaluated_depsgraph_get()
+MAXF = args.get("max_faces", 190000)                  # MuJoCo's STL reader takes at most 200000 faces per mesh
 manifest = {}
 for b, objs in groups.items():
     inv = b.matrix_world.inverted()
     tris = []
+    nf = sum(sum(len(p.vertices) - 2 for p in o.data.polygons) for o in objs)
+    temp = []
+    if nf > MAXF:                                     # heavy body: decimate its big parts (temporary modifier, the parts stay as they are)
+        big = [o for o in objs if len(o.data.polygons) > 2000]
+        nbig = sum(sum(len(p.vertices) - 2 for p in o.data.polygons) for o in big)
+        ratio = max(0.02, (MAXF * 0.95 - (nf - nbig)) / nbig)
+        for o in big:
+            md = o.modifiers.new("_export_decimate", "DECIMATE")
+            md.ratio = ratio
+            temp.append((o, md))
+        print(f"  {body_name(b)}: {nf} faces -> big parts decimated to {ratio:.2f}")
+    dg = bpy.context.evaluated_depsgraph_get()
     for o in objs:
         oe = o.evaluated_get(dg)
         me = oe.to_mesh()
@@ -69,6 +81,8 @@ for b, objs in groups.items():
         for t in me.loop_triangles:
             tris.append(tuple(vs[i] for i in t.vertices))
         oe.to_mesh_clear()
+    for o, md in temp:
+        o.modifiers.remove(md)
     name = body_name(b)
     path = os.path.join(out, f"{name}.stl")
     with open(path, "wb") as f:

@@ -3,7 +3,9 @@
     "blender": {
       "command": "uvx",
       "args": [
+        "--from",
         "mcp-for-blender==2.2.7",
+        "mcp-for-blender",
         "--port",
         "9877"
       ],

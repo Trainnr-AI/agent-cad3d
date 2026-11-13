@@ -6,7 +6,7 @@ Blender is in the background). Temporarily hides other objects (isolate) and res
 
 ARGS = {"collection": "joint_kit" (or "objects": [names]), "path": "/abs/out.png",
         "elev_deg": 62, "azim_deg": 125, "pad": 1.1, "isolate": True, "hide_prefix": [],
-        "size": [1600, 1000]}
+        "size": [1600, 1000], "also": ["labels_collection"]}
 elev/azim follow Blender's view rotation convention: elev 0 = looking straight down,
 90 = horizontal; azim rotates about world Z.
 """
@@ -18,6 +18,8 @@ from mathutils import Euler, Vector
 args = globals()["ARGS"]
 sc = bpy.context.scene
 obs = [bpy.data.objects[n] for n in args["objects"]] if args.get("objects") else list(bpy.data.collections[args["collection"]].all_objects)
+for extra in args.get("also", []):                     # further collections to frame with it (e.g. its labels)
+    obs += list(bpy.data.collections[extra].all_objects)
 obs_set = set(obs)
 
 changed = []                                   # (object, previous hide_render)
