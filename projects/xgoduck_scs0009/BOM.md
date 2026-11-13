@@ -2,7 +2,8 @@
 
 Kept up to date as parts are finalized with the user (India sourcing). Status: **FINAL** = chosen and designed in;
 **PENDING** = a stand-in is designed in, the real part is still to be chosen. Quantities are counted from the Blender model.
-Last update: 2026-11-13.
+Last update: 2026-11-14 (every bought-part count re-read from the Blender model: servos, horns, horn screws, ear screws,
+M2 / M3 screws, bearings, nuts, hubs and extension leads all match).
 
 ## Electronics
 
@@ -15,7 +16,7 @@ Last update: 2026-11-13.
 | 5 | FINAL | **Mini560 5 V 5 A** buck module | 1 | 29 × 18 × 5.4 mm, 6–32 V in, **5 V out** | [Zbotic](https://zbotic.in/product/mini560-dc-5v-5a-step-down-stabilized-module/) ~₹93 · [Robodo](https://robodo.in/products/mini560-dc-5v-5a-step-down-stabilized-module) | Order the **5 V** version (also sold in 3.3 / 9 / 12 V). ~3 A continuous without cooling: measure current. Upgrade path: UBEC-8A outside the body |
 | 6 | FINAL | **Waveshare Bus Servo Adapter (A)**, SKU 25514 | 1 | 42 × 33 × 14.6 mm, UART 3.3 V, 2 × 5264 sockets | [ThinkRobotics](https://thinkrobotics.com/ar/products/serial-bus-servo-driver) ₹500 | Jumper on **A** (UART). Power + UART wires **soldered on the back**. Rated 7(9)–12.6 V in: **test at 5 V on arrival** |
 | 8 | FINAL | **7Semi BNO086 9-DOF VR IMU Qwiic Fusion Breakout** | 1 | 27.89 × 20.87 mm (7Semi datasheet ES-12243), ~6 mm with its Qwiic sockets, 2 × Qwiic, I²C 0x4B (0x4A by jumper), 3.3 V | [Robocraze](https://robocraze.com/products/bno086-vr-imu-9-dof-orientation-qwiic-fusion-breakout-7semi) ₹2,294 | Upright on the bay's rear wall on 4 bosses. **Hole spacing ESTIMATED** (±11.35 × ±7.83 mm, not in the datasheet): measure on arrival. Set its orientation in software. Same software as BNO085/BNO080 |
-| 9 | FINAL | **Mini toggle switch MTS-102-A2T** (ON-ON, 3 pins; Daier MTS series) | 1 | 6 A @125 V AC, body 13.2 × 7.8 × 9.5, 6 mm bushing | [Robu](https://robu.in/product/mts-102-a2t-miniature-toggle-switch-3-pinon-on/) | In a recess in the bay's left side wall, lever tip flush with the outside. Wire **battery + → middle pin → one outer pin** (the other outer pin unused) = plain on/off. Do not use the tiny SS-12F15 slide switch (0.5 A) |
+| 9 | FINAL (lever protrudes, user OK 2026-11-14) | **Mini toggle switch MTS-102-A2T** - its lever sticks out of the left wall (listings: ~4-8 mm; the model had the body only). Leg clearance to the lever (exact parts): sit/stand 6.2 / 4.4 / 2.9 / 2.3 mm at 2 / 4 / 6 / 8 mm proud; with the left leg swung fully back (hip pitch +85) the foot bearing plate reaches it from ~4.5 mm proud. **Measure the lever from the bushing face to the tip on arrival**: if it stands > 4 mm proud, limit hip pitch back to ~+60 / -60 (not used by SIT +70 with the knee tucked, nor walking +-46). (ON-ON, 3 pins; Daier MTS series) | 1 | 6 A @125 V AC, body 13.2 × 7.8 × 9.5, 6 mm bushing | [Robu](https://robu.in/product/mts-102-a2t-miniature-toggle-switch-3-pinon-on/) | In a recess in the bay's left side wall, lever tip flush with the outside. Wire **battery + → middle pin → one outer pin** (the other outer pin unused) = plain on/off. Do not use the tiny SS-12F15 slide switch (0.5 A) |
 
 ## Cables and connectors
 
@@ -37,11 +38,11 @@ Last update: 2026-11-13.
 | 18 | FINAL | **Ball bearing 693ZZ** (= 693-2Z; 693-2RS also fits) | 4 | **bore d = 3 mm, outer D = 8 mm, width B = 4 mm**, deep groove, double metal shield; ~1 g each | [Quartz Components](https://quartzcomponents.com/products/693zz-ball-bearings-miniature-carbon-steel-bearings-3mm-x-8mm-x-4-mm-deep-groove-bearing); any 3D-printer shop | Fork joints: both ankles, neck, head pitch. Seated in the printed bearing plate, running on an M3 × 8 screw through the island (row 22) |
 | 19 | FINAL | **M2 × 6 machine screw, socket head** (Robu datasheet: dk 3.7, k 2.0, 1.5 mm Allen) | 31 + 4 = 35 (+ 2 per further full-horn joint, see below) | Everything that is not a servo, plus ONE servo ear (left hip-yaw servo, front ear: under the neck fork, reachable only at 20-25 deg: socket head + ball-end key): lid 4, dome 4, camera 3, IMU 4, bearing plates (neck 2, head pitch 2, feet 4) 8, thigh covers 4, Uno Q cover 2, jaw pivot 1, **full-horn bearing caps, 2 per joint** (knees done 2026-11-13; all the other bearing joints stay trimmed (no room for a cap); plain heads in clearance holes so the cap centres on its bearing before it is clamped) - machine screws threaded straight into the printed Ø1.6 pilots (user 2026-11-13: few screw types, all standard, all from Robu). Buy **4 × [Robu EasyMech M2 × 6 socket head + nut, 12-pc set](https://robu.in/product/easymech-m2-x-6mm-socket-head-cap-allen-bolt-nut/)** = 48 (3 bought = 36 covers the 35 now with 1 spare: **buy 1 more** for spares; 1-2 more if further joints get caps; the nuts are spare). All heads checked in the model at full size (see below) |
 | 20 | FINAL | **M2 × 10 countersunk machine screw, Phillips, SS304** | 3 | Bay front wall (3): heads 0.3 mm under the face (the battery stands 0.3 mm from it) in a **90° countersink** (2026-11-13: was a flat Ø4.0 counterbore, on which a countersunk head only bears on the hole's edge; found when the screw audit's axis bug was fixed). [Robu EasyMech SS304 CSK Phillips M2 × 10, 25 pcs](https://robu.in/?p=337115) ₹99 (Robu has no M2 × 6 CSK): 1 pack, 22 spare. (Not used for the bearing caps: a countersunk head would pull the cap onto the printed pilot instead of letting it centre on the bearing.) PH1 screwdriver |
-| 21 | FINAL (with the servos) | **Servo's own horn screw** (M2 × ~4 machine screw, pan head; 1 per servo) | 14 | Joint clamp screw: through each joint's moving part into the servo's **brass** output spline (user's photo 2026-11-13). Seats lowered so 1.86 mm of print stays over the horn and the screw has ~1.8 mm (4½ threads) in the spline. **Measure one**: length under the head, head Ø and height (model assumes 4.0, Ø3.5 × 1.3) |
+| 21 | FINAL (with the servos) | **Servo's own horn screw** (M2 × ~4 machine screw, pan head; 1 per servo) | 15 | Joint clamp screw (14 joints + the beak's jaw arm): through each joint's moving part into the servo's **brass** output spline (user's photo 2026-11-13). Seats lowered so 1.86 mm of print stays over the horn and the screw has ~1.8 mm (4½ threads) in the spline. **Measure one**: length under the head, head Ø and height (model assumes 4.0, Ø3.5 × 1.3) |
 | 21b | FINAL (with the servos) | **Servo's own mounting screws** (2 per servo, self-tapping, washer-style pan head) | 29 | The servo ears into the printed pads (15 servos × 2 = 30; 29 used, the left hip-yaw servo's front ear takes an M2 × 6 socket screw, row 19: 1 spare). **Measure one**: length under the head, thread Ø, head Ø and height - the pads' pilots are 4.9 deep for a 6 mm screw through the 1.6 mm ear; a longer screw needs deeper pilots |
 | 22 | FINAL | **M3 × 8 socket head cap screw, SS304** | 8 | 4 × Uno Q (into printed pilots), 4 × axles of the 693 bearings. [Robu EasyMech SS304 M3 × 8, 25 pcs](https://robu.in/product/easymech-ss304-m3-x-8-mm-socket-head-cap-allen-bolt-25-pcs/) ₹89 (user's pick 2026-11-13). 2.5 mm Allen key |
 | 22b | FINAL | **M3 hex nut, white nylon** (AF 5.5, 2.4 thick: exactly the captive pocket) | 4 | On the 693 bearing axles (ankles, neck, head pitch): light axial clamp only, the steel screw carries the bearing's load. [Robu white nylon nut M3, 25 pcs](https://robu.in/product/white-nylon-nut-m3/) (user's pick; the steel nut pack is out of stock). **Tighten snug only** (nylon threads strip) |
-| 23 | ESTIMATED | Servo horns: the kit **X (4-arm) horn**, 1 per servo | 15 | Come with the servos. Pockets drawn from Feetech's kit photo scaled by the listing (23.88 tip to tip): arms 5.2 -> 4.3 wide (+-0.15), holes at r 4.9 / 7.4 / 9.8; hub Ø6.5 x 4.0 and plate 1.6 still nominal. **Full horn, uncut** (user 2026-11-13): ankles, neck pitch, head pitch (as before) + **knees (done)**. **Hip pitch and hip roll stay trimmed to r 6** (trim jig, 4 servos; no room for a cap - user 2026-11-13). Head yaw, head roll and hip yaw stay trimmed (no room for a cap, 2026-11-13). **In the model (read from the servos): full horn on 6 (knees ×2, ankles ×2, neck pitch, head pitch), trimmed to r 6 with the jig on 9 (hip yaw / roll / pitch ×2, head yaw, head roll, and the beak servo's jaw arm - the beak not yet checked for a full horn).** Check on arrival (caliper or a printed pocket test) |
+| 23 | ESTIMATED | Servo horns: the kit **X (4-arm) horn**, 1 per servo | 15 | Come with the servos. Pockets drawn from Feetech's kit photo scaled by the listing (23.88 tip to tip): arms 5.2 -> 4.3 wide (+-0.15), holes at r 4.9 / 7.4 / 9.8; hub Ø6.5 x 4.0 and plate 1.6 still nominal. **Full horn, uncut** (user 2026-11-13): ankles, neck pitch, head pitch (as before) + **knees (done)**. **Hip pitch and hip roll stay trimmed to r 6** (trim jig, 4 servos; no room for a cap - user 2026-11-13). Head yaw, head roll and hip yaw stay trimmed (no room for a cap, 2026-11-13). **In the model (read from the servos): full horn on 6 (knees ×2, ankles ×2, neck pitch, head pitch), trimmed to r 6 with the jig on 9 (hip yaw / roll / pitch ×2, head yaw, head roll, and the beak servo's jaw arm - beak stays trimmed, user 2026-11-13).** All 15 pockets checked against the horn model 2026-11-14 (full: 0.30 at the tips, 0.19 sides; trimmed: 0.20). Check on arrival (caliper or a printed pocket test) |
 | 23b | FINAL | **Tools**: 1.5 mm hex key **with a ball end** (+ a plain one), 2.5 mm hex key, PH0 + PH1 screwdrivers (shaft ≤ Ø3), caliper | 1 set | Ball end: the left hip-yaw front ear screw is reached at 20-25 deg. Shaft ≤ Ø3: the camera and front dome screws are driven through Ø4.6 holes |
 | 24 | - | Hot glue, foam tape, zip ties | - | Switch, hubs, cable slack |
 | 25 | SUGGESTED | LiPo voltage alarm (1–8S buzzer, plugs on the balance lead) + LiPo fire-safe bag | 1 each | Warns before the pack drops below ~3.5 V/cell (over-discharge ruins it); store / charge in the bag |
@@ -49,8 +50,31 @@ Last update: 2026-11-13.
 ## Printed parts
 
 PLA (75% fill assumed in the mass model). Also print the **horn trim jig** (0.4 g, `joint_v2.trim_jig`) for the 9 horns that are cut short (ASSEMBLY.md step 0.4). Feet print as single pieces with the sole merged. Thigh covers are optional. The
-enclosure needs **supports** only if the old lengthened bay is used (not the current upright layout). Mass with
-everything: **658 g** (sim `xgoduck_scs0009_v2g`).
+enclosure needs **supports** only if the old lengthened bay is used (not the current upright layout). Robot mass with
+everything: **665.7 g** (sim `xgoduck_scs0009_v2h`, `sim/body_mass_v2.json`; the dome's stored mass is 0.8 g low - its ear fill
+came later - so the model is ~0.6 g light).
+
+STL files (mm, as modelled; one closed piece each, checked on export): `exports/xgoduck_scs0009/print/` + `manifest.json`
+(`tools/blender/export_print.py`). Solid-PLA masses (real prints are lighter by the infill):
+
+| Part | Qty | g solid | Part | Qty | g solid |
+|---|---|---|---|---|---|
+| body_frame | 1 | 19.2 | left / right_foot | 1 + 1 | 32.2 each |
+| body_lid | 1 | 11.1 | left / right_foot_bearing_plate | 1 + 1 | 1.9 each |
+| electronics_enclosure | 1 | 30.5 | left / right_knee_cap | 1 + 1 | 2.9 each |
+| uno_cover | 1 | 8.6 | left / right_l_bracket | 1 + 1 | 6.4 each |
+| body_neck_bearing_plate | 1 | 1.6 | left / right_shin | 1 + 1 | 9.5 each |
+| neck_cradle | 1 | 7.8 | left / right_thigh | 1 + 1 | 9.9 each |
+| head_pitch_u | 1 | 9.8 | left / right_yaw_connector | 1 + 1 | 5.4 each |
+| head_pitch_bearing_plate | 1 | 2.3 | left / right_thigh_cover (optional) | 1 + 1 | 8.1 each |
+| yaw_block | 1 | 6.6 | horn_trim_jig_r6 (tool) | 1 | 0.4 |
+| head_base | 1 | 20.2 | | | |
+| head_dome | 1 | 24.3 | | | |
+| head_face | 1 | 9.7 | | | |
+| head_jaw | 1 | 6.7 | **Total** (29 parts + jig) | | **311 g solid** |
+
+**Not designed yet:** the tolerance coupon (6702 seat, a full and a trimmed horn pocket, the 28 mm bridge, an M2 pilot) to print
+before the full set - see the build plan in docs/HANDOFF.md.
 
 **Full-horn joints (decided 2026-11-13, rollout in progress):** the bearing joints that take the full horn get a small bolt-on **bearing cap**, 2 × M2 × 6 socket (row 19): **knees: 2 more prints**.
 **Hip pitch: stays trimmed** - with the hip rolled, the yaw connector passes 0.3-2 mm over the L-bracket's inboard face, no room for a cap.
@@ -66,6 +90,37 @@ Every screw head in the model now has its real size (M2 socket Ø3.8 × 2.0; kit
 - **All 14 joints:** the servo's own horn screw instead of a bought M2 × 6; head seat lowered 0.6 (type C) / 1.0 (type F) in a Ø4.2 counterbore. This also fixed the **hip yaw** screws, whose head the hip-roll servo's ear blocked at 1.09 mm (no socket head fits there).
 - **Head dome:** two Ø4.4 recesses inside, over the upper camera screw and the head-roll servo's rear ear screw (wall left behind them ≥ 2.2 mm).
 - **Bay front wall:** 3 × M2 × 10 countersunk (row 20), deck pilots deepened to 8.5 mm.
+
+## Cost estimate (India, checked 2026-11-14)
+
+From the links in this BOM and web-search snapshots of the listed shops (Robu blocks automated page reads, so some Robu prices
+are from cached copies): **check the live page before ordering.** Incl. GST unless noted; shipping not included.
+
+| Row | Item | Qty bought | Price | Line total | Source |
+|---|---|---|---|---|---|
+| 1 | SCS0009 | 15 | ₹864 (Evelta; Hubtronics ₹799 as "SC-0090-C001") | **₹12,960** | evelta.com/scs0009-6v-2-3kg-300deg-serial-bus-servo-motor |
+| 2 | Arduino UNO Q 2 GB | 1 | ₹4,652 (Robocraze, may be pre-order); MakerBazar ₹4,899 | ₹4,652 | robocraze.com/products/official-arduino-uno-q-sbc |
+| 3 | OV5640 USB Camera (B) | 1 | ₹2,530 (Hubtronics); Evelta ₹2,602 | ₹2,530 | hubtronics.in/ov5460-usb-camera-b |
+| 4 | Pro-Range 850 mAh 3S 30C | 1 | ₹1,107 (Robu product page; category page ₹1,159) | ₹1,107 | robu.in/product/orange-850mah-3s-30c-60c-lithium-polymer-battery-pack-lipo/ |
+| 5 | Mini560 5 V | 1 | ₹93 | ₹93 | Zbotic (row 5) |
+| 6 | Bus Servo Adapter (A) | 1 | ₹500 | ₹500 | ThinkRobotics (row 6) |
+| 8 | 7Semi BNO086 | 1 | ₹2,294 | ₹2,294 | Robocraze (row 8) |
+| 14 | Qwiic cable 100 mm | 2 | ₹129 | ₹258 | Robu (row 14) |
+| 16 | IMAX B3AC charger | 1 | ₹353 (cached) | ₹353 | robu.in/?p=7364 |
+| 17 | 6702ZZ 10-pack | 1 | ₹2,600 (incl. duty, GST, free shipping) | ₹2,600 | cart2india (row 17) |
+| 20 | M2 × 10 CSK, 25 pcs | 1 | ₹99 | ₹99 | Robu (row 20) |
+| 22 | M3 × 8 SHCS, 25 pcs | 1 | ₹89 | ₹89 | Robu (row 22) |
+| 22b | M3 white nylon nut, 25 pcs | 1 | ₹49 | ₹49 | robu.in/product/white-nylon-nut-m3 |
+| | **Priced subtotal** | | | **₹27,584** | |
+
+Not priced (no listing price found): M2 × 6 socket sets × 4 (row 19), 693ZZ × 4 (row 18), MTS-102 switch (row 9; Robu's ₹30
+**SMTS-102** is the sub-miniature size - not the 13.2 × 7.8 body the recess is drawn for), T-plug male pigtail (row 15; the female
+version is ~₹92 elsewhere), 250 mm 5264 servo extension (row 12; only JR/Futaba-plug extensions found, ₹55-85 - not the same
+plug), USB-C cable ≥ 40 cm (row 13), hook-up wire, LiPo alarm + bag (row 25), PLA (~250 g at 75 % fill). Rough allowance
+**₹1,000-1,500** -> **about ₹28,500-29,000 for one robot**, before shipping and spares.
+
+Suggested spares (not decided): 2 × SCS0009 (~₹1,730) - the servos are what a first build strips or burns; 2-4 × 6702ZZ (the
+10-pack is exactly the 10 needed; singles not found in India, a second 10-pack is ₹2,600).
 
 ## Not used any more
 
