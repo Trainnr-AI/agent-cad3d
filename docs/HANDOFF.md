@@ -147,9 +147,12 @@ Blender collections: `duck_v2_exploded` + `wiring_exploded` + `duck_v2_labels`, 
   robot, hung on the hip-roll horn last); screws dispositioned; head room 77/77; cables 29/29; motion = known limits only.
 - **Files**: `exports/xgoduck_scs0009/print/` 30 STL + manifest (git-ignored); ASSEMBLY.md (build order, horn trimming), BOM.md.
 - **Sim** (re-exported from these parts, trainnr bundle `xgoduck_scs0009_v2i` = v2h + the new SIT; recordings in the trainnr Studio): stand, crouch
-  0.3, shift, neck / head moves work. **Sit/stand solved**: new SIT hip 70 / knee 18 / ankle -16 (leans back onto the
-  enclosure's rear edge), straight path from STAND over 3 s - balanced all the way, 108/108 robustness variations, peak load
-  <= 69 %, exact parts clear >= 2.2 mm (REVIEW.md "MuJoCo on the rebuilt parts; sit and stand"). The old SIT face-plants.
+  0.3, shift, neck / head moves work. **Sit/stand**: new SIT hip pitch 70 / knee 18 / ankle -16 / hip yaw -3 / hip roll -4
+  (leans back onto the enclosure's rear edge; the yaw/roll keep the feet from sliding), straight path from STAND over 3 s,
+  exact parts clear >= 1.58 mm. Ideal model: passes. Against servo slack / delay, print mass and floors
+  (`tools/sim/sit_stand_robust.py`): open loop 192/300 fall (STAND has only 16 mm to the heel edge) - **the firmware needs the
+  IMU ankle balance** (ankle += -1.5 x trunk pitch error, error low-passed 25 ms, 0.2 deg dead zone) and must not sit facing
+  uphill on > ~4 deg. REVIEW.md "MuJoCo on the rebuilt parts; sit and stand" and the section after it. The old SIT face-plants.
 - **Next**: measure the real parts (horn, kit screws, battery, IMU holes, servo steps/deg and protection registers); print a
   tolerance coupon (6702 pocket, 28 mm bridge); then the gait inside the limits (no walking policy exists for this robot yet -
   trainnr's walk families are fixed rigs).

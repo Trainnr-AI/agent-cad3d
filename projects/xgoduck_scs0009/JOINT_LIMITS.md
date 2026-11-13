@@ -34,8 +34,9 @@ the position at two known angles) before writing limits. Example: a joint zero a
 | head roll | -25..+25 | **+-15** + software interlock (user) | yawed, the U meets the head's floor | grid |
 
 Walking (yaw -6.3..+12.6, roll +-10.9, pitch +-45.8, knee +-55, ankle +-23), STAND (neck 20, head 20) and SIT fit inside the servo
-limits. SIT was replaced 2026-11-13 (the original hip -30 / knee 60 face-plants): now hip pitch 70, knee 18, ankle -16, neck 20,
-head 20, reached from STAND in a straight line over 3 s (REVIEW.md "MuJoCo on the rebuilt parts; sit and stand").
+limits. SIT was replaced 2026-11-13 (the original hip -30 / knee 60 face-plants): now hip pitch 70, knee 18, ankle -16, hip yaw -3,
+hip roll -4 (left; right mirrored), neck 20, head 20, reached from STAND in a straight line over 3 s with the IMU ankle balance on
+(REVIEW.md "MuJoCo on the rebuilt parts; sit and stand").
 
 **Neck / head pitch (user: A):** A = neck -80..+30, head -5..+65 (keeps STAND and SIT; the head can no longer tilt below -5 at any
 neck angle, although it is clear down to -45 with the neck at 0 or back). B = neck -80..+20, head -25..+65 (more head range;
@@ -56,7 +57,7 @@ while abs(head yaw) <= 2.5.
 |---|---|---|
 | head roll with head yaw | roll only while abs(head yaw) <= 2.5, then abs(roll) <= 15; yaw only while abs(roll) <= 1 | U vs head base / jaw |
 | hip pitch + knee + ankle + roll (walking envelope corners) | e.g. yaw -6.3, roll +10.9, pitch +45.8, knee -55: shin vs enclosure 182-200 mm3 (old shin too); pitch -45.8 + knee +55 + ankle -23: L-bracket vs foot 20 mm3 | keep the gait's actual trajectories inside the swept-clear set (to be checked per gait in the sim) |
-| hip pitch + knee (fold / sit-up) | left hip +60 with knee -90: foot vs Uno Q cover / body lid | sit / stand only by the checked path: STAND <-> SIT (hip 70, knee 18, ankle -16) in a straight joint-space line, >= 3 s each way (exact parts clear >= 2.2 mm along it; balanced; <= 69 % load) |
+| hip pitch + knee (fold / sit-up) | left hip +60 with knee -90: foot vs Uno Q cover / body lid | sit / stand only by the checked path: STAND <-> SIT (hip 70, knee 18, ankle -16, hip yaw -3, roll -4) in a straight joint-space line, >= 3 s each way, IMU ankle balance on, not facing uphill > ~4 deg (exact parts clear >= 1.58 mm along it) |
 
 ## 3. Overload protection (all 15 servos, values to confirm on a servo)
 

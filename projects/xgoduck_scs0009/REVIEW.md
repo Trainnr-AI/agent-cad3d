@@ -1452,3 +1452,35 @@ runs only its built-in rigs): `nanoduck_v2h_moves`, `nanoduck_v2h_sit_attempt` (
   - Written to `sim/joint_ranges_v2.json` (keyframe override) and the SIT key in the scene (settled pose, `tools/sim/settle_key.py`).
 - Not modelled: servo deadband / backlash / gear friction, real print mass (solid-PLA estimate - real parts lighter), floor other
   than flat and rigid. Check on the robot with the servos' overload protection set (JOINT_LIMITS.md part 3) and a hand ready.
+
+### Sit/stand against what the plain model leaves out (2026-11-13, `tools/sim/sit_stand_robust.py`)
+
+Added per trial: gear friction / viscous / rotor inertia (bracketing the BAM fits of the Dynamixel XL320 and XL330 - no SCS0009
+fit exists), deadband 0-3 steps, backlash +-0..1 deg (passive hinge in series), command delay 0-20 ms, torque falling with speed,
+kp x0.5-1.2, PLA fill 0.45-1.0 (573-743 g; the mass model was already at 0.75, not solid), bought-part mass +-15 %, trunk CoM
++-6 mm, floor friction 0.4-1.0, slopes +-5 deg pitch / roll, soft floor, bumps up to +-1.5 mm.
+
+- **Feet slid during the sit** (old SIT, hip yaw 0 / roll -5): leaning back tilts the hip axes; each foot slid 5.8 mm out and
+  twisted 2.5 deg, and where it could not slide back (bumps) the hip rolls fought at their limit for up to 0.8 s while standing
+  up. **SIT hip yaw -3 / roll -4**: 2.5 mm, foot twist 0.3, roll 0.1 deg. More toe-in reaches the enclosure with the ankle
+  screws (-4/-4: 0.7 mm; -5/-4.5 collides); -3/-4 is clear >= 1.58 mm along the whole path (exact parts, both legs).
+- **Open loop** (servos only hold their angles): 66/300 random trials pass, 192 fall - about half of them while just STANDING:
+  STAND has its CoM 8.5 mm behind the sole centre (16 mm to the heel edge), and backlash + deadband in the three pitch joints
+  (2-3 deg of trunk lean together), an uphill slope (~8 mm at 5 deg) and a bump under a heel use that up. One factor at a time,
+  nothing falls.
+- **With IMU balance** (ankle correction -1.5 x trunk pitch error vs the planned pitch; the hip-roll term did not help; -2.0
+  oscillates): **245/300 pass, 4 fall** (all facing uphill 4.4-4.9 deg with slack servos). Other failures: 13 servos pinned
+  0.1-0.54 s (hip pitch / ankle, standing up); 49 feet "slid" >= 5 mm - MuJoCo contact creep on slopes (the noslip solver removed
+  it on the pure-slope case, 7.9 -> 1.9 mm, but is too slow on bumps to run for all 300). 86 % of trials touch 100 % load for an
+  instant (the feedback through the delay); without balance the nominal peak was 65 %.
+- Consequences for the firmware: the sit/stand needs the IMU ankle balance; do not sit facing uphill on more than ~4 deg (the
+  IMU sees the slope at STAND - refuse the sit); keep the overload protection on. Still not modelled: real SCS0009 values (measure
+  backlash, deadband register, P gain, delay on a servo), sensor noise and IMU filtering.
+- **Balance smoothing**: the plain correction chattered (pitch error flipping sign by 0.1-0.4 deg, the stiff servos saturate at
+  0.83 deg error) - the nominal run with balance touched 100 % where open loop peaks at 56 %. Tilt error low-passed 25 ms with a
+  0.2 deg dead zone: nominal peak back to 56 %; 300 random trials **255 pass, 1 fall** (uphill 4.4 deg, 1 deg backlash, half-stiff
+  servos, 11 ms delay, bumps), 6 pinned 0.1-0.36 s (hip pitch / ankle, standing up), 42 "slid" (creep artifact as above); 86/300
+  touch 100 % for an instant (unfiltered: 245 pass, 4 fall, 13 pinned, 86 % touch 100 %). Longer filters (50-150 ms) or a rate
+  limit lag too much and fall more. **Trade-off**: at the 8 stacked worst-case corners (every servo extreme at once - 20 ms delay,
+  1 deg backlash, 3-step deadband, half stiffness - plus +-5 deg slopes) the smoothed version falls in 6/8, the unfiltered in 2/8.
+  Tune the filter once the real servo's delay / backlash are measured.
