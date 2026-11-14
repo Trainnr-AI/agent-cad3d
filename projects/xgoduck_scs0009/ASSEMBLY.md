@@ -12,8 +12,21 @@ shafts ≤ Ø3 mm, caliper.
 1. **Measure** a servo's horn (hub Ø and height, plate thickness, arm widths, tip-to-tip), its horn screw and its mounting
    screws (length under the head, head Ø and height). The model assumes horn screw M2 × 4 (head Ø3.5 × 1.3) and mounting screws
    ≤ 7.2 mm long. Longer mounting screws: put an M2 nut from the Robu set under the head as a spacer.
-2. **Print a tolerance coupon** first (6702 seat Ø21.1 + boss Ø14.9, 693 seat Ø8.1, M2 pilot Ø1.7, clearance Ø2.4, M3 nut
-   pocket, a servo saddle at 0.25 clearance) and adjust if your printer prints holes smaller than ~0.1-0.2 mm.
+2. **Print the tolerance coupon** first: `exports/xgoduck_scs0009/print_coupon/` (5 pieces, 13 g; built by
+   `tools/blender/parts/tolerance_coupon.py` from the same joint code as the robot's parts). Same printer, filament and settings
+   as for the robot. Test with the real parts:
+   - `coupon_knee_rotor` (print the bearing-seat face down): a **6702ZZ** presses into the Ø21.1 seat by hand and sits flat, and
+     the outer ring does not rock; a **full X horn** pushes into the pocket underneath (crush ribs take up the play), no wobble.
+   - `coupon_knee_cap` (top face down): its Ø14.9 boss slides into the bearing's bore without force, and the bearing turns freely
+     once the cap is on (0.1 mm axial play by design). Through the Ø5.2 hole a screwdriver reaches the horn screw.
+   - `coupon_trim_plate`: a **horn trimmed with the jig** (step 0.4) pushes in, no wobble.
+   - `coupon_bar`: a **693ZZ** presses into the Ø8.1 seat; an **M3 nylon nut** drops into the hex trap and an M3 x 8 passes the
+     Ø3.3 hole; an **M2 x 6** threads into the Ø1.7 pilot with a firm but even feel (no splitting) and slips through the Ø2.4 hole;
+     an **M3 x 8** forms its thread in the Ø2.5 pilot; the 28 mm bridge underneath is flat (sag < 0.5 mm).
+   - `coupon_servo_collar`: slides over the **servo body** with a little play, no force.
+   If holes come out tight (FDM holes often print 0.1-0.2 mm small) or the horn is loose, tell the agent the measurements: the
+   fits are constants in `tools/blender/parts/joint_v2.py` (SEAT_D, BOSS_D, HORN_CLEAR, RIB_INTERF, PILOT_D, CLEAR_D, BP_SEAT_D,
+   NUT_AF, SADDLE_CLEAR) - change them, rebuild, re-check, re-print the coupon.
 3. Set every servo to the middle of its range (horn zero) before fitting a horn part on it.
 4. **Horns:** 6 servos use the kit X horn **as it comes** (both knees, both ankles, neck pitch, head pitch). The other **9 have
    their horn's arms cut short** (hip yaw, hip roll, hip pitch on both legs, head yaw, head roll, beak): print the **trim jig**
