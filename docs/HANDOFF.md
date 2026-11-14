@@ -1,4 +1,4 @@
-# Handoff — where the project stands (2026-11-09)
+# Handoff — where the project stands (updated 2026-11-14)
 
 Read this first when continuing on another machine. It replaces the agent's local notes, which
 don't travel with the repo.
@@ -157,22 +157,43 @@ Blender collections: `duck_v2_exploded` + `wiring_exploded` + `duck_v2_labels`, 
   tolerance coupon (6702 pocket, 28 mm bridge); then the gait inside the limits (no walking policy exists for this robot yet -
   trainnr's walk families are fixed rigs).
 
+## State after the session of 2026-11-14 (main + PR "coupon") - REVIEW.md from "Build readiness pass" down
+
+- **Build readiness pass** (all re-run on the current files): each of the 14 servos over its full servo range held in the air
+  (8-29 % of stall); 17 floor motions upright (peak 62 %); every joint within its servo limits + 296 poses from those motions: 0
+  collisions on the exact parts; parts 27/27 watertight, horns 15/15, fits 333, assembly paths, screws, printability unchanged.
+  Beak servo limit **0..+35** added (closing past 0 hits the head base). Sweep the servo limits with
+  `leg_motion_check.py` `ranges_deg` (from `sim/joint_ranges_v2.json`) - the Blender joint empties still store wider ranges.
+- **Hip map** (`JOINT_LIMITS.md` "Hip map", `data/hip_collision_map.json`): 1,248 poses, hip pitch x roll x yaw x knee. The hip
+  yaw/roll servo box holds only with the leg near straight down; toed in, a leg cannot swing back past ~+15. Right leg = mirror
+  (40/40). A walking gait must stay inside this map (the original's walking envelope crosses it). Not covered: ankle angles,
+  both legs at large pitch together.
+- **Getting up after a fall: very likely not possible** with SCS0009 at 5 V (torque / (weight x leg length) 0.35 vs the
+  original HLS1910's 1.47); the original's get-up is an RL policy (runtime repo), not vendored. Study (5 / 6 / 7.4 V) not run.
+- **BOM** checked against the model (every bought-part count matches; horn screws 15), printed-parts table, cost estimate
+  ~Rs 28,500-29,000 per robot (search snapshots; Robu blocks automated fetches - use web search). User adds shop links.
+- **Power switch MTS-102**: the model had the body only; the real lever stands ~4-8 mm proud. **User: keep it protruding.**
+  Leg clearance to the lever: sit/stand >= 2.3 mm at 8 mm proud; hip pitch +85 hits it from ~4.5 mm proud -> if the measured
+  lever is > 4 mm proud, limit hip pitch back to ~+60 / -60. Add the real lever to the model once measured.
+- **Tolerance coupon** (`tools/blender/parts/tolerance_coupon.py`, collection `coupon` in the .blend, STLs via
+  `tools/blender/export_print.py` `{"collections":["coupon"], ...}` -> `exports/xgoduck_scs0009/print_coupon/`): knee rotor
+  (full horn + 6702 seat), knee cap boss, trimmed-horn plate, bar (693 seat, M3 nut trap, M2 / M3 pilots, M2 clearance, 28 mm
+  bridge), servo collar - 13 g, built from the same joint_v2 code as the robot. Test procedure: ASSEMBLY.md step 2.
+
 ## Open items / next steps
 
-1. **Re-run the checks**: fit audit + full motion sweep have NOT been run since the last body fixes and the split into
-   motor body + enclosure (see REVIEW.md "Body split"). Known before the fixes: L-bracket x centre strip at roll-out
-   (strip since narrowed), neck -135 deg cradle x motor body 13 mm3 (not located).
-2. **Cables**: blocked exits - head-pitch lead (the moving U passes 2.5 mm in front of the slot), hip-yaw leads (neck
-   horn plate / cradle), hip-roll leads (deck). Cables are curves through waypoints, not collision-checked. Hub mounts on
-   the thighs, cradle and U are not designed. How battery / adapter / regulator are held down is not designed.
-3. **Measure on real parts**: X horn (plate, hub, arm widths, holes), plug and hub board, the adapter's socket count and
-   UART pinout, the Uno Q's height and plug positions, a real 3S pack and UBEC; try an M2 machine screw in the shaft.
-4. **Head**: head core holding the roll servo (cap), mouth servo, 0.85x shell, camera/speaker if wanted.
-5. **Positive retention** of the ten one-sided joints (one M2 screw into the shaft each, as the original): user's call
-   (bayonet hooks proposed). Hips: both yawed fully out still touch (L-brackets 14.6 mm3 at 0.45 rad + roll).
-6. Recompute masses/inertias, regenerate the sim model (`scene_scs0009_v1` is the OLD v1 geometry), firmware for the SCS
-   protocol (1024 steps / 300 deg), walking policy.
-7. Test-print one knee joint; styling; STL export.
+1. **Staged build** (agreed): print the coupon -> adjust fits (constants in `tools/blender/parts/joint_v2.py`: SEAT_D, BOSS_D,
+   HORN_CLEAR, RIB_INTERF, PILOT_D, CLEAR_D, BP_SEAT_D, NUT_AF, SADDLE_CLEAR) -> rebuild + re-check -> print one leg -> full build.
+2. **Measure on arrival**: switch lever (bushing face to tip); one SCS0009 (steps/deg, backlash, deadband, delay, protection
+   registers); horn and kit screws; battery thickness; IMU hole spacing (estimated). Feed the servo numbers into
+   `tools/sim/sit_stand_robust.py` and re-run.
+3. **Firmware** (none yet): servo limits incl. the beak, interlocks (head roll x yaw, hip map, sit path), IMU ankle balance
+   for sit/stand, overload protection, fall detection -> torque off.
+4. **Walking**: no gait for this robot; must respect the hip map. **Get-up** study (optional, decides whether hardware must change).
+5. Not checked: fall loads on horns / one-sided joints (no retention clip, user decision), cables against moving parts, ankle
+   angles in the hip map.
+6. The trainnr robot `xgoduck_scs0009_v2i` has the earlier SIT angles (re-onboard as a new name if needed: onboarding never
+   overwrites). `projects/xgoduck_scs0009/sim/assets_v2/` is an uncommitted duplicate of `sim/assets/` (delete freely).
 
 ## How the agent should work here (lessons)
 
