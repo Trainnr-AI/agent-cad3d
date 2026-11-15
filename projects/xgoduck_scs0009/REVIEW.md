@@ -1529,3 +1529,117 @@ collide - the knee cap, shin and foot bearing plate on the enclosure / body fram
 foot on the Uno Q cover with the leg far forward and toed out. Leg forward to -45: nothing collides. Toed in (-6.3) the leg cannot go
 back past ~+15 at any roll. The right leg matches the mirrored left in 40/40 sampled poses. Table and firmware rule in
 JOINT_LIMITS.md ("Hip map"), data in data/hip_collision_map.json. Not covered: ankle angles, both legs together at large pitch.
+
+## Independent review fixes (2026-11-15)
+
+An independent review of `main` at 91b780c (microduck-nano session, `docs/project/design-review-2026-11-14.md` in that repo, scripts
+in its `scripts/design-review/2026-11-14/`) re-ran the checks with its own tools. Most numbers reproduced; it found the items below.
+Battery protection / clearances and the regulator's placement are deferred by the user and not touched.
+
+**New tool: `tools/blender/clearance_sweep.py`.** `leg_motion_check.py` judges by intersection VOLUME > 0.05 mm3, which passes thin
+touches. The new sweep tests every pair of parts on different bodies for surfaces crossing (depth, from points inside the other
+part) and for gaps under a margin (point-to-surface from every vertex, triangle centre and points 0.5 mm apart over large triangles);
+pairs already that close at rest (bearings on bosses, servos in holders: 46) are not judged. It runs headless
+(`blender -b <blend> --python tools/blender/clearance_sweep.py -- args.json`), ~1.5 s a pose. **Its first version tested only
+triangles lying wholly inside the other part's box, so the large flat faces of printed parts were skipped: it missed 20 of the
+2026-11-14 map's collisions.** Fixed (triangles whose box meets the other's, plus face sampling) and re-run; it now reproduces all
+245 and the review's head finding to the 0.01 mm. Gap readings are upper bounds (two edges passing can read up to ~0.25 mm large):
+margins below 0.3 mm are not meaningful.
+
+1. **Head roll x yaw** (review: FAIL). Inside the allowed zone (roll within +-2.5 deg of yaw 0) the head base cut 0.16-0.40 mm into
+   the head-pitch U at yaw -2..-2.5 / roll -10..-15. Re-measured on a 0.25 deg x 1 deg grid: +-2.5 -> 28 poses collide; +-1.5 -> none,
+   gap 0.07; **+-1.0 -> none, gap >= 0.31 mm**; +-0.5 -> >= 0.5. Interlock narrowed to +-1.0 (keeps the user's software-interlock
+   decision; the microduck-nano firmware already uses +-1.0). JOINT_LIMITS.md.
+2. **Right leg is not the left's mirror** (review: FAIL, 30 poses). Swept the right leg's own 1,248 poses: 30 collide where the mirrored
+   left pose is clear, none the other way - forward 45-90 deg with the knee at its limit, right foot into the neck bearing plate and
+   body frame, up to 6.9 mm (the 2026-11-14 spot check of 40 poses missed them). The body is not symmetric there (neck plate, Uno Q
+   cover screws). JOINT_LIMITS.md now has one table per leg; data/hip_collision_map.json has `right_poses`.
+3. **Left map with a margin.** All 245 reproduce; 8 more collide (0.06-0.70 mm: knee cap into the hip-yaw servo with the leg back
+   75-85 and rolled out +10; thin touches on the enclosure), 19 more clear by < 0.3 mm. Table regenerated at a 0.3 mm margin
+   (`tools/blender/hip_map_table.py`); cells that changed: toe-in at -90 forward loses +15, at +15 back loses 0, at +30 back loses -8;
+   toe-out at +85 back loses +10; a few folded-knee entries are tighter (yaw -6.3 at 0, yaw 0 at +30, yaw +19 at +45).
+   Also found: at the hip-roll servo limit +19.5 the hip-yaw bearing is 0.29-0.30 mm from the L-bracket in every pose (both legs) -
+   not touching, but under the 0.5 mm JOINT_LIMITS aims for. Recorded in the servo-limit row; limit unchanged.
+4. **Both legs together** (review: ankle axles touch 0.2 mm with hips rolled in -12, legs forward). Swept 2,496 two-leg poses (mirror-
+   symmetric, and one leg forward / one back): 39 collide leg against leg, up to 8 mm, all symmetric. Toe-out +19 with roll -12..+5
+   and both legs forward of -30: the feet / foot bearing plates meet - inside each leg's own map, so a new interlock (never both legs
+   forward of -30 while both are toed out). Toe-in with roll out and the legs back also collides, but each leg's map already excludes
+   it. One forward / one back: clear. The review's exact touch (yaw 0, roll -12, forward) did not reproduce on this grid (ankle 0).
+5. **Uno Q screw vs header** (review: 0.69 mm). Datasheet sec. 12: the JDIGITAL housing starts **2.05 mm** from the (15.24, 50.80)
+   hole's centre, so any M3 head (dk 5.5) overlaps it by 0.70 mm - real, not a model error. **User (2026-11-15): one M2 x 6 socket
+   (BOM row 19, dk 3.7) at that hole.** `body_v2.py`: that post's pilot Ø2.5 -> PILOT_D 1.7, new dummy `uno_screw_M2x6`; head to header
+   0.16 mm in the model (Ø3.8 head; ~0.21 with the real 3.7), 0.94 to the cover. Rebuilt by the documented order (build_args/README:
+   body, uno_q, wiring, cover recut) after checking on a copy that the order reproduces today's model exactly (152 objects; uno_cover
+   +4 vertices, same volume). Lid one piece, watertight, 11.16 g (was 11.14). BOM rows 19 (35 -> 36) and 22 (8 -> 7).
+6. **BOM stale text**: coupon now "designed"; switch lever "stands out of the wall" (was "flush").
+7. **Duplicate horn screws** (14 joints had two stand-ins 1.1 mm apart): the servo builder's own `scs_<joint>_horn_screw` sat on the
+   horn, the joint library's `<joint>_screw_M2x4kit` 1.1 mm higher on the printed plate (where the real screw is). The 14 servo-builder
+   copies were deleted (the beak keeps its only one); `refresh_servos.py` now passes `horn_screw: false` where the joint has its own.
+   The mass model counted both (14 x 0.1 g): body_mass not re-run for 1.4 g.
+
+Not redone: exploded views (their copies still show four M3 on the Uno Q; regenerate with build_args/README steps 6-10); STL exports
+(re-export the lid); the sim's body masses (sim/body_mass_v2.json, < 2 g change).
+
+## Cables, ankle angles, knee x ankle; a false inside test (2026-11-15, later)
+
+**Tool fix (both new tools).** The inside test (ray parity, 2 of 3 rays) was fooled at single points by the exact servo meshes:
+the first cable check reported the left body-to-thigh extension 4.33 mm inside the left hip-roll servo at hip pitch +85 from ONE
+sample whose 1 mm neighbours were outside; measured directly in Blender the span stays outside (closest: yaw connector 0.49,
+hip-yaw bearing 0.38). A point now also needs its nearest face to face away from it. Re-validated `clearance_sweep.py` on 546
+earlier poses (60 left / 58 right / 80 both-legs / 319 head collisions + 30 clear): every collision still found, none new, a few
+depths moved by < 1.2 mm - the hip maps and head result above stand.
+
+**Cable reach** (`wiring.py` `"motion": true`, 211 poses): every cable long enough; tightest the left body-to-thigh extension, 224
+of 250 mm at hip pitch +85.
+
+**Cables against moving parts** (new `tools/blender/cable_pinch_check.py`, 212 poses inside the servo limits: each joint alone,
+STAND / SIT, walking-range combinations, neck + head extremes). Each cable span is taken as the straight line between its two
+waypoints (the least cable, as in the reach check); points inside a part deeper than 0.5 mm, beyond what they were at rest, are
+reported. A real cable has slack and bends round the part: these are where a part PUSHES a cable (chafe / pinch to look at on the
+build), not cuts. 21 found:
+- **Walking (repeated every step):** both hip-roll leads and both body-to-thigh extensions pressed 2.3 mm into the body frame's
+  edge with the leg back 46, toed in, rolled out. Chafe risk - wants a clip / guide or a radius on that edge.
+- **Head turned 75-125 deg:** the U-to-head extension (2.6 mm into the head-pitch U) and the camera USB (2.5 into the yaw block,
+  1.2 into the U, 1.1 into the head base) are dragged across the parts. Head pitch up 59: camera USB 1.7 into the neck cradle.
+- **Ankle / knee near their limits:** ankle leads 0.6-1.5 mm into the foot / shin. Neck back -80: gap-to-neck extension 1.3 into
+  the body frame. Others 0.5-0.7 mm at the extremes.
+Not changed (needs a routing decision / clips on the real build).
+
+**Ankle angles.** (a) Knee x ankle at hip rest (13 x 15 poses each leg): with the knee bent past +30 the foot meets the L-bracket and
+thigh unless the ankle stays above a limit that rises from -60 (knee 40) to 0 (knee 68) - up to 6.7 mm at knee 68 / ankle -23. Same
+for both legs; walking (knee <= 55, ankle +-23) and SIT are inside. New interlock row in JOINT_LIMITS.md. At the ankle's servo limit
+-86 the foot is 0.17 mm from the thigh (any knee <= 30). (b) The hip grid again with the ankle at -23 / +23 (2,496 poses each leg):
+apart from (a), ankle +23 adds 6 (left) / 7 (right) collisions, 0.3-1.6 mm, foot on the enclosure / lid / Uno Q cover with the leg
+back or folded; listed in JOINT_LIMITS.md. Data in `data/hip_collision_map.json` (`ankle_pm23_*`, `knee_ankle_*`).
+
+**Housekeeping:** exploded views regenerated (build_args/README steps 6-10; they now show the Uno Q M2 screw); all 28 printed-part
+STLs re-exported (the two optional thigh covers unchanged).
+
+## Final changes and full check; design closed (2026-11-15)
+
+Full check of screws, assembly, fits, motion and wiring on the current model, then the last changes (user's choices):
+- **Deck edge for the hip cables** (user: round + sleeve). The walking chafe point is the deck plate's LOWER OUTER edge (not the
+  cap's top, as first said): from the yaw connector under the deck the hip-roll lead and the body-to-thigh extension rise to the
+  thigh beside the deck and wrap round that edge with the leg back. `body_v2.py` rounds it r 1.5 over x -4.9..11.2 (where the outer
+  face reaches the bottom), both sides: one prism cutter (a fan of separate wedges broke the exact boolean - caught on the test
+  copy: the frame came out as a 13.7 mm3 fragment). body_frame one piece, watertight, 19.16 g (-15.3 mm3, as computed); the old
+  corner is now 0.62 mm from the surface (r 1.5). The pinch check still reports these spans 2.3 mm into the deck: it models the
+  cable as a straight line, so it cannot see the round; the cable now bends over r 1.5 instead of 90 deg, inside a sleeve.
+- **Head cables** (user: sleeve + slack loop, head yaw keeps +-150): ASSEMBLY.md step 4.
+- **Uno Q cover** (user: widen): each M3 head overhangs the board edge by 0.21 mm and sat 0.09 mm from the cover's skirt; a Ø6.5
+  relief round each of the 3 M3 heads, from 0.6 under the board's top: gap 0.49 (0.5 less the facets). Cover one piece, 8.61 g.
+- BOM row 13b: 6 mm braided expandable sleeve, 1 m (uses ~30 cm).
+- Wiring cross-check: 13 kit hubs all 3 sockets used, 12 x 165 + 1 x 250 mm extensions, 15 leads, the adapter's 2 sockets, no
+  loops - matches the BOM.
+
+Full pass on the saved model (now `scripts/full_check.sh`, arguments in `data/check_args/`, README there with the expected results):
+rest pose OK; 27 printed parts one piece; printability unchanged; horns 15/15; fits 367 (2 known sampling artifacts - battery
+0.30 mm3, left hip-pitch servo 0.11 mm3 = 0.002 by exact boolean); assembly 55 paths OK + the left hip-yaw servo's L-path + the 3
+segment paths; screws 89, 26 flagged, all previously dispositioned (the M3 that was flagged by the header is now the M2, wall 1.62);
+motion sweep unchanged; cable reach 0 short; independent all-pairs check (microduck-nano static.py): no print-print > 0.02 mm, no
+servo-print > 0.06 mm.
+
+**Design closed** for the first build, with these open by the user's decision or by needing real parts: battery protection and
+clearances, regulator placement (deferred); everything marked "measure on arrival" (horn, kit screws, servo steps/deg and
+protection registers, switch lever, battery thickness, IMU holes); walking (one-foot balance fails - gait study) and get-up; fall
+loads. Changes after this go through the coupon / first-leg build.

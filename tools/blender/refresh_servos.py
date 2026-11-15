@@ -16,8 +16,12 @@ done = []
 for root in roots:
     j = root["servo_joint"]
     trim = None if any(j.endswith(f) for f in full) else args.get("trim_r", 6.0)
+    # the joint library places the real horn screw (<joint>_screw_M2x4kit, on the printed plate 1.1 mm above the horn);
+    # the servo's own stand-in would duplicate it 1.1 mm lower (review 2026-11-14) -> only where no joint screw exists (mouth)
+    joint_screw = bpy.data.objects.get(f"{'neck' if j == 'neck_pitch' else j}_screw_M2x4kit")
     ns = {"ARGS": {"name": root.name, "collection": root.users_collection[0].name, "location": tuple(root.location),
-                   "horn": "cross", "horn_trim_r": trim, "horn_angle_deg": 0.0 if trim else args.get("full_angle_deg", 45.0), "exact": True, "screws": True, "parts_dir": args.get("parts_dir")}}
+                   "horn": "cross", "horn_trim_r": trim, "horn_angle_deg": 0.0 if trim else args.get("full_angle_deg", 45.0), "exact": True, "screws": True,
+                   "horn_screw": joint_screw is None, "parts_dir": args.get("parts_dir")}}
     exec(code, ns)
     root["horn_trim_r"] = trim if trim else 0.0
     done.append(f"{root.name}({'r6' if trim else 'full'})")

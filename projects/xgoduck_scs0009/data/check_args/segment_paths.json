@@ -1,0 +1,81 @@
+{
+ "paths": [
+  {
+   "name": "jaw straight up through the slots (no beak servo yet)",
+   "parts": [
+    "head_jaw"
+   ],
+   "against": [
+    "head_base"
+   ],
+   "segments": [
+    [
+     [
+      0,
+      0,
+      1
+     ],
+     -15
+    ]
+   ]
+  },
+  {
+   "name": "beak servo: down, 4 mm inboard, then slide outboard onto the jaw arm",
+   "parts": [
+    "scs_mouth_case",
+    "scs_mouth_horn_cross"
+   ],
+   "against": [
+    "head_base",
+    "head_jaw"
+   ],
+   "segments": [
+    [
+     [
+      0,
+      0,
+      1
+     ],
+     15
+    ],
+    [
+     [
+      0,
+      1,
+      0
+     ],
+     -4.5
+    ]
+   ]
+  },
+  {
+   "name": "yaw block: up through the floor opening 4.8 mm forward, then back onto the roll horn",
+   "parts": [
+    "yaw_block"
+   ],
+   "against": [
+    "head_base",
+    "scs_head_roll_case",
+    "head_roll_brg_6702ZZ"
+   ],
+   "segments": [
+    [
+     [
+      0,
+      0,
+      1
+     ],
+     -20
+    ],
+    [
+     [
+      1,
+      0,
+      0
+     ],
+     4.8
+    ]
+   ]
+  }
+ ]
+}

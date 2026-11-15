@@ -318,7 +318,7 @@ if SCREWS:
             cyl(bm, x, y, z_head0, z_head0 + h_head, d_head, 24)
             cyl(bm, x, y, z_head0 + h_head - 0.01, z_tip, d_thr, 16)
     parts.append(replace_object(f"{NAME}_case_screws", bm, STEEL))
-    if HORN:
+    if HORN and args.get("horn_screw", True):               # off where the joint places its own horn screw (refresh_servos)
         bm = bmesh.new()
         d_thr, l_thr, d_head, h_head = HORN_SCREW
         screw(bm, SHAFT_X, 0, z_hub0 + HORN_HUB_H, d_head, h_head, d_thr, z_hub0 + HORN_HUB_H - l_thr)

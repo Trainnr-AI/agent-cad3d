@@ -93,8 +93,20 @@ Route per `tools/blender/wiring.py` (hubs, extensions, the 250 mm extension to t
 poses leaves ≥ 26 mm of slack on every cable (least: left body-to-thigh extension 224 of 250 mm) - route without tight bends
 and tie the slack where the wiring plan shows it.
 
+Where moving parts push on cables (`tools/blender/cable_pinch_check.py`, 2026-11-15; BOM row 13b, 6 mm braided sleeve):
+- **Each hip:** the hip-roll servo lead and the body-to-thigh extension leave the yaw connector under the deck and go up to the
+  thigh. With the leg swung back (walking) they wrap round the deck's lower outer edge, every step. Sleeve both together for
+  ~6 cm from the yaw connector to the thigh; the edge is rounded (r 1.5) for them. Leave them loose enough that the leg can swing
+  fully back (hip pitch +85) without pulling.
+- **Neck:** sleeve the U-to-head extension and the camera USB together for ~10 cm across the head-pitch U and yaw block, and leave
+  a **slack loop** there: when the head turns past ~75 deg they are dragged across those parts. Turn the head by hand to both
+  limits (+-150) before closing the dome and check nothing pulls tight or catches.
+- Smaller rubs at the joint limits (ankle leads on the foot / shin at full ankle or knee bend, the gap-to-neck extension on the
+  body frame at neck -80): route with a little slack and check by hand at the limits.
+
 ## Not yet checked in the model
 
 The horn shape (pockets drawn from the kit photo; hub and plate thickness nominal), the real kit screws, battery thickness (bay
 designed for 21 mm), IMU hole spacing (estimated), the SCS0009's steps per degree and protection registers (JOINT_LIMITS.md) - all on
-arrival of the parts. Print a tolerance coupon with the knee's 6702 pocket and a 28 mm bridged floor before whole legs.
+arrival of the parts. Print the tolerance coupon first (section 0, item 2). The cable pinch check models each cable span as a straight
+line between its clips: confirm the routing on the first assembled leg.

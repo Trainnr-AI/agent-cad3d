@@ -1,0 +1,654 @@
+{
+"robot": "duck_scs0009",
+"parts": {
+"neck_cradle": "neck",
+"body_neck_bearing_plate": "trunk_base",
+"head_pitch_u": "neck_pitch.001",
+"head_pitch_bearing_plate": "neck_pitch.001",
+"left_yaw_connector": "yaw2roll",
+"left_l_bracket": "hip_l",
+"left_thigh": "upper_leg_left",
+"left_shin": "leg",
+"left_foot": "ankle_left",
+"left_foot_bearing_plate": "ankle_left",
+"right_yaw_connector": "bearing_roll",
+"right_l_bracket": "hip_l_2",
+"right_thigh": "upper_leg_right",
+"right_shin": "leg_2",
+"right_foot": "ankle_right",
+"right_foot_bearing_plate": "ankle_right",
+"body_frame": "trunk_base",
+"body_lid": "trunk_base",
+"battery_3s": "trunk_base",
+"servo_adapter": "trunk_base",
+"imu": "trunk_base",
+"yaw_block": "yaw_roll_motion",
+"ubec": "trunk_base",
+"electronics_enclosure": "trunk_base",
+"unoq_pcb": "trunk_base",
+"unoq_headers": "trunk_base",
+"unoq_pins": "trunk_base",
+"uno_cover": "trunk_base",
+"power_switch": "trunk_base",
+"head_base": "jaw_soft",
+"head_dome": "jaw_soft",
+"head_face": "jaw_soft",
+"head_jaw": "jaw_soft",
+"left_thigh_cover": "upper_leg_left",
+"right_thigh_cover": "upper_leg_right",
+"cam_ov5640_b": "jaw_soft",
+"wire_hub_G": "trunk_base",
+"wire_hub_G_socketA": "trunk_base",
+"wire_hub_G_socketB": "trunk_base",
+"wire_hub_G_socketC": "trunk_base",
+"wire_hub_LTA": "upper_leg_left",
+"wire_hub_LTA_socketA": "upper_leg_left",
+"wire_hub_LTA_socketB": "upper_leg_left",
+"wire_hub_LTA_socketC": "upper_leg_left",
+"wire_hub_LTB": "upper_leg_left",
+"wire_hub_LTB_socketA": "upper_leg_left",
+"wire_hub_LTB_socketB": "upper_leg_left",
+"wire_hub_LTB_socketC": "upper_leg_left",
+"wire_hub_LTC": "upper_leg_left",
+"wire_hub_LTC_socketA": "upper_leg_left",
+"wire_hub_LTC_socketB": "upper_leg_left",
+"wire_hub_LTC_socketC": "upper_leg_left",
+"wire_hub_LTD": "upper_leg_left",
+"wire_hub_LTD_socketA": "upper_leg_left",
+"wire_hub_LTD_socketB": "upper_leg_left",
+"wire_hub_LTD_socketC": "upper_leg_left",
+"wire_hub_RTA": "upper_leg_right",
+"wire_hub_RTA_socketA": "upper_leg_right",
+"wire_hub_RTA_socketB": "upper_leg_right",
+"wire_hub_RTA_socketC": "upper_leg_right",
+"wire_hub_RTB": "upper_leg_right",
+"wire_hub_RTB_socketA": "upper_leg_right",
+"wire_hub_RTB_socketB": "upper_leg_right",
+"wire_hub_RTB_socketC": "upper_leg_right",
+"wire_hub_RTC": "upper_leg_right",
+"wire_hub_RTC_socketA": "upper_leg_right",
+"wire_hub_RTC_socketB": "upper_leg_right",
+"wire_hub_RTC_socketC": "upper_leg_right",
+"wire_hub_RTD": "upper_leg_right",
+"wire_hub_RTD_socketA": "upper_leg_right",
+"wire_hub_RTD_socketB": "upper_leg_right",
+"wire_hub_RTD_socketC": "upper_leg_right",
+"wire_hub_N": "neck",
+"wire_hub_N_socketA": "neck",
+"wire_hub_N_socketB": "neck",
+"wire_hub_N_socketC": "neck",
+"wire_hub_C": "neck",
+"wire_hub_C_socketA": "neck",
+"wire_hub_C_socketB": "neck",
+"wire_hub_C_socketC": "neck",
+"wire_hub_Y": "neck_pitch.001",
+"wire_hub_Y_socketA": "neck_pitch.001",
+"wire_hub_Y_socketB": "neck_pitch.001",
+"wire_hub_Y_socketC": "neck_pitch.001",
+"wire_hub_M": "jaw_soft",
+"wire_hub_M_socketA": "jaw_soft",
+"wire_hub_M_socketB": "jaw_soft",
+"wire_hub_M_socketC": "jaw_soft",
+"wire_plug_lead_left_hip_yaw_b": "upper_leg_left",
+"wire_plug_lead_left_hip_roll_b": "upper_leg_left",
+"wire_plug_lead_left_hip_pitch_b": "upper_leg_left",
+"wire_plug_lead_left_knee_b": "upper_leg_left",
+"wire_plug_lead_left_ankle_b": "upper_leg_left",
+"wire_plug_ext_left_thigh_C_to_D_a": "upper_leg_left",
+"wire_plug_ext_left_thigh_C_to_D_b": "upper_leg_left",
+"wire_plug_ext_left_thigh_D_to_A_a": "upper_leg_left",
+"wire_plug_ext_left_thigh_D_to_A_b": "upper_leg_left",
+"wire_plug_ext_left_thigh_A_to_B_a": "upper_leg_left",
+"wire_plug_ext_left_thigh_A_to_B_b": "upper_leg_left",
+"wire_plug_ext_left_body_to_thigh_b": "upper_leg_left",
+"wire_plug_lead_right_hip_yaw_b": "upper_leg_right",
+"wire_plug_lead_right_hip_roll_b": "upper_leg_right",
+"wire_plug_lead_right_hip_pitch_b": "upper_leg_right",
+"wire_plug_lead_right_knee_b": "upper_leg_right",
+"wire_plug_lead_right_ankle_b": "upper_leg_right",
+"wire_plug_ext_right_thigh_C_to_D_a": "upper_leg_right",
+"wire_plug_ext_right_thigh_C_to_D_b": "upper_leg_right",
+"wire_plug_ext_right_thigh_D_to_A_a": "upper_leg_right",
+"wire_plug_ext_right_thigh_D_to_A_b": "upper_leg_right",
+"wire_plug_ext_right_thigh_A_to_B_a": "upper_leg_right",
+"wire_plug_ext_right_thigh_A_to_B_b": "upper_leg_right",
+"wire_plug_ext_right_body_to_thigh_a": "trunk_base",
+"wire_plug_ext_right_body_to_thigh_b": "upper_leg_right",
+"wire_plug_ext_adapter_to_gap_b": "trunk_base",
+"wire_plug_ext_gap_to_neck_a": "trunk_base",
+"wire_plug_ext_gap_to_neck_b": "neck",
+"wire_plug_lead_neck_pitch_b": "neck",
+"wire_plug_lead_head_pitch_b": "neck",
+"wire_plug_lead_head_yaw_b": "neck_pitch.001",
+"wire_plug_lead_head_roll_b": "jaw_soft",
+"wire_plug_lead_mouth_b": "jaw_soft",
+"wire_plug_ext_neck_N_to_C_a": "neck",
+"wire_plug_ext_neck_N_to_C_b": "neck",
+"wire_plug_ext_cradle_to_U_a": "neck",
+"wire_plug_ext_cradle_to_U_b": "neck_pitch.001",
+"wire_plug_ext_U_to_head_a": "neck_pitch.001",
+"wire_plug_ext_U_to_head_b": "jaw_soft",
+"body_lid_screws_M2x6st": "trunk_base",
+"cam_screws_M2x6st": "jaw_soft",
+"dome_screws_M2x6st": "jaw_soft",
+"head_pitch_ear_screws_M2x6st": "neck",
+"head_pitch_plate_screws_M2x6st": "neck_pitch.001",
+"head_pitch_screw_M2x4kit": "neck_pitch.001",
+"head_pitch_screw_M3x8": "neck",
+"head_roll_ear_screws_M2x6st": "jaw_soft",
+"head_roll_screw_M2x4kit": "yaw_roll_motion",
+"head_yaw_ear_screws_M2x6st": "yaw_roll_motion",
+"head_yaw_screw_M2x4kit": "neck_pitch.001",
+"imu_screws_M2x6st": "trunk_base",
+"jaw_pivot_screw_M2x6st": "jaw_soft",
+"left_ankle_ear_screws_M2x6st": "leg",
+"left_ankle_screw_M2x4kit": "ankle_left",
+"left_ankle_screw_M3x8": "leg",
+"left_foot_plate_screws_M2x6st": "ankle_left",
+"left_hip_pitch_ear_screws_M2x6st": "upper_leg_left",
+"left_hip_pitch_screw_M2x4kit": "hip_l",
+"left_hip_roll_ear_screws_M2x6st": "yaw2roll",
+"left_hip_roll_screw_M2x4kit": "hip_l",
+"left_hip_yaw_ear_screws_M2x6st": "trunk_base",
+"left_hip_yaw_screw_M2x4kit": "yaw2roll",
+"left_knee_ear_screws_M2x6st": "upper_leg_left",
+"left_knee_screw_M2x4kit": "leg",
+"left_thigh_cover_screws_M2x6st": "upper_leg_left",
+"mouth_ear_screws_M2x6st": "jaw_soft",
+"neck_ear_screws_M2x6st": "neck",
+"neck_plate_screws_M2x6st": "trunk_base",
+"neck_screw_M2x4kit": "trunk_base",
+"neck_screw_M3x8": "neck",
+"right_ankle_ear_screws_M2x6st": "leg_2",
+"right_ankle_screw_M2x4kit": "ankle_right",
+"right_ankle_screw_M3x8": "leg_2",
+"right_foot_plate_screws_M2x6st": "ankle_right",
+"right_hip_pitch_ear_screws_M2x6st": "upper_leg_right",
+"right_hip_pitch_screw_M2x4kit": "hip_l_2",
+"right_hip_roll_ear_screws_M2x6st": "bearing_roll",
+"right_hip_roll_screw_M2x4kit": "hip_l_2",
+"right_hip_yaw_ear_screws_M2x6st": "trunk_base",
+"right_hip_yaw_screw_M2x4kit": "bearing_roll",
+"right_knee_ear_screws_M2x6st": "upper_leg_right",
+"right_knee_screw_M2x4kit": "leg_2",
+"right_thigh_cover_screws_M2x6st": "upper_leg_right",
+"uno_cover_screws_M2x6st": "trunk_base",
+"uno_screws_M3x8": "trunk_base",
+"left_knee_cap": "upper_leg_left",
+"right_knee_cap": "upper_leg_right"
+},
+"servo_cases": [
+"scs_left_hip_yaw_case",
+"scs_left_hip_roll_case",
+"scs_left_hip_pitch_case",
+"scs_left_knee_case",
+"scs_left_ankle_case",
+"scs_right_hip_yaw_case",
+"scs_right_hip_roll_case",
+"scs_right_hip_pitch_case",
+"scs_right_knee_case",
+"scs_right_ankle_case",
+"scs_neck_pitch_case",
+"scs_head_pitch_case",
+"scs_head_yaw_case",
+"scs_head_roll_case",
+"scs_mouth_case",
+"scs_mouth_case"
+],
+"joints": [
+"left_hip_yaw",
+"left_hip_roll",
+"left_hip_pitch",
+"left_knee",
+"left_ankle",
+"right_hip_yaw",
+"right_hip_roll",
+"right_hip_pitch",
+"right_knee",
+"right_ankle",
+"neck_pitch",
+"head_pitch",
+"head_yaw",
+"head_roll"
+],
+"samples": 9,
+"min_mm3": 0.05,
+"poses": {
+"STAND": {
+"left_hip_yaw": 0,
+"left_hip_roll": -0.087266463,
+"left_hip_pitch": -0.38397244,
+"left_knee": -0.00494,
+"left_ankle": 0.38397244,
+"neck_pitch": 0.34906585,
+"head_pitch": 0.34906585,
+"head_yaw": 0,
+"head_roll": 0,
+"right_hip_yaw": 0,
+"right_hip_roll": 0.087266463,
+"right_hip_pitch": 0.38397244,
+"right_knee": 0.00494,
+"right_ankle": -0.38397244
+},
+"head yaw -45 roll -25": {
+"head_yaw": -0.7853981633974483,
+"head_roll": -0.4363323129985824
+},
+"head yaw -45 roll 25": {
+"head_yaw": -0.7853981633974483,
+"head_roll": 0.4363323129985824
+},
+"head yaw 45 roll -25": {
+"head_yaw": 0.7853981633974483,
+"head_roll": -0.4363323129985824
+},
+"head yaw -150 roll -10": {
+"head_yaw": -2.6179938779914944,
+"head_roll": -0.17453292519943295
+},
+"head yaw -150 roll 10": {
+"head_yaw": -2.6179938779914944,
+"head_roll": 0.17453292519943295
+},
+"head yaw 150 roll -10": {
+"head_yaw": 2.6179938779914944,
+"head_roll": -0.17453292519943295
+},
+"head yaw 150 roll 10": {
+"head_yaw": 2.6179938779914944,
+"head_roll": 0.17453292519943295
+},
+"neck 20 head 20 yaw -90": {
+"neck_pitch": 0.3490658503988659,
+"head_pitch": 0.3490658503988659,
+"head_yaw": -1.5707963267948966
+},
+"neck 20 head 20 yaw 90": {
+"neck_pitch": 0.3490658503988659,
+"head_pitch": 0.3490658503988659,
+"head_yaw": 1.5707963267948966
+},
+"neck -60 head 60 yaw -90": {
+"neck_pitch": -1.0471975511965976,
+"head_pitch": 1.0471975511965976,
+"head_yaw": -1.5707963267948966
+},
+"neck -60 head 60 yaw 90": {
+"neck_pitch": -1.0471975511965976,
+"head_pitch": 1.0471975511965976,
+"head_yaw": 1.5707963267948966
+},
+"walk 1 yaw -0.11 roll -0.19 pitch -0.8": {
+"left_hip_yaw": -0.11,
+"left_hip_roll": -0.19,
+"left_hip_pitch": -0.8,
+"left_knee": 0.96,
+"left_ankle": -0.4,
+"right_hip_yaw": 0.11,
+"right_hip_roll": 0.19,
+"right_hip_pitch": 0.8,
+"right_knee": -0.96,
+"right_ankle": 0.4
+},
+"walk 1 yaw -0.11 roll -0.19 pitch 0.8": {
+"left_hip_yaw": -0.11,
+"left_hip_roll": -0.19,
+"left_hip_pitch": 0.8,
+"left_knee": -0.96,
+"left_ankle": 0.4,
+"right_hip_yaw": 0.11,
+"right_hip_roll": 0.19,
+"right_hip_pitch": -0.8,
+"right_knee": 0.96,
+"right_ankle": -0.4
+},
+"walk 1 yaw -0.11 roll 0.19 pitch -0.8": {
+"left_hip_yaw": -0.11,
+"left_hip_roll": 0.19,
+"left_hip_pitch": -0.8,
+"left_knee": 0.96,
+"left_ankle": -0.4,
+"right_hip_yaw": 0.11,
+"right_hip_roll": -0.19,
+"right_hip_pitch": 0.8,
+"right_knee": -0.96,
+"right_ankle": 0.4
+},
+"walk 1 yaw -0.11 roll 0.19 pitch 0.8": {
+"left_hip_yaw": -0.11,
+"left_hip_roll": 0.19,
+"left_hip_pitch": 0.8,
+"left_knee": -0.96,
+"left_ankle": 0.4,
+"right_hip_yaw": 0.11,
+"right_hip_roll": -0.19,
+"right_hip_pitch": -0.8,
+"right_knee": 0.96,
+"right_ankle": -0.4
+},
+"walk 1 yaw 0.22 roll -0.19 pitch -0.8": {
+"left_hip_yaw": 0.22,
+"left_hip_roll": -0.19,
+"left_hip_pitch": -0.8,
+"left_knee": 0.96,
+"left_ankle": -0.4,
+"right_hip_yaw": -0.22,
+"right_hip_roll": 0.19,
+"right_hip_pitch": 0.8,
+"right_knee": -0.96,
+"right_ankle": 0.4
+},
+"walk 1 yaw 0.22 roll -0.19 pitch 0.8": {
+"left_hip_yaw": 0.22,
+"left_hip_roll": -0.19,
+"left_hip_pitch": 0.8,
+"left_knee": -0.96,
+"left_ankle": 0.4,
+"right_hip_yaw": -0.22,
+"right_hip_roll": 0.19,
+"right_hip_pitch": -0.8,
+"right_knee": 0.96,
+"right_ankle": -0.4
+},
+"walk 1 yaw 0.22 roll 0.19 pitch -0.8": {
+"left_hip_yaw": 0.22,
+"left_hip_roll": 0.19,
+"left_hip_pitch": -0.8,
+"left_knee": 0.96,
+"left_ankle": -0.4,
+"right_hip_yaw": -0.22,
+"right_hip_roll": -0.19,
+"right_hip_pitch": 0.8,
+"right_knee": -0.96,
+"right_ankle": 0.4
+},
+"walk 1 yaw 0.22 roll 0.19 pitch 0.8": {
+"left_hip_yaw": 0.22,
+"left_hip_roll": 0.19,
+"left_hip_pitch": 0.8,
+"left_knee": -0.96,
+"left_ankle": 0.4,
+"right_hip_yaw": -0.22,
+"right_hip_roll": -0.19,
+"right_hip_pitch": -0.8,
+"right_knee": 0.96,
+"right_ankle": -0.4
+},
+"walk -1 yaw -0.11 roll -0.19 pitch -0.8": {
+"left_hip_yaw": -0.11,
+"left_hip_roll": -0.19,
+"left_hip_pitch": 0.8,
+"left_knee": -0.96,
+"left_ankle": 0.4,
+"right_hip_yaw": 0.11,
+"right_hip_roll": 0.19,
+"right_hip_pitch": -0.8,
+"right_knee": 0.96,
+"right_ankle": -0.4
+},
+"walk -1 yaw -0.11 roll -0.19 pitch 0.8": {
+"left_hip_yaw": -0.11,
+"left_hip_roll": -0.19,
+"left_hip_pitch": -0.8,
+"left_knee": 0.96,
+"left_ankle": -0.4,
+"right_hip_yaw": 0.11,
+"right_hip_roll": 0.19,
+"right_hip_pitch": 0.8,
+"right_knee": -0.96,
+"right_ankle": 0.4
+},
+"walk -1 yaw -0.11 roll 0.19 pitch -0.8": {
+"left_hip_yaw": -0.11,
+"left_hip_roll": 0.19,
+"left_hip_pitch": 0.8,
+"left_knee": -0.96,
+"left_ankle": 0.4,
+"right_hip_yaw": 0.11,
+"right_hip_roll": -0.19,
+"right_hip_pitch": -0.8,
+"right_knee": 0.96,
+"right_ankle": -0.4
+},
+"walk -1 yaw -0.11 roll 0.19 pitch 0.8": {
+"left_hip_yaw": -0.11,
+"left_hip_roll": 0.19,
+"left_hip_pitch": -0.8,
+"left_knee": 0.96,
+"left_ankle": -0.4,
+"right_hip_yaw": 0.11,
+"right_hip_roll": -0.19,
+"right_hip_pitch": 0.8,
+"right_knee": -0.96,
+"right_ankle": 0.4
+},
+"walk -1 yaw 0.22 roll -0.19 pitch -0.8": {
+"left_hip_yaw": 0.22,
+"left_hip_roll": -0.19,
+"left_hip_pitch": 0.8,
+"left_knee": -0.96,
+"left_ankle": 0.4,
+"right_hip_yaw": -0.22,
+"right_hip_roll": 0.19,
+"right_hip_pitch": -0.8,
+"right_knee": 0.96,
+"right_ankle": -0.4
+},
+"walk -1 yaw 0.22 roll -0.19 pitch 0.8": {
+"left_hip_yaw": 0.22,
+"left_hip_roll": -0.19,
+"left_hip_pitch": -0.8,
+"left_knee": 0.96,
+"left_ankle": -0.4,
+"right_hip_yaw": -0.22,
+"right_hip_roll": 0.19,
+"right_hip_pitch": 0.8,
+"right_knee": -0.96,
+"right_ankle": 0.4
+},
+"walk -1 yaw 0.22 roll 0.19 pitch -0.8": {
+"left_hip_yaw": 0.22,
+"left_hip_roll": 0.19,
+"left_hip_pitch": 0.8,
+"left_knee": -0.96,
+"left_ankle": 0.4,
+"right_hip_yaw": -0.22,
+"right_hip_roll": -0.19,
+"right_hip_pitch": -0.8,
+"right_knee": 0.96,
+"right_ankle": -0.4
+},
+"walk -1 yaw 0.22 roll 0.19 pitch 0.8": {
+"left_hip_yaw": 0.22,
+"left_hip_roll": 0.19,
+"left_hip_pitch": -0.8,
+"left_knee": 0.96,
+"left_ankle": -0.4,
+"right_hip_yaw": -0.22,
+"right_hip_roll": -0.19,
+"right_hip_pitch": 0.8,
+"right_knee": -0.96,
+"right_ankle": 0.4
+},
+"left hip -60 knee 70": {
+"left_hip_pitch": -1.0471975511965976,
+"left_knee": 1.2217304763960306
+},
+"right hip 60 knee -70": {
+"right_hip_pitch": 1.0471975511965976,
+"right_knee": -1.2217304763960306
+},
+"left hip 60 knee -90": {
+"left_hip_pitch": 1.0471975511965976,
+"left_knee": -1.5707963267948966
+},
+"right hip -60 knee 90": {
+"right_hip_pitch": -1.0471975511965976,
+"right_knee": 1.5707963267948966
+},
+"left hip -90 knee 70": {
+"left_hip_pitch": -1.5707963267948966,
+"left_knee": 1.2217304763960306
+},
+"right hip 90 knee -70": {
+"right_hip_pitch": 1.5707963267948966,
+"right_knee": -1.2217304763960306
+},
+"head yaw 45 roll 25": {
+"head_yaw": 0.7854,
+"head_roll": 0.4363
+},
+"head 65 yaw -150": {
+"head_pitch": 1.1344640137963142,
+"head_yaw": -2.6179938779914944
+},
+"head 65 yaw 150": {
+"head_pitch": 1.1344640137963142,
+"head_yaw": 2.6179938779914944
+},
+"SIT (28.6, 65)": {
+"left_hip_pitch": -0.5236,
+"left_knee": 1.0472,
+"right_hip_pitch": 0.5236,
+"right_knee": -1.0472,
+"neck_pitch": 0.5,
+"head_pitch": 1.1344640137963142
+},
+"FOLD (40, 57)": {
+"left_hip_pitch": 1.5707963267948966,
+"left_knee": 1.1868238913561442,
+"right_hip_pitch": -1.5707963267948966,
+"right_knee": -1.1868238913561442,
+"neck_pitch": 0.6981317007977318,
+"head_pitch": 1.0000736613927508
+},
+"neck 0 head -45": {
+"neck_pitch": 0.0,
+"head_pitch": -0.7853981633974483
+},
+"neck 10 head -35": {
+"neck_pitch": 0.17453292519943295,
+"head_pitch": -0.6108652381980153
+},
+"neck 20 head -15": {
+"neck_pitch": 0.3490658503988659,
+"head_pitch": -0.2617993877991494
+},
+"neck 25 head -15": {
+"neck_pitch": 0.4363323129985824,
+"head_pitch": -0.2617993877991494
+},
+"neck 30 head 0": {
+"neck_pitch": 0.5235987755982988,
+"head_pitch": 0.0
+},
+"neck 35 head 0": {
+"neck_pitch": 0.6108652381980153,
+"head_pitch": 0.0
+},
+"neck 40 head 20": {
+"neck_pitch": 0.6981317007977318,
+"head_pitch": 0.3490658503988659
+},
+"neck 40 head 65": {
+"neck_pitch": 0.6981317007977318,
+"head_pitch": 1.1344640137963142
+},
+"neck -80 head 65": {
+"neck_pitch": -1.3962634015954636,
+"head_pitch": 1.1344640137963142
+},
+"neck -80 head -45": {
+"neck_pitch": -1.3962634015954636,
+"head_pitch": -0.7853981633974483
+},
+"neck -25 head -45": {
+"neck_pitch": -0.4363323129985824,
+"head_pitch": -0.7853981633974483
+},
+"neck 40 head 20 yaw -90": {
+"neck_pitch": 0.6981317007977318,
+"head_pitch": 0.3490658503988659,
+"head_yaw": -1.5707963267948966
+},
+"neck 40 head 20 yaw 90": {
+"neck_pitch": 0.6981317007977318,
+"head_pitch": 0.3490658503988659,
+"head_yaw": 1.5707963267948966
+},
+"both hips yaw out 12.6 roll -22": {
+"left_hip_yaw": 0.21991148575128552,
+"right_hip_yaw": -0.21991148575128552,
+"left_hip_roll": -0.3839724354387525,
+"right_hip_roll": 0.3839724354387525
+},
+"both hips yaw in 12.6 roll -22": {
+"left_hip_yaw": -0.21991148575128552,
+"right_hip_yaw": 0.21991148575128552,
+"left_hip_roll": -0.3839724354387525,
+"right_hip_roll": 0.3839724354387525
+},
+"both hips yaw out 12.6 roll 0": {
+"left_hip_yaw": 0.21991148575128552,
+"right_hip_yaw": -0.21991148575128552,
+"left_hip_roll": 0.0,
+"right_hip_roll": 0.0
+},
+"both hips yaw in 12.6 roll 0": {
+"left_hip_yaw": -0.21991148575128552,
+"right_hip_yaw": 0.21991148575128552,
+"left_hip_roll": 0.0,
+"right_hip_roll": 0.0
+},
+"both hips yaw out 12.6 roll 22": {
+"left_hip_yaw": 0.21991148575128552,
+"right_hip_yaw": -0.21991148575128552,
+"left_hip_roll": 0.3839724354387525,
+"right_hip_roll": -0.3839724354387525
+},
+"both hips yaw in 12.6 roll 22": {
+"left_hip_yaw": -0.21991148575128552,
+"right_hip_yaw": 0.21991148575128552,
+"left_hip_roll": 0.3839724354387525,
+"right_hip_roll": -0.3839724354387525
+},
+"both hips yaw out 25.8 roll -22": {
+"left_hip_yaw": 0.45029494701453704,
+"right_hip_yaw": -0.45029494701453704,
+"left_hip_roll": -0.3839724354387525,
+"right_hip_roll": 0.3839724354387525
+},
+"both hips yaw in 25.8 roll -22": {
+"left_hip_yaw": -0.21991148575128552,
+"right_hip_yaw": 0.21991148575128552,
+"left_hip_roll": -0.3839724354387525,
+"right_hip_roll": 0.3839724354387525
+},
+"both hips yaw out 25.8 roll 0": {
+"left_hip_yaw": 0.45029494701453704,
+"right_hip_yaw": -0.45029494701453704,
+"left_hip_roll": 0.0,
+"right_hip_roll": 0.0
+},
+"both hips yaw in 25.8 roll 0": {
+"left_hip_yaw": -0.21991148575128552,
+"right_hip_yaw": 0.21991148575128552,
+"left_hip_roll": 0.0,
+"right_hip_roll": 0.0
+},
+"both hips yaw out 25.8 roll 22": {
+"left_hip_yaw": 0.45029494701453704,
+"right_hip_yaw": -0.45029494701453704,
+"left_hip_roll": 0.3839724354387525,
+"right_hip_roll": -0.3839724354387525
+},
+"both hips yaw in 25.8 roll 22": {
+"left_hip_yaw": -0.21991148575128552,
+"right_hip_yaw": 0.21991148575128552,
+"left_hip_roll": 0.3839724354387525,
+"right_hip_roll": -0.3839724354387525
+}
+},
+"json_out": "<out>/motion.json",
+"full": true
+}
