@@ -118,6 +118,13 @@ def main():
                            f"than 0.05 mm; under_margin = clear but closer than {a.margin} mm.",
                    "margin_mm": a.margin, "margin_ignores": a.ignore, "grid": grid, "rest_pairs_not_judged": rest,
                    "poses": left, "right_poses": right, "both_legs_poses": both}
+        try:                                              # keep extra sections added by other runs (ankle_pm23_*, knee_ankle_*)
+            old = json.load(open(a.out))
+            doc.update({k: v for k, v in old.items() if k not in doc})
+            if "ankle_pm23_left" in old:
+                doc["what"] += old["what"][old["what"].find(" 'ankle_pm23_left/right'"):]
+        except (OSError, ValueError):
+            pass
         with open(a.out, "w") as f:                       # one pose per line: readable diffs
             f.write("{\n")
             keys = list(doc)

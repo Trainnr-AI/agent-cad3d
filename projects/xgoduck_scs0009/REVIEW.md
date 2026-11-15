@@ -1579,3 +1579,38 @@ margins below 0.3 mm are not meaningful.
 
 Not redone: exploded views (their copies still show four M3 on the Uno Q; regenerate with build_args/README steps 6-10); STL exports
 (re-export the lid); the sim's body masses (sim/body_mass_v2.json, < 2 g change).
+
+## Cables, ankle angles, knee x ankle; a false inside test (2026-11-15, later)
+
+**Tool fix (both new tools).** The inside test (ray parity, 2 of 3 rays) was fooled at single points by the exact servo meshes:
+the first cable check reported the left body-to-thigh extension 4.33 mm inside the left hip-roll servo at hip pitch +85 from ONE
+sample whose 1 mm neighbours were outside; measured directly in Blender the span stays outside (closest: yaw connector 0.49,
+hip-yaw bearing 0.38). A point now also needs its nearest face to face away from it. Re-validated `clearance_sweep.py` on 546
+earlier poses (60 left / 58 right / 80 both-legs / 319 head collisions + 30 clear): every collision still found, none new, a few
+depths moved by < 1.2 mm - the hip maps and head result above stand.
+
+**Cable reach** (`wiring.py` `"motion": true`, 211 poses): every cable long enough; tightest the left body-to-thigh extension, 224
+of 250 mm at hip pitch +85.
+
+**Cables against moving parts** (new `tools/blender/cable_pinch_check.py`, 212 poses inside the servo limits: each joint alone,
+STAND / SIT, walking-range combinations, neck + head extremes). Each cable span is taken as the straight line between its two
+waypoints (the least cable, as in the reach check); points inside a part deeper than 0.5 mm, beyond what they were at rest, are
+reported. A real cable has slack and bends round the part: these are where a part PUSHES a cable (chafe / pinch to look at on the
+build), not cuts. 21 found:
+- **Walking (repeated every step):** both hip-roll leads and both body-to-thigh extensions pressed 2.3 mm into the body frame's
+  edge with the leg back 46, toed in, rolled out. Chafe risk - wants a clip / guide or a radius on that edge.
+- **Head turned 75-125 deg:** the U-to-head extension (2.6 mm into the head-pitch U) and the camera USB (2.5 into the yaw block,
+  1.2 into the U, 1.1 into the head base) are dragged across the parts. Head pitch up 59: camera USB 1.7 into the neck cradle.
+- **Ankle / knee near their limits:** ankle leads 0.6-1.5 mm into the foot / shin. Neck back -80: gap-to-neck extension 1.3 into
+  the body frame. Others 0.5-0.7 mm at the extremes.
+Not changed (needs a routing decision / clips on the real build).
+
+**Ankle angles.** (a) Knee x ankle at hip rest (13 x 15 poses each leg): with the knee bent past +30 the foot meets the L-bracket and
+thigh unless the ankle stays above a limit that rises from -60 (knee 40) to 0 (knee 68) - up to 6.7 mm at knee 68 / ankle -23. Same
+for both legs; walking (knee <= 55, ankle +-23) and SIT are inside. New interlock row in JOINT_LIMITS.md. At the ankle's servo limit
+-86 the foot is 0.17 mm from the thigh (any knee <= 30). (b) The hip grid again with the ankle at -23 / +23 (2,496 poses each leg):
+apart from (a), ankle +23 adds 6 (left) / 7 (right) collisions, 0.3-1.6 mm, foot on the enclosure / lid / Uno Q cover with the leg
+back or folded; listed in JOINT_LIMITS.md. Data in `data/hip_collision_map.json` (`ankle_pm23_*`, `knee_ankle_*`).
+
+**Housekeeping:** exploded views regenerated (build_args/README steps 6-10; they now show the Uno Q M2 screw); all 28 printed-part
+STLs re-exported (the two optional thigh covers unchanged).

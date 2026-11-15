@@ -128,8 +128,10 @@ def one_way(a, b, T, lo, hi, crossing):
     for p in near(a, T, lo, hi):
         p = Vector(p)
         if crossing and b.inside(p):
-            depth = max(depth, b.tree.find_nearest(p)[3])
-            continue
+            loc, nrm, _, dist = b.tree.find_nearest(p)
+            if (p - loc).dot(nrm) < 0:                                 # nearest face facing away too: ray parity alone can be
+                depth = max(depth, dist)                               # fooled by the exact servo meshes (2026-11-15)
+                continue
         hit = b.tree.find_nearest(p, MARGIN)
         if hit[0] is not None:
             gap = min(gap, hit[3])

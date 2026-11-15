@@ -29,7 +29,7 @@ the position at two known angles) before writing limits. Example: a joint zero a
 | hip roll L / R | +-22 | **L -12..+19.5, R -19.5..+12** (- = feet together) | roll -22: the feet collide at any yaw | (with hip yaw, as above); at +19.5 the hip-yaw bearing is **0.29-0.30 mm** from the L-bracket (2026-11-15, point-to-surface; under the 0.5 aimed for, not touching) |
 | hip pitch L / R | -90..+85 / -85..+90 | unchanged | alone: clear over the range | 5 deg sweep |
 | knee L / R | -90..+68 / -68..+90 | unchanged | alone: clear | 5 deg sweep |
-| ankle L / R | -86..+90 / -90..+86 | unchanged | alone: clear | 5 deg sweep |
+| ankle L / R | -86..+90 / -90..+86 | unchanged | alone: clear | 5 deg sweep; 2026-11-15: at -86 the foot is **0.17 mm** from the thigh, at +90 0.50 from the shin (any knee <= 30; not touching, under the 0.5 aimed for) |
 | neck pitch | -80..+40 | **-80..+30** (user: option A) | +40 alone: head base vs Uno Q cover 71 mm3 | corners >= 1.36 mm |
 | head pitch | -45..+65 | **-5..+65** (user: option A) | neck +10..+40 with head -45..-5: U / bearing plate vs head base | corners >= 1.36 mm |
 | head yaw | -150..+150 | **+-150** | alone: clear | 5 deg sweep |
@@ -67,6 +67,7 @@ The microduck-nano firmware already uses +-1.0.
 | hip pitch + knee + ankle + roll (walking envelope corners) | e.g. yaw -6.3, roll +10.9, pitch +45.8, knee -55: shin vs enclosure 182-200 mm3 (old shin too); pitch -45.8 + knee +55 + ankle -23: L-bracket vs foot 20 mm3 | keep the gait's actual trajectories inside the swept-clear set (to be checked per gait in the sim) |
 | hip pitch + knee (fold / sit-up) | left hip +60 with knee -90: foot vs Uno Q cover / body lid | sit / stand only by the checked path: STAND <-> SIT (hip 70, knee 18, ankle -16, hip yaw -3, roll -4) in a straight joint-space line, >= 3 s each way, IMU ankle balance on, not facing uphill > ~4 deg (exact parts clear >= 1.58 mm along it) |
 | hip pitch x hip roll x hip yaw x knee (each leg) | the hip maps below, **one per leg** (2026-11-15) | leg swung back: knee cap / shin / foot bearing plate vs enclosure, body frame, lid, Uno Q cover; swung far forward with toe-out: foot / shin vs the Uno Q cover; **right leg only**: forward 45-90 with the knee at its limit, foot vs the neck bearing plate / body frame (up to 6.9 mm) |
+| knee x ankle (each leg) | with the knee bent past +30 (left signs; right mirrored): ankle >= -60 at knee 40, >= -45 at 45-50, >= -35 at 55, >= -25 at 60, >= -10 at 64, >= 0 at 68 (between rows: the stricter) | foot vs L-bracket / thigh, up to 6.7 mm (knee 68, ankle -23). 2026-11-15, hip at rest, any hip angle the same. Walking (knee <= 55, ankle +-23) and SIT are inside |
 | both legs together | never both legs forward of hip pitch -30 (left signs; right mirrored) while both hips are toed out (yaw > 0); one leg forward and one back is clear | the two feet / foot bearing plates against each other, up to 8 mm (toe-out +19, roll -12..+5, pitch -30..-90). The legs-back cases (toe-in with roll out) are already excluded by each leg's map |
 
 ### Hip maps: allowed hip roll by hip pitch and hip yaw, one table per leg
@@ -124,7 +125,11 @@ Firmware rule: between grid values use the stricter neighbour (pitch and yaw); l
 **with the hip toed in at all, keep hip pitch back under ~+15 deg**; with yaw 0, roll the leg out no more than the row allows
 (at +45 back: <= +10); **the right leg forward of -45 has less room than the left**. The original's walking envelope (yaw
 -6.3..+12.6, roll +-10.9, pitch +-45.8, knee +-55, ankle +-23) crosses this map (toe-in with the leg back) - a gait must be checked
-against it. Not covered: ankle angles (ankle 0 here; the walking-corner row above found an ankle -23 case); the review's two-leg
+against it. **Ankle (2026-11-15):** the same grid with the ankle at -23 and +23 (each leg): apart from the knee x ankle rule (row
+above), ankle **+23** adds these collisions (0.3-1.6 mm, foot vs enclosure / lid / Uno Q cover) - hip pitch / roll / yaw / knee
+(left signs): -15 / -12 and -8 / -6.3 / -90; +30 / 0 and +5 / 0 / -90; +60 / 0 / 0 / -45; +85 / 0 / 0 / 0; right leg also +45 / -4 /
+0 / -90. Treat those cells as not allowed with the ankle raised. Data: `ankle_pm23_left/right` and `knee_ankle_left/right` in the
+map file. Not covered: ankle beyond +-23 together with the hip; the review's two-leg
 ankle-axle touch (hips rolled in -12, legs forward: 0.2 mm) was not reproduced on this grid (yaw 0 / roll -12 / forward: clear).
 
 ## 3. Overload protection (all 15 servos, values to confirm on a servo)

@@ -196,7 +196,14 @@ An independent review (sister repo microduck-nano, `docs/project/design-review-2
 - Still deferred by the user: battery protection (fuse, protection board, low-voltage cut-off) and clearances, regulator
   placement. The review also found the robot can't stand on one foot (CoM 9 mm outside the foot at the roll limit, 74-77 % of
   stall on the hip roll): walking needs a gait study before it is counted on.
-- Not redone after the Uno Q change: exploded views (build_args/README steps 6-10), lid STL export.
+- Later the same day (REVIEW.md "Cables, ankle angles, knee x ankle"): cable reach OK; **cable pinch check** (new
+  `tools/blender/cable_pinch_check.py`): 21 places where a moving part pushes a cable - the worst repeated one is in walking (hip-roll
+  leads / body-to-thigh extensions on the body frame's edge, 2.3 mm), then the head cables at large head yaw. Not changed: needs
+  clips / routing decisions. **Knee x ankle interlock** added (knee past +30 limits the ankle, 0 at knee 68); ankle +-23 hip
+  sweeps added to the map file. Exploded views and STLs regenerated.
+- Tool lesson: an inside test by ray parity alone gives false single-point hits on the exact servo meshes - both new tools now
+  also require the nearest face to face away. Scripts run in the LIVE Blender must take paths from ARGS only: one that wrote to
+  `sys.argv[-1]` overwrote the Blender executable (restored from the official 5.2.3 dmg, checksum verified).
 
 ## Open items / next steps
 
@@ -208,9 +215,11 @@ An independent review (sister repo microduck-nano, `docs/project/design-review-2
 3. **Firmware** (none yet): servo limits incl. the beak, interlocks (head roll x yaw, hip map, sit path), IMU ankle balance
    for sit/stand, overload protection, fall detection -> torque off.
 4. **Walking**: no gait for this robot; must respect the hip map. **Get-up** study (optional, decides whether hardware must change).
-5. Not checked: fall loads on horns / one-sided joints (no retention clip, user decision), cables against moving parts, ankle
-   angles in the hip map (both maps and the both-legs check have ankle 0).
+5. Not checked: fall loads on horns / one-sided joints (no retention clip, user decision); ankle beyond +-23 combined with the
+   hip; both-legs check with the ankle moved.
 7. Walking feasibility: the independent review's single-support check (one foot) fails - see the 2026-11-15 state above.
+8. Cable routing: decide clips / guides for the chafe points of the cable pinch check (walking: body frame edge; head yaw: U,
+   yaw block). The check models straight spans: confirm on the first assembled leg.
 6. The trainnr robot `xgoduck_scs0009_v2i` has the earlier SIT angles (re-onboard as a new name if needed: onboarding never
    overwrites). `projects/xgoduck_scs0009/sim/assets_v2/` is an uncommitted duplicate of `sim/assets/` (delete freely).
 
