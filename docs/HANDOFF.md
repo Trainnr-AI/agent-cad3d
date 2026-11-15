@@ -1,4 +1,4 @@
-# Handoff — where the project stands (updated 2026-11-14)
+# Handoff — where the project stands (updated 2026-11-15)
 
 Read this first when continuing on another machine. It replaces the agent's local notes, which
 don't travel with the repo.
@@ -180,6 +180,24 @@ Blender collections: `duck_v2_exploded` + `wiring_exploded` + `duck_v2_labels`, 
   (full horn + 6702 seat), knee cap boss, trimmed-horn plate, bar (693 seat, M3 nut trap, M2 / M3 pilots, M2 clearance, 28 mm
   bridge), servo collar - 13 g, built from the same joint_v2 code as the robot. Test procedure: ASSEMBLY.md step 2.
 
+## State after the session of 2026-11-15 (branch `review-fixes-2026-11-15`) - REVIEW.md "Independent review fixes"
+
+An independent review (sister repo microduck-nano, `docs/project/design-review-2026-11-14.md`) re-ran our checks. Applied:
+- **Head roll only within +-1.0 deg of yaw 0** (was +-2.5: 0.40 mm into the U at yaw -2.5 / roll -15).
+- **Hip map per leg** (the right leg is NOT the left's mirror: forward 45-90 with the knee at its limit, the right foot hits the
+  neck bearing plate, 6.9 mm), re-measured with a 0.3 mm margin; **both-legs interlock**: never both legs forward of -30 while
+  both are toed out (feet collide, 8 mm). `data/hip_collision_map.json` (left, right, both), `JOINT_LIMITS.md`.
+- **Uno Q**: the hole next to the digital header takes an **M2 x 6 socket** (any M3 head overlaps the header by 0.7 mm; user
+  choice); lid pilot changed; BOM M2x6 36, M3x8 7.
+- 14 duplicate horn-screw stand-ins removed; BOM stale text fixed.
+- New tools: `tools/blender/clearance_sweep.py` (contacts + gaps under a margin, headless, ~1.5 s/pose; use it instead of
+  `leg_motion_check.py` volumes for anything thin), `tools/blender/hip_map_table.py` (map JSON + tables).
+- Found, not changed: at the hip-roll limit +19.5 the hip-yaw bearing is 0.3 mm from the L-bracket (under the 0.5 aimed for).
+- Still deferred by the user: battery protection (fuse, protection board, low-voltage cut-off) and clearances, regulator
+  placement. The review also found the robot can't stand on one foot (CoM 9 mm outside the foot at the roll limit, 74-77 % of
+  stall on the hip roll): walking needs a gait study before it is counted on.
+- Not redone after the Uno Q change: exploded views (build_args/README steps 6-10), lid STL export.
+
 ## Open items / next steps
 
 1. **Staged build** (agreed): print the coupon -> adjust fits (constants in `tools/blender/parts/joint_v2.py`: SEAT_D, BOSS_D,
@@ -191,7 +209,8 @@ Blender collections: `duck_v2_exploded` + `wiring_exploded` + `duck_v2_labels`, 
    for sit/stand, overload protection, fall detection -> torque off.
 4. **Walking**: no gait for this robot; must respect the hip map. **Get-up** study (optional, decides whether hardware must change).
 5. Not checked: fall loads on horns / one-sided joints (no retention clip, user decision), cables against moving parts, ankle
-   angles in the hip map.
+   angles in the hip map (both maps and the both-legs check have ankle 0).
+7. Walking feasibility: the independent review's single-support check (one foot) fails - see the 2026-11-15 state above.
 6. The trainnr robot `xgoduck_scs0009_v2i` has the earlier SIT angles (re-onboard as a new name if needed: onboarding never
    overwrites). `projects/xgoduck_scs0009/sim/assets_v2/` is an uncommitted duplicate of `sim/assets/` (delete freely).
 

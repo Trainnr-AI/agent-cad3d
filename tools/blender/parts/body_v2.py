@@ -394,8 +394,11 @@ for px, py in POSTS:
     lid_sub += L["screw_holes"](M, [(0, 0)], 0.0, LID_T, 0.0, -1, csk=False, cbore=0.7, cbore_d=4.4)   # head 0.7 down: room under the Uno Q for an M2 socket head
     if AUDIO:                                                               # room round the screw's head where the tray's rails pass
         lid_sub.append(L["add_cyl"](L["new_bm"](), px + 2.5 - HOME.x, py + 2.5 - HOME.y, ZL + LID_T - 0.02 - HOME.z, ZL + LID_T + 4.5 - HOME.z, 4.4, 24, Mt))
-for hx, hy in UNO_HOLES:                                                   # M3 thread-forming pilots down the posts and through the plate
-    lid_sub.append(L["add_cyl"](L["new_bm"](), UX0 + hx - HOME.x, UY0 + hy - HOME.y, ZL - 1.0 - HOME.z, uno_z + 1.0 - HOME.z, 2.5, 16, Mt))
+UNO_M2 = (15.24, 50.80)        # this hole is 2.05 mm from the JDIGITAL header's housing (datasheet sec. 12): any M3 head (dk 5.5) overlaps it
+                               # by 0.7 mm -> one M2 x 6 socket (row 19, dk 3.7) there instead (user 2026-11-15; independent review 2026-11-14)
+for hx, hy in UNO_HOLES:                                                   # M3 thread-forming pilots down the posts and through the plate (M2 at UNO_M2)
+    lid_sub.append(L["add_cyl"](L["new_bm"](), UX0 + hx - HOME.x, UY0 + hy - HOME.y, ZL - 1.0 - HOME.z, uno_z + 1.0 - HOME.z,
+                                L["PILOT_D"] if (hx, hy) == UNO_M2 else 2.5, 16, Mt))
 lid_sub.append(box((XR - 9.0) if EXT else XR - 1.0, XR + 9.0, CY - 12.0, CY + 12.0, ZL - 1.0, ZL + LID_T + 1.0))      # wire notch at the rear: battery / IMU / UART wires come up here to the board
 RG = dict(x0=-40.5, x1=-22.5, y0=CY - 15.5, y1=CY + 13.5)                 # upright battery: regulator (Mini560, 18 x 29 x 5.4) and switch
 SWV = dict(x0=-48.0, x1=-36.0, y0=CY + 14.0, y1=CY + 20.0)                   # (12 x 6 x 6, slider out of the left side opening) under the lid
@@ -449,10 +452,12 @@ if TRAY and args.get("uno_cover", False):
                                                               (MYf, CVS["b"][0] - HOME.x, -(CVS["b"][1] - HOME.z), uy1 + CG + CT - HOME.y, -1)], coll)
     cover_parts = [uno_cover, cv_scr]
 us = L["new_bm"]()
-for hx, hy in UNO_HOLES:                                                   # M3x8 socket-head screws: through the board (1.6) into the posts (6.4)
+for hx, hy in [h for h in UNO_HOLES if h != UNO_M2]:                      # M3x8 socket-head screws: through the board (1.6) into the posts (6.4)
     L["add_cyl"](us, UX0 + hx - HOME.x, UY0 + hy - HOME.y, uno_z + UNO["pcb"] - HOME.z, uno_z + UNO["pcb"] + 3.0 - HOME.z, 5.5, 24, Mt)
     L["add_cyl"](us, UX0 + hx - HOME.x, UY0 + hy - HOME.y, uno_z + UNO["pcb"] - 8.0 - HOME.z, uno_z + UNO["pcb"] + 0.01 - HOME.z, 3.0, 16, Mt)
 uno_screws = L["to_object"]("uno_screws_M3x8", us, coll, L["material"]("hw_steel", (0.6, 0.62, 0.66, 1)))
+uno_screw_m2 = L["pan_screw_dummy"]("uno_screw_M2x6", [(Mt @ Matrix.Translation(Vector((UX0 + UNO_M2[0] - HOME.x, UY0 + UNO_M2[1] - HOME.y,
+                                                                                        uno_z + UNO["pcb"] - HOME.z)) * MM), 0, 0, 0.0, -1)], coll)
 lid_screws = L["pan_screw_dummy"]("body_lid_screws_M2x6st", [(Mt @ Matrix.Translation(Vector((px + 2.5 - HOME.x, py + 2.5 - HOME.y, ZL + LID_T - HOME.z)) * MM), 0, 0, -0.7, -1) for px, py in POSTS], coll)
 
 # ------------------------------------------------------------------ electronics (boxes)
@@ -580,7 +585,7 @@ for _n in ("bus_screw_M2x6st",):                                              # 
     if _o:
         bpy.data.objects.remove(_o, do_unlink=True)
 ZT = ZP_FRONT
-for o in [x for x in [frame, enclosure, enc_screws, lid, lid_screws, shelf, shelf_screws, uno_screws, imu_screws] if x is not None] + elec + cover_parts:
+for o in [x for x in [frame, enclosure, enc_screws, lid, lid_screws, shelf, shelf_screws, uno_screws, uno_screw_m2, imu_screws] if x is not None] + elec + cover_parts:
     mw = o.matrix_world.copy()
     o.parent = trunk
     o.matrix_world = mw

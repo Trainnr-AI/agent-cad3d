@@ -111,7 +111,7 @@ if "neck" in args.get("parts", ["legs", "neck"]):
                                "power_switch": [-4, 26, 118], "body_lid": [0, 0, 140], "body_lid_screws_M2x6st": [0, 0, 156],
                                "uno_q": [0, 0, 172], "unoq_pcb": [0, 0, 172], "unoq_headers": [0, 0, 172], "unoq_usbc": [0, 0, 172],
                                "unoq_pins": [0, 0, 172], "unoq_bottom_connectors": [0, 0, 172], "unoq_top_parts": [0, 0, 172],
-                               "uno_screws_M3x8": [0, 0, 188], "uno_cover": [0, 0, 210], "uno_cover_screws_M2x6st": [0, 0, 250]})
+                               "uno_screws_M3x8": [0, 0, 188], "uno_screw_M2x6": [0, 0, 188], "uno_cover": [0, 0, 210], "uno_cover_screws_M2x6st": [0, 0, 250]})
         for n_, v_ in bay.items():
             off[n_] = BK + Vector(v_)
     cradle = Z * (1.5 * G) + (Vector((1.6 * G, 0, 0)) if HAS_BODY else Z * 0)      # forward, clear of the body's contents
