@@ -12,8 +12,9 @@ shafts ≤ Ø3 mm, caliper.
 1. **Measure** a servo's horn (hub Ø and height, plate thickness, arm widths, tip-to-tip), its horn screw and its mounting
    screws (length under the head, head Ø and height). The model assumes horn screw M2 × 4 (head Ø3.5 × 1.3) and mounting screws
    ≤ 7.2 mm long. Longer mounting screws: put an M2 nut from the Robu set under the head as a spacer.
-2. **Print the tolerance coupon** first: `exports/xgoduck_scs0009/print_coupon/` (5 pieces, 13 g; built by
-   `tools/blender/parts/tolerance_coupon.py` from the same joint code as the robot's parts). Same printer, filament and settings
+2. **Print the tolerance coupon** first: send the folder `projects/xgoduck_scs0009/print/test_batch/` to the printing service (its
+   PDF guide + 6 print-ready STLs, about 13 g: the 5 coupon pieces, built by `tools/blender/parts/tolerance_coupon.py` from the
+   same joint code as the robot's parts, and the horn trim jig; see `print/README.md`). Same printer, filament and settings
    as for the robot. Test with the real parts:
    - `coupon_knee_rotor` (print the bearing-seat face down): a **6702ZZ** presses into the Ø21.1 seat by hand and sits flat, and
      the outer ring does not rock; a **full X horn** pushes into the pocket underneath (crush ribs take up the play), no wobble.
