@@ -211,6 +211,7 @@ Last changes: deck's lower outer edge rounded r 1.5 for the hip cables (both sid
 cables + a slack loop at the neck (ASSEMBLY.md step 4), Uno Q cover relieved round the M3 heads (0.49 mm). Full check pass clean
 except the known, dispositioned items. **Re-run everything with `scripts/full_check.sh`** (headless, ~15-20 min; expected results:
 `projects/xgoduck_scs0009/data/check_args/README.md`). Next is the physical build: coupon -> one leg -> full robot.
+The test print package for the printing service (PDF guide + oriented STLs) is `projects/xgoduck_scs0009/print/test_batch/`.
 
 ## Open items / next steps
 
