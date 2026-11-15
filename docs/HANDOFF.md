@@ -205,6 +205,13 @@ An independent review (sister repo microduck-nano, `docs/project/design-review-2
   also require the nearest face to face away. Scripts run in the LIVE Blender must take paths from ARGS only: one that wrote to
   `sys.argv[-1]` overwrote the Blender executable (restored from the official 5.2.3 dmg, checksum verified).
 
+## Design closed (2026-11-15, end of session) - REVIEW.md "Final changes and full check; design closed"
+
+Last changes: deck's lower outer edge rounded r 1.5 for the hip cables (both sides), braided sleeve (BOM 13b) on the hip and neck
+cables + a slack loop at the neck (ASSEMBLY.md step 4), Uno Q cover relieved round the M3 heads (0.49 mm). Full check pass clean
+except the known, dispositioned items. **Re-run everything with `scripts/full_check.sh`** (headless, ~15-20 min; expected results:
+`projects/xgoduck_scs0009/data/check_args/README.md`). Next is the physical build: coupon -> one leg -> full robot.
+
 ## Open items / next steps
 
 1. **Staged build** (agreed): print the coupon -> adjust fits (constants in `tools/blender/parts/joint_v2.py`: SEAT_D, BOSS_D,

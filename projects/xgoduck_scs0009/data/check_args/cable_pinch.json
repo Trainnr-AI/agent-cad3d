@@ -1,0 +1,14 @@
+{
+ "wiring": "<repo>/tools/blender/wiring.py",
+ "wiring_args": {
+  "kit": "<repo>/tools/blender/parts/cable_kit.py",
+  "joint_lib": "<repo>/tools/blender/parts/joint_v2.py",
+  "base_lib": "<repo>/tools/blender/parts/joint_orig_style.py",
+  "dims": "<repo>/tools/blender/parts/scs0009_dims.py",
+  "collection": "wiring"
+ },
+ "ranges": "<repo>/projects/xgoduck_scs0009/sim/joint_ranges_v2.json",
+ "samples": 13,
+ "depth_mm": 0.5,
+ "out": "<out>/cable_pinch.json"
+}

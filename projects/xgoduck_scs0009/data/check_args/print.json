@@ -1,0 +1,11 @@
+{
+ "objects": [
+  "left_foot",
+  "right_foot",
+  "head_base",
+  "head_dome",
+  "head_jaw",
+  "head_face"
+ ],
+ "max_overhang_deg": 50
+}

@@ -1,0 +1,8 @@
+{
+ "exclude": [
+  "cable_stub"
+ ],
+ "tilts": [
+  0
+ ]
+}

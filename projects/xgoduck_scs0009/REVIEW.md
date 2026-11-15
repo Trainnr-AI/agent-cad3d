@@ -1614,3 +1614,32 @@ back or folded; listed in JOINT_LIMITS.md. Data in `data/hip_collision_map.json`
 
 **Housekeeping:** exploded views regenerated (build_args/README steps 6-10; they now show the Uno Q M2 screw); all 28 printed-part
 STLs re-exported (the two optional thigh covers unchanged).
+
+## Final changes and full check; design closed (2026-11-15)
+
+Full check of screws, assembly, fits, motion and wiring on the current model, then the last changes (user's choices):
+- **Deck edge for the hip cables** (user: round + sleeve). The walking chafe point is the deck plate's LOWER OUTER edge (not the
+  cap's top, as first said): from the yaw connector under the deck the hip-roll lead and the body-to-thigh extension rise to the
+  thigh beside the deck and wrap round that edge with the leg back. `body_v2.py` rounds it r 1.5 over x -4.9..11.2 (where the outer
+  face reaches the bottom), both sides: one prism cutter (a fan of separate wedges broke the exact boolean - caught on the test
+  copy: the frame came out as a 13.7 mm3 fragment). body_frame one piece, watertight, 19.16 g (-15.3 mm3, as computed); the old
+  corner is now 0.62 mm from the surface (r 1.5). The pinch check still reports these spans 2.3 mm into the deck: it models the
+  cable as a straight line, so it cannot see the round; the cable now bends over r 1.5 instead of 90 deg, inside a sleeve.
+- **Head cables** (user: sleeve + slack loop, head yaw keeps +-150): ASSEMBLY.md step 4.
+- **Uno Q cover** (user: widen): each M3 head overhangs the board edge by 0.21 mm and sat 0.09 mm from the cover's skirt; a Ø6.5
+  relief round each of the 3 M3 heads, from 0.6 under the board's top: gap 0.49 (0.5 less the facets). Cover one piece, 8.61 g.
+- BOM row 13b: 6 mm braided expandable sleeve, 1 m (uses ~30 cm).
+- Wiring cross-check: 13 kit hubs all 3 sockets used, 12 x 165 + 1 x 250 mm extensions, 15 leads, the adapter's 2 sockets, no
+  loops - matches the BOM.
+
+Full pass on the saved model (now `scripts/full_check.sh`, arguments in `data/check_args/`, README there with the expected results):
+rest pose OK; 27 printed parts one piece; printability unchanged; horns 15/15; fits 367 (2 known sampling artifacts - battery
+0.30 mm3, left hip-pitch servo 0.11 mm3 = 0.002 by exact boolean); assembly 55 paths OK + the left hip-yaw servo's L-path + the 3
+segment paths; screws 89, 26 flagged, all previously dispositioned (the M3 that was flagged by the header is now the M2, wall 1.62);
+motion sweep unchanged; cable reach 0 short; independent all-pairs check (microduck-nano static.py): no print-print > 0.02 mm, no
+servo-print > 0.06 mm.
+
+**Design closed** for the first build, with these open by the user's decision or by needing real parts: battery protection and
+clearances, regulator placement (deferred); everything marked "measure on arrival" (horn, kit screws, servo steps/deg and
+protection registers, switch lever, battery thickness, IMU holes); walking (one-foot balance fails - gait study) and get-up; fall
+loads. Changes after this go through the coupon / first-leg build.

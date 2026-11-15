@@ -1,0 +1,809 @@
+{
+"lib": "<repo>/tools/blender/overlap_sample.py",
+"step_mm": 0.5,
+"steps": [
+{
+"name": "left_hip_yaw: servo up into its holder",
+"part": "scs_left_hip_yaw_case",
+"frame": "scs_left_hip_yaw",
+"start_mm": -14,
+"against": [
+"body_frame"
+],
+"allow_final": []
+},
+{
+"name": "left_hip_yaw: moving part onto bearing and horn",
+"part": "left_yaw_connector",
+"frame": "scs_left_hip_yaw",
+"start_mm": 9,
+"against": [
+"body_frame",
+"scs_left_hip_yaw_case",
+"scs_left_hip_yaw_horn_cross",
+"left_hip_yaw_brg_6702ZZ"
+],
+"allow_final": [
+"scs_left_hip_yaw_horn_cross"
+]
+},
+{
+"name": "left_hip_roll: servo up into its holder",
+"part": "scs_left_hip_roll_case",
+"frame": "scs_left_hip_roll",
+"start_mm": -14,
+"against": [
+"left_yaw_connector"
+],
+"allow_final": []
+},
+{
+"name": "left_hip_roll: moving part onto bearing and horn",
+"part": "left_l_bracket",
+"frame": "scs_left_hip_roll",
+"start_mm": 9,
+"against": [
+"left_yaw_connector",
+"scs_left_hip_roll_case",
+"scs_left_hip_roll_horn_cross",
+"left_hip_roll_brg_6702ZZ"
+],
+"allow_final": [
+"scs_left_hip_roll_horn_cross"
+]
+},
+{
+"name": "left_hip_pitch: servo up into its holder",
+"part": "scs_left_hip_pitch_case",
+"frame": "scs_left_hip_pitch",
+"start_mm": -14,
+"against": [
+"left_thigh"
+],
+"allow_final": []
+},
+{
+"name": "left_hip_pitch: moving part onto bearing and horn",
+"part": "left_l_bracket",
+"frame": "scs_left_hip_pitch",
+"start_mm": 9,
+"against": [
+"left_thigh",
+"scs_left_hip_pitch_case",
+"scs_left_hip_pitch_horn_cross",
+"left_hip_pitch_brg_6702ZZ"
+],
+"allow_final": [
+"scs_left_hip_pitch_horn_cross"
+]
+},
+{
+"name": "left_knee: servo up into its holder",
+"part": "scs_left_knee_case",
+"frame": "scs_left_knee",
+"start_mm": -14,
+"against": [
+"left_thigh"
+],
+"allow_final": []
+},
+{
+"name": "left_knee: shin (full horn in its pocket) onto the spline",
+"part": "left_shin",
+"frame": "scs_left_knee",
+"start_mm": 10,
+"against": [
+"left_thigh",
+"scs_left_knee_case",
+"scs_left_knee_horn_cross",
+"left_l_bracket",
+"scs_left_hip_pitch_case"
+],
+"allow_final": [
+"scs_left_knee_horn_cross"
+]
+},
+{
+"name": "left_knee: horn screw",
+"part": "left_knee_screw_M2x4kit",
+"frame": "scs_left_knee",
+"start_mm": 14,
+"against": [
+"left_shin",
+"left_thigh",
+"left_l_bracket",
+"scs_left_hip_pitch_case"
+],
+"allow_final": []
+},
+{
+"name": "left_knee: 6702ZZ into the shin's seat",
+"part": "left_knee_brg_6702ZZ",
+"frame": "scs_left_knee",
+"start_mm": 10,
+"against": [
+"left_shin",
+"left_thigh",
+"left_knee_screw_M2x4kit",
+"left_l_bracket",
+"scs_left_hip_pitch_case"
+],
+"allow_final": [
+"left_shin"
+]
+},
+{
+"name": "left_knee: cap down: boss into the bearing, post onto the thigh",
+"part": "left_knee_cap",
+"frame": "scs_left_knee",
+"start_mm": 12,
+"against": [
+"left_shin",
+"left_knee_brg_6702ZZ",
+"left_thigh",
+"left_knee_screw_M2x4kit",
+"left_l_bracket",
+"scs_left_hip_pitch_case"
+],
+"allow_final": [
+"left_knee_brg_6702ZZ",
+"left_thigh"
+]
+},
+{
+"name": "left_knee: 2 cap screws",
+"part": "left_knee_cap_screws_M2x6",
+"frame": "scs_left_knee",
+"start_mm": 14,
+"against": [
+"left_knee_cap",
+"left_shin",
+"left_thigh",
+"left_l_bracket",
+"scs_left_hip_pitch_case"
+],
+"allow_final": [
+"left_knee_cap",
+"left_thigh"
+]
+},
+{
+"name": "left_ankle: servo down into its cradle",
+"part": "scs_left_ankle_case",
+"frame": "scs_left_ankle",
+"start_mm": 14,
+"against": [
+"left_shin"
+],
+"allow_final": []
+},
+{
+"name": "left_ankle: moving part onto the horn",
+"part": "left_foot",
+"frame": "scs_left_ankle",
+"start_mm": 7,
+"against": [
+"left_shin",
+"scs_left_ankle_case",
+"scs_left_ankle_horn_cross"
+],
+"allow_final": [
+"scs_left_ankle_horn_cross"
+]
+},
+{
+"name": "left_ankle: bearing plate on from the other side",
+"part": "left_foot_bearing_plate",
+"frame": "scs_left_ankle",
+"start_mm": -9,
+"against": [
+"left_shin",
+"scs_left_ankle_case",
+"left_foot",
+"left_ankle_nut_M3"
+],
+"allow_final": [
+"left_foot"
+]
+},
+{
+"name": "right_hip_yaw: servo up into its holder",
+"part": "scs_right_hip_yaw_case",
+"frame": "scs_right_hip_yaw",
+"start_mm": -14,
+"against": [
+"body_frame"
+],
+"allow_final": []
+},
+{
+"name": "right_hip_yaw: moving part onto bearing and horn",
+"part": "right_yaw_connector",
+"frame": "scs_right_hip_yaw",
+"start_mm": 9,
+"against": [
+"body_frame",
+"scs_right_hip_yaw_case",
+"scs_right_hip_yaw_horn_cross",
+"right_hip_yaw_brg_6702ZZ"
+],
+"allow_final": [
+"scs_right_hip_yaw_horn_cross"
+]
+},
+{
+"name": "right_hip_roll: servo up into its holder",
+"part": "scs_right_hip_roll_case",
+"frame": "scs_right_hip_roll",
+"start_mm": -14,
+"against": [
+"right_yaw_connector"
+],
+"allow_final": []
+},
+{
+"name": "right_hip_roll: moving part onto bearing and horn",
+"part": "right_l_bracket",
+"frame": "scs_right_hip_roll",
+"start_mm": 9,
+"against": [
+"right_yaw_connector",
+"scs_right_hip_roll_case",
+"scs_right_hip_roll_horn_cross",
+"right_hip_roll_brg_6702ZZ"
+],
+"allow_final": [
+"scs_right_hip_roll_horn_cross"
+]
+},
+{
+"name": "right_hip_pitch: servo up into its holder",
+"part": "scs_right_hip_pitch_case",
+"frame": "scs_right_hip_pitch",
+"start_mm": -14,
+"against": [
+"right_thigh"
+],
+"allow_final": []
+},
+{
+"name": "right_hip_pitch: moving part onto bearing and horn",
+"part": "right_l_bracket",
+"frame": "scs_right_hip_pitch",
+"start_mm": 9,
+"against": [
+"right_thigh",
+"scs_right_hip_pitch_case",
+"scs_right_hip_pitch_horn_cross",
+"right_hip_pitch_brg_6702ZZ"
+],
+"allow_final": [
+"scs_right_hip_pitch_horn_cross"
+]
+},
+{
+"name": "right_knee: servo up into its holder",
+"part": "scs_right_knee_case",
+"frame": "scs_right_knee",
+"start_mm": -14,
+"against": [
+"right_thigh"
+],
+"allow_final": []
+},
+{
+"name": "right_knee: shin (full horn in its pocket) onto the spline",
+"part": "right_shin",
+"frame": "scs_right_knee",
+"start_mm": 10,
+"against": [
+"right_thigh",
+"scs_right_knee_case",
+"scs_right_knee_horn_cross",
+"right_l_bracket",
+"scs_right_hip_pitch_case"
+],
+"allow_final": [
+"scs_right_knee_horn_cross"
+]
+},
+{
+"name": "right_knee: horn screw",
+"part": "right_knee_screw_M2x4kit",
+"frame": "scs_right_knee",
+"start_mm": 14,
+"against": [
+"right_shin",
+"right_thigh",
+"right_l_bracket",
+"scs_right_hip_pitch_case"
+],
+"allow_final": []
+},
+{
+"name": "right_knee: 6702ZZ into the shin's seat",
+"part": "right_knee_brg_6702ZZ",
+"frame": "scs_right_knee",
+"start_mm": 10,
+"against": [
+"right_shin",
+"right_thigh",
+"right_knee_screw_M2x4kit",
+"right_l_bracket",
+"scs_right_hip_pitch_case"
+],
+"allow_final": [
+"right_shin"
+]
+},
+{
+"name": "right_knee: cap down: boss into the bearing, post onto the thigh",
+"part": "right_knee_cap",
+"frame": "scs_right_knee",
+"start_mm": 12,
+"against": [
+"right_shin",
+"right_knee_brg_6702ZZ",
+"right_thigh",
+"right_knee_screw_M2x4kit",
+"right_l_bracket",
+"scs_right_hip_pitch_case"
+],
+"allow_final": [
+"right_knee_brg_6702ZZ",
+"right_thigh"
+]
+},
+{
+"name": "right_knee: 2 cap screws",
+"part": "right_knee_cap_screws_M2x6",
+"frame": "scs_right_knee",
+"start_mm": 14,
+"against": [
+"right_knee_cap",
+"right_shin",
+"right_thigh",
+"right_l_bracket",
+"scs_right_hip_pitch_case"
+],
+"allow_final": [
+"right_knee_cap",
+"right_thigh"
+]
+},
+{
+"name": "right_ankle: servo down into its cradle",
+"part": "scs_right_ankle_case",
+"frame": "scs_right_ankle",
+"start_mm": 14,
+"against": [
+"right_shin"
+],
+"allow_final": []
+},
+{
+"name": "right_ankle: moving part onto the horn",
+"part": "right_foot",
+"frame": "scs_right_ankle",
+"start_mm": 7,
+"against": [
+"right_shin",
+"scs_right_ankle_case",
+"scs_right_ankle_horn_cross"
+],
+"allow_final": [
+"scs_right_ankle_horn_cross"
+]
+},
+{
+"name": "right_ankle: bearing plate on from the other side",
+"part": "right_foot_bearing_plate",
+"frame": "scs_right_ankle",
+"start_mm": -9,
+"against": [
+"right_shin",
+"scs_right_ankle_case",
+"right_foot",
+"right_ankle_nut_M3"
+],
+"allow_final": [
+"right_foot"
+]
+},
+{
+"name": "neck_pitch: servo down into its cradle",
+"part": "scs_neck_pitch_case",
+"frame": "scs_neck_pitch",
+"start_mm": 14,
+"against": [
+"neck_cradle"
+],
+"allow_final": []
+},
+{
+"name": "neck_pitch: moving part onto the horn",
+"part": "body_frame",
+"frame": "scs_neck_pitch",
+"start_mm": 7,
+"against": [
+"neck_cradle",
+"scs_neck_pitch_case",
+"scs_neck_pitch_horn_cross"
+],
+"allow_final": [
+"scs_neck_pitch_horn_cross"
+]
+},
+{
+"name": "neck_pitch: bearing plate on from the other side",
+"part": "body_neck_bearing_plate",
+"frame": "scs_neck_pitch",
+"start_mm": -9,
+"against": [
+"neck_cradle",
+"scs_neck_pitch_case",
+"body_frame",
+"neck_nut_M3"
+],
+"allow_final": [
+"body_frame"
+]
+},
+{
+"name": "head_pitch: servo down into its cradle",
+"part": "scs_head_pitch_case",
+"frame": "scs_head_pitch",
+"start_mm": 14,
+"against": [
+"neck_cradle"
+],
+"allow_final": []
+},
+{
+"name": "head_pitch: moving part onto the horn",
+"part": "head_pitch_u",
+"frame": "scs_head_pitch",
+"start_mm": 7,
+"against": [
+"neck_cradle",
+"scs_head_pitch_case",
+"scs_head_pitch_horn_cross"
+],
+"allow_final": [
+"scs_head_pitch_horn_cross"
+]
+},
+{
+"name": "head_pitch: bearing plate on from the other side",
+"part": "head_pitch_bearing_plate",
+"frame": "scs_head_pitch",
+"start_mm": -9,
+"against": [
+"neck_cradle",
+"scs_head_pitch_case",
+"head_pitch_u",
+"head_pitch_nut_M3"
+],
+"allow_final": [
+"head_pitch_u"
+]
+},
+{
+"name": "head_yaw: servo up into its holder",
+"part": "scs_head_yaw_case",
+"frame": "scs_head_yaw",
+"start_mm": -14,
+"against": [
+"yaw_block"
+],
+"allow_final": []
+},
+{
+"name": "head_yaw: moving part onto bearing and horn",
+"part": "head_pitch_u",
+"frame": "scs_head_yaw",
+"start_mm": 9,
+"against": [
+"yaw_block",
+"scs_head_yaw_case",
+"scs_head_yaw_horn_cross",
+"head_yaw_brg_6702ZZ"
+],
+"allow_final": [
+"scs_head_yaw_horn_cross"
+]
+},
+{
+"name": "left: leg hangs on the hip-roll horn - left_l_bracket",
+"part": "left_l_bracket",
+"frame": "scs_left_hip_roll",
+"start_mm": 9,
+"against": [
+"left_yaw_connector",
+"scs_left_hip_roll_case",
+"scs_left_hip_roll_horn_cross",
+"left_hip_roll_brg_6702ZZ",
+"body_frame",
+"electronics_enclosure",
+"scs_left_hip_yaw_case"
+],
+"allow_final": [
+"scs_left_hip_roll_horn_cross"
+]
+},
+{
+"name": "left: leg hangs on the hip-roll horn - left_thigh",
+"part": "left_thigh",
+"frame": "scs_left_hip_roll",
+"start_mm": 9,
+"against": [
+"left_yaw_connector",
+"scs_left_hip_roll_case",
+"scs_left_hip_roll_horn_cross",
+"left_hip_roll_brg_6702ZZ",
+"body_frame",
+"electronics_enclosure",
+"scs_left_hip_yaw_case"
+],
+"allow_final": []
+},
+{
+"name": "left: leg hangs on the hip-roll horn - left_shin",
+"part": "left_shin",
+"frame": "scs_left_hip_roll",
+"start_mm": 9,
+"against": [
+"left_yaw_connector",
+"scs_left_hip_roll_case",
+"scs_left_hip_roll_horn_cross",
+"left_hip_roll_brg_6702ZZ",
+"body_frame",
+"electronics_enclosure",
+"scs_left_hip_yaw_case"
+],
+"allow_final": []
+},
+{
+"name": "left: leg hangs on the hip-roll horn - left_knee_cap",
+"part": "left_knee_cap",
+"frame": "scs_left_hip_roll",
+"start_mm": 9,
+"against": [
+"left_yaw_connector",
+"scs_left_hip_roll_case",
+"scs_left_hip_roll_horn_cross",
+"left_hip_roll_brg_6702ZZ",
+"body_frame",
+"electronics_enclosure",
+"scs_left_hip_yaw_case"
+],
+"allow_final": []
+},
+{
+"name": "left: leg hangs on the hip-roll horn - left_foot",
+"part": "left_foot",
+"frame": "scs_left_hip_roll",
+"start_mm": 9,
+"against": [
+"left_yaw_connector",
+"scs_left_hip_roll_case",
+"scs_left_hip_roll_horn_cross",
+"left_hip_roll_brg_6702ZZ",
+"body_frame",
+"electronics_enclosure",
+"scs_left_hip_yaw_case"
+],
+"allow_final": []
+},
+{
+"name": "left: leg hangs on the hip-roll horn - left_foot_bearing_plate",
+"part": "left_foot_bearing_plate",
+"frame": "scs_left_hip_roll",
+"start_mm": 9,
+"against": [
+"left_yaw_connector",
+"scs_left_hip_roll_case",
+"scs_left_hip_roll_horn_cross",
+"left_hip_roll_brg_6702ZZ",
+"body_frame",
+"electronics_enclosure",
+"scs_left_hip_yaw_case"
+],
+"allow_final": []
+},
+{
+"name": "left: leg hangs on the hip-roll horn - scs_left_hip_pitch_case",
+"part": "scs_left_hip_pitch_case",
+"frame": "scs_left_hip_roll",
+"start_mm": 9,
+"against": [
+"left_yaw_connector",
+"scs_left_hip_roll_case",
+"scs_left_hip_roll_horn_cross",
+"left_hip_roll_brg_6702ZZ",
+"body_frame",
+"electronics_enclosure",
+"scs_left_hip_yaw_case"
+],
+"allow_final": []
+},
+{
+"name": "left: leg hangs on the hip-roll horn - scs_left_knee_case",
+"part": "scs_left_knee_case",
+"frame": "scs_left_hip_roll",
+"start_mm": 9,
+"against": [
+"left_yaw_connector",
+"scs_left_hip_roll_case",
+"scs_left_hip_roll_horn_cross",
+"left_hip_roll_brg_6702ZZ",
+"body_frame",
+"electronics_enclosure",
+"scs_left_hip_yaw_case"
+],
+"allow_final": []
+},
+{
+"name": "left: leg hangs on the hip-roll horn - scs_left_ankle_case",
+"part": "scs_left_ankle_case",
+"frame": "scs_left_hip_roll",
+"start_mm": 9,
+"against": [
+"left_yaw_connector",
+"scs_left_hip_roll_case",
+"scs_left_hip_roll_horn_cross",
+"left_hip_roll_brg_6702ZZ",
+"body_frame",
+"electronics_enclosure",
+"scs_left_hip_yaw_case"
+],
+"allow_final": []
+},
+{
+"name": "right: leg hangs on the hip-roll horn - right_l_bracket",
+"part": "right_l_bracket",
+"frame": "scs_right_hip_roll",
+"start_mm": 9,
+"against": [
+"right_yaw_connector",
+"scs_right_hip_roll_case",
+"scs_right_hip_roll_horn_cross",
+"right_hip_roll_brg_6702ZZ",
+"body_frame",
+"electronics_enclosure",
+"scs_right_hip_yaw_case"
+],
+"allow_final": [
+"scs_right_hip_roll_horn_cross"
+]
+},
+{
+"name": "right: leg hangs on the hip-roll horn - right_thigh",
+"part": "right_thigh",
+"frame": "scs_right_hip_roll",
+"start_mm": 9,
+"against": [
+"right_yaw_connector",
+"scs_right_hip_roll_case",
+"scs_right_hip_roll_horn_cross",
+"right_hip_roll_brg_6702ZZ",
+"body_frame",
+"electronics_enclosure",
+"scs_right_hip_yaw_case"
+],
+"allow_final": []
+},
+{
+"name": "right: leg hangs on the hip-roll horn - right_shin",
+"part": "right_shin",
+"frame": "scs_right_hip_roll",
+"start_mm": 9,
+"against": [
+"right_yaw_connector",
+"scs_right_hip_roll_case",
+"scs_right_hip_roll_horn_cross",
+"right_hip_roll_brg_6702ZZ",
+"body_frame",
+"electronics_enclosure",
+"scs_right_hip_yaw_case"
+],
+"allow_final": []
+},
+{
+"name": "right: leg hangs on the hip-roll horn - right_knee_cap",
+"part": "right_knee_cap",
+"frame": "scs_right_hip_roll",
+"start_mm": 9,
+"against": [
+"right_yaw_connector",
+"scs_right_hip_roll_case",
+"scs_right_hip_roll_horn_cross",
+"right_hip_roll_brg_6702ZZ",
+"body_frame",
+"electronics_enclosure",
+"scs_right_hip_yaw_case"
+],
+"allow_final": []
+},
+{
+"name": "right: leg hangs on the hip-roll horn - right_foot",
+"part": "right_foot",
+"frame": "scs_right_hip_roll",
+"start_mm": 9,
+"against": [
+"right_yaw_connector",
+"scs_right_hip_roll_case",
+"scs_right_hip_roll_horn_cross",
+"right_hip_roll_brg_6702ZZ",
+"body_frame",
+"electronics_enclosure",
+"scs_right_hip_yaw_case"
+],
+"allow_final": []
+},
+{
+"name": "right: leg hangs on the hip-roll horn - right_foot_bearing_plate",
+"part": "right_foot_bearing_plate",
+"frame": "scs_right_hip_roll",
+"start_mm": 9,
+"against": [
+"right_yaw_connector",
+"scs_right_hip_roll_case",
+"scs_right_hip_roll_horn_cross",
+"right_hip_roll_brg_6702ZZ",
+"body_frame",
+"electronics_enclosure",
+"scs_right_hip_yaw_case"
+],
+"allow_final": []
+},
+{
+"name": "right: leg hangs on the hip-roll horn - scs_right_hip_pitch_case",
+"part": "scs_right_hip_pitch_case",
+"frame": "scs_right_hip_roll",
+"start_mm": 9,
+"against": [
+"right_yaw_connector",
+"scs_right_hip_roll_case",
+"scs_right_hip_roll_horn_cross",
+"right_hip_roll_brg_6702ZZ",
+"body_frame",
+"electronics_enclosure",
+"scs_right_hip_yaw_case"
+],
+"allow_final": []
+},
+{
+"name": "right: leg hangs on the hip-roll horn - scs_right_knee_case",
+"part": "scs_right_knee_case",
+"frame": "scs_right_hip_roll",
+"start_mm": 9,
+"against": [
+"right_yaw_connector",
+"scs_right_hip_roll_case",
+"scs_right_hip_roll_horn_cross",
+"right_hip_roll_brg_6702ZZ",
+"body_frame",
+"electronics_enclosure",
+"scs_right_hip_yaw_case"
+],
+"allow_final": []
+},
+{
+"name": "right: leg hangs on the hip-roll horn - scs_right_ankle_case",
+"part": "scs_right_ankle_case",
+"frame": "scs_right_hip_roll",
+"start_mm": 9,
+"against": [
+"right_yaw_connector",
+"scs_right_hip_roll_case",
+"scs_right_hip_roll_horn_cross",
+"right_hip_roll_brg_6702ZZ",
+"body_frame",
+"electronics_enclosure",
+"scs_right_hip_yaw_case"
+],
+"allow_final": []
+}
+]
+}

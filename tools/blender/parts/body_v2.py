@@ -232,6 +232,35 @@ Mc = Mt @ Matrix.Translation(Vector((nx + 3.1 - HOME.x, 0.0, z_web - HOME.z)) * 
 cuts.append(L["add_box"](L["new_bm"](), -12.0, 12.0, y_in - 1.0 - HOME.y, y_out - (ARM[1] - ARM[0]) - 0.35 - HOME.y, 0.0, 14.0, Mc))
 for y in JOIN_Y:                                                           # pilots in the deck's rear edge for the enclosure's screws
     cuts.append(L["add_cyl"](L["new_bm"](), *xpt(CY + y, z_join), X_JOIN - HOME.x - 0.5, X_JOIN - HOME.x + (8.0 if VBAT else 4.6), L["PILOT_D"], 14, MX))   # upright bay: M2x10 countersunk (Robu), tip at +2.4; deck solid to +6.4
+# 2026-11-15: round the deck's lower OUTER edge (both sides), front part (x -4.9..11.2, where the outer face reaches the bottom): in
+# walking (leg back ~46 deg, toed in, rolled out) the hip-roll leads and the body-to-thigh extensions run from the yaw connector under
+# the deck up to the thigh and wrap round this edge, every step (cable_pinch_check.py, 2.3 mm). r 1.5: ONE prism along x whose y-z
+# profile is the corner minus the quarter circle (a fan of separate wedges broke the exact boolean).
+EDGE_R = args.get("cable_edge_r", 1.5)
+
+
+def x_prism(poly_yz, x0, x1):
+    """closed prism along layout x through the y-z polygon (layout mm)"""
+    import bmesh
+    bm = bmesh.new()
+    W = lambda x, y, z: Mt @ ((Vector((x, y, z)) - HOME) * MM)
+    A = [bm.verts.new(W(x0, y, z)) for y, z in poly_yz]
+    B = [bm.verts.new(W(x1, y, z)) for y, z in poly_yz]
+    n = len(poly_yz)
+    for i in range(n):
+        bm.faces.new((A[i], A[(i + 1) % n], B[(i + 1) % n], B[i]))
+    bm.faces.new(A[::-1])
+    bm.faces.new(B)
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    return bm
+
+
+if EDGE_R:
+    for y_e, s_ in ((cap_yL[1], -1.0), (cap_yR[0], +1.0)):                   # s_: from the outer face into the deck
+        yc, zc = y_e + s_ * EDGE_R, z_deck0 + EDGE_R
+        arc = [(yc - s_ * EDGE_R * math.cos(t), zc - EDGE_R * math.sin(t)) for t in (math.pi / 2 * k / 12 for k in range(13))]
+        poly = [(y_e - s_ * 0.4, z_deck0 - 0.4), (y_e - s_ * 0.4, zc)] + arc + [(yc, z_deck0 - 0.4)]   # corner pushed out of the part
+        cuts.append(x_prism(poly, -6.0, 11.0))
 frame = finish("body_frame", L["build_part"]("body_frame", [L["combine_cutters"](body_solids + [pedestal, ped_gusset, ped_foot, web] + cL + cR)] + a_add,   # all simple solids unioned first
                                              a_sub + [L["combine_cutters"](sL), L["combine_cutters"](sR)] + cuts, coll, mat_frame, a_rib))   # each cap's cuts as ONE cutter
 enc_cuts = []
@@ -429,6 +458,9 @@ if TRAY and args.get("uno_cover", False):
                box(UX0 + 57.0, UX0 + 66.0, uy1 - 1.0, uy1 + CG + CT + 0.5, zc0 - 1.0, uno_z + UNO["pcb"] + 11.0),  # UART wires (left)
                L["add_cyl"](L["new_bm"](), CVS["a"][0] - HOME.x, -(CVS["a"][1] - HOME.z), uy0 - CG - CT - 0.5 - HOME.y, uy0 - CG + 0.5 - HOME.y, L["CLEAR_D"], 14, MYf),
                L["add_cyl"](L["new_bm"](), CVS["b"][0] - HOME.x, -(CVS["b"][1] - HOME.z), uy1 + CG - 0.5 - HOME.y, uy1 + CG + CT + 0.5 - HOME.y, L["CLEAR_D"], 14, MYf)]
+    for hx, hy in [h for h in UNO_HOLES if h != UNO_M2]:                 # 2026-11-15: room round the M3 heads (dk 5.5 + 0.5 all round): they
+        cap_cut.append(L["add_cyl"](L["new_bm"](), UX0 + hx - HOME.x, UY0 + hy - HOME.y,       # overhang the board's edge by 0.2 and sat 0.09
+                                    uno_z + UNO["pcb"] - 0.6 - HOME.z, uno_z + UNO["pcb"] + 3.5 - HOME.z, 6.5, 28, Mt))   # from the skirt (0.6 under the head's overhang)
     uno_cover = L["build_part"]("uno_cover", [cap], cap_cut, coll, L["material"]("uno_cover", (0.25, 0.3, 0.38, 1)))
     if args.get("neck_sweep"):
         # the neck and the head-pitch U swing down over the board's front when the neck leans back (STAND +20, SIT +29 deg;
