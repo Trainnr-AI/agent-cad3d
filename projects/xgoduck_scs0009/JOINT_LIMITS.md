@@ -6,6 +6,13 @@ in the MJCF. Decided with the user 2026-11-13. **Updated 2026-11-15** after the 
 `docs/project/design-review-2026-11-14.md`): head roll x yaw narrowed, hip map re-measured with a clearance margin for each leg
 separately, both-legs interlock added (`tools/blender/clearance_sweep.py`; REVIEW.md "Independent review fixes").
 
+**CLOSED for the first build (2026-11-18).** Every servo-limit end below is clear by **>= 0.5 mm** on the exact parts (each
+joint alone at both ends, `clearance_sweep.py`: tightest hip roll 0.56, ankle 0.50-0.51, head yaw -150 0.73; the rest > 0.8);
+for that, hip roll outward went +19.5 -> **+18.5** and the ankle -86 -> **-85** (one degree each; no motion uses them). The software
+interlocks (section 2) hold >= 0.3 mm, the sweep tool's accuracy floor. **Machine-readable** (what the firmware imports):
+`sim/joint_ranges_v2.json` - `joints` (servo limits, beak included) and `interlocks` (head roll x yaw, knee x ankle, both legs,
+hip maps, sit / stand) - with the full pose data in `data/hip_collision_map.json`. Change a limit there and here together.
+
 Three layers, because a servo's own angle limit acts on ONE joint and most collisions are combinations:
 
 1. **Servo angle limits** (stored in each servo: Min/Max Angle Limit, SCS/SCSCL registers 9 and 11, 2 bytes, 0..1023 steps).
@@ -26,10 +33,10 @@ the position at two known angles) before writing limits. Example: a joint zero a
 | Joint | Model range | **Servo limit** | Why | Measured |
 |---|---|---|---|---|
 | hip yaw L / R | -12.6..+25.8 / -25.8..+12.6 | **L -6.3..+19, R -19..+6.3** (+ = foot outward) | outward 25.8: the two L-brackets and yaw connectors collide (today's parts); inward + roll inward: knee caps vs enclosure | box corners 0.57-2.66 mm |
-| hip roll L / R | +-22 | **L -12..+19.5, R -19.5..+12** (- = feet together) | roll -22: the feet collide at any yaw | (with hip yaw, as above); at +19.5 the hip-yaw bearing is **0.29-0.30 mm** from the L-bracket (2026-11-15, point-to-surface; under the 0.5 aimed for, not touching) |
+| hip roll L / R | +-22 | **L -12..+18.5, R -18.5..+12** (- = feet together) | roll -22: the feet collide at any yaw; outward: the hip-yaw bearing comes to the L-bracket | (with hip yaw, as above); hip-yaw bearing to L-bracket (any pitch / yaw): 0.68 mm at 18, **0.56 at 18.5**, 0.43 at 19, 0.30 at 19.5 (was the limit until 2026-11-18) |
 | hip pitch L / R | -90..+85 / -85..+90 | unchanged | alone: clear over the range | 5 deg sweep |
 | knee L / R | -90..+68 / -68..+90 | unchanged | alone: clear | 5 deg sweep |
-| ankle L / R | -86..+90 / -90..+86 | unchanged | alone: clear | 5 deg sweep; 2026-11-15: at -86 the foot is **0.17 mm** from the thigh, at +90 0.50 from the shin (any knee <= 30; not touching, under the 0.5 aimed for) |
+| ankle L / R | -86..+90 / -90..+86 | **L -85..+90, R -90..+85** | -86: the foot comes to the thigh | 2026-11-18, any knee 0..30: at **-85** foot to thigh 0.65, to shin 0.51; at -86 the thigh drops to 0.17 (was the limit until 2026-11-18); at +90 0.50 from the shin |
 | neck pitch | -80..+40 | **-80..+30** (user: option A) | +40 alone: head base vs Uno Q cover 71 mm3 | corners >= 1.36 mm |
 | head pitch | -45..+65 | **-5..+65** (user: option A) | neck +10..+40 with head -45..-5: U / bearing plate vs head base | corners >= 1.36 mm |
 | head yaw | -150..+150 | **+-150** | alone: clear | 5 deg sweep |
@@ -73,9 +80,9 @@ The microduck-nano firmware already uses +-1.0.
 ### Hip maps: allowed hip roll by hip pitch and hip yaw, one table per leg
 
 Measured 2026-11-15 on the exact parts with `tools/blender/clearance_sweep.py` (replaces the left-only map of 2026-11-14): for
-EACH leg 1,248 poses (hip pitch -90..+85, roll -12..+19.5, yaw -6.3 / 0 / +19, knee -90 / -45 / 0 / +68; ankle 0), plus 2,496 with
+EACH leg 1,248 poses (hip pitch -90..+85, roll -12..+19.5 (the servo limit is now +18.5: read "+19.5" in the tables as "up to the limit"), yaw -6.3 / 0 / +19, knee -90 / -45 / 0 / +68; ankle 0), plus 2,496 with
 both legs moving. A cell allows a roll when no knee of its group collides (surfaces crossing deeper than 0.05 mm) and no gap is
-under **0.3 mm** (the tool's accuracy floor; the hip-yaw bearing's 0.3 mm at roll +19.5 belongs to that roll limit, above, and is
+under **0.3 mm** (the tool's accuracy floor; the hip-yaw bearing's 0.3 mm at roll +19.5 belonged to that roll limit, above - now +18.5, 0.56 mm - and is
 left out). Full data, every pose with its contacts and gaps: `data/hip_collision_map.json` (`poses` = left, `right_poses` = right,
 `both_legs_poses`), tables printed by `tools/blender/hip_map_table.py`.
 

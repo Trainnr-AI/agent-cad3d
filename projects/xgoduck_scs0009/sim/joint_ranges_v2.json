@@ -1,4 +1,5 @@
 {
+ "status": "FINAL for the first build (2026-11-18). Servo angle limits: every end clear by >= 0.5 mm on the exact parts (tools/blender/clearance_sweep.py). Combinations a per-joint limit cannot block: 'interlocks' (clear by >= 0.3 mm, the sweep tool's accuracy floor). Human-readable: JOINT_LIMITS.md.",
  "joints": {
   "left_hip_yaw": [
    -6.3,
@@ -10,10 +11,10 @@
   ],
   "left_hip_roll": [
    -12.0,
-   19.5
+   18.5
   ],
   "right_hip_roll": [
-   -19.5,
+   -18.5,
    12.0
   ],
   "left_hip_pitch": [
@@ -33,12 +34,12 @@
    90.0
   ],
   "left_ankle": [
-   -86.0,
+   -85.0,
    90.0
   ],
   "right_ankle": [
    -90.0,
-   86.0
+   85.0
   ],
   "neck_pitch": [
    -80.0,
@@ -55,6 +56,10 @@
   "head_roll": [
    -15.0,
    15.0
+  ],
+  "beak": [
+   0.0,
+   35.0
   ]
  },
  "keyframes": {
@@ -79,6 +84,67 @@
    "head_pitch": 57.3
   }
  },
+ "servo_torque_nm": 0.1883,
+ "interlocks": {
+  "_signs": "degrees from each joint's zero, MJCF signs. Rules written in the LEFT leg's signs; for the right leg flip the sign of every hip/knee/ankle angle before applying.",
+  "head_roll_yaw": {
+   "rule": "head roll may leave 0 only while abs(head_yaw) <= 1.0; head yaw may leave 0 only while abs(head_roll) <= 1.0",
+   "abs_head_yaw_max_for_roll_deg": 1.0,
+   "abs_head_roll_max_for_yaw_deg": 1.0,
+   "min_gap_mm": 0.31
+  },
+  "knee_ankle": {
+   "rule": "with the knee bent past +30 (left signs), ankle >= the value for the next row at or above the knee angle (the stricter neighbour)",
+   "knee_gt_deg": 30.0,
+   "ankle_min_by_knee_deg": [
+    [
+     40,
+     -60
+    ],
+    [
+     45,
+     -45
+    ],
+    [
+     50,
+     -45
+    ],
+    [
+     55,
+     -35
+    ],
+    [
+     60,
+     -25
+    ],
+    [
+     64,
+     -10
+    ],
+    [
+     68,
+     0
+    ]
+   ],
+   "data": "data/hip_collision_map.json: knee_ankle_left, knee_ankle_right"
+  },
+  "both_legs": {
+   "rule": "never both legs forward of hip pitch -30 (left signs) while both hips are toed out (hip yaw > 0, left signs)",
+   "left": "left_hip_pitch < -30 and left_hip_yaw > 0",
+   "right": "right_hip_pitch > 30 and right_hip_yaw < 0",
+   "forbidden_when": "left and right",
+   "data": "data/hip_collision_map.json: both_legs_poses"
+  },
+  "hip_maps": {
+   "rule": "allowed hip roll by hip pitch x hip yaw x knee, ONE MAP PER LEG (the right is not a mirror); between grid values use the stricter neighbour; a cell's roll is also capped by the servo limit (+18.5)",
+   "data": "data/hip_collision_map.json: poses (left), right_poses (right, in left signs), margin 0.3 mm",
+   "ankle_raised": "with the ankle at +-23 extra cells collide: data/hip_collision_map.json ankle_pm23_left / ankle_pm23_right"
+  },
+  "sit_stand": {
+   "rule": "sit / stand only along the checked path: STAND <-> SIT in a straight joint-space line, >= 3 s each way, IMU ankle balance on",
+   "min_duration_s": 3.0
+  }
+ },
  "notes": {
   "sit_2026_11_13": "SIT replaced (the original's hip -30 / knee 60 cannot be reached with the feet flat: it needs the trunk pitched ~90 deg and face-plants). New SIT = feet flat, trunk leaned back ~31 deg onto its tail: hip pitch 70, knee 18, ankle -16 (left; right mirrored), hip roll / neck / head as STAND. Found by a quasi-static search (CoM over the soles >= 15.5 mm all the way from STAND, static torque <= 60 %) and checked in MuJoCo: 108/108 variations pass (move 1.5-3 s, friction 0.4-1.0, servo stiffness x0.5-1, trunk CoM +-6 mm, trunk mass +15 %); trunk down on the floor in all; peak servo load 61 % median / 69 % max at 3 s per move (80 % max at 1.5 s). Use 3 s moves.",
   "source": "exact collision checks in Blender on the v2 parts (2026-11-12): servo travel 300 deg, horn zero in the middle",
@@ -88,13 +154,13 @@
   "neck_pitch": "forward -80 (tof sensor / chest). Back +40 (board back at its low height, no audio tray; cover cut to the swept space of neck, U and hub Y). Original: -135..+60",
   "head_pitch": "box -45..+65 (>= +70 the jaw / yaw block meet hub C stacked on the neck's front). COUPLED with neck (the head comes down on the bay): neck 0 -> head >= -45, +10 -> >= -35, +20/+25 -> >= -15, +30/+35 -> >= 0, +40 -> >= +20. Original: -105..+105",
   "head_yaw": "+-150 (original +-170): the lead / hubs to the head",
-  "head_roll": "+-25; with yaw beyond +-45 the head meets the U at full roll (controller limit)",
+  "head_roll": "servo limit +-15; software interlock: roll only within +-1.0 deg of head yaw 0 (2026-11-15; was 2.5)",
   "keyframes": "STAND unchanged. SIT neck 28.6 (original), head 92 -> 65. FOLD neck 57 -> 40, head 57 (original), knees 90 -> 68",
   "layout": "2026-11-12: audio dropped (camera only, its mic); Uno Q back on 4.5 mm posts; camera USB straight to the Uno Q (no hub)",
   "combined": "still touching (as before): hip pitch 46 deg + knee 55 deg crouch (foot on the L-bracket), leg folded up behind (foot on the bay), head yaw beyond +-45 with full roll (U on the head)",
   "servo_torque": "SCS0009 stall 2.3 kg.cm at 6 V (0.226 N m); powered at 5 V by the Mini560 regulator: 0.226 x 5/6 = 0.1883 N m (datasheet input range 4-7.4 V)",
   "limits_2026_11_13": "servo angle limits from JOINT_LIMITS.md (user decisions 2026-11-13): hip yaw/roll = the box in which every combination of BOTH legs is clear by >= 0.5 mm; neck -80..+30 / head pitch -5..+65 (box A); head roll +-15 (+ software interlock: roll only within +-2.5 deg of head yaw 0). Was: {\"left_hip_yaw\": [-12.6, 25.8], \"right_hip_yaw\": [-25.8, 12.6], \"left_hip_roll\": [-22.0, 22.0], \"right_hip_roll\": [-22.0, 22.0], \"neck_pitch\": [-80.0, 40.0], \"head_pitch\": [-45.0, 65.0], \"head_roll\": [-25.0, 25.0]}",
-  "sit_feet_2026_11_13": "SIT hip yaw -3 / roll -4 (left; right mirrored), was 0 / -5: leaning back tilts the hip yaw and roll axes, so with the STAND yaw/roll each foot had to slide 5.8 mm sideways and twist 2.5 deg during the sit (the lightly loaded feet slip; where they cannot slide back - bumps, rug, grippy soles - the hip rolls fought at their limit for up to 0.8 s while standing up). Now 2.5 mm, foot twist 0.3, roll 0.1 deg, same 38 % peak. More toe-in slides less but the ankle screws then reach the electronics enclosure (-4/-4: 0.7 mm, -5/-4.5: collides); -3/-4 keeps 1.58 mm (exact parts)."
- },
- "servo_torque_nm": 0.1883
+  "sit_feet_2026_11_13": "SIT hip yaw -3 / roll -4 (left; right mirrored), was 0 / -5: leaning back tilts the hip yaw and roll axes, so with the STAND yaw/roll each foot had to slide 5.8 mm sideways and twist 2.5 deg during the sit (the lightly loaded feet slip; where they cannot slide back - bumps, rug, grippy soles - the hip rolls fought at their limit for up to 0.8 s while standing up). Now 2.5 mm, foot twist 0.3, roll 0.1 deg, same 38 % peak. More toe-in slides less but the ankle screws then reach the electronics enclosure (-4/-4: 0.7 mm, -5/-4.5: collides); -3/-4 keeps 1.58 mm (exact parts).",
+  "limits_2026_11_18": "design closed for the first build: hip roll outward +19.5 -> +18.5 (hip-yaw bearing vs L-bracket 0.30 -> 0.56 mm) and ankle -86 -> -85 (left; right mirrored; foot vs thigh 0.17 -> 0.65 mm, foot vs shin 0.51) so every servo-limit end clears by >= 0.5 mm; beak 0..35 added (was only in JOINT_LIMITS.md); interlocks written as data. Was: {\"left_hip_roll\": [-12.0, 19.5], \"right_hip_roll\": [-19.5, 12.0], \"left_ankle\": [-86.0, 90.0], \"right_ankle\": [-90.0, 86.0]}"
+ }
 }

@@ -15,7 +15,7 @@ Head (after `head_shell_v2.py` builds the dome):
 Exploded views (after any rebuild: their '.x' / '.hx' copies keep the old meshes until regenerated):
 
 6. `tools/blender/explode_all.py` with `{"collection":"duck_v2_exploded","offset":[0,-0.45,0],"scale":1.5,"gap":30}` - the whole
-   duck: legs and neck opened along their joint axes, the head taken apart, the bay behind the body in build order (166 elements).
+   duck: legs and neck opened along their joint axes, the head taken apart, the bay behind the body in build order (171 elements, 2026-11-18: the Uno Q's parts included).
 7. `tools/blender/wiring.py` with `wiring_exploded.json` - the cables drawn on that exploded copy (collection wiring_exploded).
 8. `tools/blender/explode_list.py` with `bay_explode.json` + `wiring.py` with `wiring_bay_exploded.json` - the bay sheet.
 9. `tools/blender/head_explode.py` with `{"offset":[0,-0.3,0.1]}` - the head sheet.

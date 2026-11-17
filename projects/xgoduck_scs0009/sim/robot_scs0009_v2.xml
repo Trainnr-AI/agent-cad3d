@@ -48,7 +48,7 @@
         <geom type="mesh" class="visual" mesh="scs0009_v2_yaw2roll" />
         <geom type="mesh" name="left_hip_yaw_collision" class="collision" mesh="scs0009_v2_yaw2roll" />
         <body name="hip_l" pos="0 -0.01334 0.01334" quat="0.499998 0.5 -0.5 0.500002">
-          <joint axis="0 0 1" name="left_hip_roll" type="hinge" range="-0.209440 0.340339" class="chosen_actuator" />
+          <joint axis="0 0 1" name="left_hip_roll" type="hinge" range="-0.209440 0.322886" class="chosen_actuator" />
           <inertial pos="7.54203397e-07 0.0109456608 -0.00574506412" mass="0.00702339342" fullinertia="1.18137538e-06 6.66815931e-07 7.88340512e-07 -2.7171049e-10 2.18188491e-10 4.17031091e-07" />
           <geom type="mesh" class="visual" mesh="scs0009_v2_hip_l" />
           <geom type="mesh" name="left_hip_roll_collision" class="collision" mesh="scs0009_v2_hip_l" />
@@ -63,7 +63,7 @@
               <geom type="mesh" class="visual" mesh="scs0009_v2_leg" />
               <geom type="mesh" name="left_shin_collision" class="collision" mesh="scs0009_v2_leg" />
               <body name="ankle_left" pos="0.03864 0 -0.02208" quat="-3.67321e-06 -1 0 0">
-                <joint axis="0 0 1" name="left_ankle" type="hinge" range="-1.500983 1.570796" class="chosen_actuator" />
+                <joint axis="0 0 1" name="left_ankle" type="hinge" range="-1.483530 1.570796" class="chosen_actuator" />
                 <inertial pos="0.0133912461 -0.00575394566 -0.0132690988" mass="0.028307099" fullinertia="9.85516941e-06 5.98078912e-06 6.8580965e-06 2.95933247e-07 6.39180947e-07 -1.03729668e-07" />
                 <geom type="mesh" class="visual" mesh="scs0009_v2_ankle_left" />
                 <geom type="mesh" name="left_foot_collision" class="collision" mesh="scs0009_v2_ankle_left" />
@@ -107,7 +107,7 @@
         <geom type="mesh" class="visual" mesh="scs0009_v2_bearing_roll" />
         <geom type="mesh" name="right_hip_yaw_collision" class="collision" mesh="scs0009_v2_bearing_roll" />
         <body name="hip_l_2" pos="0 -0.01334 0.01334" quat="0.499998 0.5 0.5 -0.500002">
-          <joint axis="0 0 1" name="right_hip_roll" type="hinge" range="-0.340339 0.209440" class="chosen_actuator" />
+          <joint axis="0 0 1" name="right_hip_roll" type="hinge" range="-0.322886 0.209440" class="chosen_actuator" />
           <inertial pos="3.58750173e-06 0.010941734 -0.00574575236" mass="0.00702339407" fullinertia="1.1819976e-06 6.66812394e-07 7.88966246e-07 -6.09309219e-11 1.07316344e-10 4.17197003e-07" />
           <geom type="mesh" class="visual" mesh="scs0009_v2_hip_l_2" />
           <geom type="mesh" name="right_hip_roll_collision" class="collision" mesh="scs0009_v2_hip_l_2" />
@@ -122,7 +122,7 @@
               <geom type="mesh" class="visual" mesh="scs0009_v2_leg_2" />
               <geom type="mesh" name="right_shin_collision" class="collision" mesh="scs0009_v2_leg_2" />
               <body name="ankle_right" pos="0.03864 0 -0.02208" quat="-3.67321e-06 -1 0 0">
-                <joint axis="0 0 1" name="right_ankle" type="hinge" range="-1.570796 1.500983" class="chosen_actuator" />
+                <joint axis="0 0 1" name="right_ankle" type="hinge" range="-1.570796 1.483530" class="chosen_actuator" />
                 <inertial pos="0.0133908497 0.0057533248 -0.0132697788" mass="0.0282996003" fullinertia="9.8533828e-06 5.97972926e-06 6.85683461e-06 -2.96234994e-07 6.38968301e-07 1.04141189e-07" />
                 <geom type="mesh" class="visual" mesh="scs0009_v2_ankle_right" />
                 <geom type="mesh" name="right_foot_collision" class="collision" mesh="scs0009_v2_ankle_right" />

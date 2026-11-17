@@ -35,20 +35,46 @@ shafts ≤ Ø3 mm, caliper.
    flush cutter, file off the burr. The arms then end 5.5-6.2 mm from the centre (the pockets are 6.2 deep). Don't cut the 6 full
    horns. Check each horn in its pocket before the screw: it should press in on the ribs, flat on the pocket floor.
 
+5. **Press all 14 bearings into their printed parts first**, on the bench, before any servo goes in (a press on a part with a
+   servo in it loads the servo's gears). Each one-sided joint's 6702ZZ sits in the part that HOLDS the servo, in a seat that
+   opens away from the servo (the lip, on the servo side, carries the outer ring), so it goes in from the outside:
+
+   | Bearing | Into | Seat | Moving part that runs in it |
+   |---|---|---|---|
+   | 6702ZZ × 2 | body frame (motor body) | hip-yaw seats | yaw connector |
+   | 6702ZZ × 2 | yaw connector (each leg) | hip-roll cap | L-bracket |
+   | 6702ZZ × 2 | thigh (each leg) | hip-pitch cap | L-bracket |
+   | 6702ZZ × 2 | shin (each leg) | knee seat in its flat inboard face | knee cap's boss |
+   | 6702ZZ × 1 | head base | head-roll bulkhead | yaw block |
+   | 6702ZZ × 1 | yaw block | head-yaw cap | head-pitch U |
+   | 693ZZ × 2 | foot bearing plate (each leg) | ankle | on the M3 × 8 axle in the shin |
+   | 693ZZ × 1 | body neck bearing plate | neck | on the M3 × 8 axle in the neck cradle |
+   | 693ZZ × 1 | head-pitch bearing plate | head pitch | on the M3 × 8 axle in the neck cradle |
+
+   Press on the **outer ring only** (a socket or a flat washer the size of the ring; never on the shield or the inner ring),
+   square, until it sits on the lip. It should go in by hand or with a vice and stay put; if it drops in loose or needs
+   hammering, the seat size is off: stop and report (section 0, item 2). Spin each one by hand: smooth, no grit.
+
 General rule for the joints: **the joint's clamp screw (the servo's own horn screw) goes in before the next servo is fitted**:
 its head faces the next servo (hip yaw: 0.3 mm from the hip-roll servo case; head yaw: 4.7 mm from the head-pitch servo).
 
 ## 1. Body
 
-1. Press the two **6702ZZ** into the hip-yaw seats of the motor body (outer ring against the lip).
-2. **Right hip-yaw servo**: straight down into its saddle ✓. **Left hip-yaw servo** ✓: lift it ~7 mm above its seat, slide it
-   in from the **rear or from either side** under the neck fork, then down (the window is 6.5-8.5 mm of lift).
+1. The two **6702ZZ** in the hip-yaw seats of the motor body (section 0, item 5; outer ring against the lip).
+2. **Right hip-yaw servo**: straight down into its saddle ✓. **Left hip-yaw servo** ✓: lift it ~7.5 mm above its seat, slide it
+   in from **either side** (clear from 6.5 mm of lift) **or from the rear** (from 7.5 mm) under the neck fork, then down (the
+   window ends at 8.5 mm; re-checked 2026-11-18).
 3. Servo ear screws: the kit's mounting screws, except the **left servo's front ear**: an **M2 × 6 socket screw with the
    ball-end key at 20-25°** (the neck fork is 8 mm above it) ✓.
 4. Electronics bay (the enclosure): fit it to the motor body with the **3 × M2 × 10 countersunk** from inside the keel (before the
-   battery). Then the servo adapter (slides into its rib slots), regulator, IMU (4 × M2 × 6), toggle switch, battery last
-   (hook-and-loop under it).
-5. Lid: **lid screws (4 × M2 × 6) before the Uno Q** (the board covers them) ✓. Then the Uno Q (4 × M3 × 8), then the cover with
+   battery). Then the servo adapter (slides into its rib slots), IMU (4 × M2 × 6), toggle switch, battery last
+   (hook-and-loop under it). **Regulator (Mini560)**: it hangs under the lid between the lid's two rails, **component side UP**
+   (inductor and chip facing the lid's window, 15 × 26 mm): that side gets hot and must face the air under the Uno Q, not the
+   battery. A dot of hot glue at each rail end only; nothing on its faces. Its output wires leave at the ends.
+5. Lid: **lid screws (4 × M2 × 6) before the Uno Q** (the board covers them) ✓. **Battery lead on the Uno Q**: its 2-pin plug
+   goes on JANALOG pins **7 (GND) and 8 (VIN)**. Pin 9 next to it is A0 (3.3 V max): one pin over and 12 V destroys the Uno Q's
+   microcontroller; one pin the other way shorts the battery. Mark the plug (paint dot on the GND side), check it against the
+   board's printed labels before the first power-up, then a dot of hot glue so it cannot shift. Then the Uno Q: **3 × M3 × 8** and **1 × M2 × 6 socket** in the hole next to the digital header (an M3 head would sit on the header's housing), then the cover with
    its **2 side screws** (one each side, behind the rear posts) ✓.
 
 ## 2. Neck and head
@@ -104,6 +130,25 @@ Where moving parts push on cables (`tools/blender/cable_pinch_check.py`, 2026-11
   limits (+-150) before closing the dome and check nothing pulls tight or catches.
 - Smaller rubs at the joint limits (ankle leads on the foot / shin at full ankle or knee bend, the gap-to-neck extension on the
   body frame at neck -80): route with a little slack and check by hand at the limits.
+
+## 5. Power and battery: rules (no protection electronics on board - user, 2026-11-18)
+
+The robot has no fuse, protection board or battery monitor (user's choice: nothing that is not essential). The battery and the
+person charging it are the protection, so these rules are part of the build:
+
+- **Switch off right after use.** Left on, the Uno Q drains the battery below 3 V per cell within hours; a LiPo drained that far
+  must **not** be recharged (it can catch fire while charging) - it goes to e-waste.
+- **Short sessions, then charge.** Expect roughly 20 min of use per charge (measure it on the first runs and write it here).
+  If the robot ever goes limp and dark on its own, the battery is flat: before charging, check every cell with a LiPo checker
+  (BOM row 25); any cell under 3.0 V -> do not charge, retire the pack.
+- **Charging:** only the balance plug on the charger, in the LiPo bag, on a hard surface, never unattended (BOM row 16).
+- **Look at the battery every time it comes out:** puffy, dented, hot or smelling -> stop, put it in the bag outside, retire it.
+  A pack that no longer slides into the bay freely has swollen.
+- **First power-up heat test** (regulator): lid on, the robot holding a squat (or STAND) for 10 min, then touch the regulator
+  through the lid's window. If you cannot keep a finger on it for 5 s (about 60 °C), switch off and report - PLA softens near 60 °C.
+- If protection is wanted later: a 3S 10 A protection board (50 × 16 × 3.4 mm, e.g. HX-3S-01) fits standing behind the battery
+  (x -33.1..-29.7, y -112..-96, z 67.5..117.5: 0.47-0.88 mm from the adapter, switch, battery and wall; measured 2026-11-18)
+  without changing any printed part.
 
 ## Not yet checked in the model
 
