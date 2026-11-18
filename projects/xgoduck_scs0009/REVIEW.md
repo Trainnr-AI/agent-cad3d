@@ -1643,3 +1643,60 @@ servo-print > 0.06 mm.
 clearances, regulator placement (deferred); everything marked "measure on arrival" (horn, kit screws, servo steps/deg and
 protection registers, switch lever, battery thickness, IMU holes); walking (one-foot balance fails - gait study) and get-up; fall
 loads. Changes after this go through the coupon / first-leg build.
+
+## Final review before the build: limits closed, bearing steps (2026-11-18)
+
+User: "review the design and final assembly and make sure it all works and fits perfectly ... close the design and limits".
+
+- **Full check suite** (`scripts/full_check.sh`, saved .blend of 2026-11-15) - every result as in `data/check_args/README.md`:
+  rest pose OK; 27 printed parts one piece; printability unchanged; horns 15/15; fits 367, 2 known (battery stand-in 0.30 mm3,
+  left hip-pitch servo 0.11 mm3 sampling); assembly 55 OK + the left hip-yaw servo's L-path (sides from 6.5 mm of lift, rear from
+  7.5, to 8.5) + 3 segment paths OK; screws 89 / 26 flagged (dispositioned); motion sweep 28 colliding poses, all outside the servo
+  limits (the model's stored wider ranges, walking-envelope corners, both hips at roll +-22 - as before); cable reach 0 short;
+  cable pinch 21 (handled: sleeve, rounded deck edge, slack loop).
+- **Parts list vs model:** 10 x 6702ZZ, 4 x 693ZZ, 4 M3 x 8 axles + 4 nylon nuts in the model = BOM rows 17 / 18 / 22 / 22b.
+- **Limits:** each joint alone at both ends of its servo limit (`clearance_sweep.py`, margin 0.8): two ends were under the 0.5 mm
+  the limits promise. Hip roll outward (hip-yaw bearing to L-bracket, the same at any pitch / yaw): 0.68 mm at 18, 0.56 at 18.5,
+  0.43 at 19, 0.30 at 19.5 -> limit **+18.5** (right -18.5). Ankle (foot to thigh, knee 0..30): 0.65 at -85, 0.17 at -86 -> limit
+  **-85** (right +85). After: every end >= 0.5 (hip roll 0.56, ankle 0.50-0.51, head yaw -150 0.73, the rest nothing within 0.8).
+  No motion uses the degree removed (walking roll +-10.9, ankle +-23; SIT ankle -16).
+- **Limits as data:** `sim/joint_ranges_v2.json` gets `status` (closed), the beak (0..35) and an `interlocks` block (head roll x
+  yaw +-1.0, knee x ankle table, both legs, hip maps, sit / stand path); MJCF v2 ranges updated by `tools/sim/set_joint_ranges.py`
+  (its rewrite of the scene's settled SIT key was reverted). The Blender joint empties keep their wider `joint_range`: the cover
+  recut builds its swept space from them, and narrowing them would change geometry on the next rebuild.
+- **ASSEMBLY.md:** only 5 of the 10 6702ZZ had a step. From the joint library (type C: the bearing sits in the part that holds the
+  servo, seat open away from it, lip on the servo side): hip roll -> yaw connector, hip pitch -> thigh, head yaw -> yaw block (plus
+  the hip-yaw pair in the body frame, head roll in the head base, knees in the shins; 693ZZ in the bearing plates). New section 0
+  item 5: all 14, pressed on the outer ring before any servo goes in. Uno Q screws corrected (3 x M3 x 8 + 1 x M2 x 6, since
+  2026-11-15).
+- **BOM:** the user's bearing listings (6702ZZ Amazon.in 10-pack Rs 1,731; 693ZZ 4-pack - a spare pack advised).
+
+**Design and limits closed** for the first build. Still open (user's / needs parts): battery protection, regulator placement,
+everything "measure on arrival", walking gait and get-up studies, fall loads.
+
+## Battery protection and regulator placement (2026-11-18)
+
+The independent review (2026-11-14) called the power design unsafe for children: no fuse, no protection board, no low-voltage
+cut-off; regulator 0.2 mm from PLA and 3.6 mm from the LiPo in a closed bay; a failed regulator puts 12.6 V on the 15 servos.
+
+- **Measured** (free-space map of the bay, 1 mm voxels, all parts and modelled wires): the bay has no room for a 52 mm protection
+  board except standing behind the battery (x -33.1..-29.7, y -112..-96, z 67.5..117.5: adapter 0.47, switch 0.50, battery 0.80,
+  wall 0.88, regulator 2.0 mm; 4 modelled wires to reroute); an INA219 monitor (25.6 x 20.3 x 4.5) fits nowhere (under the Uno Q
+  4.4 mm); an inline blade-fuse holder does not fit. Servo current (SCS0009 datasheet): 0.3-0.4 A loaded, 0.8 A stalled at 4.8 V
+  -> ~2-3 A at 5 V standing, the Mini560's continuous rating without cooling; ~1-1.5 W of heat. The servos turn their torque off
+  above 9 V (datasheet), so a failed regulator stops them moving but may damage them.
+- **User decision:** "keep the most simple and effective assembly", no component that is not essential -> **no fuse, protection
+  board, clamp diode or monitor**. The board position above is recorded (ASSEMBLY.md section 5) for later.
+- **Regulator (printed parts only):** centred between the walls (1.2 / 1.2 mm, was 0.1 / 2.1) and a 15 x 26 mm **window in the lid
+  plate** over it (board less 1.5 mm each side; `body_v2.py` REG_WIN): its component side faces the air under the Uno Q. Mounted
+  component side up between the rails. Lid 10.2 g (was 11.1), one piece, watertight. Rebuilt in order (body, Uno Q, wiring, cover
+  recut); print STLs re-exported (28, none refused).
+- **Uno Q battery plug** (JANALOG 7 GND / 8 VIN, next to A0): marked + hot-glued (ASSEMBLY.md step 1.5) - shifted one pin it
+  destroys the MCU or shorts the battery.
+- **Rules instead of electronics** (ASSEMBLY.md section 5): switch off after use; short sessions; cell check before every charge
+  (BOM row 25 checker + bag now needed, as tools); never charge a cell under 3.0 V; swelling check; first power-up heat test of the
+  regulator (finger test, ~60 C).
+- **Full check suite after the change:** all as expected (`data/check_args/README.md`): fits 367 (the 2 known; regulator 1.20 mm
+  from the enclosure, 0.20 from the lid rim), assembly 55 + paths, screws 89 / 26, motion 28 (outside the limits), cable reach 0
+  short, cable pinch 20 (was 21). Exploded views regenerated (build steps 6-10), renders `data/duck_exploded.png` and
+  `data/bay_exploded.png` redone; the coupon / trim-jig collections hidden again. **Design closed for the hand-off.**

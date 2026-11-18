@@ -1,4 +1,10 @@
-# Handoff — where the project stands (updated 2026-11-15)
+# Handoff — where the project stands (updated 2026-11-18)
+
+> **Design CLOSED for the first build (2026-11-18).** Parts, limits, assembly and power are final; next is physical: send
+> `projects/xgoduck_scs0009/print/test_batch/` to the printer, measure the coupon with the real bearings / screws / servo, then
+> one leg, then the whole robot. Order: BOM.md (bearings: Amazon.in picks rows 17-18). Build: ASSEMBLY.md (incl. section 5,
+> battery rules - the robot has no protection electronics by choice). Firmware limits: `sim/joint_ranges_v2.json` (+ hip map).
+> Re-check anything you change with `scripts/full_check.sh`.
 
 Read this first when continuing on another machine. It replaces the agent's local notes, which
 don't travel with the repo.
@@ -137,7 +143,7 @@ Blender collections: `duck_v2_exploded` + `wiring_exploded` + `duck_v2_labels`, 
 - **Horns**: full kit X horn on 6 servos (knees - new type C2M: 6702ZZ in the shin + bolt-on cap with 2 x M2x6 socket - ankles,
   neck pitch, head pitch); trimmed to r 6 with the printed jig on 9 (hips, head yaw / roll, beak): no room for a cap there
   (measured with all coupled joints and both legs moving). Trim jig redesigned and tested against the horn model.
-- **Joint limits**: `projects/xgoduck_scs0009/JOINT_LIMITS.md` - servo angle limits (hip yaw -6.3..+19, hip roll -12..+19.5,
+- **Joint limits**: `projects/xgoduck_scs0009/JOINT_LIMITS.md` - servo angle limits (hip yaw -6.3..+19, hip roll -12..+18.5, ankle -85..+90,
   neck -80..+30, head pitch -5..+65, head roll +-15), software interlocks (head roll only facing straight; walking-envelope
   corners), overload protection settings. Values in steps to be confirmed on a servo.
 - **Body**: keel's lower outer edges chamfered for the knee caps; IMU pilots and bay countersinks fixed.
@@ -192,8 +198,8 @@ An independent review (sister repo microduck-nano, `docs/project/design-review-2
 - 14 duplicate horn-screw stand-ins removed; BOM stale text fixed.
 - New tools: `tools/blender/clearance_sweep.py` (contacts + gaps under a margin, headless, ~1.5 s/pose; use it instead of
   `leg_motion_check.py` volumes for anything thin), `tools/blender/hip_map_table.py` (map JSON + tables).
-- Found, not changed: at the hip-roll limit +19.5 the hip-yaw bearing is 0.3 mm from the L-bracket (under the 0.5 aimed for).
-- Still deferred by the user: battery protection (fuse, protection board, low-voltage cut-off) and clearances, regulator
+- Found, not changed then: at the hip-roll limit +19.5 the hip-yaw bearing is 0.3 mm from the L-bracket (fixed 2026-11-18: limit +18.5).
+- Deferred by the user then, decided 2026-11-18 (no protection electronics; regulator under a lid window): battery protection (fuse, protection board, low-voltage cut-off) and clearances, regulator
   placement. The review also found the robot can't stand on one foot (CoM 9 mm outside the foot at the roll limit, 74-77 % of
   stall on the hip roll): walking needs a gait study before it is counted on.
 - Later the same day (REVIEW.md "Cables, ankle angles, knee x ankle"): cable reach OK; **cable pinch check** (new
@@ -212,6 +218,23 @@ cables + a slack loop at the neck (ASSEMBLY.md step 4), Uno Q cover relieved rou
 except the known, dispositioned items. **Re-run everything with `scripts/full_check.sh`** (headless, ~15-20 min; expected results:
 `projects/xgoduck_scs0009/data/check_args/README.md`). Next is the physical build: coupon -> one leg -> full robot.
 The test print package for the printing service (PDF guide + oriented STLs) is `projects/xgoduck_scs0009/print/test_batch/`.
+
+## Final review (2026-11-18) - design and limits CLOSED for the first build
+
+Full check suite re-run on the saved .blend: every result as expected (`data/check_args/README.md`). Changes:
+- **Limits:** hip roll outward +19.5 -> **+18.5** and ankle -86 -> **-85** (left; right mirrored), so every servo-limit end clears
+  by >= 0.5 mm (all 28 ends measured with `clearance_sweep.py`). `sim/joint_ranges_v2.json` is now the closed, machine-readable
+  source: `joints` (beak 0..35 added) + `interlocks` (head roll x yaw, knee x ankle, both legs, hip maps, sit / stand); the v2 MJCF
+  ranges updated (scene keyframes left as settled). **Firmware:** microduck-nano's `tools/import_design.py` reads this file and
+  `data/hip_collision_map.json` - its import of the right-leg map / both-legs / knee x ankle (deferred by the owner "until the
+  robot is final") can start; the `interlocks` block is new and not read by it yet.
+- **ASSEMBLY.md:** new section 0 item 5 - where each of the 14 bearings goes (5 of the 10 6702ZZ had no step: hip roll ->
+  yaw connector, hip pitch -> thigh, head yaw -> yaw block) and how to press them; Uno Q screws corrected (3 x M3 x 8 + 1 x M2 x 6).
+- **BOM:** 6702ZZ Amazon.in 10-pack Rs 1,731 and a 693ZZ 4-pack (user's picks); estimate ~Rs 27,700-28,200.
+- **Power (same day, user: "keep the most simple and effective assembly", nothing that is not essential):** no fuse, protection
+  board or battery monitor; the regulator got a window in the lid (component side up, 1.2 mm from the walls); battery rules +
+  a cell checker as a tool (ASSEMBLY.md section 5). Where a protection board would fit is recorded there. REVIEW.md
+  "Battery protection and regulator placement".
 
 ## Open items / next steps
 

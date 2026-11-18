@@ -429,11 +429,16 @@ for hx, hy in UNO_HOLES:                                                   # M3 
     lid_sub.append(L["add_cyl"](L["new_bm"](), UX0 + hx - HOME.x, UY0 + hy - HOME.y, ZL - 1.0 - HOME.z, uno_z + 1.0 - HOME.z,
                                 L["PILOT_D"] if (hx, hy) == UNO_M2 else 2.5, 16, Mt))
 lid_sub.append(box((XR - 9.0) if EXT else XR - 1.0, XR + 9.0, CY - 12.0, CY + 12.0, ZL - 1.0, ZL + LID_T + 1.0))      # wire notch at the rear: battery / IMU / UART wires come up here to the board
-RG = dict(x0=-40.5, x1=-22.5, y0=CY - 15.5, y1=CY + 13.5)                 # upright battery: regulator (Mini560, 18 x 29 x 5.4) and switch
+RG = dict(x0=-40.5, x1=-22.5, y0=CY - 14.5, y1=CY + 14.5)                 # upright battery: regulator (Mini560, 18 x 29 x 5.4) and switch
+# 2026-11-18 (independent review: "regulator 0.2 mm from PLA walls ... in a closed bay"): centred between the side walls (was 1 mm
+# toward -y: 0.1 mm from the wall there, 2.1 on the other side -> 1.1 / 1.1), and a WINDOW in the lid plate over it: its top (the
+# hot side: inductor, IC) faces the air under the Uno Q instead of PLA 0.12 mm away. The board still hangs between the two rails.
+REG_WIN = 1.5                                                               # window = the board less 1.5 mm each side (the plate's rim stays over its edges)
 SWV = dict(x0=-48.0, x1=-36.0, y0=CY + 14.0, y1=CY + 20.0)                   # (12 x 6 x 6, slider out of the left side opening) under the lid
 if VBAT:
     for x0_, x1_ in ((RG["x0"] - 1.45, RG["x0"] - 0.25), (RG["x1"] + 0.25, RG["x1"] + 1.45)):
         lid_add.append(box(x0_, x1_, RG["y0"], RG["y1"], ZL - 4.0, ZL + 0.3))
+    lid_sub.append(box(RG["x0"] + REG_WIN, RG["x1"] - REG_WIN, RG["y0"] + REG_WIN, RG["y1"] - REG_WIN, ZL - 1.0, ZL + LID_T + 1.0))
 SW_X0 = XRP + T + 0.2                                                       # extended pocket: the power switch hangs under the lid's rear end, in the
 if EXT:                                                                     # battery leads' room, slider up through a slot in the lid (reached from outside)
     lid_add += [box(SW_X0 - 0.2, SW_X0 + 6.0, CY + 6.25, CY + 7.45, ZL - 4.0, ZL + 0.3), box(SW_X0 - 0.2, SW_X0 + 6.0, CY - 7.45, CY - 6.25, ZL - 4.0, ZL + 0.3)]

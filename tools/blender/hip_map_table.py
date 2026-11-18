@@ -9,7 +9,7 @@ Sweep poses carry joint angles in each leg's own MJCF signs; the map stores them
 signs for both legs (right leg mirrored: hip pitch + = leg back, roll + = out, yaw + = toe out). A cell allows a hip roll when
 every knee in the group is clear: no collision and no gap under the margin (default 0.3 mm, the sweep's accuracy floor; pairs already that close at rest - bearings on their
 bosses, servos in their holders - are not judged; see the sweep's rest_pairs; and
---ignore pairs whose gap is a single joint's own limit, e.g. the hip-yaw bearing 0.3 mm from the L-bracket at roll +19.5).
+--ignore pairs whose gap is a single joint's own limit, e.g. the hip-yaw bearing 0.3 mm from the L-bracket at roll +19.5, the roll limit until 2026-11-18).
 """
 import argparse
 import json
