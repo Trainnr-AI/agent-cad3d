@@ -66,16 +66,40 @@ its head faces the next servo (hip yaw: 0.3 mm from the hip-roll servo case; hea
    window ends at 8.5 mm; re-checked 2026-11-18).
 3. Servo ear screws: the kit's mounting screws, except the **left servo's front ear**: an **M2 × 6 socket screw with the
    ball-end key at 20-25°** (the neck fork is 8 mm above it) ✓.
-4. Electronics bay (the enclosure): fit it to the motor body with the **3 × M2 × 10 countersunk** from inside the keel (before the
-   battery). Then the servo adapter (slides into its rib slots), IMU (4 × M2 × 6), toggle switch, battery last
-   (hook-and-loop under it). **Regulator (Mini560)**: it hangs under the lid between the lid's two rails, **component side UP**
-   (inductor and chip facing the lid's window, 15 × 26 mm): that side gets hot and must face the air under the Uno Q, not the
-   battery. A dot of hot glue at each rail end only; nothing on its faces. Its output wires leave at the ends.
-5. Lid: **lid screws (4 × M2 × 6) before the Uno Q** (the board covers them) ✓. **Battery lead on the Uno Q**: its 2-pin plug
-   goes on JANALOG pins **7 (GND) and 8 (VIN)**. Pin 9 next to it is A0 (3.3 V max): one pin over and 12 V destroys the Uno Q's
-   microcontroller; one pin the other way shorts the battery. Mark the plug (paint dot on the GND side), check it against the
-   board's printed labels before the first power-up, then a dot of hot glue so it cannot shift. Then the Uno Q: **3 × M3 × 8** and **1 × M2 × 6 socket** in the hole next to the digital header (an M3 head would sit on the header's housing), then the cover with
-   its **2 side screws** (one each side, behind the rear posts) ✓.
+4. **Electronics bay** - exact layout, screws and wires: `data/bay_assembly_sheet.png` (exploded, numbered as below; model
+   2026-11-19: every part, connector, screw and wire at its real size, all wires clear of all parts). Bench work first:
+   - **Solder** (20 AWG for power, cut female-female jumper wires for signals; heat-shrink every joint):
+     servo adapter's back pins: DC+ / DC- (5 V in) and UART TX / RX / GND; **tape over its 3 front UART pins** (they point at the
+     battery). Mini560 pads **from below**: IN+ (from the switch), IN- (pigtail black), OUT+ / OUT- (to the adapter). Switch
+     lugs: middle = pigtail red, one outer = Mini560 IN+ and the Uno Q's VIN wire. Uno Q plugs: **right-angle 2.54 mm male
+     header pins** - 3 pins (JANALOG 6 UART-GND, 7 GND, 8 VIN) and 2 pins (D0 = adapter TX, D1 = adapter RX).
+   1. Bay enclosure onto the motor body: **3 x M2 x 10 countersunk** (Phillips) from inside the front wall, screwdriver through the
+      3 holes in the rear wall ✓ (before the battery: it stands 0.6 mm in front of them).
+   2. **Servo adapter** slides down into its rib slots ✓ (no screws), its two servo cables plugged in first.
+   3. **IMU**: Qwiic cable into its right socket, then **4 x M2 x 6 socket** into the rear-wall bosses ✓ (4.5 mm of thread).
+   4. **Switch**: drop its M6 nut into the hex recess from outside, then screw the switch in from inside by turning its body until
+      snug with the lever moving up / down (before soldering its wires).
+   5. **Battery** (60 x 30 x 20): hook-and-loop on the floor, at the front. Its main leads and balance lead go back over its top and
+      **out of the rear-right window**. Its main leads must reach **~75 mm** from the pack's top to its XT30 (round the corner to the
+      middle of the rear face): **measure before buying / on arrival**.
+   6. **Rear cradles**: the battery's XT30 into the robot's pigtail, the pair standing in the **middle of the rear face** (battery half on
+      top; the right foot reaches the rear right below z 109), the pigtail looping down and up behind it and back in through the
+      window. The **balance plug** stands **above the bay at the rear right**, behind the Uno Q cover, mouth up, against its fin.
+      Zip ties on both. **Unplug the battery at the XT30; charge through the balance plug from above** - nothing to open.
+   7. **Mini560**: slide it into the lid's slot (rails + ledges) **component side up**, its parts standing up through the window.
+   8. **Lid**: **4 x M2 x 6 socket** into the bay posts ✓ (before the Uno Q: it covers them).
+   9. **Uno Q**: **3 x M3 x 8** + **1 x M2 x 6** (the hole by the digital header) ✓. Plugs: the 3-pin on **JANALOG 6-7-8** - one pin
+      over puts 12 V on A0 and destroys the microcontroller, one the other way shorts the battery: mark it (paint dot on pin 6's
+      side), check against the board's labels before the first power-up, **hot-glue it**; the 2-pin on D0 / D1; Qwiic. Power, UART
+      ground and Qwiic come up outside the bay's right wall (under the lid's edge), UART along the left wall.
+   10. **Camera USB**: the rigid right-angle USB-C -> USB-A adapter into the Uno Q's rear socket, **mouth down**; the camera's
+      USB-A plug into it from below, lying in the **rear-left cradle**, 1 zip tie. Its cable loops up the rear-right corner and
+      forward along the right side to the neck. In the head (do this when building the head): the camera's JST plug into the strip's socket, its 4 wires
+      turned back **right at the plug** into the 1.5 mm pocket past it, behind the board's end, through the face's hollow and the
+      slot in the face's D-panel (right side); the cable then runs over the jaw, down the head's right side and out beside the floor
+      opening to the head-pitch U. Turn the head through yaw +-150 and pitch, and open the beak, before closing the dome: nothing may pull.
+   11. Uno Q cover (optional): **2 x M2 x 6** through its sides ✓.
+5. Before the first power-up: switch off, battery plugged, check the Uno Q plug position again; then the heat test (section 5).
 
 ## 2. Neck and head
 
@@ -134,7 +158,8 @@ Where moving parts push on cables (`tools/blender/cable_pinch_check.py`, 2026-11
 ## 5. Power and battery: rules (no protection electronics on board - user, 2026-11-18)
 
 The robot has no fuse, protection board or battery monitor (user's choice: nothing that is not essential). The battery and the
-person charging it are the protection, so these rules are part of the build:
+person charging it are the protection, so these rules are part of the build (the battery's XT30 and balance plug are in the
+rear-right cradle: unplug after play, charge there):
 
 - **Switch off right after use.** Left on, the Uno Q drains the battery below 3 V per cell within hours; a LiPo drained that far
   must **not** be recharged (it can catch fire while charging) - it goes to e-waste.
