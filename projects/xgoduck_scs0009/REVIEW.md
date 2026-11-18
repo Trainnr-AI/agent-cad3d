@@ -1700,3 +1700,59 @@ cut-off; regulator 0.2 mm from PLA and 3.6 mm from the LiPo in a closed bay; a f
   from the enclosure, 0.20 from the lid rim), assembly 55 + paths, screws 89 / 26, motion 28 (outside the limits), cable reach 0
   short, cable pinch 20 (was 21). Exploded views regenerated (build steps 6-10), renders `data/duck_exploded.png` and
   `data/bay_exploded.png` redone; the coupon / trim-jig collections hidden again. **Design closed for the hand-off.**
+
+## The bay with exact parts, screws and wiring (2026-11-19)
+
+User: "look at the bay assembly with exact wiring, headers, cables ... each component designed exact dimensions and shapes and screws,
+holes"; then the real parts: battery 60 x 30 x 20 with an XT30 (listing + photo), the Waveshare Bus Servo Adapter (A) (42 x 33, M2.5 at
+37 x 28; spec "9-12.6 V for ST servos"), the 7Semi BNO086 (27.89 x 20.87), the Mini560 maker's drawing (30 x 18, pad pairs 26 apart),
+a rigid right-angle USB-C (male) -> USB-A (female) adapter, and the camera's own cable (USB-A -> JST-SH).
+
+- **Battery 3 mm taller than designed** (60 vs 57): its top met the regulator and left no room for its 14 AWG leads. No inside spot for
+  the regulator and the switch together (free-space maps, all orientations). User: **raise the lid + Uno Q 3 mm** (`body_v2.py`
+  `pocket_top` 128; `body_v2.json` battery [60, 30, 20]). Neck x head pitch x head yaw re-swept (390 poses, exact parts): nothing under
+  0.5 mm inside the limits; outside them (neck +40) the hub plug on the U now meets the Uno Q's headers (5 poses, all beyond +30).
+- **Regulator** in a slot under the lid (rails + 0.8 mm ledges under its long edges), component side up, its parts through a window of
+  its full outline (30 x 18 + 0.2: its parts run to the long edges): ~8 mm over the battery for the leads, its hot side in the air under
+  the Uno Q. Slid in on the bench. Pads at the drawing's positions ("+" toward the rear, IN at the -y end: check the board's labels).
+- **XT30 + balance plug outside, rear-right cradle** (user): inside, no spot left the XT30's wires room to bend (searched all positions
+  and orientations with 4 mm wire room at both ends). The battery's leads and balance lead leave through the open rear-right window;
+  the robot's 14 AWG pigtail loops up behind the XT30 and back in. Unplug the battery and charge it from behind, nothing to open.
+  The battery's leads need ~62 mm (measure; else a 10 cm XT30 extension).
+- **Camera USB** (user's rigid right-angle adapter): mouth down, the camera's USB-A plug lying in a **rear-left cradle** (ribs + zip
+  tie), so a knock goes into the bay, not the Uno Q's only USB-C socket (a straight adapter + plug stood 36.5 mm off the back).
+- **Switch**: its M6 nut + washer did not fit the 7 x 8 recess and no tool reached it; now a **hex recess** holds the nut captive and
+  the switch is screwed in from inside. Moved 1.2 mm forward (IMU).
+- **Uno Q plugs**: its JDIGITAL / JANALOG headers are FEMALE: right-angle 2.54 mm male header plugs, 3 pins on JANALOG 6-7-8 (UART GND,
+  GND, VIN) and 2 on D0 / D1; the cover's notches widened / raised for them.
+- **Wiring** (`wiring.py`, through the connectors' anchors from the new `parts/bay_parts.py`): every bay wire at its real size and
+  every one checked against every part - all clear (tightest 0.26 mm). Routes: battery leads / balance lead / pigtail through the
+  rear-right window; 5 V over the IMU and down the 3 mm gap behind it to the adapter's back pins; UART up behind the IMU and out of
+  the left-rear window along the left wall; Uno Q power, UART ground and Qwiic out of the right window, forward under the lid's edge.
+  Found on the way: the lid's tray walls (0.5 mm under the board) leave no way out from under the Uno Q; the Uno Q's M3 screw tip pokes
+  3 mm under the lid at the right-rear corner; stale `wiring_mesh` objects (an old layout) were hidden. The adapter's 3 front UART
+  pins point at the battery: tape them.
+- **Screws** (screw audit + driver access, bay): bay -> body 3 x M2 x 10 CSK, 7.6 mm bite, driver through the rear wall before the
+  battery; lid 4 x M2 x 6, 4.5-4.7 mm, before the Uno Q; IMU 4 x M2 x 6, 4.4-4.5 mm; Uno Q 3 x M3 x 8 + 1 x M2 x 6; cover 2 x M2 x 6.
+- **Legs vs the new outside parts**: 450 poses with a leg swung back (hip pitch 30-85, knee -90..68, yaw, roll): 49 of the 50 poses
+  that touch a new part are already forbidden by the hip map; the one allowed (left leg +85, knee 0) leaves the switch lever 0.61 mm
+  from the foot's bearing plate (BOM row 9: a lever > 4 mm proud -> hip pitch back ~+60).
+- Exploded, labelled bay sheet: `data/bay_assembly_sheet.png` (`tools/blender/sheet_labels.py`, `data/build_args/bay_labels.json`).
+
+### Camera cable in the head; rear cradles re-placed; full re-check (2026-11-19, later)
+
+- **Camera cable in the head** (user: "fix the camera cable in the head"): the old route ran through the U, the head base, the dome
+  and the face (up to 2.3 mm). A path search (`tools/blender/cable_path_search.py`: A* on a 1 mm map of the head, clearance 1.7 mm for the Ø3.2 cable,
+  the jaw closed AND fully open) gives the round cable a clear way: from the U out beside the floor opening on the right, up the head's
+  right side, over the jaw (49 mm in the head). It showed two real faults in the head: (1) the camera's JST plug leaves only 0.3 mm
+  before the brow band's end wall - its 4 wires had no room to turn; (2) the plug's wire pocket was walled off from the head (dome edge
+  behind it, a 1 mm face strip beside the board's end, the face's D-panel): the camera could not have been cabled. Fixed in
+  `head_shell_v2.py` (face only; the dome is unchanged): `plug_room` 1.5 (band 1.2 longer at the right: 1.1 mm past the dome's outline),
+  the board's slot on past its end, and a 7 x 4 slot in the D-panel (hidden behind the band). The lead (3.6 x 0.9, its width kept
+  vertical) and the cable now clear every head part (lead >= 0.04 mm, cable touching the head base at 0.0). Found on the way: re-running
+  the face re-cut the dome's camera-screw recess each time and broke the dome into 4 pieces - restored from main and the cut now runs once.
+- **Full suite on the new bay** found: the regulator's parts in the Uno Q's underside envelope (the envelope said 3 mm; the datasheet
+  says < 2 mm: envelope corrected, regulator 0.8 mm lower -> 1.25 mm clear); 1 cable "too short" (the battery leads vs the 60 mm assumed);
+  the right foot (leg back 45, knee -45, toe in: hip-map ALLOWED) reaching the XT30 cradle (2.05 mm). Fixed: XT30 to the middle of the
+  rear face (the foot reaches y < -111.2 up to z 108.9 only), balance plug above the bay at the rear right (mouth up, behind the Uno Q
+  cover, on a fin). The battery's main leads must reach ~75 mm (BOM row 4).

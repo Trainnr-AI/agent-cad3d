@@ -103,11 +103,12 @@ EXT_Z0 = args.get("ext_floor_z", 99.0)      # the extension's underside: high, o
 HK, HP = args.get("keel_hw", 18.0), 22.0  # half-widths: keel, pocket (18.5 with the upright battery: the adapter stands across the keel)
 ZB = 57.0                                 # keel underside
 z_deck0, z_deck1 = lay(FyL, (0, 0, L["CAP_T"])).z, lay(FyL, (0, 0, 0)).z      # deck = the hip-yaw cap plate (94.2 .. 99.2)
-ZP_REAR, ZP_FRONT, XP_STEP = 113.0, 125.0, -36.0
+ZP_REAR, XP_STEP = 113.0, -36.0
+ZP_FRONT = args.get("pocket_top", 125.0)  # 2026-11-19: 128 for the 60 mm battery (user: raise the lid + Uno Q 3 mm, inside layout unchanged)
 XP1 = -5.0                                # pocket front face (the hip-yaw servos' rear ears are at -3.6)
 XD = 43.0                                 # centre strip's front edge (under the neck)
 HS = 9.0                                  # centre strip half-width (the L-brackets rise beside it when the hips roll out)
-UNO = dict(len=68.58, wid=53.34, pcb=1.6, top=10.0, pins=3.0)           # datasheet ABX00162-ABX00173, section 12
+UNO = dict(len=68.58, wid=53.34, pcb=1.6, top=10.0, pins=2.0)           # datasheet ABX00162-ABX00173, section 12 (underside parts under 2 mm)
 ELEC = {"battery_3s": tuple(args.get("battery", (40.0, 30.0, 13.0))), "servo_adapter": (42.0, 18.5, 33.0), "ubec": (43.0, 8.0, 18.0), "imu": tuple(args.get("imu", (25.6, 22.7, 4.6)))}
 TRAY = args.get("audio_tray", False)      # tray walls round the Uno Q + its cover + the power switch pocket (first made for the audio parts)
 AUDIO = TRAY and args.get("audio", True)  # USB sound card + speaker + USB hub in the tray. User 2026-11-12: DROPPED (camera only, its mic) -> "audio": false,
@@ -310,12 +311,35 @@ if VBAT:
             yy, zz = IMU_V["yc"] + sy * IMU_HOLES[0], IMU_V["zc"] + sz * IMU_HOLES[1]
             enc.append(L["add_cyl"](L["new_bm"](), *xpt(yy, zz), XR + T - 0.3 - HOME.x, IMU_V["x_face"] - HOME.x, 4.6, 20, MX))
             enc_cuts.append(L["add_cyl"](L["new_bm"](), *xpt(yy, zz), XR - 0.5 - HOME.x, IMU_V["x_face"] + 0.5 - HOME.x, L["PILOT_D"], 14, MX))   # through the wall (it ended ON the outer face: coincident faces broke the boolean 2026-11-13; the M2x6 tip stops 0.2 inside)
+    # camera USB cradle (2026-11-19, user: rigid right-angle USB-C -> USB-A adapter, mouth down): two ribs on the rear wall's outer face either
+    # side of the adapter + the camera's USB-A plug, 1.2 mm proud of them, with a zip-tie slot through each: the plug rests against the wall
+    # between them, so a knock goes into the bay, not the Uno Q's USB-C socket (parts/bay_parts.py draws the adapter and plug)
+    if args.get("usb_cradle", True):
+        _uy, _uw, _ud, _uz0 = args.get("usb_y", -88.9), args.get("usb_cradle_w", 17.0), args.get("usb_cradle_d", 12.3), args.get("usb_cradle_z0", 100.0)
+        for sgn in (-1, 1):
+            ya_, yb_ = sorted((_uy + sgn * (_uw / 2 + 0.5), _uy + sgn * (_uw / 2 + 0.5 + T)))
+            enc.append(box(XR - _ud, XR + 0.3, ya_, yb_, _uz0, ZP_FRONT - 0.5))
+            enc_cuts.append(box(XR - _ud + 3.0, XR - 2.0, ya_ - 0.5, yb_ + 0.5, _uz0 + 8.0, _uz0 + 11.0))        # zip-tie slot (3 x 4)
+    # battery plug cradle (2026-11-19, user: XT30 outside, rear right): ribs on the rear face either side of the XT30 pair (y -121..-111) and
+    # the balance plug beside it (y -110..-104.25), 1.4 mm proud of them, zip-tie slots; the robot's pigtail loops up behind the XT30 (room
+    # for it: 4.2 mm behind the pair inside the ribs). Open at the bottom (charger lead into the balance plug) and the top (wires)
+    if args.get("plug_cradle", True):
+        _cd = 0.6 + 5.2 + 4.2 + 1.4                                           # XT30 + the pigtail behind it + 1.4 proud
+        # 2026-11-19: XT30 in the middle (y -110..-100, z 90..116: the right foot reaches y < -111 up to z 109); balance plug at the rear
+        # right ABOVE the bay's top (y -121..-115.25, z 128.5..140.9, behind the Uno Q cover), held by a fin on its left (z 124..141, on the
+        # rear wall's top 4 mm; the cables round the corner pass under it) + a zip tie. The XT30's right rib from z 109 (IMU pilot below).
+        for ya_, yb_, z0_, z1_, zs_ in ((-114.85, -113.25, 124.0, 141.0, 134.0), (-111.6, -110.5, 109.0, 115.0, 110.5)):   # (the XT30's rib starts
+            enc.append(box(XR - _cd, XR + 0.3, ya_, yb_, z0_, z1_))                                                 #  above the IMU pilot, z 106.7)
+            enc_cuts.append(box(XR - _cd + 3.0, XR - 2.0, ya_ - 0.5, yb_ + 0.5, zs_, zs_ + 3.0))                    # zip-tie slots
     # power switch: mini toggle (MTS, 6 A; body 7.8 x 13.2 x 9.5 + pins, 6 mm bushing) in a recess in the left side wall, lever tip flush
     # with the outside (nothing for a leg to catch); body inside, between the balance sensor and the battery, above the adapter
-    TG = dict(xc=-37.5, zc=108.0, y_plate=CY + HP - 11.6)                      # recess floor (the switch's mounting plate) 10 mm in from the outside
-    enc.append(box(TG["xc"] - 4.5, TG["xc"] + 4.5, TG["y_plate"], CY + HP, TG["zc"] - 6.0, TG["zc"] + 6.0))
-    enc_cuts.append(box(TG["xc"] - 3.5, TG["xc"] + 3.5, TG["y_plate"] + 1.6, CY + HP + 1.0, TG["zc"] - 4.0, TG["zc"] + 4.0))   # the recess
+    # 2026-11-19: the recess is a HEX (AF 8.3) the switch's M6 nut drops into and cannot turn in: screw the switch in from inside by
+    # turning its body (before soldering); no tool reaches a nut 10 mm deep in a 7 x 8 recess, and the nut + washer did not fit it
+    TG = dict(xc=args.get("switch_x", -36.3), zc=108.0, y_plate=CY + HP - 11.6)  # recess floor (the switch's mounting plate) 10 mm in from the outside
+    enc.append(box(TG["xc"] - 6.0, TG["xc"] + 6.0, TG["y_plate"], CY + HP, TG["zc"] - 6.0, TG["zc"] + 6.0))
     MYs = Mt @ Matrix.Rotation(math.radians(-90), 4, "X")                     # +Z along layout +Y
+    _hx = L["add_cyl"](L["new_bm"](), TG["xc"] - HOME.x, -(TG["zc"] - HOME.z), TG["y_plate"] + 1.6 - HOME.y, CY + HP + 1.0 - HOME.y, 8.3 / math.cos(math.pi / 6), 6, MYs)
+    enc_cuts.append(_hx)                                                    # the recess (hexagon as created by the 6-segment cylinder)
     enc_cuts.append(L["add_cyl"](L["new_bm"](), TG["xc"] - HOME.x, -(TG["zc"] - HOME.z), TG["y_plate"] - 0.5 - HOME.y, TG["y_plate"] + 2.1 - HOME.y, 6.3, 24, MYs))   # bushing hole
 for sx in (-1, 1) if not VBAT else ():
     for sy in (-1, 1):
@@ -429,15 +453,23 @@ for hx, hy in UNO_HOLES:                                                   # M3 
     lid_sub.append(L["add_cyl"](L["new_bm"](), UX0 + hx - HOME.x, UY0 + hy - HOME.y, ZL - 1.0 - HOME.z, uno_z + 1.0 - HOME.z,
                                 L["PILOT_D"] if (hx, hy) == UNO_M2 else 2.5, 16, Mt))
 lid_sub.append(box((XR - 9.0) if EXT else XR - 1.0, XR + 9.0, CY - 12.0, CY + 12.0, ZL - 1.0, ZL + LID_T + 1.0))      # wire notch at the rear: battery / IMU / UART wires come up here to the board
-RG = dict(x0=-40.5, x1=-22.5, y0=CY - 14.5, y1=CY + 14.5)                 # upright battery: regulator (Mini560, 18 x 29 x 5.4) and switch
+RG = dict(x0=-40.5, x1=-22.5, y0=CY - 15.0, y1=CY + 15.0)                 # Mini560 30 x 18 (maker's drawing, user 2026-11-19; was 29), long side along y
 # 2026-11-18 (independent review: "regulator 0.2 mm from PLA walls ... in a closed bay"): centred between the side walls (was 1 mm
 # toward -y: 0.1 mm from the wall there, 2.1 on the other side -> 1.1 / 1.1), and a WINDOW in the lid plate over it: its top (the
 # hot side: inductor, IC) faces the air under the Uno Q instead of PLA 0.12 mm away. The board still hangs between the two rails.
-REG_WIN = 1.5                                                               # window = the board less 1.5 mm each side (the plate's rim stays over its edges)
+REG_WIN = -0.2                                                              # window = the board's outline + 0.2 (its parts run to the long edges: no rim on it)
+# 2026-11-19: the Mini560 sits in a SLOT right under the lid plate, component side UP, its parts standing up through the window into the
+# air under the Uno Q (was: hanging 0.2 below the plate, 3.6 mm over the battery - the battery's 14 AWG leads could not pass under it).
+# Slot = the two side rails, each with a 0.8 mm ledge under the board's long edges; slid in along y on the bench before the lid goes on.
+REG = dict(pcb=args.get("reg_pcb", 1.2), parts=args.get("reg_parts", 4.2))  # Mini560: PCB 1.2 + parts 4.2 = 5.4 (listing); parts layout ASSUMED
+REG["z1"] = ZL - 0.95                                                       # PCB top 0.95 under the plate's underside: its parts end 1.25 mm under the
+#                                                                             Uno Q's underside parts (datasheet: < 2 mm), 7 mm over the battery
+REG["z0"] = REG["z1"] - REG["pcb"]
 SWV = dict(x0=-48.0, x1=-36.0, y0=CY + 14.0, y1=CY + 20.0)                   # (12 x 6 x 6, slider out of the left side opening) under the lid
 if VBAT:
-    for x0_, x1_ in ((RG["x0"] - 1.45, RG["x0"] - 0.25), (RG["x1"] + 0.25, RG["x1"] + 1.45)):
-        lid_add.append(box(x0_, x1_, RG["y0"], RG["y1"], ZL - 4.0, ZL + 0.3))
+    for x0_, x1_, l0, l1 in ((RG["x0"] - 1.45, RG["x0"] - 0.25, RG["x0"] - 0.3, RG["x0"] + 0.8), (RG["x1"] + 0.25, RG["x1"] + 1.45, RG["x1"] - 0.8, RG["x1"] + 0.3)):
+        lid_add.append(box(x0_, x1_, RG["y0"], RG["y1"], REG["z0"] - 1.6, ZL + 0.3))                  # side rail
+        lid_add.append(box(l0, l1, RG["y0"], RG["y1"], REG["z0"] - 1.6, REG["z0"] - 0.2))            # ledge under the board's edge (0.2 play)
     lid_sub.append(box(RG["x0"] + REG_WIN, RG["x1"] - REG_WIN, RG["y0"] + REG_WIN, RG["y1"] - REG_WIN, ZL - 1.0, ZL + LID_T + 1.0))
 SW_X0 = XRP + T + 0.2                                                       # extended pocket: the power switch hangs under the lid's rear end, in the
 if EXT:                                                                     # battery leads' room, slider up through a slot in the lid (reached from outside)
@@ -456,11 +488,11 @@ if TRAY and args.get("uno_cover", False):
     cap = hull([(x, y, z) for y in (uy0 - CG - CT, uy1 + CG + CT) for x, z in ((xo0, zc0), (xo1, zc0), (xo1, zt_ - CHF), (xo1 - CHF, zt_), (xo0, zt_))])
     cap_cut = [hull([(x, y, z) for y in (uy0 - CG, uy1 + CG) for x, z in ((UX0 - CG, zc0 - 1.0), (ux1 + CG, zc0 - 1.0), (ux1 + CG, zt_ - CHF - 0.5), (ux1 + CG - CHF + 0.5, zc1), (UX0 - CG, zc1))]),
                box(UX0 + 30.5, UX0 + 59.5, uy0 + 3.6, uy0 + 21.5, zc1 - 0.5, zc1 + CT + 0.5),                    # window over the LED matrix (board x 31.3..58.8, y 4.4..20.7: scaled from the datasheet drawing)
-               box(UX0 - CG - CT - 0.5, UX0 + 1.0, uy0 + 30.3, uy0 + 45.3, zc0 - 1.0, uno_z + UNO["pcb"] + 8.0),   # USB-C plug and cable at the rear
-               box(UX0 + 40.0, UX0 + 49.0, uy0 - CG - CT - 0.5, uy0 + 1.0, zc0 - 1.0, uno_z + UNO["pcb"] + 11.0),  # wires: VIN + GND (right)
+               box(UX0 - CG - CT - 0.5, UX0 + 1.0, uy0 + 28.8, uy0 + 46.8, zc0 - 1.0, uno_z + UNO["pcb"] + 8.0),   # USB-C -> USB-A adapter at the rear (17 wide + 0.5 each side)
+               box(UX0 + 38.5, UX0 + 49.0, uy0 - CG - CT - 0.5, uy0 + 1.0, zc0 - 1.0, uno_z + UNO["pcb"] + 12.5),  # wires: right-angle plug on JANALOG 6-8 (right)
                box(UX0 + 17.0, UX0 + 26.0, uy0 - CG - CT - 0.5, uy0 + 1.0, zc0 - 1.0, uno_z + UNO["pcb"] + 5.0),   # Qwiic plug (right)
                box(UX0 + 35.0, UX0 + 43.0, uy1 - 1.0, uy1 + CG + CT + 0.5, zc0 - 1.0, uno_z + UNO["pcb"] + 11.0),  # light wires (left)
-               box(UX0 + 57.0, UX0 + 66.0, uy1 - 1.0, uy1 + CG + CT + 0.5, zc0 - 1.0, uno_z + UNO["pcb"] + 11.0),  # UART wires (left)
+               box(UX0 + 57.0, UX0 + 66.0, uy1 - 1.0, uy1 + CG + CT + 0.5, zc0 - 1.0, uno_z + UNO["pcb"] + 12.5),  # UART: right-angle plug on D0 / D1 (left)
                L["add_cyl"](L["new_bm"](), CVS["a"][0] - HOME.x, -(CVS["a"][1] - HOME.z), uy0 - CG - CT - 0.5 - HOME.y, uy0 - CG + 0.5 - HOME.y, L["CLEAR_D"], 14, MYf),
                L["add_cyl"](L["new_bm"](), CVS["b"][0] - HOME.x, -(CVS["b"][1] - HOME.z), uy1 + CG - 0.5 - HOME.y, uy1 + CG + CT + 0.5 - HOME.y, L["CLEAR_D"], 14, MYf)]
     for hx, hy in [h for h in UNO_HOLES if h != UNO_M2]:                 # 2026-11-15: room round the M3 heads (dk 5.5 + 0.5 all round): they
@@ -558,7 +590,10 @@ else:
     adapter_ob["uart_back_xyz"] = list(_ad_lay(34.0, 20.0, -3.0))                              # UART header's pins, on the solder side
     adapter_ob["gap_x"] = (ADV["pcb_x1"] + 11.0 + VB["x0"]) / 2                                # middle of the cable gap in front of the adapter
     elec.append(adapter_ob)
-    elec.append(ebox("ubec", RG["x0"], RG["y0"], ZL - 5.6, (RG["x1"] - RG["x0"], RG["y1"] - RG["y0"], 5.4), (0.75, 0.1, 0.1, 1)))   # Mini560 5 V 5 A
+    _rb = box(RG["x0"], RG["x1"], RG["y0"], RG["y1"], REG["z0"], REG["z1"])                         # Mini560 5 V 5 A: PCB
+    _rp = box(RG["x0"] + 0.2, RG["x1"] - 0.2, RG["y0"] + 4.0, RG["y1"] - 4.0, REG["z1"], REG["z1"] + REG["parts"])   # its parts (envelope: to the long edges, clear of the end pads)
+    _rp.to_mesh(_tmp := bpy.data.meshes.new("t")); _rb.from_mesh(_tmp); bpy.data.meshes.remove(_tmp)
+    elec.append(L["to_object"]("ubec", _rb, ecoll, L["material"]("elec_ubec", (0.75, 0.1, 0.1, 1))))
 BAT = ELEC["battery_3s"]
 shelf = shelf_screws = None
 if not VBAT:
