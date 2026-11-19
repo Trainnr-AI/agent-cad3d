@@ -40,6 +40,8 @@ HORN_HUB_D, HORN_HUB_H = 6.5, 4.0       # (NOMINAL)
 HORN_PLATE_T = 1.6                      # (NOMINAL)
 HORN_DISC_D = 17.76
 HORN_CROSS_L = 11.94                    # 23.88 tip to tip; shaft centre -> outermost point (round tip included)
+# MEASURED 2026-11-20 (user, caliper): 24.0 tip to tip (r 12.0). Kept 11.94 here so the code matches the built parts: the full-horn
+# pockets reach r 12.24, so the real horn has 0.24 at the tips (design clearance 0.20) - no rebuild needed.
 HORN_ARM_L = 20.12 - HORN_HUB_D / 2     # single arm 20.12 overall (hub edge -> tip)
 HORN_DOUBLE_ARM_L = 34.49 / 2
 # arm widths and holes measured off Feetech's kit photo (2026-11-13), scaled by the listing's lengths (X 23.88 tip to tip:
