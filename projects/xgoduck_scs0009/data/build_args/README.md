@@ -18,12 +18,14 @@ Head (after `head_shell_v2.py` builds the dome):
 Exploded views (after any rebuild: their '.x' / '.hx' copies keep the old meshes until regenerated):
 
 6. `tools/blender/explode_all.py` with `{"collection":"duck_v2_exploded","offset":[0,-0.45,0],"scale":1.5,"gap":30}` - the whole
-   duck: legs and neck opened along their joint axes, the head taken apart, the bay behind the body in build order (171 elements, 2026-11-18: the Uno Q's parts included).
+   duck: legs and neck opened along their joint axes, the head taken apart, the bay behind the body in build order (181 elements, 2026-11-19: the bay laid out as bay_explode.json, incl. the bay_* connectors;
+   3 "(missing)" names - hip_yaw_support, body_neck_mount, scs_head_roll_horn_screw - are old names, expected).
 7. `tools/blender/wiring.py` with `wiring_exploded.json` - the cables drawn on that exploded copy (collection wiring_exploded).
 8. `tools/blender/explode_list.py` with `bay_explode.json` + `wiring.py` with `wiring_bay_exploded.json` - the bay sheet.
 8b. `tools/blender/sheet_labels.py` with `bay_labels.json`: numbered labels + leader lines on the bay sheet; render with closeup.py
    (collection bay_exploded, also wiring_bay_exploded + bay_labels, isolate, hide_prefix uno_q.x, elev 82, azim 0) -> data/bay_assembly_sheet.png.
 9. `tools/blender/head_explode.py` with `{"offset":[0,-0.3,0.1]}` - the head sheet.
-10. Hide the Uno Q's envelope box copies (`uno_q.x*`): the board's parts (`unoq_*`) are shown instead. Then rerun step 3
-    (assembled wiring) and step 4 (cover recut). Renders: `tools/blender/closeup.py` -> data/duck_exploded.png (elev 72, azim
+10. Hide the Uno Q's envelope box copies (`uno_q.x*`): the board's parts (`unoq_*`) are shown instead. Rerunning step 3
+    (assembled wiring) and step 4 (cover recut) is not needed: the copies share the parts' meshes (checked 2026-11-19: cover,
+    dome, face, enclosure and all cables unchanged). Renders: `tools/blender/closeup.py` -> data/duck_exploded.png (elev 72, azim
     135), duck_exploded_side.png, bay_exploded.png, head_exploded.png.
