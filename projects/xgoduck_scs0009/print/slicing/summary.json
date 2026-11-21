@@ -1,0 +1,61 @@
+{
+ "parts": 29,
+ "plates": [
+  {
+   "plate": "plate_1",
+   "hours": 6.23,
+   "g": 135.8,
+   "objects": [
+    "head_dome.stl",
+    "head_base.stl",
+    "body_lid.stl",
+    "uno_cover.stl",
+    "electronics_enclosure.stl",
+    "body_frame.stl",
+    "neck_cradle.stl",
+    "yaw_block.stl"
+   ]
+  },
+  {
+   "plate": "plate_2",
+   "hours": 5.51,
+   "g": 111.9,
+   "objects": [
+    "head_jaw.stl",
+    "left_thigh.stl",
+    "right_thigh.stl",
+    "left_foot.stl",
+    "right_foot.stl",
+    "head_face.stl",
+    "right_shin.stl",
+    "left_shin.stl",
+    "head_visor.stl",
+    "head_pitch_u.stl",
+    "left_yaw_connector.stl"
+   ]
+  },
+  {
+   "plate": "plate_3",
+   "hours": 1.46,
+   "g": 28.4,
+   "objects": [
+    "right_yaw_connector.stl",
+    "right_l_bracket.stl",
+    "left_l_bracket.stl",
+    "left_knee_cap.stl",
+    "right_knee_cap.stl",
+    "head_pitch_bearing_plate.stl",
+    "right_foot_bearing_plate.stl",
+    "left_foot_bearing_plate.stl",
+    "body_neck_bearing_plate.stl",
+    "switch_plate.stl"
+   ]
+  }
+ ],
+ "hours": 13.2,
+ "grams": 276,
+ "support_g": 34,
+ "extruded_cm3": 219.1,
+ "support_cm3": 26.8,
+ "solid_model_cm3": 238.4
+}

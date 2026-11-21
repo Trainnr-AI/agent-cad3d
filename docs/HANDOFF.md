@@ -247,6 +247,15 @@ Camera cable re-routed in the head; the face got room for the plug's wires and a
 before). Every bay / head cable clears every part. To measure: the battery's leads (~75 mm needed), the USB adapter / plug, the Mini560's
 IN end, the switch lever. REVIEW.md "The bay with exact parts..." and "Camera cable in the head...".
 
+## Slicing check (2026-11-22)
+
+OrcaSlicer 2.5.2 headless (`tools/slicer/`, skill `.claude/skills/slice-print/`; WSL: `scripts/setup_orca.sh` installs the AppImage).
+`tools/slicer/slice_project.sh projects/xgoduck_scs0009/data/build_args/slicing.json` (Bambu X1C 0.4, Bambu PLA Basic, the test-guide
+settings). Results and chosen orientations: `projects/xgoduck_scs0009/print/slicing/README.md`. Main finding: in every orientation the
+slicer puts support on some bearing seats - the hip-yaw / knee shoulders (meant to bridge; the knee-rotor coupon tests that) and the
+Ø15 bosses that must print lying down in the L-brackets, yaw connectors and yaw block, plus the head base's roll bore (no coupon
+covers these). Design change or extra coupon = user decision, open.
+
 ## Open items / next steps
 
 1. **Staged build** (agreed): print the coupon -> adjust fits (constants in `tools/blender/parts/joint_v2.py`: SEAT_D, BOSS_D,

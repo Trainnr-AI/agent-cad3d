@@ -1,5 +1,8 @@
 # Print packages for the printing service
 
+`slicing/` - the slicing check of all 29 robot parts (OrcaSlicer: time, grams, cm3, chosen orientations, where supports still touch
+fit surfaces). Not a package for the service yet - see `slicing/README.md`.
+
 ## `test_batch/` - batch 1, send this first
 
 The whole folder goes to the printing service: `nanoduck_test_print_guide.pdf` (2 pages: files, settings, what to send back, a

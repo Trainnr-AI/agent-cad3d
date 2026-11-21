@@ -51,6 +51,9 @@ Other backends (FreeCAD, SolidWorks) may be added later — keep work backend-ag
   SCS0009 meshes in `tools/blender/parts/scs0009_mesh/`.
 - `tools/sim/` — MuJoCo: `build_scaled_mjcf`, `apply_body_meshes`, `fix_key_heights`, `servo_tests`,
   `rerun_replay` (into trainnr Studio), `mujoco_showcase` (native viewer).
+- `tools/slicer/` — OrcaSlicer CLI (`scripts/setup_orca.sh`): `slice_project.sh <slicing.json>` slices every printed part in
+  6 orientations on a copy of the .blend, maps supports back onto the model (bearing seats, servo / horn pockets), picks each
+  part's orientation, gives hours / grams / cm3 and a sliced .3mf. Skill: `.claude/skills/slice-print/`.
 - `projects/<project>/` — .blend, `REVIEW.md`, `data/`, `sim/`. `exports/`, `vendor/` — git-ignored.
 
 ## Checks before calling a part done
