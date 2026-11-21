@@ -21,6 +21,7 @@ ARGS = {"robot": "duck_scs0009", "collection": "body_v2", "joint_lib": "/abs/par
 """
 import math
 
+import bmesh
 import bpy
 from mathutils import Matrix, Vector
 
@@ -166,7 +167,8 @@ if args.get("chest_plate", False) or args.get("tof", False):                    
 body_solids = list(tub)
 tub = []
 # top plate posts: on the pocket's high walls (enclosure)
-POSTS = [(XP_STEP + T - 0.3, p0 + T - 0.3), (XP_STEP + T - 0.3, p1 - T - 5.0 + 0.3), (XP1 - T - 5.0 + 0.3, p0 + T - 0.3), (XP1 - T - 5.0 + 0.3, p1 - T - 5.0 + 0.3)]
+PL_DX = args.get("post_left_rear_dx", 2.6)   # 2026-11-20: the left-rear post (and its corbel) sat over the servo adapter's left edge: moved forward
+POSTS = [(XP_STEP + T - 0.3, p0 + T - 0.3), (XP_STEP + T - 0.3 + PL_DX, p1 - T - 5.0 + 0.3), (XP1 - T - 5.0 + 0.3, p0 + T - 0.3), (XP1 - T - 5.0 + 0.3, p1 - T - 5.0 + 0.3)]
 if EXT:
     POSTS += [(XRP + T - 0.3, p0 + T - 0.3), (XRP + T - 0.3, p1 - T - 5.0 + 0.3)]
 for px, py in POSTS:
@@ -183,6 +185,11 @@ zt = z_deck0 - 0.2 - TONGUE[3]                                             # gus
 enc.append(hull([(x, y, z) for y in (CY - TONGUE[2], CY + TONGUE[2]) for x, z in ((XK1 - 0.3, zt + 0.3), (TONGUE[1], zt + 0.3), (XK1 - 0.3, zt - SLOPE * (TONGUE[1] - XK1) - 0.3))]))
 JOIN_Y = (-8.0, 0.0, 8.0)
 z_join = (z_deck0 + z_deck1) / 2
+# 2026-11-20: the 3 enclosure screws go in VERTICALLY from under the robot (were horizontal, driven inside the bay through access holes
+# in its rear wall): through the tongue's gusset (solid from its sloped underside to the tongue's top, z 94.0) into the deck (94.2..99.2);
+# M2x10 countersunk, head flush at JOIN_SEAT, 4 mm of thread in the deck, 1 mm of deck left over the tip.
+JOIN_V = [(0.5, CY - 5.5), (0.5, CY), (0.5, CY + 5.5)]
+JOIN_SEAT = z_deck0 + 0.2 - 10.0 + 3.6                                     # 87.8: tip 3.6 into the deck; the pilot ends 0.45 past it, 0.75 under the deck top
 # neck pedestal: straight under the neck axis, between the horn plate and the bearing plate
 WEB_R, WEB_HW = (L["ARM_R_FULL"] + 0.5, L["ARM_R_FULL"] + 6.5), 6.0
 ARM, BP_Z = L["ARM_Z"], (L["BP_INNER_Z"] - L["BP_T"], L["BP_INNER_Z"])
@@ -231,8 +238,9 @@ cuts.append(box(_ex - 2.0, _ex + 0.8, _ey - L["J_EAR_HW"] - 0.6, _ey + L["J_EAR_
 # the pedestal's front top corner, cut at 45 deg: the cradle's edge passes there when the neck is fully forward
 Mc = Mt @ Matrix.Translation(Vector((nx + 3.1 - HOME.x, 0.0, z_web - HOME.z)) * MM) @ Matrix.Rotation(math.radians(45), 4, "Y")
 cuts.append(L["add_box"](L["new_bm"](), -12.0, 12.0, y_in - 1.0 - HOME.y, y_out - (ARM[1] - ARM[0]) - 0.35 - HOME.y, 0.0, 14.0, Mc))
-for y in JOIN_Y:                                                           # pilots in the deck's rear edge for the enclosure's screws
-    cuts.append(L["add_cyl"](L["new_bm"](), *xpt(CY + y, z_join), X_JOIN - HOME.x - 0.5, X_JOIN - HOME.x + (8.0 if VBAT else 4.6), L["PILOT_D"], 14, MX))   # upright bay: M2x10 countersunk (Robu), tip at +2.4; deck solid to +6.4
+for jx, jy in JOIN_V:                                                      # pilots up into the deck for the enclosure's screws (2026-11-20: driven
+    cuts.append(L["add_cyl"](L["new_bm"](), jx - HOME.x, jy - HOME.y, z_deck0 - 0.3 - HOME.z, JOIN_SEAT + L["CSK_L"] + 0.45 - HOME.z,   # from below)
+                             L["PILOT_D"], 14, Mt))
 # 2026-11-15: round the deck's lower OUTER edge (both sides), front part (x -4.9..11.2, where the outer face reaches the bottom): in
 # walking (leg back ~46 deg, toed in, rolled out) the hip-roll leads and the body-to-thigh extensions run from the yaw connector under
 # the deck up to the thigh and wrap round this edge, every step (cable_pinch_check.py, 2.3 mm). r 1.5: ONE prism along x whose y-z
@@ -273,15 +281,14 @@ for sgn in (-1, 1):                                                        # pil
 enc_cuts.append(box(XP1 - T - 0.5, XP1 + 0.5, CY - 8.5, CY + 8.5, ZP_FRONT - 5.5, ZP_FRONT + 1.0))      # cable notch in the pocket's front wall: the servo adapter's cable to the bus board
 if not VBAT:                                                               # (upright bay: no cable uses it - the left-thigh cable goes over the battery)
     enc_cuts.append(box(XK1 - T - 0.5, XK1 + 0.5, PORT["y0"], PORT["y1"], PORT["z0"], PORT["z1"]))   # cable port: the adapter's two cables leave the keel here
-for y in JOIN_Y:
-    if VBAT:                                                                # heads sunk 0.3 under the face (the battery stands 0.3 from it) in a
-        f = XK1 - T - HOME.x                                                # 90 deg countersink (was a flat Ø4.0 counterbore: a csk head on a flat
-        enc_cuts.append(L["combine_cutters"]([                              # floor only bears on the hole's edge - screw_audit 2026-11-13)
-            L["add_cyl"](L["new_bm"](), *xpt(CY + y, z_join), f + 0.5, XP1 + 0.6 - HOME.x, L["CLEAR_D"], 16, MX),
-            L["_csk_cone"](MX, *xpt(CY + y, z_join), f - 0.6, L["CSK_HEAD_D"] + 0.1 + 1.8, f + 0.3 + (L["CSK_HEAD_D"] + 0.1 - 2.2) / 2, 2.2)]))
-    else:
-        enc_cuts.append(L["add_cyl"](L["new_bm"](), *xpt(CY + y, z_join), XK1 - T - 0.6 - HOME.x, XP1 + 0.6 - HOME.x, L["CLEAR_D"], 16, MX))      # clearance through the front walls (keel + pocket: 2.6 mm)
-    enc_cuts.append(L["add_cyl"](L["new_bm"](), *xpt(CY + y, z_join), XRP - 0.6 - HOME.x, XR + T + 0.6 - HOME.x, 4.6, 20, MX))                 # driver access through the rear wall
+for jx, jy in JOIN_V:                                                      # 2026-11-20 (user: screws from the outside): up from UNDER the robot
+    # through the tongue's gusset; head flush in a 90 deg countersink. Three separate cutters with clearly different sizes (nearly
+    # coincident faces left the enclosure non-manifold): relief from below Ø5.2 to JOIN_SEAT - 0.2, the cone from inside the relief, the
+    # clearance hole from inside the cone
+    enc_cuts.append(L["add_cyl"](L["new_bm"](), jx - HOME.x, jy - HOME.y, JOIN_SEAT - 12.0 - HOME.z, JOIN_SEAT - 0.2 - HOME.z, 5.2, 32, Mt))
+    enc_cuts.append(L["_csk_cone"](Mt, jx - HOME.x, jy - HOME.y, JOIN_SEAT - 0.4 - HOME.z, L["CSK_HEAD_D"] + 0.1 + 0.8,
+                                   JOIN_SEAT + (L["CSK_HEAD_D"] + 0.1 - 2.2) / 2 - HOME.z, 2.2))
+    enc_cuts.append(L["add_cyl"](L["new_bm"](), jx - HOME.x, jy - HOME.y, JOIN_SEAT + 0.4 - HOME.z, z_deck0 + 0.5 - HOME.z, L["CLEAR_D"], 16, Mt))
 # keel fittings: sensor bosses on the floor, two rails across the ends (adapter + regulator stand on them, above the sensor),
 # and a fence post on each rail between the adapter and the regulator
 zk0 = ZB + T
@@ -310,7 +317,10 @@ if VBAT:
         for sz in (-1, 1):
             yy, zz = IMU_V["yc"] + sy * IMU_HOLES[0], IMU_V["zc"] + sz * IMU_HOLES[1]
             enc.append(L["add_cyl"](L["new_bm"](), *xpt(yy, zz), XR + T - 0.3 - HOME.x, IMU_V["x_face"] - HOME.x, 4.6, 20, MX))
-            enc_cuts.append(L["add_cyl"](L["new_bm"](), *xpt(yy, zz), XR - 0.5 - HOME.x, IMU_V["x_face"] + 0.5 - HOME.x, L["PILOT_D"], 14, MX))   # through the wall (it ended ON the outer face: coincident faces broke the boolean 2026-11-13; the M2x6 tip stops 0.2 inside)
+            # 2026-11-20 (user: nothing screwed from inside the bay): no screws - a peg on each boss goes through the board's mounting
+            # hole (the only place a board is sure to be free of parts); the IMU goes straight down, back onto the pegs, a drop of hot
+            # glue on each peg tip holds it (the switch plate is also 0.4 in front of its left edge)
+            enc.append(L["add_cyl"](L["new_bm"](), *xpt(yy, zz), IMU_V["x_face"] - 0.3 - HOME.x, IMU_V["x_face"] + 1.6 + 0.8 - HOME.x, 1.9, 16, MX))
     # camera USB cradle (2026-11-19, user: rigid right-angle USB-C -> USB-A adapter, mouth down): two ribs on the rear wall's outer face either
     # side of the adapter + the camera's USB-A plug, 1.2 mm proud of them, with a zip-tie slot through each: the plug rests against the wall
     # between them, so a knock goes into the bay, not the Uno Q's USB-C socket (parts/bay_parts.py draws the adapter and plug)
@@ -328,19 +338,44 @@ if VBAT:
         # 2026-11-19: XT30 in the middle (y -110..-100, z 90..116: the right foot reaches y < -111 up to z 109); balance plug at the rear
         # right ABOVE the bay's top (y -121..-115.25, z 128.5..140.9, behind the Uno Q cover), held by a fin on its left (z 124..141, on the
         # rear wall's top 4 mm; the cables round the corner pass under it) + a zip tie. The XT30's right rib from z 109 (IMU pilot below).
-        for ya_, yb_, z0_, z1_, zs_ in ((-114.85, -113.25, 124.0, 141.0, 134.0), (-111.6, -110.5, 109.0, 115.0, 110.5)):   # (the XT30's rib starts
-            enc.append(box(XR - _cd, XR + 0.3, ya_, yb_, z0_, z1_))                                                 #  above the IMU pilot, z 106.7)
-            enc_cuts.append(box(XR - _cd + 3.0, XR - 2.0, ya_ - 0.5, yb_ + 0.5, zs_, zs_ + 3.0))                    # zip-tie slots
-    # power switch: mini toggle (MTS, 6 A; body 7.8 x 13.2 x 9.5 + pins, 6 mm bushing) in a recess in the left side wall, lever tip flush
-    # with the outside (nothing for a leg to catch); body inside, between the balance sensor and the battery, above the adapter
-    # 2026-11-19: the recess is a HEX (AF 8.3) the switch's M6 nut drops into and cannot turn in: screw the switch in from inside by
-    # turning its body (before soldering); no tool reaches a nut 10 mm deep in a 7 x 8 recess, and the nut + washer did not fit it
-    TG = dict(xc=args.get("switch_x", -36.3), zc=108.0, y_plate=CY + HP - 11.6)  # recess floor (the switch's mounting plate) 10 mm in from the outside
-    enc.append(box(TG["xc"] - 6.0, TG["xc"] + 6.0, TG["y_plate"], CY + HP, TG["zc"] - 6.0, TG["zc"] + 6.0))
+        # 2026-11-20: the balance plug's fin ran 0.1 mm into the lid and the Uno Q's board and 1.2 mm through the cover's rear wall (all
+        # three overhang the rear face; the fit audit had no such pairs). Now it keeps 0.1 / 0.3 / 0.3 from them, and its joint to the
+        # wall reaches down to z 122.1 (just over the battery leads, which lie flat behind the wall at z 118.4..121.6): 1.6 x 5.3 mm.
+        FIN = (-114.85, -113.25)
+        enc.append(box(XR - 1.3, XR + 0.3, FIN[0], FIN[1], 122.1, 124.35))                                        # root, under the lid's level
+        enc.append(box(XR - _cd, XR + 0.1, FIN[0], FIN[1], 124.3, 127.4))                                         # on the wall's outer skin, 0.1 from the lid
+        enc.append(box(XR - _cd, XR - 0.1, FIN[0], FIN[1], 127.3, 129.8))                                         # beside the lid / board
+        enc.append(box(XR - _cd, XR - 1.6, FIN[0], FIN[1], 129.7, 141.0))                                         # behind the cover
+        enc_cuts.append(box(XR - _cd + 3.0, XR - 2.0, FIN[0] - 0.5, FIN[1] + 0.5, 134.0, 137.0))                 # zip-tie slot
+        ya_, yb_, z0_, z1_, zs_ = -111.6, -110.5, 109.0, 115.0, 110.5                                            # the XT30's right rib (from z 109:
+        enc.append(box(XR - _cd, XR + 0.3, ya_, yb_, z0_, z1_))                                                 #  the IMU pilot below, z 106.7)
+        enc_cuts.append(box(XR - _cd + 3.0, XR - 2.0, ya_ - 0.5, yb_ + 0.5, zs_, zs_ + 3.0))                    # zip-tie slot
+    # power switch: mini toggle (MTS, 6 A; body 7.8 x 13.2 x 9.5 + pins, 6 mm bushing), body inside above the adapter, lever out through
+    # the left side wall (7.4 mm proud). 2026-11-20: its mounting block was part of the enclosure and hung 1.1 mm over the servo adapter -
+    # the adapter could not slide down into its slots past it (bay path check). Now a separate SWITCH PLATE (the same block: hex pocket for
+    # the M6 nut, Ø6.3 bushing hole in its 1.6 mm floor): on the bench the nut drops into the pocket and the switch screws in by turning its
+    # body, wires soldered; in the bay the plate goes down 10 mm in from the wall (a lid post's corbel is above it at the wall), then
+    # outward: the lever through a 4.4 x 7 hole in the wall; 2x M2x10 countersunk from outside, heads flush (the enclosure screw).
+    TG = dict(xc=args.get("switch_x", -35.2), zc=108.0, y_plate=CY + HP - 11.6)  # plate floor (the switch's mounting face) 11.6 in from the outside
+    SWP = dict(x0=TG["xc"] - 6.8, x1=TG["xc"] + 6.8, y0=TG["y_plate"], y1=CY + HP - T - 0.1, z0=101.45, z1=114.8)  # 0.4 from the IMU, 0.5 from the
+    #   battery, 0.55 over the adapter, under the post corbel; >= 1.0 mm of plastic round the screw pilots (screw audit)
+    SWP_SCREWS = [(TG["xc"] - 4.85, TG["zc"] - 4.65), (TG["xc"] + 4.85, TG["zc"] - 4.65)]   # bottom corners: the wall behind x -36.6 is only 113 high
     MYs = Mt @ Matrix.Rotation(math.radians(-90), 4, "X")                     # +Z along layout +Y
-    _hx = L["add_cyl"](L["new_bm"](), TG["xc"] - HOME.x, -(TG["zc"] - HOME.z), TG["y_plate"] + 1.6 - HOME.y, CY + HP + 1.0 - HOME.y, 8.3 / math.cos(math.pi / 6), 6, MYs)
-    enc_cuts.append(_hx)                                                    # the recess (hexagon as created by the 6-segment cylinder)
-    enc_cuts.append(L["add_cyl"](L["new_bm"](), TG["xc"] - HOME.x, -(TG["zc"] - HOME.z), TG["y_plate"] - 0.5 - HOME.y, TG["y_plate"] + 2.1 - HOME.y, 6.3, 24, MYs))   # bushing hole
+    MYn = Mt @ Matrix.Rotation(math.radians(90), 4, "X")                      # +Z along layout -Y (the plate screws point inward)
+
+    def cyl_y(x, z, y0, y1, d, segs=24):
+        """cylinder along layout Y (layout coordinates)"""
+        return L["add_cyl"](L["new_bm"](), x - HOME.x, -(z - HOME.z), y0 - HOME.y, y1 - HOME.y, d, segs, MYs)
+
+    enc_cuts.append(box(TG["xc"] - 1.9, TG["xc"] + 1.9, CY + HP - T - 0.5, CY + HP + 0.5, TG["zc"] - 3.5, TG["zc"] + 3.5))   # lever hole (lever Ø3 + its throw)
+    _fz = CY + HP - HOME.y                                                     # the wall's outer face (frame z of MYs)
+    for sx_, sz_ in SWP_SCREWS:                                                # countersunk clearance holes, heads flush (Ø3.9 at the face)
+        enc_cuts.append(L["combine_cutters"]([cyl_y(sx_, sz_, CY + HP - T - 0.6, CY + HP + 0.5, L["CLEAR_D"], 16),
+                                              L["_csk_cone"](MYs, sx_ - HOME.x, -(sz_ - HOME.z), _fz - 0.85, 2.2, _fz + 0.3, 4.5)]))
+    # 2026-11-20: notches in the pocket's floor ledge over the servo adapter's edges (its left-edge parts and a corner on the right sat
+    # under the ledge: it could not slide down into its slots)
+    enc_cuts.append(box(-43.85, -32.7, -84.45, -82.6, 95.9, 101.2))
+    enc_cuts.append(box(-43.85, -42.2, -116.45, -115.6, 95.9, 101.2))
 for sx in (-1, 1) if not VBAT else ():
     for sy in (-1, 1):
         ix, iy = IMU_XY[0] + sx * IMU_HOLES[0], IMU_XY[1] + sy * IMU_HOLES[1]
@@ -372,13 +407,32 @@ if KC > 0:
         if KF > 0:
             enc.append(hull([(x, y, z) for x in (KC_X[0], XK1 - 0.3) for y, z in ((yi + sgn * 0.3, ZB + T - 0.3), (yi - sgn * (KF + 0.3), ZB + T - 0.3), (yi + sgn * 0.3, ZB + T + KF + 0.3))]))
 mat_enc = L["material"]("electronics_enclosure", (0.35, 0.55, 0.75, 1))
-enclosure = finish("electronics_enclosure", L["build_part"]("electronics_enclosure", [L["combine_cutters"](enc)], enc_cuts, coll, mat_enc))
+switch_plate = sw_screws = None
+enclosure = L["build_part"]("electronics_enclosure", [L["combine_cutters"](enc)], enc_cuts, coll, mat_enc)
+_bm = bmesh.new()                                                          # weld coincident vertices the exact boolean can leave (2026-11-20: a
+_bm.from_mesh(enclosure.data)                                              # zero-length edge at a front countersink made it non-manifold)
+bmesh.ops.remove_doubles(_bm, verts=_bm.verts, dist=1e-7)
+_bm.to_mesh(enclosure.data)
+_bm.free()
+enclosure = finish("electronics_enclosure", enclosure)
+if VBAT:                                                                    # the switch plate (2026-11-20) + its 2 countersunk screws
+    sw_cuts = [cyl_y(TG["xc"], TG["zc"], TG["y_plate"] + 1.6, SWP["y1"] + 0.5, 8.3 / math.cos(math.pi / 6), 6),   # nut pocket (hex AF 8.3), open to the wall
+               cyl_y(TG["xc"], TG["zc"], TG["y_plate"] - 0.5, TG["y_plate"] + 2.1, 6.3)]                         # bushing hole in the 1.6 floor
+    sw_cuts += [cyl_y(sx_, sz_, SWP["y1"] - 9.2, SWP["y1"] + 0.5, L["PILOT_D"], 14) for sx_, sz_ in SWP_SCREWS]    # pilots: 8.3 mm of thread
+    switch_plate = finish("switch_plate", L["build_part"]("switch_plate", [box(SWP["x0"], SWP["x1"], SWP["y0"], SWP["y1"], SWP["z0"], SWP["z1"])],
+                                                          sw_cuts, coll, L["material"]("switch_plate", (0.95, 0.55, 0.15, 1))))
+    _ss = L["new_bm"]()
+    _f, _hh = -(CY + HP - HOME.y) + 0.05, (L["CSK_HEAD_D"] - 2.0) / 2          # frame of MYn: z = -(y - HOME.y); head top flush with the wall's face
+    for sx_, sz_ in SWP_SCREWS:
+        L["_csk_cone"](MYn, sx_ - HOME.x, sz_ - HOME.z, _f + 0.02, L["CSK_HEAD_D"] - 0.06, _f + 0.02 + _hh, 2.0 - 0.06, bm=_ss)
+        L["add_cyl"](_ss, sx_ - HOME.x, sz_ - HOME.z, _f + _hh + 0.06, _f + L["CSK_L"], 2.0, 16, MYn)
+    sw_screws = L["to_object"]("switch_plate_screws_M2x10csk", _ss, coll, L["material"]("hw_steel", (0.6, 0.62, 0.66, 1)))
 if VBAT:                                                                    # M2x10 countersunk machine screws (Robu EasyMech, head Ø3.8), head flush with the keel wall's inner face
     _cs = L["new_bm"]()
-    f, hh = XK1 - T - HOME.x + 0.3, (L["CSK_HEAD_D"] - 2.0) / 2           # head top 0.3 under the face; 90 deg head, 0.9 high
-    for y in JOIN_Y:
-        L["_csk_cone"](MX, *xpt(CY + y, z_join), f + 0.02, L["CSK_HEAD_D"] - 0.06, f + 0.02 + hh, 2.0 - 0.06, bm=_cs)
-        L["add_cyl"](_cs, *xpt(CY + y, z_join), f + hh + 0.06, f + L["CSK_L"], 2.0, 16, MX)
+    f, hh = JOIN_SEAT - HOME.z, (L["CSK_HEAD_D"] - 2.0) / 2               # vertical, head flush with the seat (from below); 90 deg head, 0.9 high
+    for jx, jy in JOIN_V:
+        L["_csk_cone"](Mt, jx - HOME.x, jy - HOME.y, f + 0.02, L["CSK_HEAD_D"] - 0.06, f + 0.02 + hh, 2.0 - 0.06, bm=_cs)
+        L["add_cyl"](_cs, jx - HOME.x, jy - HOME.y, f + hh + 0.06, f + L["CSK_L"], 2.0, 16, Mt)
     enc_screws = L["to_object"]("enclosure_screws_M2x6st", _cs, coll, L["material"]("hw_steel", (0.6, 0.62, 0.66, 1)))   # (object name kept: explode views use it)
 else:
     enc_screws = L["pan_screw_dummy"]("enclosure_screws_M2x6st", [(MX, *xpt(CY + y, z_join), XK1 - T - HOME.x, +1) for y in JOIN_Y], coll)   # head on the keel wall's inner face
@@ -645,9 +699,12 @@ if args.get("tof", False):                                                    # 
 z_top = (VB["z0"] + ELEC["battery_3s"][0]) if VBAT else z_sh + 0.1 + 1.6 + 0.2 + ELEC["battery_3s"][2] + 0.3          # top of the battery
 # balance sensor: flat on four bosses on the keel floor (low, central, rigid), 4x M2x6 from above before the adapter goes in
 if VBAT:
-    elec.append(ebox("imu", IMU_V["x_face"], IMU_V["yc"] - ELEC["imu"][0] / 2, IMU_V["zc"] - ELEC["imu"][1] / 2, (ELEC["imu"][2], ELEC["imu"][0], ELEC["imu"][1]), (0.5, 0.1, 0.6, 1)))
-    imu_screws = L["pan_screw_dummy"]("imu_screws_M2x6st", [(MX, *xpt(IMU_V["yc"] + sy * IMU_HOLES[0], IMU_V["zc"] + sz * IMU_HOLES[1]), IMU_V["x_face"] + 1.6 - HOME.x, -1)
-                                                          for sy in (-1, 1) for sz in (-1, 1)], coll)
+    _ib = box(IMU_V["x_face"], IMU_V["x_face"] + ELEC["imu"][2], IMU_V["yc"] - ELEC["imu"][0] / 2, IMU_V["yc"] + ELEC["imu"][0] / 2,
+              IMU_V["zc"] - ELEC["imu"][1] / 2, IMU_V["zc"] + ELEC["imu"][1] / 2)
+    _ih = [L["add_cyl"](L["new_bm"](), *xpt(IMU_V["yc"] + sy * IMU_HOLES[0], IMU_V["zc"] + sz * IMU_HOLES[1]), IMU_V["x_face"] - 0.5 - HOME.x,
+                        IMU_V["x_face"] + ELEC["imu"][2] + 0.5 - HOME.x, 2.3, 16, MX) for sy in (-1, 1) for sz in (-1, 1)]   # its 4 mounting holes
+    elec.append(L["build_part"]("imu", [_ib], _ih, ecoll, L["material"]("elec_imu", (0.5, 0.1, 0.6, 1))))
+    imu_screws = None                                                     # 2026-11-20: held on pegs + hot glue (no screws)
 else:
     elec.append(ebox("imu", IMU_XY[0] - ELEC["imu"][0] / 2, IMU_XY[1] - ELEC["imu"][1] / 2, ZB + T + IMU_BOSS, ELEC["imu"], (0.5, 0.1, 0.6, 1)))
     imu_screws = L["pan_screw_dummy"]("imu_screws_M2x6st", [(Mt @ Matrix.Translation(Vector((IMU_XY[0] + sx * IMU_HOLES[0] - HOME.x, IMU_XY[1] + sy * IMU_HOLES[1] - HOME.y, ZB + T + IMU_BOSS + 1.6 - HOME.z)) * MM), 0, 0, 0.0, -1)
@@ -657,7 +714,7 @@ for _n in ("bus_screw_M2x6st",):                                              # 
     if _o:
         bpy.data.objects.remove(_o, do_unlink=True)
 ZT = ZP_FRONT
-for o in [x for x in [frame, enclosure, enc_screws, lid, lid_screws, shelf, shelf_screws, uno_screws, uno_screw_m2, imu_screws] if x is not None] + elec + cover_parts:
+for o in [x for x in [frame, enclosure, enc_screws, switch_plate, sw_screws, lid, lid_screws, shelf, shelf_screws, uno_screws, uno_screw_m2, imu_screws] if x is not None] + elec + cover_parts:
     mw = o.matrix_world.copy()
     o.parent = trunk
     o.matrix_world = mw

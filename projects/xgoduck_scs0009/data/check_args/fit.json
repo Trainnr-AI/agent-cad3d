@@ -1,2576 +1,2800 @@
 {
-"lib": "<repo>/tools/blender/overlap_sample.py",
-"step_mm": 0.2,
-"checks": [
-{
-"group": "left hip yaw (cap)",
-"a": "scs_left_hip_yaw_case",
-"b": "body_frame",
-"expect": "clear",
-"note": "servo body in its holder (pads, walls)"
-},
-{
-"group": "left hip yaw (cap)",
-"a": "scs_left_hip_yaw_case",
-"b": "left_yaw_connector",
-"expect": "clear",
-"note": "servo body vs moving part"
-},
-{
-"group": "left hip yaw (cap)",
-"a": "scs_left_hip_yaw_horn_cross",
-"b": "left_yaw_connector",
-"expect": "press",
-"note": "horn in crush-rib pocket"
-},
-{
-"group": "left hip yaw (cap)",
-"a": "scs_left_hip_yaw_horn_cross",
-"b": "body_frame",
-"expect": "clear",
-"note": "horn vs holder"
-},
-{
-"group": "left hip yaw (cap)",
-"a": "left_hip_yaw_brg_6702ZZ",
-"b": "body_frame",
-"expect": "clear",
-"note": "6702ZZ in its seat"
-},
-{
-"group": "left hip yaw (cap)",
-"a": "left_hip_yaw_brg_6702ZZ",
-"b": "left_yaw_connector",
-"expect": "clear",
-"note": "6702ZZ on the boss"
-},
-{
-"group": "left hip yaw (cap)",
-"a": "left_hip_yaw_brg_6702ZZ",
-"b": "scs_left_hip_yaw_case",
-"expect": "clear",
-"note": "6702ZZ vs servo tower"
-},
-{
-"group": "left hip yaw (cap)",
-"a": "left_hip_yaw_screw_M2x4kit",
-"b": "left_yaw_connector",
-"expect": "clear",
-"note": "horn screw in clearance hole"
-},
-{
-"group": "left hip yaw (cap)",
-"a": "left_hip_yaw_screw_M2x4kit",
-"b": "scs_left_hip_yaw_spline",
-"expect": "thread",
-"note": "horn screw in the shaft"
-},
-{
-"group": "left hip yaw (cap)",
-"a": "left_hip_yaw_ear_screws_M2x6st",
-"b": "body_frame",
-"expect": "thread",
-"note": "ear screws in the pads"
-},
-{
-"group": "left hip yaw (cap)",
-"a": "left_hip_yaw_ear_screws_M2x6st",
-"b": "left_yaw_connector",
-"expect": "clear",
-"note": "ear screw heads vs moving part"
-},
-{
-"group": "left hip roll (cap)",
-"a": "scs_left_hip_roll_case",
-"b": "left_yaw_connector",
-"expect": "clear",
-"note": "servo body in its holder (pads, walls)"
-},
-{
-"group": "left hip roll (cap)",
-"a": "scs_left_hip_roll_case",
-"b": "left_l_bracket",
-"expect": "clear",
-"note": "servo body vs moving part"
-},
-{
-"group": "left hip roll (cap)",
-"a": "scs_left_hip_roll_horn_cross",
-"b": "left_l_bracket",
-"expect": "press",
-"note": "horn in crush-rib pocket"
-},
-{
-"group": "left hip roll (cap)",
-"a": "scs_left_hip_roll_horn_cross",
-"b": "left_yaw_connector",
-"expect": "clear",
-"note": "horn vs holder"
-},
-{
-"group": "left hip roll (cap)",
-"a": "left_hip_roll_brg_6702ZZ",
-"b": "left_yaw_connector",
-"expect": "clear",
-"note": "6702ZZ in its seat"
-},
-{
-"group": "left hip roll (cap)",
-"a": "left_hip_roll_brg_6702ZZ",
-"b": "left_l_bracket",
-"expect": "clear",
-"note": "6702ZZ on the boss"
-},
-{
-"group": "left hip roll (cap)",
-"a": "left_hip_roll_brg_6702ZZ",
-"b": "scs_left_hip_roll_case",
-"expect": "clear",
-"note": "6702ZZ vs servo tower"
-},
-{
-"group": "left hip roll (cap)",
-"a": "left_hip_roll_screw_M2x4kit",
-"b": "left_l_bracket",
-"expect": "clear",
-"note": "horn screw in clearance hole"
-},
-{
-"group": "left hip roll (cap)",
-"a": "left_hip_roll_screw_M2x4kit",
-"b": "scs_left_hip_roll_spline",
-"expect": "thread",
-"note": "horn screw in the shaft"
-},
-{
-"group": "left hip roll (cap)",
-"a": "left_hip_roll_ear_screws_M2x6st",
-"b": "left_yaw_connector",
-"expect": "thread",
-"note": "ear screws in the pads"
-},
-{
-"group": "left hip roll (cap)",
-"a": "left_hip_roll_ear_screws_M2x6st",
-"b": "left_l_bracket",
-"expect": "clear",
-"note": "ear screw heads vs moving part"
-},
-{
-"group": "left ankle (fork)",
-"a": "scs_left_ankle_case",
-"b": "left_shin",
-"expect": "clear",
-"note": "servo body in its cradle (floor, pads)"
-},
-{
-"group": "left ankle (fork)",
-"a": "scs_left_ankle_case",
-"b": "left_foot",
-"expect": "clear",
-"note": "servo body vs moving part"
-},
-{
-"group": "left ankle (fork)",
-"a": "scs_left_ankle_case",
-"b": "left_foot_bearing_plate",
-"expect": "clear",
-"note": "servo body vs bearing plate"
-},
-{
-"group": "left ankle (fork)",
-"a": "scs_left_ankle_horn_cross",
-"b": "left_foot",
-"expect": "press",
-"note": "horn in crush-rib pocket"
-},
-{
-"group": "left ankle (fork)",
-"a": "left_ankle_nut_M3",
-"b": "left_shin",
-"expect": "clear",
-"note": "M3 nut in its hex pocket"
-},
-{
-"group": "left ankle (fork)",
-"a": "left_ankle_nut_M3",
-"b": "scs_left_ankle_case",
-"expect": "clear",
-"note": "M3 nut under the servo bottom"
-},
-{
-"group": "left ankle (fork)",
-"a": "left_ankle_screw_M3x8",
-"b": "left_shin",
-"expect": "clear",
-"note": "M3 axle through the floor"
-},
-{
-"group": "left ankle (fork)",
-"a": "left_ankle_screw_M3x8",
-"b": "left_ankle_nut_M3",
-"expect": "clear",
-"note": "M3 axle in the nut (thread, same diameter)"
-},
-{
-"group": "left ankle (fork)",
-"a": "left_ankle_screw_M3x8",
-"b": "left_ankle_brg_693",
-"expect": "clear",
-"note": "M3 axle in the 693 bore"
-},
-{
-"group": "left ankle (fork)",
-"a": "left_ankle_screw_M3x8",
-"b": "left_foot_bearing_plate",
-"expect": "clear",
-"note": "M3 head in the plate's lip hole"
-},
-{
-"group": "left ankle (fork)",
-"a": "left_ankle_screw_M3x8",
-"b": "scs_left_ankle_case",
-"expect": "clear",
-"note": "M3 tip vs servo bottom"
-},
-{
-"group": "left ankle (fork)",
-"a": "left_ankle_brg_693",
-"b": "left_shin",
-"expect": "clear",
-"note": "693 inner ring on the floor island"
-},
-{
-"group": "left ankle (fork)",
-"a": "left_ankle_brg_693",
-"b": "left_foot_bearing_plate",
-"expect": "clear",
-"note": "693 in the plate's seat"
-},
-{
-"group": "left ankle (fork)",
-"a": "left_foot_bearing_plate",
-"b": "left_shin",
-"expect": "clear",
-"note": "bearing plate vs holder"
-},
-{
-"group": "left ankle (fork)",
-"a": "left_foot_bearing_plate",
-"b": "left_foot",
-"expect": "clear",
-"note": "bearing plate vs moving part (joint face)"
-},
-{
-"group": "left ankle (fork)",
-"a": "left_ankle_screw_M2x4kit",
-"b": "left_foot",
-"expect": "clear",
-"note": "horn screw in clearance hole"
-},
-{
-"group": "left ankle (fork)",
-"a": "left_ankle_screw_M2x4kit",
-"b": "scs_left_ankle_spline",
-"expect": "thread",
-"note": "horn screw in the shaft"
-},
-{
-"group": "left ankle (fork)",
-"a": "left_ankle_ear_screws_M2x6st",
-"b": "left_shin",
-"expect": "thread",
-"note": "ear screws in the pads"
-},
-{
-"group": "left ankle (fork)",
-"a": "left_ankle_ear_screws_M2x6st",
-"b": "left_foot",
-"expect": "clear",
-"note": "ear screw heads vs moving part"
-},
-{
-"group": "left ankle (fork)",
-"a": "left_foot_plate_screws_M2x6st",
-"b": "left_foot",
-"expect": "thread",
-"note": "plate screws bite into the sole"
-},
-{
-"group": "left ankle (fork)",
-"a": "left_foot_plate_screws_M2x6st",
-"b": "left_foot_bearing_plate",
-"expect": "clear",
-"note": "plate screws through the flange"
-},
-{
-"group": "left leg, neighbours",
-"a": "scs_left_hip_roll_case",
-"b": "body_frame",
-"expect": "clear",
-"note": "roll servo vs hip plate"
-},
-{
-"group": "left leg, neighbours",
-"a": "scs_left_hip_roll_case",
-"b": "scs_left_hip_yaw_case",
-"expect": "clear",
-"note": "roll servo vs yaw servo"
-},
-{
-"group": "left leg, neighbours",
-"a": "scs_left_hip_pitch_case",
-"b": "scs_left_hip_roll_case",
-"expect": "clear",
-"note": "pitch servo vs roll servo"
-},
-{
-"group": "left leg, neighbours",
-"a": "scs_left_knee_case",
-"b": "scs_left_hip_pitch_case",
-"expect": "clear",
-"note": "knee servo vs pitch servo"
-},
-{
-"group": "left leg, neighbours",
-"a": "left_hip_roll_ear_screws_M2x6st",
-"b": "scs_left_hip_yaw_case",
-"expect": "clear",
-"note": "roll ear screws vs yaw servo"
-},
-{
-"group": "left leg, neighbours",
-"a": "left_hip_pitch_ear_screws_M2x6st",
-"b": "scs_left_knee_case",
-"expect": "clear",
-"note": "pitch ear screws vs knee servo"
-},
-{
-"group": "left leg, neighbours",
-"a": "left_knee_ear_screws_M2x6st",
-"b": "scs_left_hip_pitch_case",
-"expect": "clear",
-"note": "knee ear screws vs pitch servo"
-},
-{
-"group": "left leg, neighbours",
-"a": "left_hip_roll_ear_screws_M2x6st",
-"b": "body_frame",
-"expect": "clear",
-"note": "roll ear screws vs hip plate"
-},
-{
-"group": "left leg, neighbours",
-"a": "left_hip_yaw_ear_screws_M2x6st",
-"b": "scs_left_hip_roll_case",
-"expect": "clear",
-"note": "yaw ear screws vs roll servo"
-},
-{
-"group": "left leg, neighbours",
-"a": "left_ankle_ear_screws_M2x6st",
-"b": "scs_left_ankle_horn_cross",
-"expect": "clear",
-"note": "ankle ear screws vs horn"
-},
-{
-"group": "right hip yaw (cap)",
-"a": "scs_right_hip_yaw_case",
-"b": "body_frame",
-"expect": "clear",
-"note": "servo body in its holder (pads, walls)"
-},
-{
-"group": "right hip yaw (cap)",
-"a": "scs_right_hip_yaw_case",
-"b": "right_yaw_connector",
-"expect": "clear",
-"note": "servo body vs moving part"
-},
-{
-"group": "right hip yaw (cap)",
-"a": "scs_right_hip_yaw_horn_cross",
-"b": "right_yaw_connector",
-"expect": "press",
-"note": "horn in crush-rib pocket"
-},
-{
-"group": "right hip yaw (cap)",
-"a": "scs_right_hip_yaw_horn_cross",
-"b": "body_frame",
-"expect": "clear",
-"note": "horn vs holder"
-},
-{
-"group": "right hip yaw (cap)",
-"a": "right_hip_yaw_brg_6702ZZ",
-"b": "body_frame",
-"expect": "clear",
-"note": "6702ZZ in its seat"
-},
-{
-"group": "right hip yaw (cap)",
-"a": "right_hip_yaw_brg_6702ZZ",
-"b": "right_yaw_connector",
-"expect": "clear",
-"note": "6702ZZ on the boss"
-},
-{
-"group": "right hip yaw (cap)",
-"a": "right_hip_yaw_brg_6702ZZ",
-"b": "scs_right_hip_yaw_case",
-"expect": "clear",
-"note": "6702ZZ vs servo tower"
-},
-{
-"group": "right hip yaw (cap)",
-"a": "right_hip_yaw_screw_M2x4kit",
-"b": "right_yaw_connector",
-"expect": "clear",
-"note": "horn screw in clearance hole"
-},
-{
-"group": "right hip yaw (cap)",
-"a": "right_hip_yaw_screw_M2x4kit",
-"b": "scs_right_hip_yaw_spline",
-"expect": "thread",
-"note": "horn screw in the shaft"
-},
-{
-"group": "right hip yaw (cap)",
-"a": "right_hip_yaw_ear_screws_M2x6st",
-"b": "body_frame",
-"expect": "thread",
-"note": "ear screws in the pads"
-},
-{
-"group": "right hip yaw (cap)",
-"a": "right_hip_yaw_ear_screws_M2x6st",
-"b": "right_yaw_connector",
-"expect": "clear",
-"note": "ear screw heads vs moving part"
-},
-{
-"group": "right hip roll (cap)",
-"a": "scs_right_hip_roll_case",
-"b": "right_yaw_connector",
-"expect": "clear",
-"note": "servo body in its holder (pads, walls)"
-},
-{
-"group": "right hip roll (cap)",
-"a": "scs_right_hip_roll_case",
-"b": "right_l_bracket",
-"expect": "clear",
-"note": "servo body vs moving part"
-},
-{
-"group": "right hip roll (cap)",
-"a": "scs_right_hip_roll_horn_cross",
-"b": "right_l_bracket",
-"expect": "press",
-"note": "horn in crush-rib pocket"
-},
-{
-"group": "right hip roll (cap)",
-"a": "scs_right_hip_roll_horn_cross",
-"b": "right_yaw_connector",
-"expect": "clear",
-"note": "horn vs holder"
-},
-{
-"group": "right hip roll (cap)",
-"a": "right_hip_roll_brg_6702ZZ",
-"b": "right_yaw_connector",
-"expect": "clear",
-"note": "6702ZZ in its seat"
-},
-{
-"group": "right hip roll (cap)",
-"a": "right_hip_roll_brg_6702ZZ",
-"b": "right_l_bracket",
-"expect": "clear",
-"note": "6702ZZ on the boss"
-},
-{
-"group": "right hip roll (cap)",
-"a": "right_hip_roll_brg_6702ZZ",
-"b": "scs_right_hip_roll_case",
-"expect": "clear",
-"note": "6702ZZ vs servo tower"
-},
-{
-"group": "right hip roll (cap)",
-"a": "right_hip_roll_screw_M2x4kit",
-"b": "right_l_bracket",
-"expect": "clear",
-"note": "horn screw in clearance hole"
-},
-{
-"group": "right hip roll (cap)",
-"a": "right_hip_roll_screw_M2x4kit",
-"b": "scs_right_hip_roll_spline",
-"expect": "thread",
-"note": "horn screw in the shaft"
-},
-{
-"group": "right hip roll (cap)",
-"a": "right_hip_roll_ear_screws_M2x6st",
-"b": "right_yaw_connector",
-"expect": "thread",
-"note": "ear screws in the pads"
-},
-{
-"group": "right hip roll (cap)",
-"a": "right_hip_roll_ear_screws_M2x6st",
-"b": "right_l_bracket",
-"expect": "clear",
-"note": "ear screw heads vs moving part"
-},
-{
-"group": "right ankle (fork)",
-"a": "scs_right_ankle_case",
-"b": "right_shin",
-"expect": "clear",
-"note": "servo body in its cradle (floor, pads)"
-},
-{
-"group": "right ankle (fork)",
-"a": "scs_right_ankle_case",
-"b": "right_foot",
-"expect": "clear",
-"note": "servo body vs moving part"
-},
-{
-"group": "right ankle (fork)",
-"a": "scs_right_ankle_case",
-"b": "right_foot_bearing_plate",
-"expect": "clear",
-"note": "servo body vs bearing plate"
-},
-{
-"group": "right ankle (fork)",
-"a": "scs_right_ankle_horn_cross",
-"b": "right_foot",
-"expect": "press",
-"note": "horn in crush-rib pocket"
-},
-{
-"group": "right ankle (fork)",
-"a": "right_ankle_nut_M3",
-"b": "right_shin",
-"expect": "clear",
-"note": "M3 nut in its hex pocket"
-},
-{
-"group": "right ankle (fork)",
-"a": "right_ankle_nut_M3",
-"b": "scs_right_ankle_case",
-"expect": "clear",
-"note": "M3 nut under the servo bottom"
-},
-{
-"group": "right ankle (fork)",
-"a": "right_ankle_screw_M3x8",
-"b": "right_shin",
-"expect": "clear",
-"note": "M3 axle through the floor"
-},
-{
-"group": "right ankle (fork)",
-"a": "right_ankle_screw_M3x8",
-"b": "right_ankle_nut_M3",
-"expect": "clear",
-"note": "M3 axle in the nut (thread, same diameter)"
-},
-{
-"group": "right ankle (fork)",
-"a": "right_ankle_screw_M3x8",
-"b": "right_ankle_brg_693",
-"expect": "clear",
-"note": "M3 axle in the 693 bore"
-},
-{
-"group": "right ankle (fork)",
-"a": "right_ankle_screw_M3x8",
-"b": "right_foot_bearing_plate",
-"expect": "clear",
-"note": "M3 head in the plate's lip hole"
-},
-{
-"group": "right ankle (fork)",
-"a": "right_ankle_screw_M3x8",
-"b": "scs_right_ankle_case",
-"expect": "clear",
-"note": "M3 tip vs servo bottom"
-},
-{
-"group": "right ankle (fork)",
-"a": "right_ankle_brg_693",
-"b": "right_shin",
-"expect": "clear",
-"note": "693 inner ring on the floor island"
-},
-{
-"group": "right ankle (fork)",
-"a": "right_ankle_brg_693",
-"b": "right_foot_bearing_plate",
-"expect": "clear",
-"note": "693 in the plate's seat"
-},
-{
-"group": "right ankle (fork)",
-"a": "right_foot_bearing_plate",
-"b": "right_shin",
-"expect": "clear",
-"note": "bearing plate vs holder"
-},
-{
-"group": "right ankle (fork)",
-"a": "right_foot_bearing_plate",
-"b": "right_foot",
-"expect": "clear",
-"note": "bearing plate vs moving part (joint face)"
-},
-{
-"group": "right ankle (fork)",
-"a": "right_ankle_screw_M2x4kit",
-"b": "right_foot",
-"expect": "clear",
-"note": "horn screw in clearance hole"
-},
-{
-"group": "right ankle (fork)",
-"a": "right_ankle_screw_M2x4kit",
-"b": "scs_right_ankle_spline",
-"expect": "thread",
-"note": "horn screw in the shaft"
-},
-{
-"group": "right ankle (fork)",
-"a": "right_ankle_ear_screws_M2x6st",
-"b": "right_shin",
-"expect": "thread",
-"note": "ear screws in the pads"
-},
-{
-"group": "right ankle (fork)",
-"a": "right_ankle_ear_screws_M2x6st",
-"b": "right_foot",
-"expect": "clear",
-"note": "ear screw heads vs moving part"
-},
-{
-"group": "right ankle (fork)",
-"a": "right_foot_plate_screws_M2x6st",
-"b": "right_foot",
-"expect": "thread",
-"note": "plate screws bite into the sole"
-},
-{
-"group": "right ankle (fork)",
-"a": "right_foot_plate_screws_M2x6st",
-"b": "right_foot_bearing_plate",
-"expect": "clear",
-"note": "plate screws through the flange"
-},
-{
-"group": "right leg, neighbours",
-"a": "scs_right_hip_roll_case",
-"b": "body_frame",
-"expect": "clear",
-"note": "roll servo vs hip plate"
-},
-{
-"group": "right leg, neighbours",
-"a": "scs_right_hip_roll_case",
-"b": "scs_right_hip_yaw_case",
-"expect": "clear",
-"note": "roll servo vs yaw servo"
-},
-{
-"group": "right leg, neighbours",
-"a": "scs_right_hip_pitch_case",
-"b": "scs_right_hip_roll_case",
-"expect": "clear",
-"note": "pitch servo vs roll servo"
-},
-{
-"group": "right leg, neighbours",
-"a": "scs_right_knee_case",
-"b": "scs_right_hip_pitch_case",
-"expect": "clear",
-"note": "knee servo vs pitch servo"
-},
-{
-"group": "right leg, neighbours",
-"a": "right_hip_roll_ear_screws_M2x6st",
-"b": "scs_right_hip_yaw_case",
-"expect": "clear",
-"note": "roll ear screws vs yaw servo"
-},
-{
-"group": "right leg, neighbours",
-"a": "right_hip_pitch_ear_screws_M2x6st",
-"b": "scs_right_knee_case",
-"expect": "clear",
-"note": "pitch ear screws vs knee servo"
-},
-{
-"group": "right leg, neighbours",
-"a": "right_knee_ear_screws_M2x6st",
-"b": "scs_right_hip_pitch_case",
-"expect": "clear",
-"note": "knee ear screws vs pitch servo"
-},
-{
-"group": "right leg, neighbours",
-"a": "right_hip_roll_ear_screws_M2x6st",
-"b": "body_frame",
-"expect": "clear",
-"note": "roll ear screws vs hip plate"
-},
-{
-"group": "right leg, neighbours",
-"a": "right_hip_yaw_ear_screws_M2x6st",
-"b": "scs_right_hip_roll_case",
-"expect": "clear",
-"note": "yaw ear screws vs roll servo"
-},
-{
-"group": "right leg, neighbours",
-"a": "right_ankle_ear_screws_M2x6st",
-"b": "scs_right_ankle_horn_cross",
-"expect": "clear",
-"note": "ankle ear screws vs horn"
-},
-{
-"group": "neck pitch (fork)",
-"a": "scs_neck_pitch_case",
-"b": "neck_cradle",
-"expect": "clear",
-"note": "servo body in its cradle (floor, pads)"
-},
-{
-"group": "neck pitch (fork)",
-"a": "scs_neck_pitch_case",
-"b": "body_frame",
-"expect": "clear",
-"note": "servo body vs moving part"
-},
-{
-"group": "neck pitch (fork)",
-"a": "scs_neck_pitch_case",
-"b": "body_neck_bearing_plate",
-"expect": "clear",
-"note": "servo body vs bearing plate"
-},
-{
-"group": "neck pitch (fork)",
-"a": "scs_neck_pitch_horn_cross",
-"b": "body_frame",
-"expect": "press",
-"note": "horn in crush-rib pocket"
-},
-{
-"group": "neck pitch (fork)",
-"a": "neck_nut_M3",
-"b": "neck_cradle",
-"expect": "clear",
-"note": "M3 nut in its hex pocket"
-},
-{
-"group": "neck pitch (fork)",
-"a": "neck_nut_M3",
-"b": "scs_neck_pitch_case",
-"expect": "clear",
-"note": "M3 nut under the servo bottom"
-},
-{
-"group": "neck pitch (fork)",
-"a": "neck_screw_M3x8",
-"b": "neck_cradle",
-"expect": "clear",
-"note": "M3 axle through the floor"
-},
-{
-"group": "neck pitch (fork)",
-"a": "neck_screw_M3x8",
-"b": "neck_nut_M3",
-"expect": "clear",
-"note": "M3 axle in the nut (thread, same diameter)"
-},
-{
-"group": "neck pitch (fork)",
-"a": "neck_screw_M3x8",
-"b": "neck_brg_693",
-"expect": "clear",
-"note": "M3 axle in the 693 bore"
-},
-{
-"group": "neck pitch (fork)",
-"a": "neck_screw_M3x8",
-"b": "body_neck_bearing_plate",
-"expect": "clear",
-"note": "M3 head in the plate's lip hole"
-},
-{
-"group": "neck pitch (fork)",
-"a": "neck_screw_M3x8",
-"b": "scs_neck_pitch_case",
-"expect": "clear",
-"note": "M3 tip vs servo bottom"
-},
-{
-"group": "neck pitch (fork)",
-"a": "neck_brg_693",
-"b": "neck_cradle",
-"expect": "clear",
-"note": "693 inner ring on the floor island"
-},
-{
-"group": "neck pitch (fork)",
-"a": "neck_brg_693",
-"b": "body_neck_bearing_plate",
-"expect": "clear",
-"note": "693 in the plate's seat"
-},
-{
-"group": "neck pitch (fork)",
-"a": "body_neck_bearing_plate",
-"b": "neck_cradle",
-"expect": "clear",
-"note": "bearing plate vs holder"
-},
-{
-"group": "neck pitch (fork)",
-"a": "body_neck_bearing_plate",
-"b": "body_frame",
-"expect": "clear",
-"note": "bearing plate vs moving part (joint face)"
-},
-{
-"group": "neck pitch (fork)",
-"a": "neck_screw_M2x4kit",
-"b": "body_frame",
-"expect": "clear",
-"note": "horn screw in clearance hole"
-},
-{
-"group": "neck pitch (fork)",
-"a": "neck_screw_M2x4kit",
-"b": "scs_neck_pitch_spline",
-"expect": "thread",
-"note": "horn screw in the shaft"
-},
-{
-"group": "neck pitch (fork)",
-"a": "neck_ear_screws_M2x6st",
-"b": "neck_cradle",
-"expect": "thread",
-"note": "ear screws in the pads"
-},
-{
-"group": "neck pitch (fork)",
-"a": "neck_ear_screws_M2x6st",
-"b": "body_frame",
-"expect": "clear",
-"note": "ear screw heads vs moving part"
-},
-{
-"group": "neck pitch (fork)",
-"a": "neck_plate_screws_M2x6st",
-"b": "body_frame",
-"expect": "thread",
-"note": "plate screws bite into the mount"
-},
-{
-"group": "neck pitch (fork)",
-"a": "neck_plate_screws_M2x6st",
-"b": "body_neck_bearing_plate",
-"expect": "clear",
-"note": "plate screws through the plate"
-},
-{
-"group": "neck pitch (fork)",
-"a": "neck_plate_screws_M2x6st",
-"b": "neck_cradle",
-"expect": "clear",
-"note": "plate screw heads vs cradle"
-},
-{
-"group": "head pitch (fork)",
-"a": "scs_head_pitch_case",
-"b": "neck_cradle",
-"expect": "clear",
-"note": "servo body in its cradle (floor, pads)"
-},
-{
-"group": "head pitch (fork)",
-"a": "scs_head_pitch_case",
-"b": "head_pitch_u",
-"expect": "clear",
-"note": "servo body vs moving part"
-},
-{
-"group": "head pitch (fork)",
-"a": "scs_head_pitch_case",
-"b": "head_pitch_bearing_plate",
-"expect": "clear",
-"note": "servo body vs bearing plate"
-},
-{
-"group": "head pitch (fork)",
-"a": "scs_head_pitch_horn_cross",
-"b": "head_pitch_u",
-"expect": "press",
-"note": "horn in crush-rib pocket"
-},
-{
-"group": "head pitch (fork)",
-"a": "head_pitch_nut_M3",
-"b": "neck_cradle",
-"expect": "clear",
-"note": "M3 nut in its hex pocket"
-},
-{
-"group": "head pitch (fork)",
-"a": "head_pitch_nut_M3",
-"b": "scs_head_pitch_case",
-"expect": "clear",
-"note": "M3 nut under the servo bottom"
-},
-{
-"group": "head pitch (fork)",
-"a": "head_pitch_screw_M3x8",
-"b": "neck_cradle",
-"expect": "clear",
-"note": "M3 axle through the floor"
-},
-{
-"group": "head pitch (fork)",
-"a": "head_pitch_screw_M3x8",
-"b": "head_pitch_nut_M3",
-"expect": "clear",
-"note": "M3 axle in the nut (thread, same diameter)"
-},
-{
-"group": "head pitch (fork)",
-"a": "head_pitch_screw_M3x8",
-"b": "head_pitch_brg_693",
-"expect": "clear",
-"note": "M3 axle in the 693 bore"
-},
-{
-"group": "head pitch (fork)",
-"a": "head_pitch_screw_M3x8",
-"b": "head_pitch_bearing_plate",
-"expect": "clear",
-"note": "M3 head in the plate's lip hole"
-},
-{
-"group": "head pitch (fork)",
-"a": "head_pitch_screw_M3x8",
-"b": "scs_head_pitch_case",
-"expect": "clear",
-"note": "M3 tip vs servo bottom"
-},
-{
-"group": "head pitch (fork)",
-"a": "head_pitch_brg_693",
-"b": "neck_cradle",
-"expect": "clear",
-"note": "693 inner ring on the floor island"
-},
-{
-"group": "head pitch (fork)",
-"a": "head_pitch_brg_693",
-"b": "head_pitch_bearing_plate",
-"expect": "clear",
-"note": "693 in the plate's seat"
-},
-{
-"group": "head pitch (fork)",
-"a": "head_pitch_bearing_plate",
-"b": "neck_cradle",
-"expect": "clear",
-"note": "bearing plate vs holder"
-},
-{
-"group": "head pitch (fork)",
-"a": "head_pitch_bearing_plate",
-"b": "head_pitch_u",
-"expect": "clear",
-"note": "bearing plate vs moving part (joint face)"
-},
-{
-"group": "head pitch (fork)",
-"a": "head_pitch_screw_M2x4kit",
-"b": "head_pitch_u",
-"expect": "clear",
-"note": "horn screw in clearance hole"
-},
-{
-"group": "head pitch (fork)",
-"a": "head_pitch_screw_M2x4kit",
-"b": "scs_head_pitch_spline",
-"expect": "thread",
-"note": "horn screw in the shaft"
-},
-{
-"group": "head pitch (fork)",
-"a": "head_pitch_ear_screws_M2x6st",
-"b": "neck_cradle",
-"expect": "thread",
-"note": "ear screws in the pads"
-},
-{
-"group": "head pitch (fork)",
-"a": "head_pitch_ear_screws_M2x6st",
-"b": "head_pitch_u",
-"expect": "clear",
-"note": "ear screw heads vs moving part"
-},
-{
-"group": "head pitch (fork)",
-"a": "head_pitch_plate_screws_M2x6st",
-"b": "head_pitch_bearing_plate",
-"expect": "thread",
-"note": "plate screws bite into the plate block"
-},
-{
-"group": "head pitch (fork)",
-"a": "head_pitch_plate_screws_M2x6st",
-"b": "head_pitch_u",
-"expect": "clear",
-"note": "plate screws through the U top"
-},
-{
-"group": "head pitch (fork)",
-"a": "head_pitch_plate_screws_M2x6st",
-"b": "scs_head_yaw_case",
-"expect": "clear",
-"note": "plate screw heads vs head-yaw servo"
-},
-{
-"group": "neck, neighbours",
-"a": "scs_neck_pitch_case",
-"b": "scs_head_pitch_case",
-"expect": "clear",
-"note": "neck servo vs head-pitch servo"
-},
-{
-"group": "neck, neighbours",
-"a": "neck_ear_screws_M2x6st",
-"b": "head_pitch_ear_screws_M2x6st",
-"expect": "clear",
-"note": "the two servos' ear screws"
-},
-{
-"group": "neck, neighbours",
-"a": "head_pitch_u",
-"b": "scs_head_yaw_case",
-"expect": "clear",
-"note": "U vs head-yaw servo"
-},
-{
-"group": "neck, neighbours",
-"a": "head_pitch_bearing_plate",
-"b": "head_pitch_u",
-"expect": "clear",
-"note": "plate vs U (joint face)"
-},
-{
-"group": "neck, neighbours",
-"a": "body_neck_bearing_plate",
-"b": "body_frame",
-"expect": "clear",
-"note": "plate vs mount (joint face)"
-},
-{
-"group": "head yaw (cap): yaw block holds servo, U turns",
-"a": "scs_head_yaw_case",
-"b": "yaw_block",
-"expect": "clear",
-"note": "servo body in its holder (pads, walls)"
-},
-{
-"group": "head yaw (cap): yaw block holds servo, U turns",
-"a": "scs_head_yaw_case",
-"b": "head_pitch_u",
-"expect": "clear",
-"note": "servo body vs moving part"
-},
-{
-"group": "head yaw (cap): yaw block holds servo, U turns",
-"a": "scs_head_yaw_horn_cross",
-"b": "head_pitch_u",
-"expect": "press",
-"note": "horn in crush-rib pocket"
-},
-{
-"group": "head yaw (cap): yaw block holds servo, U turns",
-"a": "scs_head_yaw_horn_cross",
-"b": "yaw_block",
-"expect": "clear",
-"note": "horn vs holder"
-},
-{
-"group": "head yaw (cap): yaw block holds servo, U turns",
-"a": "head_yaw_brg_6702ZZ",
-"b": "yaw_block",
-"expect": "clear",
-"note": "6702ZZ in its seat"
-},
-{
-"group": "head yaw (cap): yaw block holds servo, U turns",
-"a": "head_yaw_brg_6702ZZ",
-"b": "head_pitch_u",
-"expect": "clear",
-"note": "6702ZZ on the boss"
-},
-{
-"group": "head yaw (cap): yaw block holds servo, U turns",
-"a": "head_yaw_screw_M2x4kit",
-"b": "head_pitch_u",
-"expect": "clear",
-"note": "horn screw in clearance hole"
-},
-{
-"group": "head yaw (cap): yaw block holds servo, U turns",
-"a": "head_yaw_ear_screws_M2x6st",
-"b": "yaw_block",
-"expect": "thread",
-"note": "ear screws in the pads"
-},
-{
-"group": "head yaw (cap): yaw block holds servo, U turns",
-"a": "head_yaw_ear_screws_M2x6st",
-"b": "head_pitch_u",
-"expect": "clear",
-"note": "ear screw heads vs U"
-},
-{
-"group": "head yaw (cap): yaw block holds servo, U turns",
-"a": "yaw_block",
-"b": "head_pitch_u",
-"expect": "clear",
-"note": "yaw block vs U (joint face)"
-},
-{
-"group": "head yaw (cap): yaw block holds servo, U turns",
-"a": "yaw_block",
-"b": "head_pitch_bearing_plate",
-"expect": "clear",
-"note": "yaw block vs head-pitch plate"
-},
-{
-"group": "head yaw (cap): yaw block holds servo, U turns",
-"a": "head_pitch_plate_screws_M2x6st",
-"b": "yaw_block",
-"expect": "clear",
-"note": "U plate screws vs yaw block"
-},
-{
-"group": "head roll (cap): head holds servo, yaw block turns",
-"a": "scs_head_roll_case",
-"b": "yaw_block",
-"expect": "clear",
-"note": "roll servo body vs yaw block"
-},
-{
-"group": "head roll (cap): head holds servo, yaw block turns",
-"a": "scs_head_roll_horn_cross",
-"b": "yaw_block",
-"expect": "press",
-"note": "horn in crush-rib pocket"
-},
-{
-"group": "head roll (cap): head holds servo, yaw block turns",
-"a": "head_roll_brg_6702ZZ",
-"b": "yaw_block",
-"expect": "clear",
-"note": "6702ZZ on the boss"
-},
-{
-"group": "head roll (cap): head holds servo, yaw block turns",
-"a": "head_roll_brg_6702ZZ",
-"b": "scs_head_roll_case",
-"expect": "clear",
-"note": "6702ZZ vs servo tower"
-},
-{
-"group": "head roll (cap): head holds servo, yaw block turns",
-"a": "head_roll_screw_M2x4kit",
-"b": "yaw_block",
-"expect": "clear",
-"note": "horn screw in clearance hole"
-},
-{
-"group": "head roll (cap): head holds servo, yaw block turns",
-"a": "head_roll_screw_M2x4kit",
-"b": "scs_head_roll_spline",
-"expect": "thread",
-"note": "horn screw in the shaft"
-},
-{
-"group": "head roll (cap): head holds servo, yaw block turns",
-"a": "head_roll_screw_M2x4kit",
-"b": "scs_head_yaw_case",
-"expect": "clear",
-"note": "roll horn screw head vs yaw servo"
-},
-{
-"group": "head roll (cap): head holds servo, yaw block turns",
-"a": "scs_head_roll_case",
-"b": "scs_head_yaw_case",
-"expect": "clear",
-"note": "roll servo vs yaw servo"
-},
-{
-"group": "head roll (cap): head holds servo, yaw block turns",
-"a": "head_roll_ear_screws_M2x6st",
-"b": "yaw_block",
-"expect": "clear",
-"note": "roll ear screws vs yaw block"
-},
-{
-"group": "head roll (cap): head holds servo, yaw block turns",
-"a": "head_roll_brg_6702ZZ",
-"b": "scs_head_yaw_case",
-"expect": "clear",
-"note": "roll bearing vs yaw servo"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "enclosure_screws_M2x6st",
-"b": "body_frame",
-"expect": "thread",
-"note": "enclosure screws bite into the deck's rear edge"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "enclosure_screws_M2x6st",
-"b": "electronics_enclosure",
-"expect": "clear",
-"note": "enclosure screws through its front wall"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "electronics_enclosure",
-"b": "body_frame",
-"expect": "clear",
-"note": "enclosure on the motor body (tongue under the deck)"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "body_lid_screws_M2x6st",
-"b": "electronics_enclosure",
-"expect": "thread",
-"note": "top plate screws bite into the posts"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "body_lid_screws_M2x6st",
-"b": "body_lid",
-"expect": "clear",
-"note": "screws through the top plate"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "body_lid",
-"b": "electronics_enclosure",
-"expect": "clear",
-"note": "top plate on the enclosure"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "body_lid",
-"b": "body_frame",
-"expect": "clear",
-"note": "top plate vs motor body"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "electronics_enclosure",
-"b": "scs_left_hip_yaw_case",
-"expect": "clear",
-"note": "enclosure vs scs_left_hip_yaw_case"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "electronics_enclosure",
-"b": "scs_left_hip_roll_case",
-"expect": "clear",
-"note": "enclosure vs scs_left_hip_roll_case"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "electronics_enclosure",
-"b": "left_yaw_connector",
-"expect": "clear",
-"note": "enclosure vs left_yaw_connector"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "electronics_enclosure",
-"b": "left_hip_yaw_ear_screws_M2x6st",
-"expect": "clear",
-"note": "enclosure vs left_hip_yaw_ear_screws_M2x6st"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "electronics_enclosure",
-"b": "left_hip_yaw_brg_6702ZZ",
-"expect": "clear",
-"note": "enclosure vs left_hip_yaw_brg_6702ZZ"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "electronics_enclosure",
-"b": "scs_left_hip_yaw_horn_cross",
-"expect": "clear",
-"note": "enclosure vs scs_left_hip_yaw_horn_cross"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "electronics_enclosure",
-"b": "left_l_bracket",
-"expect": "clear",
-"note": "enclosure vs left_l_bracket"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "body_lid",
-"b": "scs_left_hip_yaw_case",
-"expect": "clear",
-"note": "top plate vs scs_left_hip_yaw_case"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "uno_q",
-"b": "scs_left_hip_yaw_case",
-"expect": "clear",
-"note": "Uno Q vs scs_left_hip_yaw_case"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "body_lid",
-"b": "left_hip_yaw_ear_screws_M2x6st",
-"expect": "clear",
-"note": "top plate vs left_hip_yaw_ear_screws_M2x6st"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "uno_q",
-"b": "left_hip_yaw_ear_screws_M2x6st",
-"expect": "clear",
-"note": "Uno Q vs left_hip_yaw_ear_screws_M2x6st"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "electronics_enclosure",
-"b": "scs_right_hip_yaw_case",
-"expect": "clear",
-"note": "enclosure vs scs_right_hip_yaw_case"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "electronics_enclosure",
-"b": "scs_right_hip_roll_case",
-"expect": "clear",
-"note": "enclosure vs scs_right_hip_roll_case"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "electronics_enclosure",
-"b": "right_yaw_connector",
-"expect": "clear",
-"note": "enclosure vs right_yaw_connector"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "electronics_enclosure",
-"b": "right_hip_yaw_ear_screws_M2x6st",
-"expect": "clear",
-"note": "enclosure vs right_hip_yaw_ear_screws_M2x6st"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "electronics_enclosure",
-"b": "right_hip_yaw_brg_6702ZZ",
-"expect": "clear",
-"note": "enclosure vs right_hip_yaw_brg_6702ZZ"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "electronics_enclosure",
-"b": "scs_right_hip_yaw_horn_cross",
-"expect": "clear",
-"note": "enclosure vs scs_right_hip_yaw_horn_cross"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "electronics_enclosure",
-"b": "right_l_bracket",
-"expect": "clear",
-"note": "enclosure vs right_l_bracket"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "body_lid",
-"b": "scs_right_hip_yaw_case",
-"expect": "clear",
-"note": "top plate vs scs_right_hip_yaw_case"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "uno_q",
-"b": "scs_right_hip_yaw_case",
-"expect": "clear",
-"note": "Uno Q vs scs_right_hip_yaw_case"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "body_lid",
-"b": "right_hip_yaw_ear_screws_M2x6st",
-"expect": "clear",
-"note": "top plate vs right_hip_yaw_ear_screws_M2x6st"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "uno_q",
-"b": "right_hip_yaw_ear_screws_M2x6st",
-"expect": "clear",
-"note": "Uno Q vs right_hip_yaw_ear_screws_M2x6st"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "uno_q",
-"b": "neck_cradle",
-"expect": "clear",
-"note": "Uno Q vs neck_cradle"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "body_lid",
-"b": "neck_cradle",
-"expect": "clear",
-"note": "top plate vs neck_cradle"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "electronics_enclosure",
-"b": "neck_cradle",
-"expect": "clear",
-"note": "enclosure vs neck_cradle"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "uno_q",
-"b": "scs_neck_pitch_case",
-"expect": "clear",
-"note": "Uno Q vs scs_neck_pitch_case"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "body_lid",
-"b": "scs_neck_pitch_case",
-"expect": "clear",
-"note": "top plate vs scs_neck_pitch_case"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "electronics_enclosure",
-"b": "scs_neck_pitch_case",
-"expect": "clear",
-"note": "enclosure vs scs_neck_pitch_case"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "uno_q",
-"b": "body_neck_bearing_plate",
-"expect": "clear",
-"note": "Uno Q vs body_neck_bearing_plate"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "body_lid",
-"b": "body_neck_bearing_plate",
-"expect": "clear",
-"note": "top plate vs body_neck_bearing_plate"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "electronics_enclosure",
-"b": "body_neck_bearing_plate",
-"expect": "clear",
-"note": "enclosure vs body_neck_bearing_plate"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "uno_q",
-"b": "neck_plate_screws_M2x6st",
-"expect": "clear",
-"note": "Uno Q vs neck_plate_screws_M2x6st"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "body_lid",
-"b": "neck_plate_screws_M2x6st",
-"expect": "clear",
-"note": "top plate vs neck_plate_screws_M2x6st"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "electronics_enclosure",
-"b": "neck_plate_screws_M2x6st",
-"expect": "clear",
-"note": "enclosure vs neck_plate_screws_M2x6st"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "body_neck_bearing_plate",
-"b": "scs_right_hip_yaw_case",
-"expect": "clear",
-"note": "neck bearing plate vs right hip-yaw servo"
-},
-{
-"group": "body: motor body, enclosure, top plate",
-"a": "neck_plate_screws_M2x6st",
-"b": "scs_right_hip_yaw_case",
-"expect": "clear",
-"note": "neck plate screws vs right hip-yaw servo"
-},
-{
-"group": "electronics",
-"a": "uno_q",
-"b": "electronics_enclosure",
-"expect": "clear",
-"note": "uno_q vs enclosure"
-},
-{
-"group": "electronics",
-"a": "uno_q",
-"b": "body_lid",
-"expect": "clear",
-"note": "uno_q vs top plate"
-},
-{
-"group": "electronics",
-"a": "uno_q",
-"b": "body_frame",
-"expect": "clear",
-"note": "uno_q vs motor body"
-},
-{
-"group": "electronics",
-"a": "uno_q",
-"b": "scs_left_hip_yaw_case",
-"expect": "clear",
-"note": "uno_q vs left hip-yaw servo"
-},
-{
-"group": "electronics",
-"a": "uno_q",
-"b": "scs_right_hip_yaw_case",
-"expect": "clear",
-"note": "uno_q vs right hip-yaw servo"
-},
-{
-"group": "electronics",
-"a": "uno_q",
-"b": "body_lid_screws_M2x6st",
-"expect": "clear",
-"note": "uno_q vs body_lid_screws_M2x6st"
-},
-{
-"group": "electronics",
-"a": "uno_q",
-"b": "enclosure_screws_M2x6st",
-"expect": "clear",
-"note": "uno_q vs enclosure_screws_M2x6st"
-},
-{
-"group": "electronics",
-"a": "battery_3s",
-"b": "electronics_enclosure",
-"expect": "clear",
-"note": "battery_3s vs enclosure"
-},
-{
-"group": "electronics",
-"a": "battery_3s",
-"b": "body_lid",
-"expect": "clear",
-"note": "battery_3s vs top plate"
-},
-{
-"group": "electronics",
-"a": "battery_3s",
-"b": "body_frame",
-"expect": "clear",
-"note": "battery_3s vs motor body"
-},
-{
-"group": "electronics",
-"a": "battery_3s",
-"b": "scs_left_hip_yaw_case",
-"expect": "clear",
-"note": "battery_3s vs left hip-yaw servo"
-},
-{
-"group": "electronics",
-"a": "battery_3s",
-"b": "scs_right_hip_yaw_case",
-"expect": "clear",
-"note": "battery_3s vs right hip-yaw servo"
-},
-{
-"group": "electronics",
-"a": "battery_3s",
-"b": "body_lid_screws_M2x6st",
-"expect": "clear",
-"note": "battery_3s vs body_lid_screws_M2x6st"
-},
-{
-"group": "electronics",
-"a": "battery_3s",
-"b": "enclosure_screws_M2x6st",
-"expect": "clear",
-"note": "battery_3s vs enclosure_screws_M2x6st"
-},
-{
-"group": "electronics",
-"a": "servo_adapter",
-"b": "electronics_enclosure",
-"expect": "clear",
-"note": "servo_adapter vs enclosure"
-},
-{
-"group": "electronics",
-"a": "servo_adapter",
-"b": "body_lid",
-"expect": "clear",
-"note": "servo_adapter vs top plate"
-},
-{
-"group": "electronics",
-"a": "servo_adapter",
-"b": "body_frame",
-"expect": "clear",
-"note": "servo_adapter vs motor body"
-},
-{
-"group": "electronics",
-"a": "servo_adapter",
-"b": "scs_left_hip_yaw_case",
-"expect": "clear",
-"note": "servo_adapter vs left hip-yaw servo"
-},
-{
-"group": "electronics",
-"a": "servo_adapter",
-"b": "scs_right_hip_yaw_case",
-"expect": "clear",
-"note": "servo_adapter vs right hip-yaw servo"
-},
-{
-"group": "electronics",
-"a": "servo_adapter",
-"b": "body_lid_screws_M2x6st",
-"expect": "clear",
-"note": "servo_adapter vs body_lid_screws_M2x6st"
-},
-{
-"group": "electronics",
-"a": "servo_adapter",
-"b": "enclosure_screws_M2x6st",
-"expect": "clear",
-"note": "servo_adapter vs enclosure_screws_M2x6st"
-},
-{
-"group": "electronics",
-"a": "ubec",
-"b": "electronics_enclosure",
-"expect": "clear",
-"note": "ubec vs enclosure"
-},
-{
-"group": "electronics",
-"a": "ubec",
-"b": "body_lid",
-"expect": "clear",
-"note": "ubec vs top plate"
-},
-{
-"group": "electronics",
-"a": "ubec",
-"b": "body_frame",
-"expect": "clear",
-"note": "ubec vs motor body"
-},
-{
-"group": "electronics",
-"a": "ubec",
-"b": "scs_left_hip_yaw_case",
-"expect": "clear",
-"note": "ubec vs left hip-yaw servo"
-},
-{
-"group": "electronics",
-"a": "ubec",
-"b": "scs_right_hip_yaw_case",
-"expect": "clear",
-"note": "ubec vs right hip-yaw servo"
-},
-{
-"group": "electronics",
-"a": "ubec",
-"b": "body_lid_screws_M2x6st",
-"expect": "clear",
-"note": "ubec vs body_lid_screws_M2x6st"
-},
-{
-"group": "electronics",
-"a": "ubec",
-"b": "enclosure_screws_M2x6st",
-"expect": "clear",
-"note": "ubec vs enclosure_screws_M2x6st"
-},
-{
-"group": "electronics",
-"a": "imu",
-"b": "electronics_enclosure",
-"expect": "clear",
-"note": "imu vs enclosure"
-},
-{
-"group": "electronics",
-"a": "imu",
-"b": "body_lid",
-"expect": "clear",
-"note": "imu vs top plate"
-},
-{
-"group": "electronics",
-"a": "imu",
-"b": "body_frame",
-"expect": "clear",
-"note": "imu vs motor body"
-},
-{
-"group": "electronics",
-"a": "imu",
-"b": "scs_left_hip_yaw_case",
-"expect": "clear",
-"note": "imu vs left hip-yaw servo"
-},
-{
-"group": "electronics",
-"a": "imu",
-"b": "scs_right_hip_yaw_case",
-"expect": "clear",
-"note": "imu vs right hip-yaw servo"
-},
-{
-"group": "electronics",
-"a": "imu",
-"b": "body_lid_screws_M2x6st",
-"expect": "clear",
-"note": "imu vs body_lid_screws_M2x6st"
-},
-{
-"group": "electronics",
-"a": "imu",
-"b": "enclosure_screws_M2x6st",
-"expect": "clear",
-"note": "imu vs enclosure_screws_M2x6st"
-},
-{
-"group": "electronics",
-"a": "uno_q",
-"b": "battery_3s",
-"expect": "clear",
-"note": "uno_q vs battery_3s"
-},
-{
-"group": "electronics",
-"a": "uno_q",
-"b": "servo_adapter",
-"expect": "clear",
-"note": "uno_q vs servo_adapter"
-},
-{
-"group": "electronics",
-"a": "uno_q",
-"b": "ubec",
-"expect": "clear",
-"note": "uno_q vs ubec"
-},
-{
-"group": "electronics",
-"a": "uno_q",
-"b": "imu",
-"expect": "clear",
-"note": "uno_q vs imu"
-},
-{
-"group": "electronics",
-"a": "battery_3s",
-"b": "servo_adapter",
-"expect": "clear",
-"note": "battery_3s vs servo_adapter"
-},
-{
-"group": "electronics",
-"a": "battery_3s",
-"b": "ubec",
-"expect": "clear",
-"note": "battery_3s vs ubec"
-},
-{
-"group": "electronics",
-"a": "battery_3s",
-"b": "imu",
-"expect": "clear",
-"note": "battery_3s vs imu"
-},
-{
-"group": "electronics",
-"a": "servo_adapter",
-"b": "ubec",
-"expect": "clear",
-"note": "servo_adapter vs ubec"
-},
-{
-"group": "electronics",
-"a": "servo_adapter",
-"b": "imu",
-"expect": "clear",
-"note": "servo_adapter vs imu"
-},
-{
-"group": "electronics",
-"a": "ubec",
-"b": "imu",
-"expect": "clear",
-"note": "ubec vs imu"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "scs_left_knee_case",
-"b": "left_thigh",
-"expect": "clear",
-"note": "servo body in its holder (pads, walls)"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "scs_left_knee_case",
-"b": "left_shin",
-"expect": "clear",
-"note": "servo body vs moving part"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "scs_left_knee_case",
-"b": "left_knee_cap",
-"expect": "clear",
-"note": "servo body vs cap"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "scs_left_knee_horn_cross",
-"b": "left_shin",
-"expect": "press",
-"note": "full horn in crush-rib pocket"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "scs_left_knee_horn_cross",
-"b": "left_thigh",
-"expect": "clear",
-"note": "horn vs holder"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "scs_left_knee_horn_cross",
-"b": "left_knee_cap",
-"expect": "clear",
-"note": "horn vs cap"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "left_knee_brg_6702ZZ",
-"b": "left_shin",
-"expect": "clear",
-"note": "6702ZZ in the shin's seat"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "left_knee_brg_6702ZZ",
-"b": "left_knee_cap",
-"expect": "clear",
-"note": "6702ZZ on the cap's boss, shoulder"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "left_knee_brg_6702ZZ",
-"b": "left_thigh",
-"expect": "clear",
-"note": "6702ZZ vs holder"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "left_shin",
-"b": "left_thigh",
-"expect": "clear",
-"note": "moving part vs holder"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "left_shin",
-"b": "left_knee_cap",
-"expect": "clear",
-"note": "moving part vs cap"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "left_knee_cap",
-"b": "left_thigh",
-"expect": "clear",
-"note": "cap foot on the thigh face"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "left_knee_screw_M2x4kit",
-"b": "left_shin",
-"expect": "clear",
-"note": "horn screw in clearance hole"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "left_knee_screw_M2x4kit",
-"b": "scs_left_knee_spline",
-"expect": "thread",
-"note": "horn screw in the shaft"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "left_knee_screw_M2x4kit",
-"b": "left_knee_cap",
-"expect": "clear",
-"note": "horn screw vs cap boss"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "left_knee_ear_screws_M2x6st",
-"b": "left_thigh",
-"expect": "thread",
-"note": "ear screws in the pads"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "left_knee_ear_screws_M2x6st",
-"b": "left_shin",
-"expect": "clear",
-"note": "ear screw heads vs moving part"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "left_knee_cap_screws_M2x6",
-"b": "left_thigh",
-"expect": "thread",
-"note": "cap screws in the thigh"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "left_knee_cap_screws_M2x6",
-"b": "left_knee_cap",
-"expect": "clear",
-"note": "cap screws in clearance + counterbore"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "left_knee_cap_screws_M2x6",
-"b": "left_shin",
-"expect": "clear",
-"note": "cap screws vs shin"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "left_knee_cap_screws_M2x6",
-"b": "left_knee_ear_screws_M2x6st",
-"expect": "clear",
-"note": "cap screws vs ear screw"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "left_knee_cap",
-"b": "left_l_bracket",
-"expect": "clear",
-"note": "cap vs L-bracket (zero pose)"
-},
-{
-"group": "left knee (full horn, C2M)",
-"a": "left_knee_cap",
-"b": "scs_left_hip_pitch_case",
-"expect": "clear",
-"note": "cap vs hip-pitch servo"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "scs_right_knee_case",
-"b": "right_thigh",
-"expect": "clear",
-"note": "servo body in its holder (pads, walls)"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "scs_right_knee_case",
-"b": "right_shin",
-"expect": "clear",
-"note": "servo body vs moving part"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "scs_right_knee_case",
-"b": "right_knee_cap",
-"expect": "clear",
-"note": "servo body vs cap"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "scs_right_knee_horn_cross",
-"b": "right_shin",
-"expect": "press",
-"note": "full horn in crush-rib pocket"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "scs_right_knee_horn_cross",
-"b": "right_thigh",
-"expect": "clear",
-"note": "horn vs holder"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "scs_right_knee_horn_cross",
-"b": "right_knee_cap",
-"expect": "clear",
-"note": "horn vs cap"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "right_knee_brg_6702ZZ",
-"b": "right_shin",
-"expect": "clear",
-"note": "6702ZZ in the shin's seat"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "right_knee_brg_6702ZZ",
-"b": "right_knee_cap",
-"expect": "clear",
-"note": "6702ZZ on the cap's boss, shoulder"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "right_knee_brg_6702ZZ",
-"b": "right_thigh",
-"expect": "clear",
-"note": "6702ZZ vs holder"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "right_shin",
-"b": "right_thigh",
-"expect": "clear",
-"note": "moving part vs holder"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "right_shin",
-"b": "right_knee_cap",
-"expect": "clear",
-"note": "moving part vs cap"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "right_knee_cap",
-"b": "right_thigh",
-"expect": "clear",
-"note": "cap foot on the thigh face"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "right_knee_screw_M2x4kit",
-"b": "right_shin",
-"expect": "clear",
-"note": "horn screw in clearance hole"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "right_knee_screw_M2x4kit",
-"b": "scs_right_knee_spline",
-"expect": "thread",
-"note": "horn screw in the shaft"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "right_knee_screw_M2x4kit",
-"b": "right_knee_cap",
-"expect": "clear",
-"note": "horn screw vs cap boss"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "right_knee_ear_screws_M2x6st",
-"b": "right_thigh",
-"expect": "thread",
-"note": "ear screws in the pads"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "right_knee_ear_screws_M2x6st",
-"b": "right_shin",
-"expect": "clear",
-"note": "ear screw heads vs moving part"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "right_knee_cap_screws_M2x6",
-"b": "right_thigh",
-"expect": "thread",
-"note": "cap screws in the thigh"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "right_knee_cap_screws_M2x6",
-"b": "right_knee_cap",
-"expect": "clear",
-"note": "cap screws in clearance + counterbore"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "right_knee_cap_screws_M2x6",
-"b": "right_shin",
-"expect": "clear",
-"note": "cap screws vs shin"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "right_knee_cap_screws_M2x6",
-"b": "right_knee_ear_screws_M2x6st",
-"expect": "clear",
-"note": "cap screws vs ear screw"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "right_knee_cap",
-"b": "right_l_bracket",
-"expect": "clear",
-"note": "cap vs L-bracket (zero pose)"
-},
-{
-"group": "right knee (full horn, C2M)",
-"a": "right_knee_cap",
-"b": "scs_right_hip_pitch_case",
-"expect": "clear",
-"note": "cap vs hip-pitch servo"
-},
-{
-"group": "left hip pitch (cap)",
-"a": "scs_left_hip_pitch_case",
-"b": "left_thigh",
-"expect": "clear",
-"note": "servo body in its holder (pads, walls)"
-},
-{
-"group": "left hip pitch (cap)",
-"a": "scs_left_hip_pitch_case",
-"b": "left_l_bracket",
-"expect": "clear",
-"note": "servo body vs moving part"
-},
-{
-"group": "left hip pitch (cap)",
-"a": "scs_left_hip_pitch_horn_cross",
-"b": "left_l_bracket",
-"expect": "press",
-"note": "horn in crush-rib pocket"
-},
-{
-"group": "left hip pitch (cap)",
-"a": "scs_left_hip_pitch_horn_cross",
-"b": "left_thigh",
-"expect": "clear",
-"note": "horn vs holder"
-},
-{
-"group": "left hip pitch (cap)",
-"a": "left_hip_pitch_brg_6702ZZ",
-"b": "left_thigh",
-"expect": "clear",
-"note": "6702ZZ in its seat"
-},
-{
-"group": "left hip pitch (cap)",
-"a": "left_hip_pitch_brg_6702ZZ",
-"b": "left_l_bracket",
-"expect": "clear",
-"note": "6702ZZ on the boss"
-},
-{
-"group": "left hip pitch (cap)",
-"a": "left_hip_pitch_brg_6702ZZ",
-"b": "scs_left_hip_pitch_case",
-"expect": "clear",
-"note": "6702ZZ vs servo tower"
-},
-{
-"group": "left hip pitch (cap)",
-"a": "left_hip_pitch_screw_M2x4kit",
-"b": "left_l_bracket",
-"expect": "clear",
-"note": "horn screw in clearance hole"
-},
-{
-"group": "left hip pitch (cap)",
-"a": "left_hip_pitch_screw_M2x4kit",
-"b": "scs_left_hip_pitch_spline",
-"expect": "thread",
-"note": "horn screw in the shaft"
-},
-{
-"group": "left hip pitch (cap)",
-"a": "left_hip_pitch_ear_screws_M2x6st",
-"b": "left_thigh",
-"expect": "thread",
-"note": "ear screws in the pads"
-},
-{
-"group": "left hip pitch (cap)",
-"a": "left_hip_pitch_ear_screws_M2x6st",
-"b": "left_l_bracket",
-"expect": "clear",
-"note": "ear screw heads vs moving part"
-},
-{
-"group": "right hip pitch (cap)",
-"a": "scs_right_hip_pitch_case",
-"b": "right_thigh",
-"expect": "clear",
-"note": "servo body in its holder (pads, walls)"
-},
-{
-"group": "right hip pitch (cap)",
-"a": "scs_right_hip_pitch_case",
-"b": "right_l_bracket",
-"expect": "clear",
-"note": "servo body vs moving part"
-},
-{
-"group": "right hip pitch (cap)",
-"a": "scs_right_hip_pitch_horn_cross",
-"b": "right_l_bracket",
-"expect": "press",
-"note": "horn in crush-rib pocket"
-},
-{
-"group": "right hip pitch (cap)",
-"a": "scs_right_hip_pitch_horn_cross",
-"b": "right_thigh",
-"expect": "clear",
-"note": "horn vs holder"
-},
-{
-"group": "right hip pitch (cap)",
-"a": "right_hip_pitch_brg_6702ZZ",
-"b": "right_thigh",
-"expect": "clear",
-"note": "6702ZZ in its seat"
-},
-{
-"group": "right hip pitch (cap)",
-"a": "right_hip_pitch_brg_6702ZZ",
-"b": "right_l_bracket",
-"expect": "clear",
-"note": "6702ZZ on the boss"
-},
-{
-"group": "right hip pitch (cap)",
-"a": "right_hip_pitch_brg_6702ZZ",
-"b": "scs_right_hip_pitch_case",
-"expect": "clear",
-"note": "6702ZZ vs servo tower"
-},
-{
-"group": "right hip pitch (cap)",
-"a": "right_hip_pitch_screw_M2x4kit",
-"b": "right_l_bracket",
-"expect": "clear",
-"note": "horn screw in clearance hole"
-},
-{
-"group": "right hip pitch (cap)",
-"a": "right_hip_pitch_screw_M2x4kit",
-"b": "scs_right_hip_pitch_spline",
-"expect": "thread",
-"note": "horn screw in the shaft"
-},
-{
-"group": "right hip pitch (cap)",
-"a": "right_hip_pitch_ear_screws_M2x6st",
-"b": "right_thigh",
-"expect": "thread",
-"note": "ear screws in the pads"
-},
-{
-"group": "right hip pitch (cap)",
-"a": "right_hip_pitch_ear_screws_M2x6st",
-"b": "right_l_bracket",
-"expect": "clear",
-"note": "ear screw heads vs moving part"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "uno_screws_M3x8",
-"b": "body_lid",
-"expect": "thread",
-"note": "3 x M3 x 8 bite into the lid's posts"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "uno_screws_M3x8",
-"b": "unoq_headers",
-"expect": "clear",
-"note": "3 x M3 x 8 vs unoq_headers"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "uno_screws_M3x8",
-"b": "unoq_pins",
-"expect": "clear",
-"note": "3 x M3 x 8 vs unoq_pins"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "uno_screws_M3x8",
-"b": "unoq_top_parts",
-"expect": "clear",
-"note": "3 x M3 x 8 vs unoq_top_parts"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "uno_screws_M3x8",
-"b": "unoq_usbc",
-"expect": "clear",
-"note": "3 x M3 x 8 vs unoq_usbc"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "uno_screws_M3x8",
-"b": "unoq_pcb",
-"expect": "clear",
-"note": "3 x M3 x 8 vs unoq_pcb"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "uno_screws_M3x8",
-"b": "uno_cover",
-"expect": "clear",
-"note": "3 x M3 x 8 vs uno_cover"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "uno_screws_M3x8",
-"b": "unoq_bottom_connectors",
-"expect": "clear",
-"note": "3 x M3 x 8 vs unoq_bottom_connectors"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "uno_screw_M2x6",
-"b": "body_lid",
-"expect": "thread",
-"note": "M2 x 6 by the header bite into the lid's posts"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "uno_screw_M2x6",
-"b": "unoq_headers",
-"expect": "clear",
-"note": "M2 x 6 by the header vs unoq_headers"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "uno_screw_M2x6",
-"b": "unoq_pins",
-"expect": "clear",
-"note": "M2 x 6 by the header vs unoq_pins"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "uno_screw_M2x6",
-"b": "unoq_top_parts",
-"expect": "clear",
-"note": "M2 x 6 by the header vs unoq_top_parts"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "uno_screw_M2x6",
-"b": "unoq_usbc",
-"expect": "clear",
-"note": "M2 x 6 by the header vs unoq_usbc"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "uno_screw_M2x6",
-"b": "unoq_pcb",
-"expect": "clear",
-"note": "M2 x 6 by the header vs unoq_pcb"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "uno_screw_M2x6",
-"b": "uno_cover",
-"expect": "clear",
-"note": "M2 x 6 by the header vs uno_cover"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "uno_screw_M2x6",
-"b": "unoq_bottom_connectors",
-"expect": "clear",
-"note": "M2 x 6 by the header vs unoq_bottom_connectors"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "unoq_pcb",
-"b": "uno_cover",
-"expect": "clear",
-"note": "unoq_pcb vs the Uno Q cover"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "unoq_pcb",
-"b": "body_lid",
-"expect": "clear",
-"note": "unoq_pcb vs the lid / its stand-offs"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "unoq_pcb",
-"b": "body_lid_screws_M2x6st",
-"expect": "clear",
-"note": "unoq_pcb vs the lid screws"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "unoq_headers",
-"b": "uno_cover",
-"expect": "clear",
-"note": "unoq_headers vs the Uno Q cover"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "unoq_headers",
-"b": "body_lid",
-"expect": "clear",
-"note": "unoq_headers vs the lid / its stand-offs"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "unoq_headers",
-"b": "body_lid_screws_M2x6st",
-"expect": "clear",
-"note": "unoq_headers vs the lid screws"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "unoq_pins",
-"b": "uno_cover",
-"expect": "clear",
-"note": "unoq_pins vs the Uno Q cover"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "unoq_pins",
-"b": "body_lid",
-"expect": "clear",
-"note": "unoq_pins vs the lid / its stand-offs"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "unoq_pins",
-"b": "body_lid_screws_M2x6st",
-"expect": "clear",
-"note": "unoq_pins vs the lid screws"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "unoq_top_parts",
-"b": "uno_cover",
-"expect": "clear",
-"note": "unoq_top_parts vs the Uno Q cover"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "unoq_top_parts",
-"b": "body_lid",
-"expect": "clear",
-"note": "unoq_top_parts vs the lid / its stand-offs"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "unoq_top_parts",
-"b": "body_lid_screws_M2x6st",
-"expect": "clear",
-"note": "unoq_top_parts vs the lid screws"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "unoq_usbc",
-"b": "uno_cover",
-"expect": "clear",
-"note": "unoq_usbc vs the Uno Q cover"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "unoq_usbc",
-"b": "body_lid",
-"expect": "clear",
-"note": "unoq_usbc vs the lid / its stand-offs"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "unoq_usbc",
-"b": "body_lid_screws_M2x6st",
-"expect": "clear",
-"note": "unoq_usbc vs the lid screws"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "unoq_bottom_connectors",
-"b": "uno_cover",
-"expect": "clear",
-"note": "unoq_bottom_connectors vs the Uno Q cover"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "unoq_bottom_connectors",
-"b": "body_lid",
-"expect": "clear",
-"note": "unoq_bottom_connectors vs the lid / its stand-offs"
-},
-{
-"group": "electronics: Uno Q board and its screws (2026-11-15)",
-"a": "unoq_bottom_connectors",
-"b": "body_lid_screws_M2x6st",
-"expect": "clear",
-"note": "unoq_bottom_connectors vs the lid screws"
-}
-],
-"json_out": "<out>/fit.json"
+ "lib": "<repo>/tools/blender/overlap_sample.py",
+ "step_mm": 0.2,
+ "checks": [
+  {
+   "group": "left hip yaw (cap)",
+   "a": "scs_left_hip_yaw_case",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "servo body in its holder (pads, walls)"
+  },
+  {
+   "group": "left hip yaw (cap)",
+   "a": "scs_left_hip_yaw_case",
+   "b": "left_yaw_connector",
+   "expect": "clear",
+   "note": "servo body vs moving part"
+  },
+  {
+   "group": "left hip yaw (cap)",
+   "a": "scs_left_hip_yaw_horn_cross",
+   "b": "left_yaw_connector",
+   "expect": "press",
+   "note": "horn in crush-rib pocket"
+  },
+  {
+   "group": "left hip yaw (cap)",
+   "a": "scs_left_hip_yaw_horn_cross",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "horn vs holder"
+  },
+  {
+   "group": "left hip yaw (cap)",
+   "a": "left_hip_yaw_brg_6702ZZ",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "6702ZZ in its seat"
+  },
+  {
+   "group": "left hip yaw (cap)",
+   "a": "left_hip_yaw_brg_6702ZZ",
+   "b": "left_yaw_connector",
+   "expect": "clear",
+   "note": "6702ZZ on the boss"
+  },
+  {
+   "group": "left hip yaw (cap)",
+   "a": "left_hip_yaw_brg_6702ZZ",
+   "b": "scs_left_hip_yaw_case",
+   "expect": "clear",
+   "note": "6702ZZ vs servo tower"
+  },
+  {
+   "group": "left hip yaw (cap)",
+   "a": "left_hip_yaw_screw_M2x4kit",
+   "b": "left_yaw_connector",
+   "expect": "clear",
+   "note": "horn screw in clearance hole"
+  },
+  {
+   "group": "left hip yaw (cap)",
+   "a": "left_hip_yaw_screw_M2x4kit",
+   "b": "scs_left_hip_yaw_spline",
+   "expect": "thread",
+   "note": "horn screw in the shaft"
+  },
+  {
+   "group": "left hip yaw (cap)",
+   "a": "left_hip_yaw_ear_screws_M2x6st",
+   "b": "body_frame",
+   "expect": "thread",
+   "note": "ear screws in the pads"
+  },
+  {
+   "group": "left hip yaw (cap)",
+   "a": "left_hip_yaw_ear_screws_M2x6st",
+   "b": "left_yaw_connector",
+   "expect": "clear",
+   "note": "ear screw heads vs moving part"
+  },
+  {
+   "group": "left hip roll (cap)",
+   "a": "scs_left_hip_roll_case",
+   "b": "left_yaw_connector",
+   "expect": "clear",
+   "note": "servo body in its holder (pads, walls)"
+  },
+  {
+   "group": "left hip roll (cap)",
+   "a": "scs_left_hip_roll_case",
+   "b": "left_l_bracket",
+   "expect": "clear",
+   "note": "servo body vs moving part"
+  },
+  {
+   "group": "left hip roll (cap)",
+   "a": "scs_left_hip_roll_horn_cross",
+   "b": "left_l_bracket",
+   "expect": "press",
+   "note": "horn in crush-rib pocket"
+  },
+  {
+   "group": "left hip roll (cap)",
+   "a": "scs_left_hip_roll_horn_cross",
+   "b": "left_yaw_connector",
+   "expect": "clear",
+   "note": "horn vs holder"
+  },
+  {
+   "group": "left hip roll (cap)",
+   "a": "left_hip_roll_brg_6702ZZ",
+   "b": "left_yaw_connector",
+   "expect": "clear",
+   "note": "6702ZZ in its seat"
+  },
+  {
+   "group": "left hip roll (cap)",
+   "a": "left_hip_roll_brg_6702ZZ",
+   "b": "left_l_bracket",
+   "expect": "clear",
+   "note": "6702ZZ on the boss"
+  },
+  {
+   "group": "left hip roll (cap)",
+   "a": "left_hip_roll_brg_6702ZZ",
+   "b": "scs_left_hip_roll_case",
+   "expect": "clear",
+   "note": "6702ZZ vs servo tower"
+  },
+  {
+   "group": "left hip roll (cap)",
+   "a": "left_hip_roll_screw_M2x4kit",
+   "b": "left_l_bracket",
+   "expect": "clear",
+   "note": "horn screw in clearance hole"
+  },
+  {
+   "group": "left hip roll (cap)",
+   "a": "left_hip_roll_screw_M2x4kit",
+   "b": "scs_left_hip_roll_spline",
+   "expect": "thread",
+   "note": "horn screw in the shaft"
+  },
+  {
+   "group": "left hip roll (cap)",
+   "a": "left_hip_roll_ear_screws_M2x6st",
+   "b": "left_yaw_connector",
+   "expect": "thread",
+   "note": "ear screws in the pads"
+  },
+  {
+   "group": "left hip roll (cap)",
+   "a": "left_hip_roll_ear_screws_M2x6st",
+   "b": "left_l_bracket",
+   "expect": "clear",
+   "note": "ear screw heads vs moving part"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "scs_left_ankle_case",
+   "b": "left_shin",
+   "expect": "clear",
+   "note": "servo body in its cradle (floor, pads)"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "scs_left_ankle_case",
+   "b": "left_foot",
+   "expect": "clear",
+   "note": "servo body vs moving part"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "scs_left_ankle_case",
+   "b": "left_foot_bearing_plate",
+   "expect": "clear",
+   "note": "servo body vs bearing plate"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "scs_left_ankle_horn_cross",
+   "b": "left_foot",
+   "expect": "press",
+   "note": "horn in crush-rib pocket"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "left_ankle_nut_M3",
+   "b": "left_shin",
+   "expect": "clear",
+   "note": "M3 nut in its hex pocket"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "left_ankle_nut_M3",
+   "b": "scs_left_ankle_case",
+   "expect": "clear",
+   "note": "M3 nut under the servo bottom"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "left_ankle_screw_M3x8",
+   "b": "left_shin",
+   "expect": "clear",
+   "note": "M3 axle through the floor"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "left_ankle_screw_M3x8",
+   "b": "left_ankle_nut_M3",
+   "expect": "clear",
+   "note": "M3 axle in the nut (thread, same diameter)"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "left_ankle_screw_M3x8",
+   "b": "left_ankle_brg_693",
+   "expect": "clear",
+   "note": "M3 axle in the 693 bore"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "left_ankle_screw_M3x8",
+   "b": "left_foot_bearing_plate",
+   "expect": "clear",
+   "note": "M3 head in the plate's lip hole"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "left_ankle_screw_M3x8",
+   "b": "scs_left_ankle_case",
+   "expect": "clear",
+   "note": "M3 tip vs servo bottom"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "left_ankle_brg_693",
+   "b": "left_shin",
+   "expect": "clear",
+   "note": "693 inner ring on the floor island"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "left_ankle_brg_693",
+   "b": "left_foot_bearing_plate",
+   "expect": "clear",
+   "note": "693 in the plate's seat"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "left_foot_bearing_plate",
+   "b": "left_shin",
+   "expect": "clear",
+   "note": "bearing plate vs holder"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "left_foot_bearing_plate",
+   "b": "left_foot",
+   "expect": "clear",
+   "note": "bearing plate vs moving part (joint face)"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "left_ankle_screw_M2x4kit",
+   "b": "left_foot",
+   "expect": "clear",
+   "note": "horn screw in clearance hole"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "left_ankle_screw_M2x4kit",
+   "b": "scs_left_ankle_spline",
+   "expect": "thread",
+   "note": "horn screw in the shaft"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "left_ankle_ear_screws_M2x6st",
+   "b": "left_shin",
+   "expect": "thread",
+   "note": "ear screws in the pads"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "left_ankle_ear_screws_M2x6st",
+   "b": "left_foot",
+   "expect": "clear",
+   "note": "ear screw heads vs moving part"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "left_foot_plate_screws_M2x6st",
+   "b": "left_foot",
+   "expect": "thread",
+   "note": "plate screws bite into the sole"
+  },
+  {
+   "group": "left ankle (fork)",
+   "a": "left_foot_plate_screws_M2x6st",
+   "b": "left_foot_bearing_plate",
+   "expect": "clear",
+   "note": "plate screws through the flange"
+  },
+  {
+   "group": "left leg, neighbours",
+   "a": "scs_left_hip_roll_case",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "roll servo vs hip plate"
+  },
+  {
+   "group": "left leg, neighbours",
+   "a": "scs_left_hip_roll_case",
+   "b": "scs_left_hip_yaw_case",
+   "expect": "clear",
+   "note": "roll servo vs yaw servo"
+  },
+  {
+   "group": "left leg, neighbours",
+   "a": "scs_left_hip_pitch_case",
+   "b": "scs_left_hip_roll_case",
+   "expect": "clear",
+   "note": "pitch servo vs roll servo"
+  },
+  {
+   "group": "left leg, neighbours",
+   "a": "scs_left_knee_case",
+   "b": "scs_left_hip_pitch_case",
+   "expect": "clear",
+   "note": "knee servo vs pitch servo"
+  },
+  {
+   "group": "left leg, neighbours",
+   "a": "left_hip_roll_ear_screws_M2x6st",
+   "b": "scs_left_hip_yaw_case",
+   "expect": "clear",
+   "note": "roll ear screws vs yaw servo"
+  },
+  {
+   "group": "left leg, neighbours",
+   "a": "left_hip_pitch_ear_screws_M2x6st",
+   "b": "scs_left_knee_case",
+   "expect": "clear",
+   "note": "pitch ear screws vs knee servo"
+  },
+  {
+   "group": "left leg, neighbours",
+   "a": "left_knee_ear_screws_M2x6st",
+   "b": "scs_left_hip_pitch_case",
+   "expect": "clear",
+   "note": "knee ear screws vs pitch servo"
+  },
+  {
+   "group": "left leg, neighbours",
+   "a": "left_hip_roll_ear_screws_M2x6st",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "roll ear screws vs hip plate"
+  },
+  {
+   "group": "left leg, neighbours",
+   "a": "left_hip_yaw_ear_screws_M2x6st",
+   "b": "scs_left_hip_roll_case",
+   "expect": "clear",
+   "note": "yaw ear screws vs roll servo"
+  },
+  {
+   "group": "left leg, neighbours",
+   "a": "left_ankle_ear_screws_M2x6st",
+   "b": "scs_left_ankle_horn_cross",
+   "expect": "clear",
+   "note": "ankle ear screws vs horn"
+  },
+  {
+   "group": "right hip yaw (cap)",
+   "a": "scs_right_hip_yaw_case",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "servo body in its holder (pads, walls)"
+  },
+  {
+   "group": "right hip yaw (cap)",
+   "a": "scs_right_hip_yaw_case",
+   "b": "right_yaw_connector",
+   "expect": "clear",
+   "note": "servo body vs moving part"
+  },
+  {
+   "group": "right hip yaw (cap)",
+   "a": "scs_right_hip_yaw_horn_cross",
+   "b": "right_yaw_connector",
+   "expect": "press",
+   "note": "horn in crush-rib pocket"
+  },
+  {
+   "group": "right hip yaw (cap)",
+   "a": "scs_right_hip_yaw_horn_cross",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "horn vs holder"
+  },
+  {
+   "group": "right hip yaw (cap)",
+   "a": "right_hip_yaw_brg_6702ZZ",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "6702ZZ in its seat"
+  },
+  {
+   "group": "right hip yaw (cap)",
+   "a": "right_hip_yaw_brg_6702ZZ",
+   "b": "right_yaw_connector",
+   "expect": "clear",
+   "note": "6702ZZ on the boss"
+  },
+  {
+   "group": "right hip yaw (cap)",
+   "a": "right_hip_yaw_brg_6702ZZ",
+   "b": "scs_right_hip_yaw_case",
+   "expect": "clear",
+   "note": "6702ZZ vs servo tower"
+  },
+  {
+   "group": "right hip yaw (cap)",
+   "a": "right_hip_yaw_screw_M2x4kit",
+   "b": "right_yaw_connector",
+   "expect": "clear",
+   "note": "horn screw in clearance hole"
+  },
+  {
+   "group": "right hip yaw (cap)",
+   "a": "right_hip_yaw_screw_M2x4kit",
+   "b": "scs_right_hip_yaw_spline",
+   "expect": "thread",
+   "note": "horn screw in the shaft"
+  },
+  {
+   "group": "right hip yaw (cap)",
+   "a": "right_hip_yaw_ear_screws_M2x6st",
+   "b": "body_frame",
+   "expect": "thread",
+   "note": "ear screws in the pads"
+  },
+  {
+   "group": "right hip yaw (cap)",
+   "a": "right_hip_yaw_ear_screws_M2x6st",
+   "b": "right_yaw_connector",
+   "expect": "clear",
+   "note": "ear screw heads vs moving part"
+  },
+  {
+   "group": "right hip roll (cap)",
+   "a": "scs_right_hip_roll_case",
+   "b": "right_yaw_connector",
+   "expect": "clear",
+   "note": "servo body in its holder (pads, walls)"
+  },
+  {
+   "group": "right hip roll (cap)",
+   "a": "scs_right_hip_roll_case",
+   "b": "right_l_bracket",
+   "expect": "clear",
+   "note": "servo body vs moving part"
+  },
+  {
+   "group": "right hip roll (cap)",
+   "a": "scs_right_hip_roll_horn_cross",
+   "b": "right_l_bracket",
+   "expect": "press",
+   "note": "horn in crush-rib pocket"
+  },
+  {
+   "group": "right hip roll (cap)",
+   "a": "scs_right_hip_roll_horn_cross",
+   "b": "right_yaw_connector",
+   "expect": "clear",
+   "note": "horn vs holder"
+  },
+  {
+   "group": "right hip roll (cap)",
+   "a": "right_hip_roll_brg_6702ZZ",
+   "b": "right_yaw_connector",
+   "expect": "clear",
+   "note": "6702ZZ in its seat"
+  },
+  {
+   "group": "right hip roll (cap)",
+   "a": "right_hip_roll_brg_6702ZZ",
+   "b": "right_l_bracket",
+   "expect": "clear",
+   "note": "6702ZZ on the boss"
+  },
+  {
+   "group": "right hip roll (cap)",
+   "a": "right_hip_roll_brg_6702ZZ",
+   "b": "scs_right_hip_roll_case",
+   "expect": "clear",
+   "note": "6702ZZ vs servo tower"
+  },
+  {
+   "group": "right hip roll (cap)",
+   "a": "right_hip_roll_screw_M2x4kit",
+   "b": "right_l_bracket",
+   "expect": "clear",
+   "note": "horn screw in clearance hole"
+  },
+  {
+   "group": "right hip roll (cap)",
+   "a": "right_hip_roll_screw_M2x4kit",
+   "b": "scs_right_hip_roll_spline",
+   "expect": "thread",
+   "note": "horn screw in the shaft"
+  },
+  {
+   "group": "right hip roll (cap)",
+   "a": "right_hip_roll_ear_screws_M2x6st",
+   "b": "right_yaw_connector",
+   "expect": "thread",
+   "note": "ear screws in the pads"
+  },
+  {
+   "group": "right hip roll (cap)",
+   "a": "right_hip_roll_ear_screws_M2x6st",
+   "b": "right_l_bracket",
+   "expect": "clear",
+   "note": "ear screw heads vs moving part"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "scs_right_ankle_case",
+   "b": "right_shin",
+   "expect": "clear",
+   "note": "servo body in its cradle (floor, pads)"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "scs_right_ankle_case",
+   "b": "right_foot",
+   "expect": "clear",
+   "note": "servo body vs moving part"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "scs_right_ankle_case",
+   "b": "right_foot_bearing_plate",
+   "expect": "clear",
+   "note": "servo body vs bearing plate"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "scs_right_ankle_horn_cross",
+   "b": "right_foot",
+   "expect": "press",
+   "note": "horn in crush-rib pocket"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "right_ankle_nut_M3",
+   "b": "right_shin",
+   "expect": "clear",
+   "note": "M3 nut in its hex pocket"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "right_ankle_nut_M3",
+   "b": "scs_right_ankle_case",
+   "expect": "clear",
+   "note": "M3 nut under the servo bottom"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "right_ankle_screw_M3x8",
+   "b": "right_shin",
+   "expect": "clear",
+   "note": "M3 axle through the floor"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "right_ankle_screw_M3x8",
+   "b": "right_ankle_nut_M3",
+   "expect": "clear",
+   "note": "M3 axle in the nut (thread, same diameter)"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "right_ankle_screw_M3x8",
+   "b": "right_ankle_brg_693",
+   "expect": "clear",
+   "note": "M3 axle in the 693 bore"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "right_ankle_screw_M3x8",
+   "b": "right_foot_bearing_plate",
+   "expect": "clear",
+   "note": "M3 head in the plate's lip hole"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "right_ankle_screw_M3x8",
+   "b": "scs_right_ankle_case",
+   "expect": "clear",
+   "note": "M3 tip vs servo bottom"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "right_ankle_brg_693",
+   "b": "right_shin",
+   "expect": "clear",
+   "note": "693 inner ring on the floor island"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "right_ankle_brg_693",
+   "b": "right_foot_bearing_plate",
+   "expect": "clear",
+   "note": "693 in the plate's seat"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "right_foot_bearing_plate",
+   "b": "right_shin",
+   "expect": "clear",
+   "note": "bearing plate vs holder"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "right_foot_bearing_plate",
+   "b": "right_foot",
+   "expect": "clear",
+   "note": "bearing plate vs moving part (joint face)"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "right_ankle_screw_M2x4kit",
+   "b": "right_foot",
+   "expect": "clear",
+   "note": "horn screw in clearance hole"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "right_ankle_screw_M2x4kit",
+   "b": "scs_right_ankle_spline",
+   "expect": "thread",
+   "note": "horn screw in the shaft"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "right_ankle_ear_screws_M2x6st",
+   "b": "right_shin",
+   "expect": "thread",
+   "note": "ear screws in the pads"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "right_ankle_ear_screws_M2x6st",
+   "b": "right_foot",
+   "expect": "clear",
+   "note": "ear screw heads vs moving part"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "right_foot_plate_screws_M2x6st",
+   "b": "right_foot",
+   "expect": "thread",
+   "note": "plate screws bite into the sole"
+  },
+  {
+   "group": "right ankle (fork)",
+   "a": "right_foot_plate_screws_M2x6st",
+   "b": "right_foot_bearing_plate",
+   "expect": "clear",
+   "note": "plate screws through the flange"
+  },
+  {
+   "group": "right leg, neighbours",
+   "a": "scs_right_hip_roll_case",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "roll servo vs hip plate"
+  },
+  {
+   "group": "right leg, neighbours",
+   "a": "scs_right_hip_roll_case",
+   "b": "scs_right_hip_yaw_case",
+   "expect": "clear",
+   "note": "roll servo vs yaw servo"
+  },
+  {
+   "group": "right leg, neighbours",
+   "a": "scs_right_hip_pitch_case",
+   "b": "scs_right_hip_roll_case",
+   "expect": "clear",
+   "note": "pitch servo vs roll servo"
+  },
+  {
+   "group": "right leg, neighbours",
+   "a": "scs_right_knee_case",
+   "b": "scs_right_hip_pitch_case",
+   "expect": "clear",
+   "note": "knee servo vs pitch servo"
+  },
+  {
+   "group": "right leg, neighbours",
+   "a": "right_hip_roll_ear_screws_M2x6st",
+   "b": "scs_right_hip_yaw_case",
+   "expect": "clear",
+   "note": "roll ear screws vs yaw servo"
+  },
+  {
+   "group": "right leg, neighbours",
+   "a": "right_hip_pitch_ear_screws_M2x6st",
+   "b": "scs_right_knee_case",
+   "expect": "clear",
+   "note": "pitch ear screws vs knee servo"
+  },
+  {
+   "group": "right leg, neighbours",
+   "a": "right_knee_ear_screws_M2x6st",
+   "b": "scs_right_hip_pitch_case",
+   "expect": "clear",
+   "note": "knee ear screws vs pitch servo"
+  },
+  {
+   "group": "right leg, neighbours",
+   "a": "right_hip_roll_ear_screws_M2x6st",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "roll ear screws vs hip plate"
+  },
+  {
+   "group": "right leg, neighbours",
+   "a": "right_hip_yaw_ear_screws_M2x6st",
+   "b": "scs_right_hip_roll_case",
+   "expect": "clear",
+   "note": "yaw ear screws vs roll servo"
+  },
+  {
+   "group": "right leg, neighbours",
+   "a": "right_ankle_ear_screws_M2x6st",
+   "b": "scs_right_ankle_horn_cross",
+   "expect": "clear",
+   "note": "ankle ear screws vs horn"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "scs_neck_pitch_case",
+   "b": "neck_cradle",
+   "expect": "clear",
+   "note": "servo body in its cradle (floor, pads)"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "scs_neck_pitch_case",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "servo body vs moving part"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "scs_neck_pitch_case",
+   "b": "body_neck_bearing_plate",
+   "expect": "clear",
+   "note": "servo body vs bearing plate"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "scs_neck_pitch_horn_cross",
+   "b": "body_frame",
+   "expect": "press",
+   "note": "horn in crush-rib pocket"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "neck_nut_M3",
+   "b": "neck_cradle",
+   "expect": "clear",
+   "note": "M3 nut in its hex pocket"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "neck_nut_M3",
+   "b": "scs_neck_pitch_case",
+   "expect": "clear",
+   "note": "M3 nut under the servo bottom"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "neck_screw_M3x8",
+   "b": "neck_cradle",
+   "expect": "clear",
+   "note": "M3 axle through the floor"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "neck_screw_M3x8",
+   "b": "neck_nut_M3",
+   "expect": "clear",
+   "note": "M3 axle in the nut (thread, same diameter)"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "neck_screw_M3x8",
+   "b": "neck_brg_693",
+   "expect": "clear",
+   "note": "M3 axle in the 693 bore"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "neck_screw_M3x8",
+   "b": "body_neck_bearing_plate",
+   "expect": "clear",
+   "note": "M3 head in the plate's lip hole"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "neck_screw_M3x8",
+   "b": "scs_neck_pitch_case",
+   "expect": "clear",
+   "note": "M3 tip vs servo bottom"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "neck_brg_693",
+   "b": "neck_cradle",
+   "expect": "clear",
+   "note": "693 inner ring on the floor island"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "neck_brg_693",
+   "b": "body_neck_bearing_plate",
+   "expect": "clear",
+   "note": "693 in the plate's seat"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "body_neck_bearing_plate",
+   "b": "neck_cradle",
+   "expect": "clear",
+   "note": "bearing plate vs holder"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "body_neck_bearing_plate",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "bearing plate vs moving part (joint face)"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "neck_screw_M2x4kit",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "horn screw in clearance hole"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "neck_screw_M2x4kit",
+   "b": "scs_neck_pitch_spline",
+   "expect": "thread",
+   "note": "horn screw in the shaft"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "neck_ear_screws_M2x6st",
+   "b": "neck_cradle",
+   "expect": "thread",
+   "note": "ear screws in the pads"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "neck_ear_screws_M2x6st",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "ear screw heads vs moving part"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "neck_plate_screws_M2x6st",
+   "b": "body_frame",
+   "expect": "thread",
+   "note": "plate screws bite into the mount"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "neck_plate_screws_M2x6st",
+   "b": "body_neck_bearing_plate",
+   "expect": "clear",
+   "note": "plate screws through the plate"
+  },
+  {
+   "group": "neck pitch (fork)",
+   "a": "neck_plate_screws_M2x6st",
+   "b": "neck_cradle",
+   "expect": "clear",
+   "note": "plate screw heads vs cradle"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "scs_head_pitch_case",
+   "b": "neck_cradle",
+   "expect": "clear",
+   "note": "servo body in its cradle (floor, pads)"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "scs_head_pitch_case",
+   "b": "head_pitch_u",
+   "expect": "clear",
+   "note": "servo body vs moving part"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "scs_head_pitch_case",
+   "b": "head_pitch_bearing_plate",
+   "expect": "clear",
+   "note": "servo body vs bearing plate"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "scs_head_pitch_horn_cross",
+   "b": "head_pitch_u",
+   "expect": "press",
+   "note": "horn in crush-rib pocket"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "head_pitch_nut_M3",
+   "b": "neck_cradle",
+   "expect": "clear",
+   "note": "M3 nut in its hex pocket"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "head_pitch_nut_M3",
+   "b": "scs_head_pitch_case",
+   "expect": "clear",
+   "note": "M3 nut under the servo bottom"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "head_pitch_screw_M3x8",
+   "b": "neck_cradle",
+   "expect": "clear",
+   "note": "M3 axle through the floor"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "head_pitch_screw_M3x8",
+   "b": "head_pitch_nut_M3",
+   "expect": "clear",
+   "note": "M3 axle in the nut (thread, same diameter)"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "head_pitch_screw_M3x8",
+   "b": "head_pitch_brg_693",
+   "expect": "clear",
+   "note": "M3 axle in the 693 bore"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "head_pitch_screw_M3x8",
+   "b": "head_pitch_bearing_plate",
+   "expect": "clear",
+   "note": "M3 head in the plate's lip hole"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "head_pitch_screw_M3x8",
+   "b": "scs_head_pitch_case",
+   "expect": "clear",
+   "note": "M3 tip vs servo bottom"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "head_pitch_brg_693",
+   "b": "neck_cradle",
+   "expect": "clear",
+   "note": "693 inner ring on the floor island"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "head_pitch_brg_693",
+   "b": "head_pitch_bearing_plate",
+   "expect": "clear",
+   "note": "693 in the plate's seat"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "head_pitch_bearing_plate",
+   "b": "neck_cradle",
+   "expect": "clear",
+   "note": "bearing plate vs holder"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "head_pitch_bearing_plate",
+   "b": "head_pitch_u",
+   "expect": "clear",
+   "note": "bearing plate vs moving part (joint face)"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "head_pitch_screw_M2x4kit",
+   "b": "head_pitch_u",
+   "expect": "clear",
+   "note": "horn screw in clearance hole"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "head_pitch_screw_M2x4kit",
+   "b": "scs_head_pitch_spline",
+   "expect": "thread",
+   "note": "horn screw in the shaft"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "head_pitch_ear_screws_M2x6st",
+   "b": "neck_cradle",
+   "expect": "thread",
+   "note": "ear screws in the pads"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "head_pitch_ear_screws_M2x6st",
+   "b": "head_pitch_u",
+   "expect": "clear",
+   "note": "ear screw heads vs moving part"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "head_pitch_plate_screws_M2x6st",
+   "b": "head_pitch_bearing_plate",
+   "expect": "thread",
+   "note": "plate screws bite into the plate block"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "head_pitch_plate_screws_M2x6st",
+   "b": "head_pitch_u",
+   "expect": "clear",
+   "note": "plate screws through the U top"
+  },
+  {
+   "group": "head pitch (fork)",
+   "a": "head_pitch_plate_screws_M2x6st",
+   "b": "scs_head_yaw_case",
+   "expect": "clear",
+   "note": "plate screw heads vs head-yaw servo"
+  },
+  {
+   "group": "neck, neighbours",
+   "a": "scs_neck_pitch_case",
+   "b": "scs_head_pitch_case",
+   "expect": "clear",
+   "note": "neck servo vs head-pitch servo"
+  },
+  {
+   "group": "neck, neighbours",
+   "a": "neck_ear_screws_M2x6st",
+   "b": "head_pitch_ear_screws_M2x6st",
+   "expect": "clear",
+   "note": "the two servos' ear screws"
+  },
+  {
+   "group": "neck, neighbours",
+   "a": "head_pitch_u",
+   "b": "scs_head_yaw_case",
+   "expect": "clear",
+   "note": "U vs head-yaw servo"
+  },
+  {
+   "group": "neck, neighbours",
+   "a": "head_pitch_bearing_plate",
+   "b": "head_pitch_u",
+   "expect": "clear",
+   "note": "plate vs U (joint face)"
+  },
+  {
+   "group": "neck, neighbours",
+   "a": "body_neck_bearing_plate",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "plate vs mount (joint face)"
+  },
+  {
+   "group": "head yaw (cap): yaw block holds servo, U turns",
+   "a": "scs_head_yaw_case",
+   "b": "yaw_block",
+   "expect": "clear",
+   "note": "servo body in its holder (pads, walls)"
+  },
+  {
+   "group": "head yaw (cap): yaw block holds servo, U turns",
+   "a": "scs_head_yaw_case",
+   "b": "head_pitch_u",
+   "expect": "clear",
+   "note": "servo body vs moving part"
+  },
+  {
+   "group": "head yaw (cap): yaw block holds servo, U turns",
+   "a": "scs_head_yaw_horn_cross",
+   "b": "head_pitch_u",
+   "expect": "press",
+   "note": "horn in crush-rib pocket"
+  },
+  {
+   "group": "head yaw (cap): yaw block holds servo, U turns",
+   "a": "scs_head_yaw_horn_cross",
+   "b": "yaw_block",
+   "expect": "clear",
+   "note": "horn vs holder"
+  },
+  {
+   "group": "head yaw (cap): yaw block holds servo, U turns",
+   "a": "head_yaw_brg_6702ZZ",
+   "b": "yaw_block",
+   "expect": "clear",
+   "note": "6702ZZ in its seat"
+  },
+  {
+   "group": "head yaw (cap): yaw block holds servo, U turns",
+   "a": "head_yaw_brg_6702ZZ",
+   "b": "head_pitch_u",
+   "expect": "clear",
+   "note": "6702ZZ on the boss"
+  },
+  {
+   "group": "head yaw (cap): yaw block holds servo, U turns",
+   "a": "head_yaw_screw_M2x4kit",
+   "b": "head_pitch_u",
+   "expect": "clear",
+   "note": "horn screw in clearance hole"
+  },
+  {
+   "group": "head yaw (cap): yaw block holds servo, U turns",
+   "a": "head_yaw_ear_screws_M2x6st",
+   "b": "yaw_block",
+   "expect": "thread",
+   "note": "ear screws in the pads"
+  },
+  {
+   "group": "head yaw (cap): yaw block holds servo, U turns",
+   "a": "head_yaw_ear_screws_M2x6st",
+   "b": "head_pitch_u",
+   "expect": "clear",
+   "note": "ear screw heads vs U"
+  },
+  {
+   "group": "head yaw (cap): yaw block holds servo, U turns",
+   "a": "yaw_block",
+   "b": "head_pitch_u",
+   "expect": "clear",
+   "note": "yaw block vs U (joint face)"
+  },
+  {
+   "group": "head yaw (cap): yaw block holds servo, U turns",
+   "a": "yaw_block",
+   "b": "head_pitch_bearing_plate",
+   "expect": "clear",
+   "note": "yaw block vs head-pitch plate"
+  },
+  {
+   "group": "head yaw (cap): yaw block holds servo, U turns",
+   "a": "head_pitch_plate_screws_M2x6st",
+   "b": "yaw_block",
+   "expect": "clear",
+   "note": "U plate screws vs yaw block"
+  },
+  {
+   "group": "head roll (cap): head holds servo, yaw block turns",
+   "a": "scs_head_roll_case",
+   "b": "yaw_block",
+   "expect": "clear",
+   "note": "roll servo body vs yaw block"
+  },
+  {
+   "group": "head roll (cap): head holds servo, yaw block turns",
+   "a": "scs_head_roll_horn_cross",
+   "b": "yaw_block",
+   "expect": "press",
+   "note": "horn in crush-rib pocket"
+  },
+  {
+   "group": "head roll (cap): head holds servo, yaw block turns",
+   "a": "head_roll_brg_6702ZZ",
+   "b": "yaw_block",
+   "expect": "clear",
+   "note": "6702ZZ on the boss"
+  },
+  {
+   "group": "head roll (cap): head holds servo, yaw block turns",
+   "a": "head_roll_brg_6702ZZ",
+   "b": "scs_head_roll_case",
+   "expect": "clear",
+   "note": "6702ZZ vs servo tower"
+  },
+  {
+   "group": "head roll (cap): head holds servo, yaw block turns",
+   "a": "head_roll_screw_M2x4kit",
+   "b": "yaw_block",
+   "expect": "clear",
+   "note": "horn screw in clearance hole"
+  },
+  {
+   "group": "head roll (cap): head holds servo, yaw block turns",
+   "a": "head_roll_screw_M2x4kit",
+   "b": "scs_head_roll_spline",
+   "expect": "thread",
+   "note": "horn screw in the shaft"
+  },
+  {
+   "group": "head roll (cap): head holds servo, yaw block turns",
+   "a": "head_roll_screw_M2x4kit",
+   "b": "scs_head_yaw_case",
+   "expect": "clear",
+   "note": "roll horn screw head vs yaw servo"
+  },
+  {
+   "group": "head roll (cap): head holds servo, yaw block turns",
+   "a": "scs_head_roll_case",
+   "b": "scs_head_yaw_case",
+   "expect": "clear",
+   "note": "roll servo vs yaw servo"
+  },
+  {
+   "group": "head roll (cap): head holds servo, yaw block turns",
+   "a": "head_roll_ear_screws_M2x6st",
+   "b": "yaw_block",
+   "expect": "clear",
+   "note": "roll ear screws vs yaw block"
+  },
+  {
+   "group": "head roll (cap): head holds servo, yaw block turns",
+   "a": "head_roll_brg_6702ZZ",
+   "b": "scs_head_yaw_case",
+   "expect": "clear",
+   "note": "roll bearing vs yaw servo"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "enclosure_screws_M2x6st",
+   "b": "body_frame",
+   "expect": "thread",
+   "note": "enclosure screws bite into the deck's rear edge"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "enclosure_screws_M2x6st",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "enclosure screws through its front wall"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "electronics_enclosure",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "enclosure on the motor body (tongue under the deck)"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "body_lid_screws_M2x6st",
+   "b": "electronics_enclosure",
+   "expect": "thread",
+   "note": "top plate screws bite into the posts"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "body_lid_screws_M2x6st",
+   "b": "body_lid",
+   "expect": "clear",
+   "note": "screws through the top plate"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "body_lid",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "top plate on the enclosure"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "body_lid",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "top plate vs motor body"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "electronics_enclosure",
+   "b": "scs_left_hip_yaw_case",
+   "expect": "clear",
+   "note": "enclosure vs scs_left_hip_yaw_case"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "electronics_enclosure",
+   "b": "scs_left_hip_roll_case",
+   "expect": "clear",
+   "note": "enclosure vs scs_left_hip_roll_case"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "electronics_enclosure",
+   "b": "left_yaw_connector",
+   "expect": "clear",
+   "note": "enclosure vs left_yaw_connector"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "electronics_enclosure",
+   "b": "left_hip_yaw_ear_screws_M2x6st",
+   "expect": "clear",
+   "note": "enclosure vs left_hip_yaw_ear_screws_M2x6st"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "electronics_enclosure",
+   "b": "left_hip_yaw_brg_6702ZZ",
+   "expect": "clear",
+   "note": "enclosure vs left_hip_yaw_brg_6702ZZ"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "electronics_enclosure",
+   "b": "scs_left_hip_yaw_horn_cross",
+   "expect": "clear",
+   "note": "enclosure vs scs_left_hip_yaw_horn_cross"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "electronics_enclosure",
+   "b": "left_l_bracket",
+   "expect": "clear",
+   "note": "enclosure vs left_l_bracket"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "body_lid",
+   "b": "scs_left_hip_yaw_case",
+   "expect": "clear",
+   "note": "top plate vs scs_left_hip_yaw_case"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "uno_q",
+   "b": "scs_left_hip_yaw_case",
+   "expect": "clear",
+   "note": "Uno Q vs scs_left_hip_yaw_case"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "body_lid",
+   "b": "left_hip_yaw_ear_screws_M2x6st",
+   "expect": "clear",
+   "note": "top plate vs left_hip_yaw_ear_screws_M2x6st"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "uno_q",
+   "b": "left_hip_yaw_ear_screws_M2x6st",
+   "expect": "clear",
+   "note": "Uno Q vs left_hip_yaw_ear_screws_M2x6st"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "electronics_enclosure",
+   "b": "scs_right_hip_yaw_case",
+   "expect": "clear",
+   "note": "enclosure vs scs_right_hip_yaw_case"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "electronics_enclosure",
+   "b": "scs_right_hip_roll_case",
+   "expect": "clear",
+   "note": "enclosure vs scs_right_hip_roll_case"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "electronics_enclosure",
+   "b": "right_yaw_connector",
+   "expect": "clear",
+   "note": "enclosure vs right_yaw_connector"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "electronics_enclosure",
+   "b": "right_hip_yaw_ear_screws_M2x6st",
+   "expect": "clear",
+   "note": "enclosure vs right_hip_yaw_ear_screws_M2x6st"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "electronics_enclosure",
+   "b": "right_hip_yaw_brg_6702ZZ",
+   "expect": "clear",
+   "note": "enclosure vs right_hip_yaw_brg_6702ZZ"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "electronics_enclosure",
+   "b": "scs_right_hip_yaw_horn_cross",
+   "expect": "clear",
+   "note": "enclosure vs scs_right_hip_yaw_horn_cross"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "electronics_enclosure",
+   "b": "right_l_bracket",
+   "expect": "clear",
+   "note": "enclosure vs right_l_bracket"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "body_lid",
+   "b": "scs_right_hip_yaw_case",
+   "expect": "clear",
+   "note": "top plate vs scs_right_hip_yaw_case"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "uno_q",
+   "b": "scs_right_hip_yaw_case",
+   "expect": "clear",
+   "note": "Uno Q vs scs_right_hip_yaw_case"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "body_lid",
+   "b": "right_hip_yaw_ear_screws_M2x6st",
+   "expect": "clear",
+   "note": "top plate vs right_hip_yaw_ear_screws_M2x6st"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "uno_q",
+   "b": "right_hip_yaw_ear_screws_M2x6st",
+   "expect": "clear",
+   "note": "Uno Q vs right_hip_yaw_ear_screws_M2x6st"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "uno_q",
+   "b": "neck_cradle",
+   "expect": "clear",
+   "note": "Uno Q vs neck_cradle"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "body_lid",
+   "b": "neck_cradle",
+   "expect": "clear",
+   "note": "top plate vs neck_cradle"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "electronics_enclosure",
+   "b": "neck_cradle",
+   "expect": "clear",
+   "note": "enclosure vs neck_cradle"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "uno_q",
+   "b": "scs_neck_pitch_case",
+   "expect": "clear",
+   "note": "Uno Q vs scs_neck_pitch_case"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "body_lid",
+   "b": "scs_neck_pitch_case",
+   "expect": "clear",
+   "note": "top plate vs scs_neck_pitch_case"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "electronics_enclosure",
+   "b": "scs_neck_pitch_case",
+   "expect": "clear",
+   "note": "enclosure vs scs_neck_pitch_case"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "uno_q",
+   "b": "body_neck_bearing_plate",
+   "expect": "clear",
+   "note": "Uno Q vs body_neck_bearing_plate"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "body_lid",
+   "b": "body_neck_bearing_plate",
+   "expect": "clear",
+   "note": "top plate vs body_neck_bearing_plate"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "electronics_enclosure",
+   "b": "body_neck_bearing_plate",
+   "expect": "clear",
+   "note": "enclosure vs body_neck_bearing_plate"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "uno_q",
+   "b": "neck_plate_screws_M2x6st",
+   "expect": "clear",
+   "note": "Uno Q vs neck_plate_screws_M2x6st"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "body_lid",
+   "b": "neck_plate_screws_M2x6st",
+   "expect": "clear",
+   "note": "top plate vs neck_plate_screws_M2x6st"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "electronics_enclosure",
+   "b": "neck_plate_screws_M2x6st",
+   "expect": "clear",
+   "note": "enclosure vs neck_plate_screws_M2x6st"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "body_neck_bearing_plate",
+   "b": "scs_right_hip_yaw_case",
+   "expect": "clear",
+   "note": "neck bearing plate vs right hip-yaw servo"
+  },
+  {
+   "group": "body: motor body, enclosure, top plate",
+   "a": "neck_plate_screws_M2x6st",
+   "b": "scs_right_hip_yaw_case",
+   "expect": "clear",
+   "note": "neck plate screws vs right hip-yaw servo"
+  },
+  {
+   "group": "electronics",
+   "a": "uno_q",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "uno_q vs enclosure"
+  },
+  {
+   "group": "electronics",
+   "a": "uno_q",
+   "b": "body_lid",
+   "expect": "clear",
+   "note": "uno_q vs top plate"
+  },
+  {
+   "group": "electronics",
+   "a": "uno_q",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "uno_q vs motor body"
+  },
+  {
+   "group": "electronics",
+   "a": "uno_q",
+   "b": "scs_left_hip_yaw_case",
+   "expect": "clear",
+   "note": "uno_q vs left hip-yaw servo"
+  },
+  {
+   "group": "electronics",
+   "a": "uno_q",
+   "b": "scs_right_hip_yaw_case",
+   "expect": "clear",
+   "note": "uno_q vs right hip-yaw servo"
+  },
+  {
+   "group": "electronics",
+   "a": "uno_q",
+   "b": "body_lid_screws_M2x6st",
+   "expect": "clear",
+   "note": "uno_q vs body_lid_screws_M2x6st"
+  },
+  {
+   "group": "electronics",
+   "a": "uno_q",
+   "b": "enclosure_screws_M2x6st",
+   "expect": "clear",
+   "note": "uno_q vs enclosure_screws_M2x6st"
+  },
+  {
+   "group": "electronics",
+   "a": "battery_3s",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "battery_3s vs enclosure"
+  },
+  {
+   "group": "electronics",
+   "a": "battery_3s",
+   "b": "body_lid",
+   "expect": "clear",
+   "note": "battery_3s vs top plate"
+  },
+  {
+   "group": "electronics",
+   "a": "battery_3s",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "battery_3s vs motor body"
+  },
+  {
+   "group": "electronics",
+   "a": "battery_3s",
+   "b": "scs_left_hip_yaw_case",
+   "expect": "clear",
+   "note": "battery_3s vs left hip-yaw servo"
+  },
+  {
+   "group": "electronics",
+   "a": "battery_3s",
+   "b": "scs_right_hip_yaw_case",
+   "expect": "clear",
+   "note": "battery_3s vs right hip-yaw servo"
+  },
+  {
+   "group": "electronics",
+   "a": "battery_3s",
+   "b": "body_lid_screws_M2x6st",
+   "expect": "clear",
+   "note": "battery_3s vs body_lid_screws_M2x6st"
+  },
+  {
+   "group": "electronics",
+   "a": "battery_3s",
+   "b": "enclosure_screws_M2x6st",
+   "expect": "clear",
+   "note": "battery_3s vs enclosure_screws_M2x6st"
+  },
+  {
+   "group": "electronics",
+   "a": "servo_adapter",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "servo_adapter vs enclosure"
+  },
+  {
+   "group": "electronics",
+   "a": "servo_adapter",
+   "b": "body_lid",
+   "expect": "clear",
+   "note": "servo_adapter vs top plate"
+  },
+  {
+   "group": "electronics",
+   "a": "servo_adapter",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "servo_adapter vs motor body"
+  },
+  {
+   "group": "electronics",
+   "a": "servo_adapter",
+   "b": "scs_left_hip_yaw_case",
+   "expect": "clear",
+   "note": "servo_adapter vs left hip-yaw servo"
+  },
+  {
+   "group": "electronics",
+   "a": "servo_adapter",
+   "b": "scs_right_hip_yaw_case",
+   "expect": "clear",
+   "note": "servo_adapter vs right hip-yaw servo"
+  },
+  {
+   "group": "electronics",
+   "a": "servo_adapter",
+   "b": "body_lid_screws_M2x6st",
+   "expect": "clear",
+   "note": "servo_adapter vs body_lid_screws_M2x6st"
+  },
+  {
+   "group": "electronics",
+   "a": "servo_adapter",
+   "b": "enclosure_screws_M2x6st",
+   "expect": "clear",
+   "note": "servo_adapter vs enclosure_screws_M2x6st"
+  },
+  {
+   "group": "electronics",
+   "a": "ubec",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "ubec vs enclosure"
+  },
+  {
+   "group": "electronics",
+   "a": "ubec",
+   "b": "body_lid",
+   "expect": "clear",
+   "note": "ubec vs top plate"
+  },
+  {
+   "group": "electronics",
+   "a": "ubec",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "ubec vs motor body"
+  },
+  {
+   "group": "electronics",
+   "a": "ubec",
+   "b": "scs_left_hip_yaw_case",
+   "expect": "clear",
+   "note": "ubec vs left hip-yaw servo"
+  },
+  {
+   "group": "electronics",
+   "a": "ubec",
+   "b": "scs_right_hip_yaw_case",
+   "expect": "clear",
+   "note": "ubec vs right hip-yaw servo"
+  },
+  {
+   "group": "electronics",
+   "a": "ubec",
+   "b": "body_lid_screws_M2x6st",
+   "expect": "clear",
+   "note": "ubec vs body_lid_screws_M2x6st"
+  },
+  {
+   "group": "electronics",
+   "a": "ubec",
+   "b": "enclosure_screws_M2x6st",
+   "expect": "clear",
+   "note": "ubec vs enclosure_screws_M2x6st"
+  },
+  {
+   "group": "electronics",
+   "a": "imu",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "imu vs enclosure"
+  },
+  {
+   "group": "electronics",
+   "a": "imu",
+   "b": "body_lid",
+   "expect": "clear",
+   "note": "imu vs top plate"
+  },
+  {
+   "group": "electronics",
+   "a": "imu",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "imu vs motor body"
+  },
+  {
+   "group": "electronics",
+   "a": "imu",
+   "b": "scs_left_hip_yaw_case",
+   "expect": "clear",
+   "note": "imu vs left hip-yaw servo"
+  },
+  {
+   "group": "electronics",
+   "a": "imu",
+   "b": "scs_right_hip_yaw_case",
+   "expect": "clear",
+   "note": "imu vs right hip-yaw servo"
+  },
+  {
+   "group": "electronics",
+   "a": "imu",
+   "b": "body_lid_screws_M2x6st",
+   "expect": "clear",
+   "note": "imu vs body_lid_screws_M2x6st"
+  },
+  {
+   "group": "electronics",
+   "a": "imu",
+   "b": "enclosure_screws_M2x6st",
+   "expect": "clear",
+   "note": "imu vs enclosure_screws_M2x6st"
+  },
+  {
+   "group": "electronics",
+   "a": "uno_q",
+   "b": "battery_3s",
+   "expect": "clear",
+   "note": "uno_q vs battery_3s"
+  },
+  {
+   "group": "electronics",
+   "a": "uno_q",
+   "b": "servo_adapter",
+   "expect": "clear",
+   "note": "uno_q vs servo_adapter"
+  },
+  {
+   "group": "electronics",
+   "a": "uno_q",
+   "b": "ubec",
+   "expect": "clear",
+   "note": "uno_q vs ubec"
+  },
+  {
+   "group": "electronics",
+   "a": "uno_q",
+   "b": "imu",
+   "expect": "clear",
+   "note": "uno_q vs imu"
+  },
+  {
+   "group": "electronics",
+   "a": "battery_3s",
+   "b": "servo_adapter",
+   "expect": "clear",
+   "note": "battery_3s vs servo_adapter"
+  },
+  {
+   "group": "electronics",
+   "a": "battery_3s",
+   "b": "ubec",
+   "expect": "clear",
+   "note": "battery_3s vs ubec"
+  },
+  {
+   "group": "electronics",
+   "a": "battery_3s",
+   "b": "imu",
+   "expect": "clear",
+   "note": "battery_3s vs imu"
+  },
+  {
+   "group": "electronics",
+   "a": "servo_adapter",
+   "b": "ubec",
+   "expect": "clear",
+   "note": "servo_adapter vs ubec"
+  },
+  {
+   "group": "electronics",
+   "a": "servo_adapter",
+   "b": "imu",
+   "expect": "clear",
+   "note": "servo_adapter vs imu"
+  },
+  {
+   "group": "electronics",
+   "a": "ubec",
+   "b": "imu",
+   "expect": "clear",
+   "note": "ubec vs imu"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "scs_left_knee_case",
+   "b": "left_thigh",
+   "expect": "clear",
+   "note": "servo body in its holder (pads, walls)"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "scs_left_knee_case",
+   "b": "left_shin",
+   "expect": "clear",
+   "note": "servo body vs moving part"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "scs_left_knee_case",
+   "b": "left_knee_cap",
+   "expect": "clear",
+   "note": "servo body vs cap"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "scs_left_knee_horn_cross",
+   "b": "left_shin",
+   "expect": "press",
+   "note": "full horn in crush-rib pocket"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "scs_left_knee_horn_cross",
+   "b": "left_thigh",
+   "expect": "clear",
+   "note": "horn vs holder"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "scs_left_knee_horn_cross",
+   "b": "left_knee_cap",
+   "expect": "clear",
+   "note": "horn vs cap"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "left_knee_brg_6702ZZ",
+   "b": "left_shin",
+   "expect": "clear",
+   "note": "6702ZZ in the shin's seat"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "left_knee_brg_6702ZZ",
+   "b": "left_knee_cap",
+   "expect": "clear",
+   "note": "6702ZZ on the cap's boss, shoulder"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "left_knee_brg_6702ZZ",
+   "b": "left_thigh",
+   "expect": "clear",
+   "note": "6702ZZ vs holder"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "left_shin",
+   "b": "left_thigh",
+   "expect": "clear",
+   "note": "moving part vs holder"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "left_shin",
+   "b": "left_knee_cap",
+   "expect": "clear",
+   "note": "moving part vs cap"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "left_knee_cap",
+   "b": "left_thigh",
+   "expect": "clear",
+   "note": "cap foot on the thigh face"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "left_knee_screw_M2x4kit",
+   "b": "left_shin",
+   "expect": "clear",
+   "note": "horn screw in clearance hole"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "left_knee_screw_M2x4kit",
+   "b": "scs_left_knee_spline",
+   "expect": "thread",
+   "note": "horn screw in the shaft"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "left_knee_screw_M2x4kit",
+   "b": "left_knee_cap",
+   "expect": "clear",
+   "note": "horn screw vs cap boss"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "left_knee_ear_screws_M2x6st",
+   "b": "left_thigh",
+   "expect": "thread",
+   "note": "ear screws in the pads"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "left_knee_ear_screws_M2x6st",
+   "b": "left_shin",
+   "expect": "clear",
+   "note": "ear screw heads vs moving part"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "left_knee_cap_screws_M2x6",
+   "b": "left_thigh",
+   "expect": "thread",
+   "note": "cap screws in the thigh"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "left_knee_cap_screws_M2x6",
+   "b": "left_knee_cap",
+   "expect": "clear",
+   "note": "cap screws in clearance + counterbore"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "left_knee_cap_screws_M2x6",
+   "b": "left_shin",
+   "expect": "clear",
+   "note": "cap screws vs shin"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "left_knee_cap_screws_M2x6",
+   "b": "left_knee_ear_screws_M2x6st",
+   "expect": "clear",
+   "note": "cap screws vs ear screw"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "left_knee_cap",
+   "b": "left_l_bracket",
+   "expect": "clear",
+   "note": "cap vs L-bracket (zero pose)"
+  },
+  {
+   "group": "left knee (full horn, C2M)",
+   "a": "left_knee_cap",
+   "b": "scs_left_hip_pitch_case",
+   "expect": "clear",
+   "note": "cap vs hip-pitch servo"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "scs_right_knee_case",
+   "b": "right_thigh",
+   "expect": "clear",
+   "note": "servo body in its holder (pads, walls)"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "scs_right_knee_case",
+   "b": "right_shin",
+   "expect": "clear",
+   "note": "servo body vs moving part"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "scs_right_knee_case",
+   "b": "right_knee_cap",
+   "expect": "clear",
+   "note": "servo body vs cap"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "scs_right_knee_horn_cross",
+   "b": "right_shin",
+   "expect": "press",
+   "note": "full horn in crush-rib pocket"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "scs_right_knee_horn_cross",
+   "b": "right_thigh",
+   "expect": "clear",
+   "note": "horn vs holder"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "scs_right_knee_horn_cross",
+   "b": "right_knee_cap",
+   "expect": "clear",
+   "note": "horn vs cap"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "right_knee_brg_6702ZZ",
+   "b": "right_shin",
+   "expect": "clear",
+   "note": "6702ZZ in the shin's seat"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "right_knee_brg_6702ZZ",
+   "b": "right_knee_cap",
+   "expect": "clear",
+   "note": "6702ZZ on the cap's boss, shoulder"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "right_knee_brg_6702ZZ",
+   "b": "right_thigh",
+   "expect": "clear",
+   "note": "6702ZZ vs holder"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "right_shin",
+   "b": "right_thigh",
+   "expect": "clear",
+   "note": "moving part vs holder"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "right_shin",
+   "b": "right_knee_cap",
+   "expect": "clear",
+   "note": "moving part vs cap"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "right_knee_cap",
+   "b": "right_thigh",
+   "expect": "clear",
+   "note": "cap foot on the thigh face"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "right_knee_screw_M2x4kit",
+   "b": "right_shin",
+   "expect": "clear",
+   "note": "horn screw in clearance hole"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "right_knee_screw_M2x4kit",
+   "b": "scs_right_knee_spline",
+   "expect": "thread",
+   "note": "horn screw in the shaft"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "right_knee_screw_M2x4kit",
+   "b": "right_knee_cap",
+   "expect": "clear",
+   "note": "horn screw vs cap boss"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "right_knee_ear_screws_M2x6st",
+   "b": "right_thigh",
+   "expect": "thread",
+   "note": "ear screws in the pads"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "right_knee_ear_screws_M2x6st",
+   "b": "right_shin",
+   "expect": "clear",
+   "note": "ear screw heads vs moving part"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "right_knee_cap_screws_M2x6",
+   "b": "right_thigh",
+   "expect": "thread",
+   "note": "cap screws in the thigh"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "right_knee_cap_screws_M2x6",
+   "b": "right_knee_cap",
+   "expect": "clear",
+   "note": "cap screws in clearance + counterbore"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "right_knee_cap_screws_M2x6",
+   "b": "right_shin",
+   "expect": "clear",
+   "note": "cap screws vs shin"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "right_knee_cap_screws_M2x6",
+   "b": "right_knee_ear_screws_M2x6st",
+   "expect": "clear",
+   "note": "cap screws vs ear screw"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "right_knee_cap",
+   "b": "right_l_bracket",
+   "expect": "clear",
+   "note": "cap vs L-bracket (zero pose)"
+  },
+  {
+   "group": "right knee (full horn, C2M)",
+   "a": "right_knee_cap",
+   "b": "scs_right_hip_pitch_case",
+   "expect": "clear",
+   "note": "cap vs hip-pitch servo"
+  },
+  {
+   "group": "left hip pitch (cap)",
+   "a": "scs_left_hip_pitch_case",
+   "b": "left_thigh",
+   "expect": "clear",
+   "note": "servo body in its holder (pads, walls)"
+  },
+  {
+   "group": "left hip pitch (cap)",
+   "a": "scs_left_hip_pitch_case",
+   "b": "left_l_bracket",
+   "expect": "clear",
+   "note": "servo body vs moving part"
+  },
+  {
+   "group": "left hip pitch (cap)",
+   "a": "scs_left_hip_pitch_horn_cross",
+   "b": "left_l_bracket",
+   "expect": "press",
+   "note": "horn in crush-rib pocket"
+  },
+  {
+   "group": "left hip pitch (cap)",
+   "a": "scs_left_hip_pitch_horn_cross",
+   "b": "left_thigh",
+   "expect": "clear",
+   "note": "horn vs holder"
+  },
+  {
+   "group": "left hip pitch (cap)",
+   "a": "left_hip_pitch_brg_6702ZZ",
+   "b": "left_thigh",
+   "expect": "clear",
+   "note": "6702ZZ in its seat"
+  },
+  {
+   "group": "left hip pitch (cap)",
+   "a": "left_hip_pitch_brg_6702ZZ",
+   "b": "left_l_bracket",
+   "expect": "clear",
+   "note": "6702ZZ on the boss"
+  },
+  {
+   "group": "left hip pitch (cap)",
+   "a": "left_hip_pitch_brg_6702ZZ",
+   "b": "scs_left_hip_pitch_case",
+   "expect": "clear",
+   "note": "6702ZZ vs servo tower"
+  },
+  {
+   "group": "left hip pitch (cap)",
+   "a": "left_hip_pitch_screw_M2x4kit",
+   "b": "left_l_bracket",
+   "expect": "clear",
+   "note": "horn screw in clearance hole"
+  },
+  {
+   "group": "left hip pitch (cap)",
+   "a": "left_hip_pitch_screw_M2x4kit",
+   "b": "scs_left_hip_pitch_spline",
+   "expect": "thread",
+   "note": "horn screw in the shaft"
+  },
+  {
+   "group": "left hip pitch (cap)",
+   "a": "left_hip_pitch_ear_screws_M2x6st",
+   "b": "left_thigh",
+   "expect": "thread",
+   "note": "ear screws in the pads"
+  },
+  {
+   "group": "left hip pitch (cap)",
+   "a": "left_hip_pitch_ear_screws_M2x6st",
+   "b": "left_l_bracket",
+   "expect": "clear",
+   "note": "ear screw heads vs moving part"
+  },
+  {
+   "group": "right hip pitch (cap)",
+   "a": "scs_right_hip_pitch_case",
+   "b": "right_thigh",
+   "expect": "clear",
+   "note": "servo body in its holder (pads, walls)"
+  },
+  {
+   "group": "right hip pitch (cap)",
+   "a": "scs_right_hip_pitch_case",
+   "b": "right_l_bracket",
+   "expect": "clear",
+   "note": "servo body vs moving part"
+  },
+  {
+   "group": "right hip pitch (cap)",
+   "a": "scs_right_hip_pitch_horn_cross",
+   "b": "right_l_bracket",
+   "expect": "press",
+   "note": "horn in crush-rib pocket"
+  },
+  {
+   "group": "right hip pitch (cap)",
+   "a": "scs_right_hip_pitch_horn_cross",
+   "b": "right_thigh",
+   "expect": "clear",
+   "note": "horn vs holder"
+  },
+  {
+   "group": "right hip pitch (cap)",
+   "a": "right_hip_pitch_brg_6702ZZ",
+   "b": "right_thigh",
+   "expect": "clear",
+   "note": "6702ZZ in its seat"
+  },
+  {
+   "group": "right hip pitch (cap)",
+   "a": "right_hip_pitch_brg_6702ZZ",
+   "b": "right_l_bracket",
+   "expect": "clear",
+   "note": "6702ZZ on the boss"
+  },
+  {
+   "group": "right hip pitch (cap)",
+   "a": "right_hip_pitch_brg_6702ZZ",
+   "b": "scs_right_hip_pitch_case",
+   "expect": "clear",
+   "note": "6702ZZ vs servo tower"
+  },
+  {
+   "group": "right hip pitch (cap)",
+   "a": "right_hip_pitch_screw_M2x4kit",
+   "b": "right_l_bracket",
+   "expect": "clear",
+   "note": "horn screw in clearance hole"
+  },
+  {
+   "group": "right hip pitch (cap)",
+   "a": "right_hip_pitch_screw_M2x4kit",
+   "b": "scs_right_hip_pitch_spline",
+   "expect": "thread",
+   "note": "horn screw in the shaft"
+  },
+  {
+   "group": "right hip pitch (cap)",
+   "a": "right_hip_pitch_ear_screws_M2x6st",
+   "b": "right_thigh",
+   "expect": "thread",
+   "note": "ear screws in the pads"
+  },
+  {
+   "group": "right hip pitch (cap)",
+   "a": "right_hip_pitch_ear_screws_M2x6st",
+   "b": "right_l_bracket",
+   "expect": "clear",
+   "note": "ear screw heads vs moving part"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "uno_screws_M3x8",
+   "b": "body_lid",
+   "expect": "thread",
+   "note": "3 x M3 x 8 bite into the lid's posts"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "uno_screws_M3x8",
+   "b": "unoq_headers",
+   "expect": "clear",
+   "note": "3 x M3 x 8 vs unoq_headers"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "uno_screws_M3x8",
+   "b": "unoq_pins",
+   "expect": "clear",
+   "note": "3 x M3 x 8 vs unoq_pins"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "uno_screws_M3x8",
+   "b": "unoq_top_parts",
+   "expect": "clear",
+   "note": "3 x M3 x 8 vs unoq_top_parts"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "uno_screws_M3x8",
+   "b": "unoq_usbc",
+   "expect": "clear",
+   "note": "3 x M3 x 8 vs unoq_usbc"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "uno_screws_M3x8",
+   "b": "unoq_pcb",
+   "expect": "clear",
+   "note": "3 x M3 x 8 vs unoq_pcb"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "uno_screws_M3x8",
+   "b": "uno_cover",
+   "expect": "clear",
+   "note": "3 x M3 x 8 vs uno_cover"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "uno_screws_M3x8",
+   "b": "unoq_bottom_connectors",
+   "expect": "clear",
+   "note": "3 x M3 x 8 vs unoq_bottom_connectors"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "uno_screw_M2x6",
+   "b": "body_lid",
+   "expect": "thread",
+   "note": "M2 x 6 by the header bite into the lid's posts"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "uno_screw_M2x6",
+   "b": "unoq_headers",
+   "expect": "clear",
+   "note": "M2 x 6 by the header vs unoq_headers"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "uno_screw_M2x6",
+   "b": "unoq_pins",
+   "expect": "clear",
+   "note": "M2 x 6 by the header vs unoq_pins"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "uno_screw_M2x6",
+   "b": "unoq_top_parts",
+   "expect": "clear",
+   "note": "M2 x 6 by the header vs unoq_top_parts"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "uno_screw_M2x6",
+   "b": "unoq_usbc",
+   "expect": "clear",
+   "note": "M2 x 6 by the header vs unoq_usbc"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "uno_screw_M2x6",
+   "b": "unoq_pcb",
+   "expect": "clear",
+   "note": "M2 x 6 by the header vs unoq_pcb"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "uno_screw_M2x6",
+   "b": "uno_cover",
+   "expect": "clear",
+   "note": "M2 x 6 by the header vs uno_cover"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "uno_screw_M2x6",
+   "b": "unoq_bottom_connectors",
+   "expect": "clear",
+   "note": "M2 x 6 by the header vs unoq_bottom_connectors"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "unoq_pcb",
+   "b": "uno_cover",
+   "expect": "clear",
+   "note": "unoq_pcb vs the Uno Q cover"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "unoq_pcb",
+   "b": "body_lid",
+   "expect": "clear",
+   "note": "unoq_pcb vs the lid / its stand-offs"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "unoq_pcb",
+   "b": "body_lid_screws_M2x6st",
+   "expect": "clear",
+   "note": "unoq_pcb vs the lid screws"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "unoq_headers",
+   "b": "uno_cover",
+   "expect": "clear",
+   "note": "unoq_headers vs the Uno Q cover"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "unoq_headers",
+   "b": "body_lid",
+   "expect": "clear",
+   "note": "unoq_headers vs the lid / its stand-offs"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "unoq_headers",
+   "b": "body_lid_screws_M2x6st",
+   "expect": "clear",
+   "note": "unoq_headers vs the lid screws"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "unoq_pins",
+   "b": "uno_cover",
+   "expect": "clear",
+   "note": "unoq_pins vs the Uno Q cover"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "unoq_pins",
+   "b": "body_lid",
+   "expect": "clear",
+   "note": "unoq_pins vs the lid / its stand-offs"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "unoq_pins",
+   "b": "body_lid_screws_M2x6st",
+   "expect": "clear",
+   "note": "unoq_pins vs the lid screws"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "unoq_top_parts",
+   "b": "uno_cover",
+   "expect": "clear",
+   "note": "unoq_top_parts vs the Uno Q cover"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "unoq_top_parts",
+   "b": "body_lid",
+   "expect": "clear",
+   "note": "unoq_top_parts vs the lid / its stand-offs"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "unoq_top_parts",
+   "b": "body_lid_screws_M2x6st",
+   "expect": "clear",
+   "note": "unoq_top_parts vs the lid screws"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "unoq_usbc",
+   "b": "uno_cover",
+   "expect": "clear",
+   "note": "unoq_usbc vs the Uno Q cover"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "unoq_usbc",
+   "b": "body_lid",
+   "expect": "clear",
+   "note": "unoq_usbc vs the lid / its stand-offs"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "unoq_usbc",
+   "b": "body_lid_screws_M2x6st",
+   "expect": "clear",
+   "note": "unoq_usbc vs the lid screws"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "unoq_bottom_connectors",
+   "b": "uno_cover",
+   "expect": "clear",
+   "note": "unoq_bottom_connectors vs the Uno Q cover"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "unoq_bottom_connectors",
+   "b": "body_lid",
+   "expect": "clear",
+   "note": "unoq_bottom_connectors vs the lid / its stand-offs"
+  },
+  {
+   "group": "electronics: Uno Q board and its screws (2026-11-15)",
+   "a": "unoq_bottom_connectors",
+   "b": "body_lid_screws_M2x6st",
+   "expect": "clear",
+   "note": "unoq_bottom_connectors vs the lid screws"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "switch_plate",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "switch plate against the left wall's inner face (0.1)"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "switch_plate",
+   "b": "servo_adapter",
+   "expect": "clear",
+   "note": "switch plate 0.7 over the adapter"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "switch_plate",
+   "b": "imu",
+   "expect": "clear",
+   "note": "switch plate beside the IMU"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "switch_plate",
+   "b": "bay_imu_qwiic",
+   "expect": "clear",
+   "note": "switch plate beside the IMU's Qwiic plug"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "switch_plate",
+   "b": "battery_3s",
+   "expect": "clear",
+   "note": "switch plate behind the battery"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "switch_plate",
+   "b": "ubec",
+   "expect": "clear",
+   "note": "switch plate under the Mini560"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "switch_plate",
+   "b": "bay_mini560_joints",
+   "expect": "clear",
+   "note": "switch plate under the Mini560's solder joints"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "switch_plate",
+   "b": "body_lid",
+   "expect": "clear",
+   "note": "switch plate under the lid"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "switch_plate",
+   "b": "power_switch",
+   "expect": "clear",
+   "note": "switch body on the plate's floor"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "switch_plate",
+   "b": "bay_switch_hw",
+   "expect": "clear",
+   "note": "bushing in its hole, nut in the hex pocket"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "switch_plate_screws_M2x10csk",
+   "b": "switch_plate",
+   "expect": "thread",
+   "note": "2 countersunk screws through the wall into the plate"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "switch_plate_screws_M2x10csk",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "their heads in the wall's countersinks"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "bay_switch_hw",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "the lever through the wall's hole"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "power_switch",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "switch body inside the bay"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "uno_cover",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "cover behind / over the enclosure (the balance plug's fin)"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "unoq_pcb",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "Uno Q board over the rear wall (the fin)"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "bay_balance_plug",
+   "b": "uno_cover",
+   "expect": "clear",
+   "note": "balance plug behind the cover"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "bay_balance_plug",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "balance plug beside its fin"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "bay_xt30_pair",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "XT30 pair in the rear cradle"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "bay_usb_adapter_L",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "USB adapter in the rear-left cradle"
+  },
+  {
+   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
+   "a": "bay_usb_a_plug",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "camera plug in the rear-left cradle"
+  },
+  {
+   "group": "head: camera visor, rear dome screws (2026-11-20)",
+   "a": "head_visor",
+   "b": "head_face",
+   "expect": "clear",
+   "note": "visor on the band's front edge"
+  },
+  {
+   "group": "head: camera visor, rear dome screws (2026-11-20)",
+   "a": "head_visor",
+   "b": "cam_ov5640_b",
+   "expect": "clear",
+   "note": "visor's bosses on the board"
+  },
+  {
+   "group": "head: camera visor, rear dome screws (2026-11-20)",
+   "a": "head_visor",
+   "b": "head_dome",
+   "expect": "clear",
+   "note": "visor in front of the dome"
+  },
+  {
+   "group": "head: camera visor, rear dome screws (2026-11-20)",
+   "a": "cam_ov5640_b",
+   "b": "head_face",
+   "expect": "clear",
+   "note": "board on its rear boss / nut block"
+  },
+  {
+   "group": "head: camera visor, rear dome screws (2026-11-20)",
+   "a": "cam_nuts_M2",
+   "b": "head_face",
+   "expect": "clear",
+   "note": "nuts in their pockets"
+  },
+  {
+   "group": "head: camera visor, rear dome screws (2026-11-20)",
+   "a": "cam_nuts_M2",
+   "b": "head_dome",
+   "expect": "clear",
+   "note": "nuts in front of the dome's edge"
+  },
+  {
+   "group": "head: camera visor, rear dome screws (2026-11-20)",
+   "a": "cam_screws_M2x6st",
+   "b": "head_dome",
+   "expect": "clear",
+   "note": "visor screws' tips short of the dome"
+  },
+  {
+   "group": "head: camera visor, rear dome screws (2026-11-20)",
+   "a": "cam_screws_M2x6st",
+   "b": "cam_nuts_M2",
+   "expect": "thread",
+   "note": "left pair in their nuts"
+  },
+  {
+   "group": "head: camera visor, rear dome screws (2026-11-20)",
+   "a": "head_face",
+   "b": "head_dome",
+   "expect": "clear",
+   "note": "face under the dome's front edge"
+  },
+  {
+   "group": "head: camera visor, rear dome screws (2026-11-20)",
+   "a": "head_dome",
+   "b": "head_base",
+   "expect": "clear",
+   "note": "dome on the base (posts moved to x 1.5)"
+  },
+  {
+   "group": "head: camera visor, rear dome screws (2026-11-20)",
+   "a": "head_dome",
+   "b": "head_roll_ear_screws_M2x6st",
+   "expect": "clear",
+   "note": "dome over the roll servo's ear screws (no pocket)"
+  }
+ ],
+ "json_out": "<out>/fit.json"
 }

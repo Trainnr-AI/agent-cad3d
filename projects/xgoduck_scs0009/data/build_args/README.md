@@ -11,6 +11,13 @@
 
 Head (after `head_shell_v2.py` builds the dome):
 
+4b. 2026-11-20: DO NOT rebuild `head_shell_v2.py` parts ["base", "dome"] - from the original source meshes it now gives broken parts
+   (masses in the billions, stray geometry, dropped posts) and overwrites jaw_soft["front_screws"] (must stay 73.06, -130.9 / 73.06, -69.12).
+   The base and dome are edited in place: `tools/blender/parts/head_rear_screws.py` (once; flags on head_dome: rear_screw_x, base_giveway)
+   moves the two rear dome screws to x 1.5 (new dome posts + pilots, slot in the old right post, base bosses + webs, holes through the
+   base's rim, post bottoms trimmed to z 199.25). The FACE rebuilds fine: `head_shell_v2.py` parts ["face"], camera "ov5640_b" (visor,
+   nut block, rear boss, 3x M2x10 countersunk, 2 M2 nuts).
+
 5. `tools/blender/parts/dome_ear_fill.py` with `ear_fill.json`: fills the dome's two side "ear" arches (left fully; right
    except where the head-pitch U swings in head roll, + 1.5 mm). Then rerun the `cam` part's head-room cut if the dome
    was rebuilt (head_shell_v2 does it when the camera screws exist).
@@ -29,3 +36,8 @@ Exploded views (after any rebuild: their '.x' / '.hx' copies keep the old meshes
     (assembled wiring) and step 4 (cover recut) is not needed: the copies share the parts' meshes (checked 2026-11-19: cover,
     dome, face, enclosure and all cables unchanged). Renders: `tools/blender/closeup.py` -> data/duck_exploded.png (elev 72, azim
     135), duck_exploded_side.png, bay_exploded.png, head_exploded.png.
+
+Whole-robot assembly animation (2026-11-20): `tools/blender/robot_assembly_seq.py` (in Blender: reads asm.json, segment_paths.json, the
+screw audit's screws.json with axes, bay_assembly_anim.json; writes robot_assembly_anim.json) -> `tools/blender/assembly_anim.py` with that
+JSON (scene robot_assembly, 43 steps, 180 s). Its moves are path-checked with `tools/blender/anim_to_paths.py` (+ bay_assembly_allow.json,
+`fast`, step 1 mm) -> `assembly_path_check.py`: 458 segments, all OK on 2026-11-21 (~25 min in 4 parallel Blenders).

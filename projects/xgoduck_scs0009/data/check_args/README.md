@@ -8,14 +8,15 @@ tools/blender/run_headless.py -- <tool.py> <args.json> <out_dir>`.
 | Check | Tool | Args | Expected on the closed design (2026-11-19, exact bay) |
 |---|---|---|---|
 | Robot at rest | `checks/rest_pose_check.py` | - | joints differing from rest q0: none |
-| Printed parts one piece | `checks/printed_parts_check.py` | - | 27 checked, no problems |
+| Printed parts one piece | `checks/printed_parts_check.py` | - | 29 checked, no problems (2026-11-20: + switch_plate, head_visor) |
 | Printability | `print_check.py` | `print.json` | feet 436 / 438 mm2 unsupported, head base 1719, dome 1937, jaw 186, face 466 |
 | Horns in their pockets | `horn_check.py` | `horn.json` | 15/15: full 0.30 at the tips / 0.19 sides, trimmed 0.20 |
-| Fits | `fit_audit.py` | `fit.json` | 367 fits, 1 "not as designed", known: left hip-pitch servo vs thigh 0.11 mm3 (sampling: exact boolean 0.002 mm3, touching). (2026-11-19: the battery stand-in flag is gone - the 20 mm pack has room; the Uno Q's underside envelope is the datasheet's 2 mm) |
+| Fits | `fit_audit.py` | `fit.json` | 399 fits, 1 "not as designed", known: left hip-pitch servo vs thigh 0.11 mm3 (sampling: exact boolean 0.002 mm3, touching). (2026-11-19: the battery stand-in flag is gone - the 20 mm pack has room; the Uno Q's underside envelope is the datasheet's 2 mm) | 2026-11-20: +32 pairs (bay plate / fin / cover / board, camera visor / nuts, dome on the base) that had been missing.
 | Assembly paths | `assembly_path_check.py` | `asm.json` | 55 OK + left hip-yaw servo "BLOCKED" straight up (it goes in by an L-path: next two rows) |
-| L-path of the left hip-yaw servo | `checks/hip_yaw_servo_path.py` | - | lift 8-8.5 mm then slide from the rear or a side: clear for 40 mm |
+| L-path of the left hip-yaw servo | `checks/hip_yaw_servo_path.py` | - | the whole servo (case + spline + case screws): lift 9.5-10.5 mm, then slide from either side: clear for 40 mm (below 9.5 the spline hits the body, above 10.5 the case) |
+| Bay assembly moves | `assembly_path_check.py` (from `build_args/bay_assembly_anim.json` via `anim_to_paths.py`) | - | 42 OK |
 | Segment paths (jaw, beak servo, yaw block) | `checks/segment_path_check.py` | `segment_paths.json` | all OK |
-| Screws | `screw_audit.py` | `screws.json` | 89 screws, 26 flagged - all dispositioned in REVIEW.md ("Screw audit ... dispositions"): kit horn screws bite 1.5-1.9 mm in the spline, M3 bearing axles into nylon nuts, ear screws "bite 2 parts" (model artifact), Uno Q M3 posts "wall 0.15" (sampling) |
+| Screws | `screw_audit.py` | `screws.json` | 87 screws, 28 flagged - all dispositioned in REVIEW.md ("Screw audit ... dispositions"): kit horn screws bite 1.5-1.9 mm in the spline, M3 bearing axles into nylon nuts, ear screws "bite 2 parts" (model artifact), Uno Q M3 posts "wall 0.15" (sampling); + the camera visor's left pair (bite 1.5 = the whole M2 nut, metal: full engagement) |
 | Screwdriver access | `checks/driver_access.py` | `driver.json` | nearest obstruction per screw; shortest 17 mm (jaw pivot) |
 | Motion sweep | `leg_motion_check.py` | `motion.json` | 35 poses with collisions, all outside the servo limits: the walking-envelope corners, both hips at roll +-22, the model's wider stored ranges, and neck +40 (beyond the +30 limit: the hub plug on the U meets the 3 mm higher Uno Q's headers) |
 | Cable reach | `wiring.py` (motion) | `cable_reach.json` | 1 "SHORT": `power_battery_leads` 74-78 of the 60 mm assumed - a BUYING requirement (the battery's own leads must reach ~75 mm to its XT30 in the rear cradle, BOM row 4), not a motion problem; all other cables ok |

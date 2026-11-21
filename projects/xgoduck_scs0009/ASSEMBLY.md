@@ -61,11 +61,13 @@ its head faces the next servo (hip yaw: 0.3 mm from the hip-roll servo case; hea
 ## 1. Body
 
 1. The two **6702ZZ** in the hip-yaw seats of the motor body (section 0, item 5; outer ring against the lip).
-2. **Right hip-yaw servo**: straight down into its saddle ✓. **Left hip-yaw servo** ✓: lift it ~7.5 mm above its seat, slide it
-   in from **either side** (clear from 6.5 mm of lift) **or from the rear** (from 7.5 mm) under the neck fork, then down (the
-   window ends at 8.5 mm; re-checked 2026-11-18).
+2. **Right hip-yaw servo**: straight down into its saddle ✓. **Left hip-yaw servo** ✓: lift it **~10 mm** above its seat (window
+   9.5-10.5 mm), slide it in from **either side** under the neck fork, then down. (2026-11-20: re-checked with the whole servo -
+   case, output spline and case screws; the old "~7.5 mm" came from a check that moved the case alone: at 8.5 mm the spline hits.)
 3. Servo ear screws: the kit's mounting screws, except the **left servo's front ear**: an **M2 × 6 socket screw with the
    ball-end key at 20-25°** (the neck fork is 8 mm above it) ✓.
+3b. **Before the bay: section 3 steps 1-2 for BOTH legs** (yaw connector + horn screw, hip-roll servo + ear screws). With the bay
+   in place the hip-roll servo cannot get into the yaw connector - the battery is in its way (whole-robot path check, 2026-11-20).
 4. **Electronics bay** - exact layout, screws and wires: `data/bay_assembly_sheet.png` (exploded, numbered as below; model
    2026-11-19: every part, connector, screw and wire at its real size, all wires clear of all parts). Bench work first:
    - **Solder** (20 AWG for power, cut female-female jumper wires for signals; heat-shrink every joint):
@@ -73,12 +75,20 @@ its head faces the next servo (hip yaw: 0.3 mm from the hip-roll servo case; hea
      battery). Mini560 pads **from below**: IN+ (from the switch), IN- (pigtail black), OUT+ / OUT- (to the adapter). Switch
      lugs: middle = pigtail red, one outer = Mini560 IN+ and the Uno Q's VIN wire. Uno Q plugs: **right-angle 2.54 mm male
      header pins** - 3 pins (JANALOG 6 UART-GND, 7 GND, 8 VIN) and 2 pins (D0 = adapter TX, D1 = adapter RX).
-   1. Bay enclosure onto the motor body: **3 x M2 x 10 countersunk** (Phillips) from inside the front wall, screwdriver through the
-      3 holes in the rear wall ✓ (before the battery: it stands 0.6 mm in front of them).
-   2. **Servo adapter** slides down into its rib slots ✓ (no screws), its two servo cables plugged in first.
-   3. **IMU**: Qwiic cable into its right socket, then **4 x M2 x 6 socket** into the rear-wall bosses ✓ (4.5 mm of thread).
-   4. **Switch**: drop its M6 nut into the hex recess from outside, then screw the switch in from inside by turning its body until
-      snug with the lever moving up / down (before soldering its wires).
+   1. Bay enclosure onto the motor body (its tongue slides under the deck): **3 x M2 x 10 countersunk** (Phillips) **up from under
+      the robot** through the tongue into the deck, heads flush ✓ (2026-11-20: was driven inside the bay through its rear wall - now
+      the bay comes off without opening it).
+   2. **Servo adapter** slides straight down into its rib slots ✓ (no screws), its two servo cables plugged in first (2026-11-20:
+      its edges now pass notches in the pocket's floor ledge; it could not go in before).
+   3. **IMU** (no screws, 2026-11-20): Qwiic cable into its right socket, IMU **straight down** ~3 mm in front of the rear wall,
+      then back onto the **4 pegs** on the bosses (through its mounting holes) ✓; **a drop of hot glue on each peg tip** holds it
+      (peel it off to remove). Check the board's hole size on arrival: the pegs are Ø1.9 (M2 holes are Ø2.2-2.5).
+   4. **Switch plate** (2026-11-20: a separate printed part - the switch block used to be part of the enclosure and stopped the
+      servo adapter going in). **On the bench:** drop the M6 nut into the plate's hex pocket (open side), screw the switch in from
+      the other side by turning its body until snug, lever up / down; solder its 3 wires (middle = pigtail red, one outer =
+      Mini560 IN+ and the Uno Q's VIN wire). **In the bay:** lower the plate with the switch **~9.5 mm in from the left wall** (a lid
+      post's support is right above its place at the wall), then slide it **out onto the wall** - the lever goes out through the
+      wall's hole; **2 x M2 x 10 countersunk** from outside into the plate, heads flush ✓.
    5. **Battery** (60 x 30 x 20): hook-and-loop on the floor, at the front. Its main leads and balance lead go back over its top and
       **out of the rear-right window**. Its main leads must reach **~75 mm** from the pack's top to its XT30 (round the corner to the
       middle of the rear face): **measure before buying / on arrival**.
@@ -103,7 +113,10 @@ its head faces the next servo (hip yaw: 0.3 mm from the hip-roll servo case; hea
 
 ## 2. Neck and head
 
-1. **Neck servo** down into the neck cradle ✓ (ear screws before the cradle meets the body: the body is 7.4 mm from them).
+1. **First, the 2 M3 nylon nuts** (neck axle and head-pitch axle) into their captive pockets in the neck cradle, pressed in from
+   the left (+y) ✓ - once the servos are in, their cases cover the pockets (whole-robot path check 2026-11-20; this used to say
+   "nut" at the end, which cannot be done). Then the **neck servo** down into the neck cradle ✓ (ear screws before the cradle meets
+   the body: the body is 7.4 mm from them).
    Cradle onto the neck horn plate of the motor body ✓, horn screw, bearing plate from the other side ✓ (2 × M2 × 6), M3 × 8 axle
    + nylon nut (snug only).
 2. **Head-pitch servo** down into the cradle ✓ (ear screws before the U goes on).
@@ -116,8 +129,12 @@ its head faces the next servo (hip yaw: 0.3 mm from the hip-roll servo case; hea
    the right arm (order: the beak servo is 17 mm from it once in).
 8. **Beak servo** ✓: lower it in **~4.5 mm toward the middle of the head**, then slide it outward so its horn enters the jaw arm's
    pocket. Horn screw, ear screws (with the face still off ✓).
-9. **Camera** onto the face first: 3 × M2 × 6 driven **through the face's Ø4.6 holes** from behind ✓. Then the face onto the head.
-10. **Dome** last: 2 rear screws from below; **2 front screws up through the jaw's Ø4.6 holes** ✓.
+9. **Camera** into the face, all from the front (2026-11-20: the board could not be fitted into the old closed brow band): drop **2 × M2
+   nuts** (spares from the M2 × 6 sets) into the two hex pockets behind the band's left end; the board in from the front, lens
+   forward, onto its bosses (it covers the nuts); the **visor** over it; **3 × M2 × 10 countersunk** from the front, heads flush
+   (the left pair on the visor's raised pad, into the nuts; the right one into the boss behind the board) ✓. Then the face onto the head.
+10. **Dome** last, **straight down** ✓ (2026-11-20: its rear screws moved 3.5 mm back - the roll servo's right ear-screw head was
+    trapped in a pocket of the old rear-right post): 2 rear screws from below; **2 front screws up through the jaw's Ø4.6 holes** ✓.
 11. Head (with the U) onto the head-pitch servo in the cradle ✓, horn screw, bearing plate ✓, M3 axle + nylon nut.
 
 ## 3. Legs (each side)
@@ -125,14 +142,16 @@ its head faces the next servo (hip yaw: 0.3 mm from the hip-roll servo case; hea
 The knee's cap screws and horn screw point inboard: once the leg hangs on the body the electronics enclosure is 13-16 mm in front of
 them (driver access check). So **build the leg below the hip first, off the robot**, then hang it on the hip.
 
-1. Hip-yaw: **yaw connector** onto the hip-yaw horn and bearing ✓, horn screw (order: the hip-roll servo covers it, 0.3 mm).
-2. **Hip-roll servo** into the yaw connector ✓; ear screws (>= 22 mm room: an L-key).
+1. (Done in section 1 step 3b, before the bay.) Hip-yaw: **yaw connector** onto the hip-yaw horn and bearing ✓, horn screw (order:
+   the hip-roll servo covers it, 0.3 mm).
+2. (Done in section 1 step 3b, before the bay.) **Hip-roll servo** into the yaw connector ✓; ear screws (>= 22 mm room: an L-key).
 3. Off the robot - thigh: **hip-pitch servo** into the thigh ✓, ear screws; **knee servo** into the thigh ✓, ear screws.
 4. Off the robot - **knee** (full kit horn, uncut): press the full X horn into the shin's ribbed pocket, **shin onto the spline** ✓,
    **horn screw** ✓; **6702ZZ into the shin's seat** (its flat inboard face) ✓; **knee cap** down: boss into the bearing, post onto
    the thigh ✓; **2 x M2 x 6 socket** ✓ - snug them only after the cap has settled on the bearing (it centres itself; clearance
    holes). The horn screw can be checked later through the cap's Ø5.2 hole.
-5. Off the robot - **ankle servo** down into the shin cradle ✓, ear screws (before the foot); **foot** onto the horn ✓ + horn screw;
+5. Off the robot - **first the M3 nylon nut** into the shin's captive pocket, pressed in from the outboard side ✓ (the ankle servo
+   covers the pocket once it is in); then the **ankle servo** down into the shin cradle ✓, ear screws (before the foot); **foot** onto the horn ✓ + horn screw;
    bearing plate from the other side ✓ (2 x M2 x 6), M3 x 8 axle + nylon nut (snug only).
 6. **L-bracket** onto the hip-pitch horn ✓ + horn screw (order: before step 7, the hip-roll servo then covers it).
 7. Hang the leg on the hip: the L-bracket onto the **hip-roll horn** ✓ + horn screw.

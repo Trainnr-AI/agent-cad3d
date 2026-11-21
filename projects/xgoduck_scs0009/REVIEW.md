@@ -1756,3 +1756,32 @@ a rigid right-angle USB-C (male) -> USB-A (female) adapter, and the camera's own
   the right foot (leg back 45, knee -45, toe in: hip-map ALLOWED) reaching the XT30 cradle (2.05 mm). Fixed: XT30 to the middle of the
   rear face (the foot reaches y < -111.2 up to z 108.9 only), balance plug above the bay at the rear right (mouth up, behind the Uno Q
   cover, on a fin). The battery's main leads must reach ~75 mm (BOM row 4).
+
+## Whole-robot assembly check: what could not be built, fixed (2026-11-20 / 21)
+
+An assembly animation of the whole robot (`robot_assembly_seq.py` -> `assembly_anim.py`) whose every move is path-checked on the real
+geometry (`anim_to_paths.py` -> `assembly_path_check.py`, 1 mm steps, hits confirmed by volume). The bay's moves had never been checked
+(the 55 "assembly paths" are servos, legs and head). Found and fixed:
+
+- **Servo adapter could not go into the bay**: the switch's mounting block (part of the enclosure, 11.6 mm deep for a flush lever)
+  hung 1.1 mm over it; the pocket's floor ledge and the left-rear lid post (+ corbel) also stood over its left edge. Now: the block is a
+  separate **switch plate** (built on the bench: nut, switch, wires; in the bay down 9.5 mm in from the wall, then out onto it;
+  2x M2x10 countersunk from outside, heads flush; lever still 7.4 mm out), notches in the ledge, the post 2.6 mm forward.
+- **Balance-plug fin** ran 0.1 mm into the lid and the Uno Q board and through the cover's rear wall (20.7 mm3), joined to the wall by a
+  sliver: reshaped (0.1 / 0.3 / 0.3 clear, joint 1.6 x 5.3 mm above the battery leads). The fit audit had no such pairs: 32 added.
+- **Screws from the outside** (user): bay-to-body 3x M2x10 countersunk now go **up from under the robot** (were driven inside the bay
+  through access holes in its rear wall); the **IMU sits on 4 pegs** + hot glue (4 screws fewer).
+- **Camera could not be fitted into the face** (closed brow band, panel 2 mm behind the board): the band's front wall is a separate
+  **visor**; the board goes in from the front; 3x M2x10 countersunk from the front - the right one into a boss behind the board, the
+  left pair (the dome's thin wall leaves no room for a boss) into **2 M2 nuts** in a pocket, their heads on a 1 mm raised pad so the
+  tips stop short of the dome (`data/face_camera_section.png`).
+- **Dome could not come down**: the roll servo's right ear-screw head was recessed into the rear-right post's side. The rear dome
+  screws moved x 5.0 -> 1.5 (dome posts, base bosses + webs, holes through the base's rim; `parts/head_rear_screws.py`, in place - the
+  full base/dome rebuild from the original meshes is broken, see data/build_args/README.md).
+- **Assembly order** (ASSEMBLY.md): the left hip-yaw servo needs a ~10 mm lift (the old "7.5" came from a check that moved the case
+  without its spline - `checks/hip_yaw_servo_path.py` now moves the whole servo); **both hip-roll servos before the bay** (the battery
+  is in their way after); **all four M3 nylon nuts into their pockets before the servo next to them** (neck, head pitch, ankles).
+
+Checks on the result: full suite - fits 399 / 1 known (+ the face under the dome's edge, 0.23 mm3, fixed after the run: no crossing),
+printed parts 29 one piece, bay moves 42/42, screws 87 / 28 flagged (26 known + the visor's left pair: full engagement in metal nuts),
+motion 35, cable reach 1 (battery leads ~75 mm, BOM), pinch 21; the whole-robot sequence 458/458 segments OK.

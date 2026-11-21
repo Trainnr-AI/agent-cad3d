@@ -34,7 +34,7 @@ off = {
     "head_jaw": (0, 0, -32),
     "jaw_pivot_screw_M2x6st": (0, 30, 12),
     # face panel: rides up into the dome's front groove with the dome; the camera board slides into it from below
-    "head_face": (62, 0, 40), "cam_ov5640_b": (38, 0, 40), "cam_screws_M2x6st": (20, 0, 40),
+    "head_face": (40, 0, 40), "cam_nuts_M2": (52, 0, 40), "cam_ov5640_b": (64, 0, 40), "head_visor": (84, 0, 40), "cam_screws_M2x6st": (104, 0, 40),
 }
 n = 0
 for name, d in off.items():

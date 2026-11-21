@@ -139,7 +139,6 @@
 "head_roll_screw_M2x4kit": "yaw_roll_motion",
 "head_yaw_ear_screws_M2x6st": "yaw_roll_motion",
 "head_yaw_screw_M2x4kit": "neck_pitch.001",
-"imu_screws_M2x6st": "trunk_base",
 "jaw_pivot_screw_M2x6st": "jaw_soft",
 "left_ankle_ear_screws_M2x6st": "leg",
 "left_ankle_screw_M2x4kit": "ankle_left",

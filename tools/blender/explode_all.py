@@ -106,9 +106,9 @@ if "neck" in args.get("parts", ["legs", "neck"]):
     if HAS_BODY:                                                  # motor body stays; the electronics bay comes off the back, taken apart in build
         BK = Vector((-2.2 * G, 0, 0))                             # order (as data/build_args/bay_explode.json: offsets from the enclosure, mm)
         off["body_frame"] = Z * 0
-        bay = args.get("bay", {"electronics_enclosure": [0, 0, 0], "enclosure_screws_M2x6st": [30, 0, -2], "servo_adapter": [-50, 0, 30],
-                               "imu": [-92, 0, 62], "bay_imu_qwiic": [-92, 0, 62], "imu_screws_M2x6st": [-108, 0, 62], "power_switch": [8, 0, 92],
-                               "bay_switch_hw": [8, 0, 92], "bay_switch_joints": [8, 0, 92], "battery_3s": [58, 0, 52], "bay_xt30_pair": [-62, 0, -18],
+        bay = args.get("bay", {"electronics_enclosure": [0, 0, 0], "enclosure_screws_M2x6st": [0, 0, -30], "servo_adapter": [-50, 0, 30],
+                               "imu": [-92, 0, 62], "bay_imu_qwiic": [-92, 0, 62], "power_switch": [8, 0, 92],
+                               "bay_switch_hw": [8, 0, 92], "bay_switch_joints": [8, 0, 92], "switch_plate": [8, 0, 92], "switch_plate_screws_M2x10csk": [8, 22, 92], "battery_3s": [58, 0, 52], "bay_xt30_pair": [-62, 0, -18],
                                "bay_balance_plug": [-62, 0, -18], "bay_usb_a_plug": [-62, 0, 165], "bay_usb_adapter_L": [-62, 0, 165],
                                "ubec": [0, 0, 132], "bay_mini560_joints": [0, 0, 132], "body_lid": [0, 0, 148], "body_lid_screws_M2x6st": [0, 0, 166],
                                "uno_q": [0, 0, 186], "unoq_pcb": [0, 0, 186], "unoq_headers": [0, 0, 186], "unoq_usbc": [0, 0, 186],
@@ -154,7 +154,7 @@ if "neck" in args.get("parts", ["legs", "neck"]):
                        "scs_mouth_case": (0, -22, 30), "scs_mouth_spline": (0, -22, 30), "scs_mouth_case_screws": (0, -22, 30),   # beak servo: in from the
                        "mouth_ear_screws_M2x6st": (0, -44, 30), "scs_mouth_horn_cross": (0, 14, 30), "scs_mouth_horn_screw": (0, 28, 30),  # middle, slid out
                        "head_jaw": (0, 0, -32), "jaw_pivot_screw_M2x6st": (0, 30, 12),                    # jaw up through its slots first
-                       "head_face": (62, 0, 40), "cam_ov5640_b": (38, 0, 40), "cam_screws_M2x6st": (20, 0, 40)}.items():   # camera onto the face from behind
+                       "head_face": (40, 0, 40), "cam_nuts_M2": (52, 0, 40), "cam_ov5640_b": (64, 0, 40), "head_visor": (84, 0, 40), "cam_screws_M2x6st": (104, 0, 40)}.items():   # nuts, camera, visor, screws: all from the front
             off[n_] = head + Vector(d_)
 p0 = bpy.data.objects[f"{args.get('robot', 'duck_scs0009')}:trunk_base"].matrix_world.translation.copy()
 S = args.get("scale", 1.0)

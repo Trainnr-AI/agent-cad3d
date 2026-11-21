@@ -283,3 +283,8 @@ IN end, the switch lever. REVIEW.md "The bay with exact parts..." and "Camera ca
 The duck's mesh-derived files (scaled copies of XGO-Duck / Microduck STLs in `sim/assets/`, the
 .blend) come from models published non-commercial / share-alike (see vendor/xgoduck_rl and
 vendor/xgoduck_hardware LICENSING). Keep this repo private; get permission before any commercial use.
+
+
+2026-11-21: whole-robot assembly animation + path check (458 moves OK) - see projects/xgoduck_scs0009/REVIEW.md, last section:
+switch plate, IMU on pegs, bay screws from below, camera visor + nuts, rear dome screws moved, assembly-order fixes (ASSEMBLY.md).
+Head base / dome: do not rebuild from the original meshes (data/build_args/README.md, 4b).
