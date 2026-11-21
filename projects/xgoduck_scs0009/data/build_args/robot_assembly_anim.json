@@ -6,13 +6,11 @@
  "hold": 14,
  "steps": [
   {
-   "title": "BODY 1  Motor body, the two 6702ZZ pressed into the hip-yaw seats\n         (and the neck horn in its plate)",
+   "title": "BODY 1  Motor body; the two 6702ZZ (orange) pressed into its hip-yaw seats from below\n         (outer ring only; bearings go in before any servo)",
    "moves": [
     {
      "objects": [
       "body_frame",
-      "left_hip_yaw_brg_6702ZZ",
-      "right_hip_yaw_brg_6702ZZ",
       "scs_neck_pitch_horn_cross"
      ],
      "path": [
@@ -28,6 +26,42 @@
       ]
      ],
      "frames": 16
+    },
+    {
+     "objects": [
+      "left_hip_yaw_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       0.0,
+       0.0,
+       -15.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ]
+     ],
+     "frames": 18
+    },
+    {
+     "objects": [
+      "right_hip_yaw_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       0.0,
+       0.0,
+       -15.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ]
+     ],
+     "frames": 18
     }
    ],
    "wires": []
@@ -170,13 +204,52 @@
    "wires": []
   },
   {
-   "title": "LEFT LEG 1 (before the bay)  Yaw connector onto the hip-yaw horn and bearing; horn screw",
+   "title": "LEFT LEG 1 (before the bay)  6702ZZ pressed into the yaw connector (bench);\n         yaw connector onto the hip-yaw horn and bearing; horn screw",
    "moves": [
     {
      "objects": [
       "left_yaw_connector",
-      "left_hip_roll_brg_6702ZZ",
       "scs_left_hip_yaw_horn_cross"
+     ],
+     "path": [
+      [
+       0.0,
+       -0.0,
+       -10.0
+      ],
+      [
+       0.0,
+       -0.0,
+       -30.0
+      ]
+     ],
+     "frames": 14,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_hip_roll_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       15.0,
+       -0.0,
+       -30.0
+      ],
+      [
+       0.0,
+       -0.0,
+       -30.0
+      ]
+     ],
+     "frames": 18,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_yaw_connector",
+      "scs_left_hip_yaw_horn_cross",
+      "left_hip_roll_brg_6702ZZ"
      ],
      "path": [
       [
@@ -289,13 +362,52 @@
    "wires": []
   },
   {
-   "title": "RIGHT LEG 1 (before the bay)  Yaw connector onto the hip-yaw horn and bearing; horn screw",
+   "title": "RIGHT LEG 1 (before the bay)  6702ZZ pressed into the yaw connector (bench);\n         yaw connector onto the hip-yaw horn and bearing; horn screw",
    "moves": [
     {
      "objects": [
       "right_yaw_connector",
-      "right_hip_roll_brg_6702ZZ",
       "scs_right_hip_yaw_horn_cross"
+     ],
+     "path": [
+      [
+       0.0,
+       -0.0,
+       -10.0
+      ],
+      [
+       0.0,
+       -0.0,
+       -30.0
+      ]
+     ],
+     "frames": 14,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_hip_roll_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       15.0,
+       -0.0,
+       -30.0
+      ],
+      [
+       0.0,
+       -0.0,
+       -30.0
+      ]
+     ],
+     "frames": 18,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_yaw_connector",
+      "scs_right_hip_yaw_horn_cross",
+      "right_hip_roll_brg_6702ZZ"
      ],
      "path": [
       [
@@ -1047,6 +1159,44 @@
     },
     {
      "objects": [
+      "body_neck_bearing_plate"
+     ],
+     "path": [
+      [
+       0.0,
+       -30.0,
+       20.0
+      ],
+      [
+       0.0,
+       -30.0,
+       -0.0
+      ]
+     ],
+     "frames": 14,
+     "hold": true
+    },
+    {
+     "objects": [
+      "neck_brg_693"
+     ],
+     "path": [
+      [
+       0.0,
+       -45.0,
+       -0.0
+      ],
+      [
+       0.0,
+       -30.0,
+       -0.0
+      ]
+     ],
+     "frames": 18,
+     "hold": true
+    },
+    {
+     "objects": [
       "body_neck_bearing_plate",
       "neck_brg_693"
      ],
@@ -1201,12 +1351,11 @@
    "wires": []
   },
   {
-   "title": "HEAD 1  Head base (6702ZZ in the roll bulkhead); head-roll servo into its holder, ear screws",
+   "title": "HEAD 1  Head base; 6702ZZ pressed into its roll bulkhead; head-roll servo into its holder, ear screws",
    "moves": [
     {
      "objects": [
-      "head_base",
-      "head_roll_brg_6702ZZ"
+      "head_base"
      ],
      "path": [
       [
@@ -1221,6 +1370,25 @@
       ]
      ],
      "frames": 16,
+     "hold": true
+    },
+    {
+     "objects": [
+      "head_roll_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       15.0,
+       75.0,
+       0.001
+      ],
+      [
+       -0.0,
+       75.0,
+       0.001
+      ]
+     ],
+     "frames": 18,
      "hold": true
     },
     {
@@ -1289,13 +1457,52 @@
    "wires": []
   },
   {
-   "title": "HEAD 2  Yaw block up through the floor opening ~4.8 mm forward,\n        then back onto the roll horn; horn screw",
+   "title": "HEAD 2  6702ZZ pressed into the yaw block (bench); yaw block up through the floor opening\n        ~4.8 mm forward, then back onto the roll horn; horn screw",
    "moves": [
     {
      "objects": [
       "yaw_block",
-      "head_yaw_brg_6702ZZ",
       "scs_head_roll_horn_cross"
+     ],
+     "path": [
+      [
+       4.8,
+       75.0,
+       -14.999
+      ],
+      [
+       4.8,
+       75.0,
+       -34.999
+      ]
+     ],
+     "frames": 14,
+     "hold": true
+    },
+    {
+     "objects": [
+      "head_yaw_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       4.8,
+       75.0,
+       -49.999
+      ],
+      [
+       4.8,
+       75.0,
+       -34.999
+      ]
+     ],
+     "frames": 18,
+     "hold": true
+    },
+    {
+     "objects": [
+      "yaw_block",
+      "scs_head_roll_horn_cross",
+      "head_yaw_brg_6702ZZ"
      ],
      "path": [
       [
@@ -1883,10 +2090,10 @@
       "scs_head_yaw_case",
       "scs_head_yaw_case_screws",
       "scs_head_yaw_spline",
-      "head_yaw_brg_6702ZZ",
       "scs_head_pitch_horn_cross",
       "scs_head_yaw_horn_cross",
-      "scs_head_roll_horn_cross"
+      "scs_head_roll_horn_cross",
+      "head_yaw_brg_6702ZZ"
      ],
      "path": [
       [
@@ -1933,6 +2140,44 @@
       0.0
      ],
      "frames": 22
+    },
+    {
+     "objects": [
+      "head_pitch_bearing_plate"
+     ],
+     "path": [
+      [
+       0.0,
+       -30.0,
+       20.0
+      ],
+      [
+       0.0,
+       -30.0,
+       -0.0
+      ]
+     ],
+     "frames": 14,
+     "hold": true
+    },
+    {
+     "objects": [
+      "head_pitch_brg_693"
+     ],
+     "path": [
+      [
+       0.0,
+       -45.0,
+       -0.0
+      ],
+      [
+       0.0,
+       -30.0,
+       -0.0
+      ]
+     ],
+     "frames": 18,
+     "hold": true
     },
     {
      "objects": [
@@ -2024,7 +2269,7 @@
    "wires": []
   },
   {
-   "title": "LEFT LEG 3  Off the robot: hip-pitch and knee servos into the thigh, ear screws",
+   "title": "LEFT LEG 3  Off the robot: 6702ZZ pressed into the thigh's hip-pitch seat;\n         hip-pitch and knee servos into the thigh, ear screws",
    "moves": [
     {
      "objects": [
@@ -2043,6 +2288,25 @@
       ]
      ],
      "frames": 16,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_hip_pitch_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       9.0,
+       65.0,
+       0.0
+      ],
+      [
+       9.0,
+       80.0,
+       0.0
+      ]
+     ],
+     "frames": 18,
      "hold": true
     },
     {
@@ -2408,6 +2672,44 @@
     },
     {
      "objects": [
+      "left_foot_bearing_plate"
+     ],
+     "path": [
+      [
+       9.0,
+       55.0,
+       20.0
+      ],
+      [
+       9.0,
+       55.0,
+       -0.0
+      ]
+     ],
+     "frames": 14,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_ankle_brg_693"
+     ],
+     "path": [
+      [
+       9.0,
+       40.0,
+       -0.0
+      ],
+      [
+       9.0,
+       55.0,
+       -0.0
+      ]
+     ],
+     "frames": 18,
+     "hold": true
+    },
+    {
+     "objects": [
       "left_foot_bearing_plate",
       "left_ankle_brg_693"
      ],
@@ -2584,12 +2886,12 @@
       "scs_left_ankle_case",
       "scs_left_ankle_case_screws",
       "scs_left_ankle_spline",
-      "left_hip_pitch_brg_6702ZZ",
-      "left_ankle_brg_693",
       "scs_left_hip_roll_horn_cross",
       "scs_left_hip_pitch_horn_cross",
       "scs_left_knee_horn_cross",
-      "scs_left_ankle_horn_cross"
+      "scs_left_ankle_horn_cross",
+      "left_hip_pitch_brg_6702ZZ",
+      "left_ankle_brg_693"
      ],
      "path": [
       [
@@ -2705,7 +3007,7 @@
    "wires": []
   },
   {
-   "title": "RIGHT LEG 3  Off the robot: hip-pitch and knee servos into the thigh, ear screws",
+   "title": "RIGHT LEG 3  Off the robot: 6702ZZ pressed into the thigh's hip-pitch seat;\n         hip-pitch and knee servos into the thigh, ear screws",
    "moves": [
     {
      "objects": [
@@ -2724,6 +3026,25 @@
       ]
      ],
      "frames": 16,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_hip_pitch_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       9.0,
+       -65.0,
+       0.0
+      ],
+      [
+       9.0,
+       -80.0,
+       0.0
+      ]
+     ],
+     "frames": 18,
      "hold": true
     },
     {
@@ -3089,6 +3410,44 @@
     },
     {
      "objects": [
+      "right_foot_bearing_plate"
+     ],
+     "path": [
+      [
+       9.0,
+       -55.0,
+       20.0
+      ],
+      [
+       9.0,
+       -55.0,
+       -0.0
+      ]
+     ],
+     "frames": 14,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_ankle_brg_693"
+     ],
+     "path": [
+      [
+       9.0,
+       -40.0,
+       -0.0
+      ],
+      [
+       9.0,
+       -55.0,
+       -0.0
+      ]
+     ],
+     "frames": 18,
+     "hold": true
+    },
+    {
+     "objects": [
       "right_foot_bearing_plate",
       "right_ankle_brg_693"
      ],
@@ -3265,12 +3624,12 @@
       "scs_right_ankle_case",
       "scs_right_ankle_case_screws",
       "scs_right_ankle_spline",
-      "right_hip_pitch_brg_6702ZZ",
-      "right_ankle_brg_693",
       "scs_right_hip_roll_horn_cross",
       "scs_right_hip_pitch_horn_cross",
       "scs_right_knee_horn_cross",
-      "scs_right_ankle_horn_cross"
+      "scs_right_ankle_horn_cross",
+      "right_hip_pitch_brg_6702ZZ",
+      "right_ankle_brg_693"
      ],
      "path": [
       [
@@ -3508,6 +3867,17 @@
   }
  ],
  "title_size": 0.042,
+ "highlight": [
+  {
+   "contains": "_brg_",
+   "rgba": [
+    1.0,
+    0.42,
+    0.0,
+    1.0
+   ]
+  }
+ ],
  "camera": {
   "target_mm": [
    13.599,

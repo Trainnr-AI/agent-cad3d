@@ -95,5 +95,41 @@
  "head_dome": [
   "head_base",
   "head_face"
+ ],
+ "left_hip_yaw_brg_6702ZZ": [
+  "body_frame"
+ ],
+ "right_hip_yaw_brg_6702ZZ": [
+  "body_frame"
+ ],
+ "left_hip_roll_brg_6702ZZ": [
+  "left_yaw_connector"
+ ],
+ "right_hip_roll_brg_6702ZZ": [
+  "right_yaw_connector"
+ ],
+ "left_hip_pitch_brg_6702ZZ": [
+  "left_thigh"
+ ],
+ "right_hip_pitch_brg_6702ZZ": [
+  "right_thigh"
+ ],
+ "head_roll_brg_6702ZZ": [
+  "head_base"
+ ],
+ "head_yaw_brg_6702ZZ": [
+  "yaw_block"
+ ],
+ "left_ankle_brg_693": [
+  "left_foot_bearing_plate"
+ ],
+ "right_ankle_brg_693": [
+  "right_foot_bearing_plate"
+ ],
+ "neck_brg_693": [
+  "body_neck_bearing_plate"
+ ],
+ "head_pitch_brg_693": [
+  "head_pitch_bearing_plate"
  ]
 }

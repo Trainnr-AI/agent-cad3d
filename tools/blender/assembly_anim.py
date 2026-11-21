@@ -59,6 +59,18 @@ def copy_of(n):
             c.material_slots[i].material = s.material
     sc.collection.objects.link(c)
     c["home"] = list(c.location)
+    for hl in args.get("highlight", []):                     # e.g. bearings in orange: an object-level material on the COPY only
+        if hl["contains"] in n:
+            m = bpy.data.materials.get("anim_highlight_" + hl["contains"]) or bpy.data.materials.new("anim_highlight_" + hl["contains"])
+            m.diffuse_color = hl["rgba"]
+            if m.use_nodes and m.node_tree:
+                bsdf = next((x for x in m.node_tree.nodes if x.type == "BSDF_PRINCIPLED"), None)
+                if bsdf:
+                    bsdf.inputs["Base Color"].default_value = hl["rgba"]
+            for sl in c.material_slots:
+                sl.link = "OBJECT"
+                sl.material = m
+            c.color = hl["rgba"]
     prefs.keyframe_new_interpolation_type = "CONSTANT"
     for f, h in ((1, True),):
         c.hide_viewport = c.hide_render = h
