@@ -1,0 +1,3904 @@
+{
+ "scene": "robot_assembly",
+ "context": [],
+ "against_extra": [],
+ "fps": 24,
+ "hold": 14,
+ "steps": [
+  {
+   "title": "BODY 1  Motor body; the two 6702ZZ (orange) pressed into its hip-yaw seats from below\n         (outer ring only; bearings go in before any servo)",
+   "moves": [
+    {
+     "objects": [
+      "body_frame",
+      "scs_neck_pitch_horn_cross"
+     ],
+     "path": [
+      [
+       0.0,
+       0.0,
+       40.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ]
+     ],
+     "frames": 16
+    },
+    {
+     "objects": [
+      "left_hip_yaw_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       0.0,
+       0.0,
+       -15.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ]
+     ],
+     "frames": 18
+    },
+    {
+     "objects": [
+      "right_hip_yaw_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       0.0,
+       0.0,
+       -15.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ]
+     ],
+     "frames": 18
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "BODY 2  Right hip-yaw servo straight down into its saddle;\n         left one lifted ~10 mm, slid in from the side, then down",
+   "moves": [
+    {
+     "objects": [
+      "scs_right_hip_yaw_case",
+      "scs_right_hip_yaw_case_screws",
+      "scs_right_hip_yaw_spline"
+     ],
+     "path": [
+      [
+       -0.0,
+       0.0,
+       40.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ]
+     ],
+     "frames": 30
+    },
+    {
+     "objects": [
+      "scs_left_hip_yaw_case",
+      "scs_left_hip_yaw_case_screws",
+      "scs_left_hip_yaw_spline"
+     ],
+     "path": [
+      [
+       0.0,
+       45.0,
+       10.0
+      ],
+      [
+       0.0,
+       0.0,
+       10.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ]
+     ],
+     "frames": 40
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "BODY 3  Ear screws (left front ear: M2x6 socket, ball-end key at 20-25 deg)",
+   "moves": [
+    {
+     "objects": [
+      "right_hip_yaw_ear_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        26.9,
+        -116.1,
+        101.7
+       ],
+       "axis": [
+        -0.0,
+        0.0,
+        1.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        -1.6,
+        -116.1,
+        101.7
+       ],
+       "axis": [
+        -0.0,
+        0.0,
+        1.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "frames": 22
+    },
+    {
+     "objects": [
+      "left_hip_yaw_ear_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        26.9,
+        -83.9,
+        101.7
+       ],
+       "axis": [
+        -0.0,
+        0.0,
+        1.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        -1.6,
+        -83.9,
+        101.7
+       ],
+       "axis": [
+        -0.0,
+        0.0,
+        1.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "frames": 22
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "LEFT LEG 1 (before the bay)  6702ZZ pressed into the yaw connector (bench);\n         yaw connector onto the hip-yaw horn and bearing; horn screw",
+   "moves": [
+    {
+     "objects": [
+      "left_yaw_connector",
+      "scs_left_hip_yaw_horn_cross"
+     ],
+     "path": [
+      [
+       0.0,
+       -0.0,
+       -10.0
+      ],
+      [
+       0.0,
+       -0.0,
+       -30.0
+      ]
+     ],
+     "frames": 14,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_hip_roll_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       15.0,
+       -0.0,
+       -30.0
+      ],
+      [
+       0.0,
+       -0.0,
+       -30.0
+      ]
+     ],
+     "frames": 18,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_yaw_connector",
+      "scs_left_hip_yaw_horn_cross",
+      "left_hip_roll_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       0.0,
+       -0.0,
+       -30.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ]
+     ],
+     "frames": 30
+    },
+    {
+     "objects": [
+      "left_hip_yaw_screw_M2x4kit"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        18.4,
+        -83.9,
+        97.8
+       ],
+       "axis": [
+        0.0,
+        -0.0,
+        -1.0
+       ],
+       "len": 4.0
+      }
+     ],
+     "out_mm": 12.0,
+     "base": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "frames": 22
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "LEFT LEG 2 (before the bay)  Hip-roll servo into the yaw connector, ear screws (an L-key)",
+   "moves": [
+    {
+     "objects": [
+      "scs_left_hip_roll_case",
+      "scs_left_hip_roll_case_screws",
+      "scs_left_hip_roll_spline"
+     ],
+     "path": [
+      [
+       -14.0,
+       0.0,
+       -0.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ]
+     ],
+     "frames": 30
+    },
+    {
+     "objects": [
+      "left_hip_roll_ear_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        25.0,
+        -83.9,
+        90.1
+       ],
+       "axis": [
+        -1.0,
+        0.0,
+        -0.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        25.0,
+        -83.9,
+        61.6
+       ],
+       "axis": [
+        -1.0,
+        0.0,
+        -0.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "frames": 22
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "RIGHT LEG 1 (before the bay)  6702ZZ pressed into the yaw connector (bench);\n         yaw connector onto the hip-yaw horn and bearing; horn screw",
+   "moves": [
+    {
+     "objects": [
+      "right_yaw_connector",
+      "scs_right_hip_yaw_horn_cross"
+     ],
+     "path": [
+      [
+       0.0,
+       -0.0,
+       -10.0
+      ],
+      [
+       0.0,
+       -0.0,
+       -30.0
+      ]
+     ],
+     "frames": 14,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_hip_roll_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       15.0,
+       -0.0,
+       -30.0
+      ],
+      [
+       0.0,
+       -0.0,
+       -30.0
+      ]
+     ],
+     "frames": 18,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_yaw_connector",
+      "scs_right_hip_yaw_horn_cross",
+      "right_hip_roll_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       0.0,
+       -0.0,
+       -30.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ]
+     ],
+     "frames": 30
+    },
+    {
+     "objects": [
+      "right_hip_yaw_screw_M2x4kit"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        18.4,
+        -116.1,
+        97.8
+       ],
+       "axis": [
+        0.0,
+        -0.0,
+        -1.0
+       ],
+       "len": 4.0
+      }
+     ],
+     "out_mm": 12.0,
+     "base": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "frames": 22
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "RIGHT LEG 2 (before the bay)  Hip-roll servo into the yaw connector, ear screws (an L-key)",
+   "moves": [
+    {
+     "objects": [
+      "scs_right_hip_roll_case",
+      "scs_right_hip_roll_case_screws",
+      "scs_right_hip_roll_spline"
+     ],
+     "path": [
+      [
+       -14.0,
+       0.0,
+       -0.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ]
+     ],
+     "frames": 30
+    },
+    {
+     "objects": [
+      "right_hip_roll_ear_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        25.0,
+        -116.1,
+        90.1
+       ],
+       "axis": [
+        -1.0,
+        -0.0,
+        -0.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        25.0,
+        -116.1,
+        61.6
+       ],
+       "axis": [
+        -1.0,
+        0.0,
+        -0.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "frames": 22
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "BAY 1  Bay enclosure onto the motor body (tongue under the deck);\n   3x M2x10 countersunk UP from under the robot into the deck",
+   "moves": [
+    {
+     "objects": [
+      "electronics_enclosure"
+     ],
+     "path": [
+      [
+       -70,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 36
+    },
+    {
+     "objects": [
+      "enclosure_screws_M2x6st"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       -28
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 24
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "BAY 2  Servo adapter: its 2 servo cables plugged in first,\n   then it slides down into the rib slots (no screws)",
+   "moves": [
+    {
+     "objects": [
+      "servo_adapter"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       90
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 36
+    }
+   ],
+   "wires": [
+    "wire_ext_left_body_to_thigh",
+    "wire_plug_ext_left_body_to_thigh_b",
+    "wire_ext_adapter_to_gap",
+    "wire_plug_ext_adapter_to_gap_b"
+   ]
+  },
+  {
+   "title": "BAY 3  IMU: Qwiic cable into its RIGHT socket; IMU straight down, then back\n   onto the 4 pegs on the rear wall; a drop of hot glue on each peg tip (no screws)",
+   "moves": [
+    {
+     "objects": [
+      "imu",
+      "bay_imu_qwiic"
+     ],
+     "path": [
+      [
+       3,
+       0,
+       60
+      ],
+      [
+       3,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 40
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "BAY 4  Switch plate (built on the bench: M6 nut into its hex pocket,\n   switch screwed in by turning its body, 3 wires soldered):\n   down ~9.5 mm in from the wall, then out onto it - lever through the hole;\n   2x M2x10 countersunk from outside",
+   "moves": [
+    {
+     "objects": [
+      "switch_plate",
+      "power_switch",
+      "bay_switch_hw",
+      "bay_switch_joints"
+     ],
+     "path": [
+      [
+       0,
+       -9.5,
+       70
+      ],
+      [
+       0,
+       -9.5,
+       0
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 44
+    },
+    {
+     "objects": [
+      "switch_plate_screws_M2x10csk"
+     ],
+     "path": [
+      [
+       0,
+       20,
+       0
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 24
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "BAY 5  Battery 3S 60x30x20: hook-and-loop on the floor;\n   leads + balance lead out of the rear-right window",
+   "moves": [
+    {
+     "objects": [
+      "battery_3s"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       100
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 40
+    }
+   ],
+   "wires": [
+    "wire_power_battery_leads",
+    "wire_power_balance_lead"
+   ]
+  },
+  {
+   "title": "BAY 6  XT30 pair into the rear cradle (1 zip tie),\n   balance plug above the bay, mouth up",
+   "moves": [
+    {
+     "objects": [
+      "bay_xt30_pair"
+     ],
+     "path": [
+      [
+       -40,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 28
+    },
+    {
+     "objects": [
+      "bay_balance_plug"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       40
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 24
+    }
+   ],
+   "wires": [
+    "wire_power_pigtail_red",
+    "wire_power_pigtail_black"
+   ]
+  },
+  {
+   "title": "BAY 7  Mini560 (wires soldered from below)\n   slides into the lid's rails, parts UP through the window",
+   "moves": [
+    {
+     "objects": [
+      "body_lid"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       120
+      ],
+      [
+       0,
+       0,
+       60
+      ]
+     ],
+     "frames": 24
+    },
+    {
+     "objects": [
+      "ubec",
+      "bay_mini560_joints"
+     ],
+     "path": [
+      [
+       0,
+       -45,
+       60
+      ],
+      [
+       0,
+       0,
+       60
+      ]
+     ],
+     "frames": 32
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "BAY 8  Lid onto the bay: 4x M2x6 socket into the posts\n   (before the Uno Q: it covers them)",
+   "moves": [
+    {
+     "objects": [
+      "body_lid",
+      "ubec",
+      "bay_mini560_joints"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       60
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 36
+    },
+    {
+     "objects": [
+      "body_lid_screws_M2x6st"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       25
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 24
+    }
+   ],
+   "wires": [
+    "wire_power_switch_to_regulator",
+    "wire_power_regulator_to_adapter_5V"
+   ]
+  },
+  {
+   "title": "BAY 9  Uno Q: 3x M3x8 + 1x M2x6;\n   3-pin plug on JANALOG 6-7-8 (mark + hot-glue), 2-pin on D0/D1,\n   Qwiic from the IMU",
+   "moves": [
+    {
+     "objects": [
+      "unoq_pcb",
+      "unoq_headers",
+      "unoq_usbc",
+      "unoq_pins",
+      "unoq_bottom_connectors",
+      "unoq_top_parts"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       70
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 36
+    },
+    {
+     "objects": [
+      "uno_screws_M3x8",
+      "uno_screw_M2x6"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       25
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 24
+    },
+    {
+     "objects": [
+      "bay_uno_power_plug",
+      "bay_uno_uart_plug"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       20
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 20
+    }
+   ],
+   "wires": [
+    "wire_power_uno_VIN_GND",
+    "wire_signal_uart",
+    "wire_signal_uart_gnd",
+    "wire_signal_imu_qwiic_to_uno"
+   ]
+  },
+  {
+   "title": "BAY 10 Camera USB: right-angle USB-C -> USB-A adapter, mouth DOWN;\n   camera plug in from below, rear-left cradle, 1 zip tie",
+   "moves": [
+    {
+     "objects": [
+      "bay_usb_adapter_L"
+     ],
+     "path": [
+      [
+       -30,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 28
+    },
+    {
+     "objects": [
+      "bay_usb_a_plug"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       -35
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 24
+    }
+   ],
+   "wires": [
+    "wire_usb_camera_to_uno"
+   ]
+  },
+  {
+   "title": "BAY 11 Uno Q cover (optional): 2x M2x6 through its sides",
+   "moves": [
+    {
+     "objects": [
+      "uno_cover"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       60
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 32
+    },
+    {
+     "objects": [
+      "uno_cover_screws_M2x6st"
+     ],
+     "path": [
+      [
+       0,
+       20,
+       0
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 20,
+     "split_axis": 1
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "NECK 1  Both M3 nylon nuts into the cradle's pockets FIRST (the servos cover them),\n        then the neck servo down into the cradle (on the bench), ear screws",
+   "moves": [
+    {
+     "objects": [
+      "neck_cradle"
+     ],
+     "path": [
+      [
+       0.0,
+       -60.0,
+       25.0
+      ],
+      [
+       0.0,
+       -60.0,
+       -0.0
+      ]
+     ],
+     "frames": 16,
+     "hold": true
+    },
+    {
+     "objects": [
+      "neck_nut_M3",
+      "head_pitch_nut_M3"
+     ],
+     "path": [
+      [
+       0.0,
+       -48.0,
+       -0.0
+      ],
+      [
+       0.0,
+       -60.0,
+       -0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "scs_neck_pitch_case",
+      "scs_neck_pitch_case_screws",
+      "scs_neck_pitch_spline"
+     ],
+     "path": [
+      [
+       0.0,
+       -30.0,
+       -0.0
+      ],
+      [
+       0.0,
+       -60.0,
+       -0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "neck_ear_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        37.7,
+        -103.8,
+        119.0
+       ],
+       "axis": [
+        -0.0,
+        1.0,
+        -0.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        37.7,
+        -103.8,
+        147.5
+       ],
+       "axis": [
+        -0.0,
+        1.0,
+        0.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      0.0,
+      -60.0,
+      -0.0
+     ],
+     "frames": 22,
+     "hold": true
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "NECK 2  Cradle onto the motor body's neck horn plate; horn screw;\n        bearing plate from the other side (2x M2x6), M3x8 axle into its nut",
+   "moves": [
+    {
+     "objects": [
+      "neck_cradle",
+      "neck_nut_M3",
+      "head_pitch_nut_M3",
+      "scs_neck_pitch_case",
+      "scs_neck_pitch_case_screws",
+      "scs_neck_pitch_spline",
+      "neck_ear_screws_M2x6st"
+     ],
+     "path": [
+      [
+       0.0,
+       -60.0,
+       -0.0
+      ],
+      [
+       0.0,
+       -7.0,
+       -0.0
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 40
+    },
+    {
+     "objects": [
+      "neck_screw_M2x4kit"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        37.7,
+        -89.6,
+        127.6
+       ],
+       "axis": [
+        -0.0,
+        1.0,
+        -0.0
+       ],
+       "len": 4.0
+      }
+     ],
+     "out_mm": 12.0,
+     "base": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "frames": 22
+    },
+    {
+     "objects": [
+      "body_neck_bearing_plate"
+     ],
+     "path": [
+      [
+       0.0,
+       -30.0,
+       20.0
+      ],
+      [
+       0.0,
+       -30.0,
+       -0.0
+      ]
+     ],
+     "frames": 14,
+     "hold": true
+    },
+    {
+     "objects": [
+      "neck_brg_693"
+     ],
+     "path": [
+      [
+       0.0,
+       -45.0,
+       -0.0
+      ],
+      [
+       0.0,
+       -30.0,
+       -0.0
+      ]
+     ],
+     "frames": 18,
+     "hold": true
+    },
+    {
+     "objects": [
+      "body_neck_bearing_plate",
+      "neck_brg_693"
+     ],
+     "path": [
+      [
+       0.0,
+       -30.0,
+       -0.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ]
+     ],
+     "frames": 30
+    },
+    {
+     "objects": [
+      "neck_plate_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        41.2,
+        -116.7,
+        110.1
+       ],
+       "axis": [
+        0.0,
+        -1.0,
+        0.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        34.2,
+        -116.7,
+        110.1
+       ],
+       "axis": [
+        0.0,
+        -1.0,
+        -0.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "frames": 22
+    },
+    {
+     "objects": [
+      "neck_screw_M3x8"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        37.7,
+        -116.7,
+        127.6
+       ],
+       "axis": [
+        0.0,
+        -1.0,
+        -0.0
+       ],
+       "len": 7.99
+      }
+     ],
+     "out_mm": 15.99,
+     "base": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "frames": 22
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "NECK 3  Head-pitch servo down into the cradle, ear screws",
+   "moves": [
+    {
+     "objects": [
+      "scs_head_pitch_case",
+      "scs_head_pitch_case_screws",
+      "scs_head_pitch_spline"
+     ],
+     "path": [
+      [
+       -0.0,
+       30.0,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ]
+     ],
+     "frames": 30
+    },
+    {
+     "objects": [
+      "head_pitch_ear_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        37.7,
+        -103.8,
+        182.1
+       ],
+       "axis": [
+        -0.0,
+        1.0,
+        0.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        37.7,
+        -103.8,
+        153.6
+       ],
+       "axis": [
+        -0.0,
+        1.0,
+        0.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "frames": 22
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "HEAD 1  Head base; 6702ZZ pressed into its roll bulkhead; head-roll servo into its holder, ear screws",
+   "moves": [
+    {
+     "objects": [
+      "head_base"
+     ],
+     "path": [
+      [
+       -0.0,
+       75.0,
+       25.001
+      ],
+      [
+       -0.0,
+       75.0,
+       0.001
+      ]
+     ],
+     "frames": 16,
+     "hold": true
+    },
+    {
+     "objects": [
+      "head_roll_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       15.0,
+       75.0,
+       0.001
+      ],
+      [
+       -0.0,
+       75.0,
+       0.001
+      ]
+     ],
+     "frames": 18,
+     "hold": true
+    },
+    {
+     "objects": [
+      "scs_head_roll_case",
+      "scs_head_roll_case_screws",
+      "scs_head_roll_spline"
+     ],
+     "path": [
+      [
+       -30.0,
+       75.0,
+       0.0
+      ],
+      [
+       -0.0,
+       75.0,
+       0.001
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "head_roll_ear_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        14.5,
+        -91.5,
+        204.6
+       ],
+       "axis": [
+        -1.0,
+        0.0,
+        -0.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        14.5,
+        -120.0,
+        204.6
+       ],
+       "axis": [
+        -1.0,
+        -0.0,
+        -0.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      -0.0,
+      75.0,
+      0.001
+     ],
+     "frames": 22,
+     "hold": true
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "HEAD 2  6702ZZ pressed into the yaw block (bench); yaw block up through the floor opening\n        ~4.8 mm forward, then back onto the roll horn; horn screw",
+   "moves": [
+    {
+     "objects": [
+      "yaw_block",
+      "scs_head_roll_horn_cross"
+     ],
+     "path": [
+      [
+       4.8,
+       75.0,
+       -14.999
+      ],
+      [
+       4.8,
+       75.0,
+       -34.999
+      ]
+     ],
+     "frames": 14,
+     "hold": true
+    },
+    {
+     "objects": [
+      "head_yaw_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       4.8,
+       75.0,
+       -49.999
+      ],
+      [
+       4.8,
+       75.0,
+       -34.999
+      ]
+     ],
+     "frames": 18,
+     "hold": true
+    },
+    {
+     "objects": [
+      "yaw_block",
+      "scs_head_roll_horn_cross",
+      "head_yaw_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       4.8,
+       75.0,
+       -34.999
+      ],
+      [
+       4.8,
+       75.0,
+       0.001
+      ],
+      [
+       -0.0,
+       75.0,
+       0.001
+      ]
+     ],
+     "frames": 40,
+     "hold": true
+    },
+    {
+     "objects": [
+      "head_roll_screw_M2x4kit"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        18.4,
+        -100.0,
+        204.6
+       ],
+       "axis": [
+        1.0,
+        -0.0,
+        0.0
+       ],
+       "len": 4.0
+      }
+     ],
+     "out_mm": 12.0,
+     "base": [
+      -0.0,
+      75.0,
+      0.001
+     ],
+     "frames": 22,
+     "hold": true
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "HEAD 3  Head-yaw servo up into the yaw block, ear screws",
+   "moves": [
+    {
+     "objects": [
+      "scs_head_yaw_case",
+      "scs_head_yaw_case_screws",
+      "scs_head_yaw_spline"
+     ],
+     "path": [
+      [
+       -0.0,
+       75.0,
+       30.001
+      ],
+      [
+       -0.0,
+       75.0,
+       0.001
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "head_yaw_ear_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        37.7,
+        -91.5,
+        198.0
+       ],
+       "axis": [
+        -0.0,
+        -0.0,
+        1.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        37.7,
+        -120.0,
+        198.0
+       ],
+       "axis": [
+        0.0,
+        -0.0,
+        1.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      -0.0,
+      75.0,
+      0.001
+     ],
+     "frames": 22,
+     "hold": true
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "HEAD 4  U onto the head-yaw horn and bearing; horn screw",
+   "moves": [
+    {
+     "objects": [
+      "head_pitch_u",
+      "scs_head_pitch_horn_cross",
+      "scs_head_yaw_horn_cross"
+     ],
+     "path": [
+      [
+       -0.0,
+       75.0,
+       -24.999
+      ],
+      [
+       -0.0,
+       75.0,
+       0.001
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "head_yaw_screw_M2x4kit"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        37.7,
+        -100.0,
+        194.2
+       ],
+       "axis": [
+        0.0,
+        0.0,
+        -1.0
+       ],
+       "len": 4.0
+      }
+     ],
+     "out_mm": 12.0,
+     "base": [
+      -0.0,
+      75.0,
+      0.001
+     ],
+     "frames": 22,
+     "hold": true
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "HEAD 5  Jaw straight up through the two bill-plate slots; jaw pivot screw",
+   "moves": [
+    {
+     "objects": [
+      "head_jaw"
+     ],
+     "path": [
+      [
+       -0.0,
+       75.0,
+       -29.999
+      ],
+      [
+       -0.0,
+       75.0,
+       0.001
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "jaw_pivot_screw_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        58.5,
+        -128.5,
+        210.8
+       ],
+       "axis": [
+        0.0,
+        1.0,
+        -0.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      -0.0,
+      75.0,
+      0.001
+     ],
+     "frames": 22,
+     "hold": true
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "HEAD 6  Beak servo: down ~4.5 mm toward the middle, then out onto the jaw arm;\n        horn screw, ear screws",
+   "moves": [
+    {
+     "objects": [
+      "scs_mouth_case",
+      "scs_mouth_case_screws",
+      "scs_mouth_spline",
+      "scs_mouth_horn_cross"
+     ],
+     "path": [
+      [
+       -0.0,
+       70.5,
+       30.001
+      ],
+      [
+       -0.0,
+       70.5,
+       0.001
+      ],
+      [
+       -0.0,
+       75.0,
+       0.001
+      ]
+     ],
+     "frames": 36,
+     "hold": true
+    },
+    {
+     "objects": [
+      "mouth_ear_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        49.9,
+        -80.3,
+        210.8
+       ],
+       "axis": [
+        -0.0,
+        -1.0,
+        0.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        78.4,
+        -80.3,
+        210.8
+       ],
+       "axis": [
+        0.0,
+        -1.0,
+        0.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      -0.0,
+      75.0,
+      0.001
+     ],
+     "frames": 22,
+     "hold": true
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "HEAD 7  2 M2 nuts into their pockets, the camera in from the front, the visor over it;\n        3x M2x10 countersunk from the front (heads flush); then the face onto the head",
+   "moves": [
+    {
+     "objects": [
+      "head_face"
+     ],
+     "path": [
+      [
+       45.0,
+       75.0,
+       25.001
+      ],
+      [
+       45.0,
+       75.0,
+       0.001
+      ]
+     ],
+     "frames": 16,
+     "hold": true
+    },
+    {
+     "objects": [
+      "cam_nuts_M2"
+     ],
+     "path": [
+      [
+       70.0,
+       75.0,
+       0.001
+      ],
+      [
+       45.0,
+       75.0,
+       0.001
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "cam_ov5640_b"
+     ],
+     "path": [
+      [
+       70.0,
+       75.0,
+       0.001
+      ],
+      [
+       45.0,
+       75.0,
+       0.001
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "head_visor"
+     ],
+     "path": [
+      [
+       70.0,
+       75.0,
+       0.001
+      ],
+      [
+       45.0,
+       75.0,
+       0.001
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "cam_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        82.5,
+        -69.5,
+        211.8
+       ],
+       "axis": [
+        1.0,
+        0.0,
+        0.0
+       ],
+       "len": 9.05
+      },
+      {
+       "at": [
+        82.5,
+        -69.5,
+        207.8
+       ],
+       "axis": [
+        1.0,
+        -0.0,
+        -0.0
+       ],
+       "len": 9.05
+      },
+      {
+       "at": [
+        81.5,
+        -119.3,
+        207.5
+       ],
+       "axis": [
+        1.0,
+        -0.0,
+        -0.0
+       ],
+       "len": 9.05
+      }
+     ],
+     "out_mm": 17.05,
+     "base": [
+      45.0,
+      75.0,
+      0.001
+     ],
+     "frames": 22,
+     "hold": true
+    },
+    {
+     "objects": [
+      "head_face",
+      "cam_nuts_M2",
+      "cam_ov5640_b",
+      "head_visor",
+      "cam_screws_M2x6st"
+     ],
+     "path": [
+      [
+       45.0,
+       75.0,
+       0.001
+      ],
+      [
+       -0.0,
+       75.0,
+       0.001
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "HEAD 8  Dome last, straight down: 2 rear screws from below,\n        2 front ones up through the jaw's holes",
+   "moves": [
+    {
+     "objects": [
+      "head_dome"
+     ],
+     "path": [
+      [
+       -0.0,
+       75.0,
+       40.001
+      ],
+      [
+       -0.0,
+       75.0,
+       0.001
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "dome_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        1.5,
+        -122.2,
+        201.9
+       ],
+       "axis": [
+        0.0,
+        0.0,
+        -1.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        1.5,
+        -77.8,
+        201.9
+       ],
+       "axis": [
+        0.0,
+        -0.0,
+        -1.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        73.1,
+        -130.9,
+        205.9
+       ],
+       "axis": [
+        0.0,
+        -0.0,
+        -1.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        73.1,
+        -69.1,
+        205.9
+       ],
+       "axis": [
+        0.0,
+        0.0,
+        -1.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      -0.0,
+      75.0,
+      0.001
+     ],
+     "frames": 22,
+     "hold": true
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "HEAD 9  Head (with the U) onto the head-pitch servo in the cradle; horn screw;\n        bearing plate, M3x8 axle into its nut",
+   "moves": [
+    {
+     "objects": [
+      "head_base",
+      "head_roll_brg_6702ZZ",
+      "head_roll_ear_screws_M2x6st",
+      "head_roll_screw_M2x4kit",
+      "yaw_block",
+      "head_yaw_ear_screws_M2x6st",
+      "head_yaw_screw_M2x4kit",
+      "head_pitch_u",
+      "head_jaw",
+      "jaw_pivot_screw_M2x6st",
+      "scs_mouth_case",
+      "scs_mouth_case_screws",
+      "scs_mouth_spline",
+      "scs_mouth_horn_cross",
+      "scs_mouth_horn_screw",
+      "mouth_ear_screws_M2x6st",
+      "head_face",
+      "head_visor",
+      "cam_nuts_M2",
+      "cam_ov5640_b",
+      "cam_screws_M2x6st",
+      "head_dome",
+      "dome_screws_M2x6st",
+      "scs_head_roll_case",
+      "scs_head_roll_case_screws",
+      "scs_head_roll_spline",
+      "scs_head_yaw_case",
+      "scs_head_yaw_case_screws",
+      "scs_head_yaw_spline",
+      "scs_head_pitch_horn_cross",
+      "scs_head_yaw_horn_cross",
+      "scs_head_roll_horn_cross",
+      "head_yaw_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       -0.0,
+       75.0,
+       0.001
+      ],
+      [
+       -0.0,
+       7.0,
+       0.0
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 44
+    },
+    {
+     "objects": [
+      "head_pitch_screw_M2x4kit"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        37.7,
+        -89.6,
+        173.5
+       ],
+       "axis": [
+        -0.0,
+        1.0,
+        0.0
+       ],
+       "len": 4.0
+      }
+     ],
+     "out_mm": 12.0,
+     "base": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "frames": 22
+    },
+    {
+     "objects": [
+      "head_pitch_bearing_plate"
+     ],
+     "path": [
+      [
+       0.0,
+       -30.0,
+       20.0
+      ],
+      [
+       0.0,
+       -30.0,
+       -0.0
+      ]
+     ],
+     "frames": 14,
+     "hold": true
+    },
+    {
+     "objects": [
+      "head_pitch_brg_693"
+     ],
+     "path": [
+      [
+       0.0,
+       -45.0,
+       -0.0
+      ],
+      [
+       0.0,
+       -30.0,
+       -0.0
+      ]
+     ],
+     "frames": 18,
+     "hold": true
+    },
+    {
+     "objects": [
+      "head_pitch_bearing_plate",
+      "head_pitch_brg_693"
+     ],
+     "path": [
+      [
+       0.0,
+       -30.0,
+       -0.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ]
+     ],
+     "frames": 30
+    },
+    {
+     "objects": [
+      "head_pitch_plate_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        43.7,
+        -124.6,
+        181.7
+       ],
+       "axis": [
+        -0.001,
+        -0.0,
+        1.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        31.7,
+        -124.6,
+        181.7
+       ],
+       "axis": [
+        -0.001,
+        -0.0,
+        1.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "frames": 22
+    },
+    {
+     "objects": [
+      "head_pitch_screw_M3x8"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        37.7,
+        -116.7,
+        173.5
+       ],
+       "axis": [
+        0.0,
+        -1.0,
+        -0.0
+       ],
+       "len": 7.99
+      }
+     ],
+     "out_mm": 15.99,
+     "base": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "frames": 22
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "LEFT LEG 3  Off the robot: 6702ZZ pressed into the thigh's hip-pitch seat;\n         hip-pitch and knee servos into the thigh, ear screws",
+   "moves": [
+    {
+     "objects": [
+      "left_thigh"
+     ],
+     "path": [
+      [
+       9.0,
+       80.0,
+       25.0
+      ],
+      [
+       9.0,
+       80.0,
+       0.0
+      ]
+     ],
+     "frames": 16,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_hip_pitch_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       9.0,
+       65.0,
+       0.0
+      ],
+      [
+       9.0,
+       80.0,
+       0.0
+      ]
+     ],
+     "frames": 18,
+     "hold": true
+    },
+    {
+     "objects": [
+      "scs_left_hip_pitch_case",
+      "scs_left_hip_pitch_case_screws",
+      "scs_left_hip_pitch_spline"
+     ],
+     "path": [
+      [
+       9.0,
+       110.0,
+       0.0
+      ],
+      [
+       9.0,
+       80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "scs_left_knee_case",
+      "scs_left_knee_case_screws",
+      "scs_left_knee_spline"
+     ],
+     "path": [
+      [
+       9.0,
+       110.0,
+       0.0
+      ],
+      [
+       9.0,
+       80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_hip_pitch_ear_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        25.1,
+        -56.4,
+        81.6
+       ],
+       "axis": [
+        0.0,
+        1.0,
+        0.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        -3.4,
+        -56.4,
+        81.6
+       ],
+       "axis": [
+        0.0,
+        1.0,
+        0.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      9.0,
+      80.0,
+      0.0
+     ],
+     "frames": 22,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_knee_ear_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        -16.3,
+        -56.4,
+        52.8
+       ],
+       "axis": [
+        0.0,
+        1.0,
+        0.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        -16.3,
+        -56.4,
+        81.3
+       ],
+       "axis": [
+        0.0,
+        1.0,
+        0.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      9.0,
+      80.0,
+      0.0
+     ],
+     "frames": 22,
+     "hold": true
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "LEFT LEG 4  Knee: full horn in the shin's pocket, shin onto the spline, horn screw;\n         6702ZZ into the shin's seat; cap down, 2x M2x6 (snug last)",
+   "moves": [
+    {
+     "objects": [
+      "left_shin",
+      "scs_left_knee_horn_cross"
+     ],
+     "path": [
+      [
+       9.0,
+       55.0,
+       -0.0
+      ],
+      [
+       9.0,
+       80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_knee_screw_M2x4kit"
+     ],
+     "path": [
+      [
+       9.0,
+       66.0,
+       -0.0
+      ],
+      [
+       9.0,
+       80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_knee_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       9.0,
+       60.0,
+       -0.0
+      ],
+      [
+       9.0,
+       80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_knee_cap"
+     ],
+     "path": [
+      [
+       9.0,
+       60.0,
+       -0.0
+      ],
+      [
+       9.0,
+       80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_knee_cap_screws_M2x6"
+     ],
+     "path": [
+      [
+       9.0,
+       66.0,
+       -0.0
+      ],
+      [
+       9.0,
+       80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "LEFT LEG 5  M3 nylon nut into the shin's pocket first; ankle servo into the cradle, ear screws;\n         foot onto the horn, horn screw; bearing plate from the other side, M3x8 axle into the nut",
+   "moves": [
+    {
+     "objects": [
+      "left_ankle_nut_M3"
+     ],
+     "path": [
+      [
+       9.0,
+       92.0,
+       0.0
+      ],
+      [
+       9.0,
+       80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "scs_left_ankle_case",
+      "scs_left_ankle_case_screws",
+      "scs_left_ankle_spline"
+     ],
+     "path": [
+      [
+       9.0,
+       110.0,
+       0.0
+      ],
+      [
+       9.0,
+       80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_ankle_ear_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        -16.3,
+        -51.9,
+        14.1
+       ],
+       "axis": [
+        0.0,
+        1.0,
+        0.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        -16.3,
+        -51.9,
+        42.6
+       ],
+       "axis": [
+        0.0,
+        1.0,
+        0.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      9.0,
+      80.0,
+      0.0
+     ],
+     "frames": 22,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_foot",
+      "scs_left_ankle_horn_cross"
+     ],
+     "path": [
+      [
+       9.0,
+       100.0,
+       0.0
+      ],
+      [
+       9.0,
+       80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_ankle_screw_M2x4kit"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        -16.3,
+        -37.6,
+        22.7
+       ],
+       "axis": [
+        0.0,
+        1.0,
+        0.0
+       ],
+       "len": 4.0
+      }
+     ],
+     "out_mm": 12.0,
+     "base": [
+      9.0,
+      80.0,
+      0.0
+     ],
+     "frames": 22,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_foot_bearing_plate"
+     ],
+     "path": [
+      [
+       9.0,
+       55.0,
+       20.0
+      ],
+      [
+       9.0,
+       55.0,
+       -0.0
+      ]
+     ],
+     "frames": 14,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_ankle_brg_693"
+     ],
+     "path": [
+      [
+       9.0,
+       40.0,
+       -0.0
+      ],
+      [
+       9.0,
+       55.0,
+       -0.0
+      ]
+     ],
+     "frames": 18,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_foot_bearing_plate",
+      "left_ankle_brg_693"
+     ],
+     "path": [
+      [
+       9.0,
+       55.0,
+       -0.0
+      ],
+      [
+       9.0,
+       80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_foot_plate_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        -21.8,
+        -65.3,
+        7.4
+       ],
+       "axis": [
+        -0.0,
+        -1.0,
+        -0.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        -10.8,
+        -65.3,
+        7.4
+       ],
+       "axis": [
+        -0.0,
+        -1.0,
+        -0.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      9.0,
+      80.0,
+      0.0
+     ],
+     "frames": 22,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_ankle_screw_M3x8"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        -16.3,
+        -64.8,
+        22.7
+       ],
+       "axis": [
+        -0.0,
+        -1.0,
+        -0.0
+       ],
+       "len": 7.99
+      }
+     ],
+     "out_mm": 15.99,
+     "base": [
+      9.0,
+      80.0,
+      0.0
+     ],
+     "frames": 22,
+     "hold": true
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "LEFT LEG 6  L-bracket onto the hip-pitch horn and bearing; horn screw",
+   "moves": [
+    {
+     "objects": [
+      "left_l_bracket",
+      "scs_left_hip_roll_horn_cross",
+      "scs_left_hip_pitch_horn_cross"
+     ],
+     "path": [
+      [
+       9.0,
+       55.0,
+       -0.0
+      ],
+      [
+       9.0,
+       80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "left_hip_pitch_screw_M2x4kit"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        16.5,
+        -60.3,
+        81.6
+       ],
+       "axis": [
+        -0.0,
+        -1.0,
+        -0.0
+       ],
+       "len": 4.0
+      }
+     ],
+     "out_mm": 12.0,
+     "base": [
+      9.0,
+      80.0,
+      0.0
+     ],
+     "frames": 22,
+     "hold": true
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "LEFT LEG 7  Hang the leg on the hip: L-bracket onto the hip-roll horn; horn screw",
+   "moves": [
+    {
+     "objects": [
+      "left_l_bracket",
+      "left_thigh",
+      "left_shin",
+      "left_knee_cap",
+      "left_knee_cap_screws_M2x6",
+      "left_knee_brg_6702ZZ",
+      "left_knee_screw_M2x4kit",
+      "left_foot",
+      "left_foot_bearing_plate",
+      "left_foot_plate_screws_M2x6st",
+      "left_ankle_screw_M3x8",
+      "left_ankle_nut_M3",
+      "left_ankle_screw_M2x4kit",
+      "left_hip_pitch_screw_M2x4kit",
+      "left_hip_pitch_ear_screws_M2x6st",
+      "left_knee_ear_screws_M2x6st",
+      "left_ankle_ear_screws_M2x6st",
+      "scs_left_hip_pitch_case",
+      "scs_left_hip_pitch_case_screws",
+      "scs_left_hip_pitch_spline",
+      "scs_left_knee_case",
+      "scs_left_knee_case_screws",
+      "scs_left_knee_spline",
+      "scs_left_ankle_case",
+      "scs_left_ankle_case_screws",
+      "scs_left_ankle_spline",
+      "scs_left_hip_roll_horn_cross",
+      "scs_left_hip_pitch_horn_cross",
+      "scs_left_knee_horn_cross",
+      "scs_left_ankle_horn_cross",
+      "left_hip_pitch_brg_6702ZZ",
+      "left_ankle_brg_693"
+     ],
+     "path": [
+      [
+       9.0,
+       80.0,
+       0.0
+      ],
+      [
+       9.0,
+       -0.0,
+       0.0
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 44
+    },
+    {
+     "objects": [
+      "left_hip_roll_screw_M2x4kit"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        28.8,
+        -83.9,
+        81.6
+       ],
+       "axis": [
+        1.0,
+        -0.0,
+        0.0
+       ],
+       "len": 4.0
+      }
+     ],
+     "out_mm": 12.0,
+     "base": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "frames": 22
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "LEFT LEG 8  Thigh cover (optional), 2x M2x6",
+   "moves": [
+    {
+     "objects": [
+      "left_thigh_cover"
+     ],
+     "path": [
+      [
+       0.0,
+       30.0,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ]
+     ],
+     "frames": 30
+    },
+    {
+     "objects": [
+      "left_thigh_cover_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        17.3,
+        -28.9,
+        71.6
+       ],
+       "axis": [
+        0.0,
+        1.0,
+        0.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        2.0,
+        -55.4,
+        92.1
+       ],
+       "axis": [
+        -0.0,
+        0.0,
+        1.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "frames": 22
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "RIGHT LEG 3  Off the robot: 6702ZZ pressed into the thigh's hip-pitch seat;\n         hip-pitch and knee servos into the thigh, ear screws",
+   "moves": [
+    {
+     "objects": [
+      "right_thigh"
+     ],
+     "path": [
+      [
+       9.0,
+       -80.0,
+       25.0
+      ],
+      [
+       9.0,
+       -80.0,
+       0.0
+      ]
+     ],
+     "frames": 16,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_hip_pitch_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       9.0,
+       -65.0,
+       0.0
+      ],
+      [
+       9.0,
+       -80.0,
+       0.0
+      ]
+     ],
+     "frames": 18,
+     "hold": true
+    },
+    {
+     "objects": [
+      "scs_right_hip_pitch_case",
+      "scs_right_hip_pitch_case_screws",
+      "scs_right_hip_pitch_spline"
+     ],
+     "path": [
+      [
+       9.0,
+       -110.0,
+       0.001
+      ],
+      [
+       9.0,
+       -80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "scs_right_knee_case",
+      "scs_right_knee_case_screws",
+      "scs_right_knee_spline"
+     ],
+     "path": [
+      [
+       9.0,
+       -110.0,
+       0.001
+      ],
+      [
+       9.0,
+       -80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_hip_pitch_ear_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        25.1,
+        -143.5,
+        81.6
+       ],
+       "axis": [
+        -0.0,
+        -1.0,
+        0.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        -3.4,
+        -143.5,
+        81.5
+       ],
+       "axis": [
+        -0.0,
+        -1.0,
+        0.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      9.0,
+      -80.0,
+      0.0
+     ],
+     "frames": 22,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_knee_ear_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        -16.3,
+        -143.6,
+        52.8
+       ],
+       "axis": [
+        -0.0,
+        -1.0,
+        0.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        -16.3,
+        -143.5,
+        81.3
+       ],
+       "axis": [
+        -0.0,
+        -1.0,
+        0.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      9.0,
+      -80.0,
+      0.0
+     ],
+     "frames": 22,
+     "hold": true
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "RIGHT LEG 4  Knee: full horn in the shin's pocket, shin onto the spline, horn screw;\n         6702ZZ into the shin's seat; cap down, 2x M2x6 (snug last)",
+   "moves": [
+    {
+     "objects": [
+      "right_shin",
+      "scs_right_knee_horn_cross"
+     ],
+     "path": [
+      [
+       9.0,
+       -55.0,
+       -0.0
+      ],
+      [
+       9.0,
+       -80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_knee_screw_M2x4kit"
+     ],
+     "path": [
+      [
+       9.0,
+       -66.0,
+       -0.0
+      ],
+      [
+       9.0,
+       -80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_knee_brg_6702ZZ"
+     ],
+     "path": [
+      [
+       9.0,
+       -60.0,
+       -0.0
+      ],
+      [
+       9.0,
+       -80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_knee_cap"
+     ],
+     "path": [
+      [
+       9.0,
+       -60.0,
+       -0.0
+      ],
+      [
+       9.0,
+       -80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_knee_cap_screws_M2x6"
+     ],
+     "path": [
+      [
+       9.0,
+       -66.0,
+       -0.0
+      ],
+      [
+       9.0,
+       -80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "RIGHT LEG 5  M3 nylon nut into the shin's pocket first; ankle servo into the cradle, ear screws;\n         foot onto the horn, horn screw; bearing plate from the other side, M3x8 axle into the nut",
+   "moves": [
+    {
+     "objects": [
+      "right_ankle_nut_M3"
+     ],
+     "path": [
+      [
+       9.0,
+       -92.0,
+       0.0
+      ],
+      [
+       9.0,
+       -80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "scs_right_ankle_case",
+      "scs_right_ankle_case_screws",
+      "scs_right_ankle_spline"
+     ],
+     "path": [
+      [
+       9.0,
+       -110.0,
+       0.001
+      ],
+      [
+       9.0,
+       -80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_ankle_ear_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        -16.3,
+        -148.1,
+        14.1
+       ],
+       "axis": [
+        -0.0,
+        -1.0,
+        0.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        -16.3,
+        -148.1,
+        42.6
+       ],
+       "axis": [
+        -0.0,
+        -1.0,
+        0.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      9.0,
+      -80.0,
+      0.0
+     ],
+     "frames": 22,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_foot",
+      "scs_right_ankle_horn_cross"
+     ],
+     "path": [
+      [
+       9.0,
+       -100.0,
+       0.0
+      ],
+      [
+       9.0,
+       -80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_ankle_screw_M2x4kit"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        -16.3,
+        -162.4,
+        22.7
+       ],
+       "axis": [
+        -0.0,
+        -1.0,
+        0.0
+       ],
+       "len": 4.0
+      }
+     ],
+     "out_mm": 12.0,
+     "base": [
+      9.0,
+      -80.0,
+      0.0
+     ],
+     "frames": 22,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_foot_bearing_plate"
+     ],
+     "path": [
+      [
+       9.0,
+       -55.0,
+       20.0
+      ],
+      [
+       9.0,
+       -55.0,
+       -0.0
+      ]
+     ],
+     "frames": 14,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_ankle_brg_693"
+     ],
+     "path": [
+      [
+       9.0,
+       -40.0,
+       -0.0
+      ],
+      [
+       9.0,
+       -55.0,
+       -0.0
+      ]
+     ],
+     "frames": 18,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_foot_bearing_plate",
+      "right_ankle_brg_693"
+     ],
+     "path": [
+      [
+       9.0,
+       -55.0,
+       -0.0
+      ],
+      [
+       9.0,
+       -80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_foot_plate_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        -21.8,
+        -134.7,
+        7.4
+       ],
+       "axis": [
+        0.0,
+        1.0,
+        -0.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        -10.8,
+        -134.7,
+        7.4
+       ],
+       "axis": [
+        0.0,
+        1.0,
+        -0.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      9.0,
+      -80.0,
+      0.0
+     ],
+     "frames": 22,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_ankle_screw_M3x8"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        -16.3,
+        -135.2,
+        22.7
+       ],
+       "axis": [
+        0.0,
+        1.0,
+        -0.0
+       ],
+       "len": 7.99
+      }
+     ],
+     "out_mm": 15.99,
+     "base": [
+      9.0,
+      -80.0,
+      0.0
+     ],
+     "frames": 22,
+     "hold": true
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "RIGHT LEG 6  L-bracket onto the hip-pitch horn and bearing; horn screw",
+   "moves": [
+    {
+     "objects": [
+      "right_l_bracket",
+      "scs_right_hip_roll_horn_cross",
+      "scs_right_hip_pitch_horn_cross"
+     ],
+     "path": [
+      [
+       9.0,
+       -55.0,
+       -0.0
+      ],
+      [
+       9.0,
+       -80.0,
+       0.0
+      ]
+     ],
+     "frames": 30,
+     "hold": true
+    },
+    {
+     "objects": [
+      "right_hip_pitch_screw_M2x4kit"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        16.5,
+        -139.7,
+        81.6
+       ],
+       "axis": [
+        0.0,
+        1.0,
+        -0.0
+       ],
+       "len": 4.0
+      }
+     ],
+     "out_mm": 12.0,
+     "base": [
+      9.0,
+      -80.0,
+      0.0
+     ],
+     "frames": 22,
+     "hold": true
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "RIGHT LEG 7  Hang the leg on the hip: L-bracket onto the hip-roll horn; horn screw",
+   "moves": [
+    {
+     "objects": [
+      "right_l_bracket",
+      "right_thigh",
+      "right_shin",
+      "right_knee_cap",
+      "right_knee_cap_screws_M2x6",
+      "right_knee_brg_6702ZZ",
+      "right_knee_screw_M2x4kit",
+      "right_foot",
+      "right_foot_bearing_plate",
+      "right_foot_plate_screws_M2x6st",
+      "right_ankle_screw_M3x8",
+      "right_ankle_nut_M3",
+      "right_ankle_screw_M2x4kit",
+      "right_hip_pitch_screw_M2x4kit",
+      "right_hip_pitch_ear_screws_M2x6st",
+      "right_knee_ear_screws_M2x6st",
+      "right_ankle_ear_screws_M2x6st",
+      "scs_right_hip_pitch_case",
+      "scs_right_hip_pitch_case_screws",
+      "scs_right_hip_pitch_spline",
+      "scs_right_knee_case",
+      "scs_right_knee_case_screws",
+      "scs_right_knee_spline",
+      "scs_right_ankle_case",
+      "scs_right_ankle_case_screws",
+      "scs_right_ankle_spline",
+      "scs_right_hip_roll_horn_cross",
+      "scs_right_hip_pitch_horn_cross",
+      "scs_right_knee_horn_cross",
+      "scs_right_ankle_horn_cross",
+      "right_hip_pitch_brg_6702ZZ",
+      "right_ankle_brg_693"
+     ],
+     "path": [
+      [
+       9.0,
+       -80.0,
+       0.0
+      ],
+      [
+       9.0,
+       -0.0,
+       0.0
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 44
+    },
+    {
+     "objects": [
+      "right_hip_roll_screw_M2x4kit"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        28.8,
+        -116.1,
+        81.6
+       ],
+       "axis": [
+        1.0,
+        -0.0,
+        0.0
+       ],
+       "len": 4.0
+      }
+     ],
+     "out_mm": 12.0,
+     "base": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "frames": 22
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "RIGHT LEG 8  Thigh cover (optional), 2x M2x6",
+   "moves": [
+    {
+     "objects": [
+      "right_thigh_cover"
+     ],
+     "path": [
+      [
+       0.0,
+       -30.0,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ]
+     ],
+     "frames": 30
+    },
+    {
+     "objects": [
+      "right_thigh_cover_screws_M2x6st"
+     ],
+     "screw_pieces": [
+      {
+       "at": [
+        17.3,
+        -171.1,
+        71.6
+       ],
+       "axis": [
+        -0.0,
+        -1.0,
+        0.0
+       ],
+       "len": 6.0
+      },
+      {
+       "at": [
+        2.0,
+        -144.6,
+        92.1
+       ],
+       "axis": [
+        -0.0,
+        0.0,
+        1.0
+       ],
+       "len": 6.0
+      }
+     ],
+     "out_mm": 14.0,
+     "base": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "frames": 22
+    }
+   ],
+   "wires": []
+  },
+  {
+   "title": "WIRING  Servo leads, hubs and extension cables (sleeve + slack loop at the neck)",
+   "moves": [],
+   "wires": [
+    "wire_hub_G",
+    "wire_hub_G_socketA",
+    "wire_hub_G_socketB",
+    "wire_hub_G_socketC",
+    "wire_hub_LTA",
+    "wire_hub_LTA_socketA",
+    "wire_hub_LTA_socketB",
+    "wire_hub_LTA_socketC",
+    "wire_hub_LTB",
+    "wire_hub_LTB_socketA",
+    "wire_hub_LTB_socketB",
+    "wire_hub_LTB_socketC",
+    "wire_hub_LTC",
+    "wire_hub_LTC_socketA",
+    "wire_hub_LTC_socketB",
+    "wire_hub_LTC_socketC",
+    "wire_hub_LTD",
+    "wire_hub_LTD_socketA",
+    "wire_hub_LTD_socketB",
+    "wire_hub_LTD_socketC",
+    "wire_hub_RTA",
+    "wire_hub_RTA_socketA",
+    "wire_hub_RTA_socketB",
+    "wire_hub_RTA_socketC",
+    "wire_hub_RTB",
+    "wire_hub_RTB_socketA",
+    "wire_hub_RTB_socketB",
+    "wire_hub_RTB_socketC",
+    "wire_hub_RTC",
+    "wire_hub_RTC_socketA",
+    "wire_hub_RTC_socketB",
+    "wire_hub_RTC_socketC",
+    "wire_hub_RTD",
+    "wire_hub_RTD_socketA",
+    "wire_hub_RTD_socketB",
+    "wire_hub_RTD_socketC",
+    "wire_hub_N",
+    "wire_hub_N_socketA",
+    "wire_hub_N_socketB",
+    "wire_hub_N_socketC",
+    "wire_hub_C",
+    "wire_hub_C_socketA",
+    "wire_hub_C_socketB",
+    "wire_hub_C_socketC",
+    "wire_hub_Y",
+    "wire_hub_Y_socketA",
+    "wire_hub_Y_socketB",
+    "wire_hub_Y_socketC",
+    "wire_hub_M",
+    "wire_hub_M_socketA",
+    "wire_hub_M_socketB",
+    "wire_hub_M_socketC",
+    "wire_plug_lead_left_hip_yaw_b",
+    "wire_lead_left_hip_yaw",
+    "wire_plug_lead_left_hip_roll_b",
+    "wire_lead_left_hip_roll",
+    "wire_plug_lead_left_hip_pitch_b",
+    "wire_lead_left_hip_pitch",
+    "wire_plug_lead_left_knee_b",
+    "wire_lead_left_knee",
+    "wire_plug_lead_left_ankle_b",
+    "wire_lead_left_ankle",
+    "wire_plug_ext_left_thigh_C_to_D_a",
+    "wire_plug_ext_left_thigh_C_to_D_b",
+    "wire_ext_left_thigh_C_to_D",
+    "wire_plug_ext_left_thigh_D_to_A_a",
+    "wire_plug_ext_left_thigh_D_to_A_b",
+    "wire_ext_left_thigh_D_to_A",
+    "wire_plug_ext_left_thigh_A_to_B_a",
+    "wire_plug_ext_left_thigh_A_to_B_b",
+    "wire_ext_left_thigh_A_to_B",
+    "wire_plug_lead_right_hip_yaw_b",
+    "wire_lead_right_hip_yaw",
+    "wire_plug_lead_right_hip_roll_b",
+    "wire_lead_right_hip_roll",
+    "wire_plug_lead_right_hip_pitch_b",
+    "wire_lead_right_hip_pitch",
+    "wire_plug_lead_right_knee_b",
+    "wire_lead_right_knee",
+    "wire_plug_lead_right_ankle_b",
+    "wire_lead_right_ankle",
+    "wire_plug_ext_right_thigh_C_to_D_a",
+    "wire_plug_ext_right_thigh_C_to_D_b",
+    "wire_ext_right_thigh_C_to_D",
+    "wire_plug_ext_right_thigh_D_to_A_a",
+    "wire_plug_ext_right_thigh_D_to_A_b",
+    "wire_ext_right_thigh_D_to_A",
+    "wire_plug_ext_right_thigh_A_to_B_a",
+    "wire_plug_ext_right_thigh_A_to_B_b",
+    "wire_ext_right_thigh_A_to_B",
+    "wire_plug_ext_right_body_to_thigh_a",
+    "wire_plug_ext_right_body_to_thigh_b",
+    "wire_ext_right_body_to_thigh",
+    "wire_plug_ext_gap_to_neck_a",
+    "wire_plug_ext_gap_to_neck_b",
+    "wire_ext_gap_to_neck",
+    "wire_plug_lead_neck_pitch_b",
+    "wire_lead_neck_pitch",
+    "wire_plug_lead_head_pitch_b",
+    "wire_lead_head_pitch",
+    "wire_plug_lead_head_yaw_b",
+    "wire_lead_head_yaw",
+    "wire_plug_lead_head_roll_b",
+    "wire_lead_head_roll",
+    "wire_plug_lead_mouth_b",
+    "wire_lead_mouth",
+    "wire_plug_ext_neck_N_to_C_a",
+    "wire_plug_ext_neck_N_to_C_b",
+    "wire_ext_neck_N_to_C",
+    "wire_plug_ext_cradle_to_U_a",
+    "wire_plug_ext_cradle_to_U_b",
+    "wire_ext_cradle_to_U",
+    "wire_plug_ext_U_to_head_a",
+    "wire_plug_ext_U_to_head_b",
+    "wire_ext_U_to_head"
+   ]
+  }
+ ],
+ "title_size": 0.042,
+ "highlight": [
+  {
+   "contains": "_brg_",
+   "rgba": [
+    1.0,
+    0.42,
+    0.0,
+    1.0
+   ]
+  }
+ ],
+ "camera": {
+  "target_mm": [
+   13.599,
+   -100.0,
+   116.756
+  ],
+  "dist_mm": 783.7,
+  "elev_deg": 22,
+  "azim_deg": [
+   -60,
+   60
+  ],
+  "lens": 50
+ },
+ "engage_mm": {
+  "enclosure_screws_M2x6st": 8.0,
+  "switch_plate_screws_M2x10csk": 9.0,
+  "body_lid_screws_M2x6st": 5.0,
+  "uno_screws_M3x8": 6.5,
+  "uno_screw_M2x6": 4.5,
+  "imu": 3.0
+ },
+ "play": false
+}

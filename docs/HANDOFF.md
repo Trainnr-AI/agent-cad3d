@@ -236,6 +236,17 @@ Full check suite re-run on the saved .blend: every result as expected (`data/che
   a cell checker as a tool (ASSEMBLY.md section 5). Where a protection board would fit is recorded there. REVIEW.md
   "Battery protection and regulator placement".
 
+## Bay with exact parts + camera cable in the head (2026-11-19, branch bay-exact-2026-11-19)
+
+Real parts in: battery 60 x 30 x 20 + XT30 (bay raised 3 mm: `body_v2.json` pocket_top 128), Mini560 30 x 18 (maker's drawing; in a slot
+under the lid, parts up through a window), the user's rigid right-angle USB-C -> USB-A adapter (mouth down, rear-left cradle), XT30 in the
+middle of the rear face + balance plug above the bay at the rear right (unplug / charge without opening anything), switch nut captive in a
+hex recess, right-angle header plugs on the Uno Q. New: `tools/blender/parts/bay_parts.py` (connectors + anchors), the exact bay harness in
+`wiring.py`, `tools/blender/sheet_labels.py` (labelled sheet `data/bay_assembly_sheet.png`), `tools/blender/cable_path_search.py`.
+Camera cable re-routed in the head; the face got room for the plug's wires and a slot in its D-panel (the camera could not be cabled
+before). Every bay / head cable clears every part. To measure: the battery's leads (~75 mm needed), the USB adapter / plug, the Mini560's
+IN end, the switch lever. REVIEW.md "The bay with exact parts..." and "Camera cable in the head...".
+
 ## Open items / next steps
 
 1. **Staged build** (agreed): print the coupon -> adjust fits (constants in `tools/blender/parts/joint_v2.py`: SEAT_D, BOSS_D,
@@ -272,3 +283,8 @@ Full check suite re-run on the saved .blend: every result as expected (`data/che
 The duck's mesh-derived files (scaled copies of XGO-Duck / Microduck STLs in `sim/assets/`, the
 .blend) come from models published non-commercial / share-alike (see vendor/xgoduck_rl and
 vendor/xgoduck_hardware LICENSING). Keep this repo private; get permission before any commercial use.
+
+
+2026-11-21: whole-robot assembly animation + path check (458 moves OK) - see projects/xgoduck_scs0009/REVIEW.md, last section:
+switch plate, IMU on pegs, bay screws from below, camera visor + nuts, rear dome screws moved, assembly-order fixes (ASSEMBLY.md).
+Head base / dome: do not rebuild from the original meshes (data/build_args/README.md, 4b).

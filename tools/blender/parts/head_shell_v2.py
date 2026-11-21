@@ -30,9 +30,10 @@ PARTS = args.get("parts", ["base", "dome"])
 coll = bpy.data.collections.get(COLL) or bpy.data.collections.new(COLL)
 if coll.name not in bpy.context.scene.collection.children:
     bpy.context.scene.collection.children.link(coll)
-HEAD_ROOM_DUMMIES = ("cam_screws_M2x6st", "head_roll_ear_screws_M2x6st")   # M2 socket heads (2.0) the dome closes over (2026-11-13)
+HEAD_ROOM_DUMMIES = ("head_roll_ear_screws_M2x6st",)   # M2 socket heads (2.0) the dome closes over (2026-11-13; the camera screws
+#   left the list 2026-11-20: they go in from the front now, heads on the visor, outside the dome)
 PREFIX = {"base": ("head_base", "mouth_ear_screws"), "dome": ("head_dome", "dome_screws"), "jaw": ("head_jaw", "jaw_pivot_screw"),
-          "face": ("head_face", "cam_", "light_")}
+          "face": ("head_face", "head_visor", "cam_", "light_")}
 for o in list(coll.objects):
     if any(o.name.startswith(p) for k in PARTS for p in PREFIX[k]):
         bpy.data.objects.remove(o, do_unlink=True)
@@ -190,7 +191,10 @@ print(f"swing of the neck-side parts in the head: floor opening to x {OPEN_X1:.1
 OPEN_X0 = fl(Fr, (0, 0, L["CAP_T"])).x - 0.02                      # from the roll cap plate's front face (the yaw block's plate is 0.4 ahead of it)
 
 # ------------------------------------------------------------------ dome screws (4): layout x, y
-REAR_SCREWS = [(5.0, -100.03 - 22.2), (5.0, -100.03 + 22.2)]
+REAR_X = args.get("rear_screw_x", 1.5)                             # 2026-11-20: was 5.0 - the right post had the head-roll servo's right
+#   ear-screw head recessed into its side (an undercut: the dome could not come down over it, whole-robot path check); at 1.5 it
+#   is 0.7 mm clear of it and the dome drops straight on
+REAR_SCREWS = [(REAR_X, -100.03 - 22.2), (REAR_X, -100.03 + 22.2)]
 FLOOR_TOP = 193.3
 PLATE = (199.9, 202.3)                                             # upper bill plate (original)
 DOME_Z0 = 197.9
@@ -242,6 +246,9 @@ if "base" in PARTS:
             for x0, x1 in ((L["J_EAR_X"][0] + 0.05, L["J_BODY_X"][0] - 0.2), (L["J_BODY_X"][1] + 0.2, L["J_EAR_X"][1] - 0.05))]
     rest = box(new(), L["J_BODY_X"][0] - 0.6, L["J_BODY_X"][1] + 0.6, L["J_BODY_HW"] + 0.15, yb - 0.04, -9.0, 0.55, Fr)   # block under the servo
     bosses = [cyl(new(), x, y, 191.4, DOME_Z0 - 0.05, 5.6, 32, ML) for x, y in REAR_SCREWS]
+    # 2026-11-20: at x 1.5 the bosses no longer reach the roll servo's ear pads they grew from (they were dropped as loose pieces):
+    # a web from each to x 8.0, under the ear screws' heads (z >= 202.7) and the dome's posts (from DOME_Z0)
+    bosses += [box(new(), x, 8.0, y - 2.0, y + 2.0, 191.4, DOME_Z0 - 0.05, ML) for x, y in REAR_SCREWS]
     add = [plate] + pads + [rest] + bosses
     # beak servo (lying flat like the original's, shaft to the left wall): ear pads on the wall side of the ears
     ez = (L["J_EAR_Z"][1], L["J_EAR_Z"][1] + 5.6)
@@ -453,8 +460,13 @@ if "face" in PARTS:
         Z = lambda c: BZ + B["h"] / 2 - c
         zb0, zb1 = BZ - B["h"] / 2, BZ + B["h"] / 2
         SW = 1.2                                                                # band side walls
-        yo0, yo1 = Y(-B["plug"]) - 0.3 - SW, Y(B["len"]) + 0.3 + SW             # right end: room for the plug before the cable turns back
-        band = box(new(), FX - 0.7, fx1, yo0, yo1, zb0 - 0.3 - WALL, zb1 + 0.3 + WALL, ML)
+        PR = args.get("plug_room", 1.5)                                         # 2026-11-19: room past the plug's end for its 4 wires to turn back
+        #                                                                         (0.3 left them nothing; ~1.5 for 0.9 mm wires): the band grows 1.2 at the right
+        yo0, yo1 = Y(-B["plug"]) - PR - SW, Y(B["len"]) + 0.3 + SW             # right end: room for the plug before the cable turns back
+        # 2026-11-20: the band was closed on every side with the panel 2 mm behind the board - the camera could not be fitted. Now the
+        # band is open at the front and its front wall is a separate VISOR: the board goes in from the front onto 3 bosses behind it,
+        # the visor over it, 3x M2x10 countersunk from the front through visor and board into those bosses (heads flush on the face).
+        band = box(new(), FX - 0.7, fx0, yo0, yo1, zb0 - 0.3 - WALL, zb1 + 0.3 + WALL, ML)
         skin = hull(new(), [(x, y, z) for y, z in arch(79.0, 0.3) for x in (GX[1] - 0.3, FX)], ML)
         MX_ = ML @ Matrix(((0, 0, 1, 0), (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 0, 1)))  # frame z = layout x
         # bosses from the board's front face to the front wall, bored for the screw: added LAST (as ribs), because the room cut in
@@ -469,21 +481,68 @@ if "face" in PARTS:
         cuts = [box(new(), 74.0, 76.6, -104.0, -77.0, 200.0, 217.6, ML),        # beak servo body front
                 box(new(), 74.0, 81.0, -88.4, -77.0, 200.0, 217.61, ML),        # its front ear, pad and screw heads
                 hull(new(), [(x, y, z if z > C0.z + 0.01 else C0.z - 1.0) for y, z in arch(79.0, 0.3 + WALL) for x in (GX[1] + 0.02, FX - WALL)], ML),   # the face is a hollow skin, open underneath
-                box(new(), FX - WALL - 0.5, FX + 0.31, Y(-B["plug"]) - 0.3, Y(B["len"]) + 0.2, zb0 - 0.2, zb1 + 0.2, ML),   # opening behind the board: screw heads, plug and cable
-                box(new(), bx0 - 0.02, bx1 + 0.1, Y(0.0) - 0.3, Y(B["len"]) + 0.3, zb0 - 0.3, zb1 + 0.3, ML),       # the board's place
-                box(new(), bx1 + 0.05, fx0, Y(-B["plug"]) - 0.3, Y(B["len"]) + 0.3, zb0 - 0.3, zb1 + 0.3, ML),      # room in front of it (parts, socket, plug)
+                box(new(), FX - WALL - 0.5, FX + 0.31, Y(-B["plug"]) - PR, Y(B["len"]) + 0.2, zb0 - 0.2, zb1 + 0.2, ML),   # opening behind the board: screw heads, plug and cable
+                box(new(), bx0 - 0.02, bx1 + 0.1, Y(-B["plug"]) - PR, Y(B["len"]) + 0.3, zb0 - 0.3, zb1 + 0.3, ML),  # the board's place, on past its
+                #     end to the plug's (2026-11-19: a 1 mm strip there walled the plug's wire pocket off from the opening behind the board)
+                box(new(), bx1 + 0.05, fx0 + 0.5, Y(-B["plug"]) - PR, Y(B["len"]) + 0.3, zb0 - 0.3, zb1 + 0.3, ML),   # room in front of it, open at the front (the visor closes it)
                 box(new(), fx0 - 0.5, fx1 + 0.5, Y(B["cam_at"] - B["cam"] / 2 - 0.25), Y(B["cam_at"] + B["cam"] / 2 + 0.25),
                     BZ - B["cam"] / 2 - 0.25, BZ + B["cam"] / 2 + 0.25, ML),                                          # the camera through the front wall
                 box(new(), fx0 - 0.5, fx1 + 0.5, Y(B["led_at"] - B["led"][0] / 2 - 0.4), Y(B["led_at"] + B["led"][0] / 2 + 0.4),
                     BZ - B["led"][1] / 2 - 0.4, BZ + B["led"][1] / 2 + 0.4, ML)]                                    # LED window
-        cuts += [cyl(new(), Y(a), Z(c), fx0 - 0.5, fx0 + 1.8, L["PILOT_D"], 16, MX_) for a, c in B["holes"]]   # pilots on into the front wall (tip at fx0 + 1.4)
+        # 2026-11-19: pass-through for the camera's JST lead in the D-panel, right side, behind the brow band (hidden): from the head's
+        # inside into the face's hollow, then behind the board to the plug (the panel closed it off: no way in but a 1-2 mm hairline)
+        cuts.append(box(new(), GX[0] - 0.6, GX[1] + 0.6, Y(-B["plug"]) + 1.8, Y(-B["plug"]) + 8.8, BZ - 3.0, BZ + 1.0, ML))
+        # behind the board: at its right hole a boss from the panel to the board's back face (takes the screw's thread); at its two
+        # left holes the dome's thin left wall leaves no room for one (0.3 mm of skin): a block on the band's end wall, in front of the
+        # dome's edge (x 82.0 there), with 2 hex pockets for M2 nuts (dropped in from the front before the board; the board covers them)
+        LEFT_A = 40.0
+        rear = [hull(new(), [(Y(a) + 2.0 * math.cos(k * math.pi / 12), Z(c) + 2.0 * math.sin(k * math.pi / 12), z)
+                             for a, c in g for k in range(24) for z in (GX[0] + 0.5, bx0 - 0.02)], MX_) for g in groups if all(a < LEFT_A for a, c in g)]
+        lh = [(a, c) for a, c in B["holes"] if a >= LEFT_A]
+        NUT_X0 = 82.3                                                           # block's back face: 0.3 in front of the dome's edge
+        if lh:
+            _y0, _y1 = min(Y(a) for a, c in lh) - 2.6, yo1 - SW + 0.6
+            _z0, _z1 = min(Z(c) for a, c in lh) - 2.6, max(Z(c) for a, c in lh) + 2.3
+            rear.append(hull(new(), [(x, y, z) for y in (_y0, _y1) for x, z in ((NUT_X0, _z0), (NUT_X0, _z1 - 0.9), (NUT_X0 + 0.9, _z1),
+                                                                                 (bx0 - 0.1, _z1), (bx0 - 0.1, _z0))], ML))   # top back corner
+            #   chamfered 0.9: the dome's front edge curves in there (z 214); front face 0.08 behind the board's seat (coplanar faces broke it)
         face = L["build_part"]("head_face", [plate, skin, band], [L["combine_cutters"](cuts)], coll,
-                               L["material"]("head_face", (0.93, 0.93, 0.9, 1)), bosses)
-        for a, c in B["holes"]:                                                 # pilots through the bosses (after them) into the front wall
-            L["apply_bool"](face, cyl(new(), Y(a), Z(c), bx1 - 0.5, fx0 + 1.8, L["PILOT_D"], 16, MX_), "DIFFERENCE", coll)
-        for a, c in B["holes"]:                                                 # driver holes behind the screws (2026-11-13: the skin and the panel
-            L["apply_bool"](face, cyl(new(), Y(a), Z(c), GX[0] - 1.0, bx0 - 1.6, 4.6, 24, MX_), "DIFFERENCE", coll)   # were 0.3-5 mm behind the heads)
+                               L["material"]("head_face", (0.93, 0.93, 0.9, 1)), rear)
+        CSK_TOP = fx1 - 0.05                                                    # screw heads flush with the visor's front
+        TIP = CSK_TOP + 0.05 - L["CSK_L"]                                       # right: 2.9 into its boss; left: 1.0 past the nut's block
+        for a, c in B["holes"]:
+            if a < LEFT_A:                                                      # pilot into the rear boss (0.45 past the tip)
+                L["apply_bool"](face, cyl(new(), Y(a), Z(c), TIP - 0.45, bx0 + 0.5, L["PILOT_D"], 16, MX_), "DIFFERENCE", coll)
+            else:                                                               # nut pocket (AF 4.2, 1.85 deep) + clearance on through the block
+                L["apply_bool"](face, cyl(new(), Y(a), Z(c), bx0 - 1.85, bx0 + 0.5, 4.2 / math.cos(math.pi / 6), 6, MX_), "DIFFERENCE", coll)
+                L["apply_bool"](face, cyl(new(), Y(a), Z(c), NUT_X0 - 0.5, bx0, L["CLEAR_D"], 16, MX_), "DIFFERENCE", coll)
+        _w = bmesh.new()                                                        # where a rear boss crosses the panel's edge the boolean left
+        _w.from_mesh(face.data)                                                 # two < 0.9 mm triangle holes and 0.007 mm edges: weld, fill
+        bmesh.ops.remove_doubles(_w, verts=_w.verts, dist=2e-5)
+        bmesh.ops.holes_fill(_w, edges=[e for e in _w.edges if e.is_boundary], sides=4)
+        _w.to_mesh(face.data)
+        _w.free()
         face = finish("head_face", face)
+        # the visor: the band's front wall (lens and LED windows) + the bosses from it back to the board's front face
+        vis_cut = [box(new(), fx0 - 0.5, fx1 + 0.5, Y(B["cam_at"] - B["cam"] / 2 - 0.25), Y(B["cam_at"] + B["cam"] / 2 + 0.25),
+                       BZ - B["cam"] / 2 - 0.25, BZ + B["cam"] / 2 + 0.25, ML),
+                   box(new(), fx0 - 0.5, fx1 + 0.5, Y(B["led_at"] - B["led"][0] / 2 - 0.4), Y(B["led_at"] + B["led"][0] / 2 + 0.4),
+                       BZ - B["led"][1] / 2 - 0.4, BZ + B["led"][1] / 2 + 0.4, ML)]
+        PAD = 1.0                                                               # raised 1 mm round the left pair: their heads sit 1 mm further
+        pad = [hull(new(), [(Y(a) + 2.7 * math.cos(k * math.pi / 12), Z(c) + 2.7 * math.sin(k * math.pi / 12), z)   # forward, the tips stop
+                            for a, c in lh for k in range(24) for z in (fx1 - 0.3, fx1 + PAD)], MX_)] if lh else []   # in front of the dome's edge
+        visor = L["build_part"]("head_visor", [box(new(), fx0, fx1, yo0, yo1, zb0 - 0.3 - WALL, zb1 + 0.3 + WALL, ML)] + pad, [L["combine_cutters"](vis_cut)],
+                                coll, L["material"]("head_face", (0.93, 0.93, 0.9, 1)), bosses)
+        SINK = {True: -PAD, False: 0.0}                                         # left pair: heads flush on the pad (1 mm forward: their tips stop
+        for a, c in B["holes"]:                                                 # 0.45 short of the dome's edge, past the nuts); 90 deg countersink
+            top = CSK_TOP - SINK[a >= LEFT_A]
+            L["apply_bool"](visor, cyl(new(), Y(a), Z(c), bx1 - 0.5, fx1 + PAD + 0.5, L["CLEAR_D"], 16, MX_), "DIFFERENCE", coll)
+            L["apply_bool"](visor, L["_csk_cone"](MX_, Y(a), Z(c), top - (L["CSK_HEAD_D"] + 0.1 - 2.2) / 2, 2.2, top + 0.3,
+                                                  L["CSK_HEAD_D"] + 0.1 + 0.6), "DIFFERENCE", coll)
+        visor = finish("head_visor", visor)
+        mw = visor.matrix_world.copy()
+        visor.parent = head
+        visor.matrix_world = mw
         dark = L["material"]("cam_board", (0.05, 0.25, 0.12, 1))
         cb = box(new(), bx0, bx1, Y(0.0), Y(B["len"]), zb0, zb1, ML)
         box(cb, bx1 - 0.02, bx1 + B["cam_h"], Y(B["cam_at"] - B["cam"] / 2), Y(B["cam_at"] + B["cam"] / 2), BZ - B["cam"] / 2, BZ + B["cam"] / 2, ML)
@@ -496,12 +555,24 @@ if "face" in PARTS:
         cam.matrix_world = mw
         cam["socket_xyz"] = [bx1 + B["hdr"][4] / 2, Y(-B["plug"]), BZ]
         cam["lens_xyz"] = [bx1 + B["cam_h"], Y(B["cam_at"]), BZ]
-        scr = L["pan_screw_dummy"]("cam_screws_M2x6st", [(MX_, Y(a), Z(c), bx0, +1) for a, c in B["holes"]], coll)
+        _cs = new()                                                             # 3x M2x10 countersunk from the front (object name kept: other tools use it)
+        hh = (L["CSK_HEAD_D"] - 2.0) / 2
+        for a, c in B["holes"]:
+            top = CSK_TOP - SINK[a >= LEFT_A]
+            L["_csk_cone"](MX_, Y(a), Z(c), top - hh, 2.0 - 0.06, top - 0.02, L["CSK_HEAD_D"] - 0.06, bm=_cs)
+            cyl(_cs, Y(a), Z(c), top + 0.05 - L["CSK_L"], top - hh + 0.06, 2.0, 16, MX_)
+        scr = L["to_object"]("cam_screws_M2x6st", _cs, coll, L["material"]("hw_steel", (0.6, 0.62, 0.66, 1)))
+        if lh:                                                                  # the 2 M2 nuts (AF 4.0 x 1.6) in their pockets
+            _nb = new()
+            for a, c in lh:
+                cyl(_nb, Y(a), Z(c), bx0 - 1.75, bx0 - 0.15, 4.0 / math.cos(math.pi / 6), 6, MX_)
+            nuts = L["to_object"]("cam_nuts_M2", _nb, coll, L["material"]("hw_steel", (0.6, 0.62, 0.66, 1)))
+            mw = nuts.matrix_world.copy()
+            nuts.parent = head
+            nuts.matrix_world = mw
         mw = scr.matrix_world.copy()
         scr.parent = head
         scr.matrix_world = mw
-        if bpy.data.objects.get("head_dome"):
-            L["head_room_cut"](bpy.data.objects["head_dome"], [scr], coll)                                   # the upper screw's head is 1.75 under the dome
         for n_ in ("cam_ov5640_usb", "light_led_5mm"):
             if n_ in bpy.data.objects:
                 bpy.data.objects.remove(bpy.data.objects[n_], do_unlink=True)

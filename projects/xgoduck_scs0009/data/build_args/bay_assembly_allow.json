@@ -1,0 +1,135 @@
+{
+ "enclosure_screws_M2x6st": [
+  "body_frame",
+  "electronics_enclosure"
+ ],
+ "switch_plate_screws_M2x10csk": [
+  "switch_plate",
+  "electronics_enclosure"
+ ],
+ "body_lid_screws_M2x6st": [
+  "electronics_enclosure",
+  "body_lid"
+ ],
+ "uno_screws_M3x8": [
+  "body_lid",
+  "unoq_pcb"
+ ],
+ "uno_screw_M2x6": [
+  "body_lid",
+  "unoq_pcb"
+ ],
+ "bay_uno_power_plug": [
+  "unoq_headers",
+  "unoq_pins"
+ ],
+ "bay_uno_uart_plug": [
+  "unoq_headers",
+  "unoq_pins"
+ ],
+ "bay_usb_adapter_L": [
+  "unoq_usbc"
+ ],
+ "bay_usb_a_plug": [
+  "bay_usb_adapter_L"
+ ],
+ "bay_imu_qwiic": [
+  "imu"
+ ],
+ "imu": [
+  "electronics_enclosure"
+ ],
+ "scs_mouth_horn_cross": [
+  "head_jaw"
+ ],
+ "left_knee_screw_M2x4kit": [
+  "scs_left_knee_spline",
+  "scs_left_knee_horn_cross",
+  "left_shin"
+ ],
+ "left_knee_cap_screws_M2x6": [
+  "left_thigh",
+  "left_knee_cap"
+ ],
+ "left_knee_brg_6702ZZ": [
+  "left_shin"
+ ],
+ "left_shin": [
+  "scs_left_knee_horn_cross",
+  "scs_left_knee_spline"
+ ],
+ "left_foot": [
+  "scs_left_ankle_horn_cross",
+  "scs_left_ankle_spline"
+ ],
+ "right_knee_screw_M2x4kit": [
+  "scs_right_knee_spline",
+  "scs_right_knee_horn_cross",
+  "right_shin"
+ ],
+ "right_knee_cap_screws_M2x6": [
+  "right_thigh",
+  "right_knee_cap"
+ ],
+ "right_knee_brg_6702ZZ": [
+  "right_shin"
+ ],
+ "right_shin": [
+  "scs_right_knee_horn_cross",
+  "scs_right_knee_spline"
+ ],
+ "right_foot": [
+  "scs_right_ankle_horn_cross",
+  "scs_right_ankle_spline"
+ ],
+ "cam_ov5640_b": [
+  "head_face"
+ ],
+ "head_visor": [
+  "head_face",
+  "cam_ov5640_b"
+ ],
+ "cam_nuts_M2": [
+  "head_face"
+ ],
+ "head_dome": [
+  "head_base",
+  "head_face"
+ ],
+ "left_hip_yaw_brg_6702ZZ": [
+  "body_frame"
+ ],
+ "right_hip_yaw_brg_6702ZZ": [
+  "body_frame"
+ ],
+ "left_hip_roll_brg_6702ZZ": [
+  "left_yaw_connector"
+ ],
+ "right_hip_roll_brg_6702ZZ": [
+  "right_yaw_connector"
+ ],
+ "left_hip_pitch_brg_6702ZZ": [
+  "left_thigh"
+ ],
+ "right_hip_pitch_brg_6702ZZ": [
+  "right_thigh"
+ ],
+ "head_roll_brg_6702ZZ": [
+  "head_base"
+ ],
+ "head_yaw_brg_6702ZZ": [
+  "yaw_block"
+ ],
+ "left_ankle_brg_693": [
+  "left_foot_bearing_plate"
+ ],
+ "right_ankle_brg_693": [
+  "right_foot_bearing_plate"
+ ],
+ "neck_brg_693": [
+  "body_neck_bearing_plate"
+ ],
+ "head_pitch_brg_693": [
+  "head_pitch_bearing_plate"
+ ]
+}

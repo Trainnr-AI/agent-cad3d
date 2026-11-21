@@ -190,7 +190,8 @@ for s in screws:
             flags.append(f"wall {wall:.2f}")
         if cap is not None and cap < 0.6:
             flags.append(f"pilot end {cap:.2f} from the outside")
-        rows.append(dict(screw=s.name, kind=kind, length=round(L, 2), at=[round(x / MM, 1) for x in tip], bite=bite_mm, clamp=clamp_mm,
+        rows.append(dict(screw=s.name, kind=kind, length=round(L, 2), at=[round(x / MM, 1) for x in tip], axis=[round(c, 4) for c in ax],
+                         head=[round(x / MM, 2) for x in (tip + ax * (L + 2.0) * MM)], bite=bite_mm, clamp=clamp_mm,
                          seat=seat_ok, tip_free=tip_free, wall=round(wall, 2) if wall is not None else None,
                          cap=round(cap, 2) if cap is not None else None, flags=flags))
 bad = [r for r in rows if r["flags"]]

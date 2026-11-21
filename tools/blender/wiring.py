@@ -358,26 +358,61 @@ rear = wp("electronics_enclosure", -47.0, -96.0, 119.0)                    # the
 _ub = bpy.data.objects["uno_q"]
 UZ = min((trunk_M.inverted() @ (_ub.matrix_world @ Vector(c))).z for c in _ub.bound_box) / MM + 118.8 + 2.7 - 131.6     # how much higher than 131.6 the board's underside is (audio tray)
 UQ = lambda bx, by, z=141.7: wp("uno_q", bx - 52.8, by - 126.67, z + UZ)       # owner = the board's (hidden) box, which the exploded views copy
-if VERT:
-    # upright battery: its leads leave at the top; regulator + switch under the lid's rear part; adapter's power + UART soldered on its back;
-    # balance sensor on the pocket's rear wall. Wires to the Uno Q go up through the lid's rear notch.
-    btop = top_of("battery_3s")
-    cable("power_battery_to_regulator", [btop, wp("battery_3s", -21.0, -100.0, zbt + 4.0), top_of("ubec")], 2.4, 2.4, m_pwr)
-    cable("power_regulator_to_adapter_6V", [top_of("ubec"), wp("ubec", -45.5, -87.0, 119.0), wp("servo_adapter", -49.5, -84.5, 104.0),
-                                           wp("servo_adapter", -49.5, -84.5, 92.0), ad_term], 2.4, 2.4, m_pwr)
-    cable("power_battery_to_uno_VIN", [btop, wp("battery_3s", -24.0, -110.0, zbt + 4.0), wp("body_lid", -46.0, -110.5, 123.0),
-                                      wp("body_lid", -48.0, -110.5, 127.5), wp("body_lid", -30.0, -128.6, 128.0),
-                                      UQ(44.4, -2.0, 139.5), UQ(44.4, 2.54, 144.6), UQ(44.4, 2.54)], 2.6, 1.3, m_pwr)
-    cable("signal_uno_UART_to_adapter", [UQ(62.2, 50.8), UQ(62.2, 50.8, 144.6), UQ(62.2, 55.3, 139.5), wp("body_lid", -40.0, -73.0, 128.0),
-                                        wp("body_lid", -49.0, -90.0, 127.5), wp("servo_adapter", -50.0, -93.0, 120.0),
-                                        wp("servo_adapter", -50.0, -100.0, 100.0), ad_uart], 2.5, 1.0, m_sig)
-    _it = top_of("imu")
-    cable("signal_imu_qwiic_to_uno", [_it, wp("imu", -47.0, -106.0, 124.0), wp("body_lid", -47.0, -110.5, 127.5),
-                                     wp("body_lid", -40.0, -129.5, 130.0), UQ(21.5, -3.5, 134.7), UQ(21.5, 0.6, 134.7)], 2.0, 1.0, m_sig)
-    if "tof_sensor" in bpy.data.objects:
-        cable("signal_tof_qwiic_to_imu", [_it, wp("imu", -40.0, -96.0, 123.0), wp("battery_3s", -20.0, -96.0, zbt + 3.0),
-                                         wp("electronics_enclosure", -6.0, -96.0, 121.5)] + DOWNSLOT(-95.8) +
-              [wp("body_frame", 40.0, -90.0, 92.5), wp("tof_sensor", 47.5, -90.0, 93.5), wp("tof_sensor", 48.0, -90.0, 96.0)], 2.0, 1.0, m_sig, 200)
+if VERT and "bay_xt30_pair" in bpy.data.objects:
+    # 2026-11-19: the exact bay harness (layout mm), through the connectors parts/bay_parts.py places ("anchors"). XT30 + balance plug in the
+    # rear-right cradle outside; battery leads / balance lead / pigtail through the open rear-right window; 5 V to the adapter over the IMU and
+    # down the 3 mm gap behind it; UART up behind the IMU, through the lid notch, under the Uno Q to the left notch; Uno Q power, UART ground
+    # and Qwiic out of the right window and forward under the lid's edge, outside the bay's right wall, up to the board's right-side notches.
+    # Sizes (width x thickness, mm): 14 AWG pair 5.0 round, 14 AWG single 3.1, 20 AWG pair 2.2, 22 AWG trio 3.2 x 1.6, jumper pair 2.6 x 1.3,
+    # balance 5.6 x 1.4, Qwiic 2.6 round.
+    A_ = lambda o, k: bpy.data.objects[o]["anchors"][k]
+    AN = lambda o, k: wp(o, *A_(o, k))
+    _bat = bpy.data.objects["battery_3s"]
+    _bl = [(trunk_M.inverted() @ (_bat.matrix_world @ Vector(c))) / MM + Vector((0, -100.0, 118.8)) for c in _bat.bound_box]
+    bxc = (min(p.x for p in _bl) + max(p.x for p in _bl)) / 2
+    # battery leads + balance lead: up, back over the battery's rear edge (under the regulator, under the lid screws' tips), out of the rear-right
+    # window (the side wall stops at z 113 behind x -36), wide round the bay's corner, into the cradle
+    corner = lambda dz: [wp("electronics_enclosure", -38.3, -116.5, 120.6 + dz), wp("electronics_enclosure", -41.0, -123.4, 120.6 + dz), wp("electronics_enclosure", -47.0, -124.6, 120.0 + dz),
+                         wp("electronics_enclosure", -52.6, -126.2, 119.5 + dz), wp("bay_xt30_pair", -56.2, -125.4, 119.0 + dz)]
+    cable("power_battery_leads", [wp("battery_3s", bxc, -108.0, zbt + 0.5), wp("battery_3s", bxc, -108.0, zbt + 2.4), wp("battery_3s", -26.0, -112.0, zbt + 2.4),
+                                  wp("electronics_enclosure", -34.5, -112.8, zbt + 2.0)] + corner(0.0) +
+          [wp("bay_xt30_pair", -56.2, -121.0, 120.0), wp("bay_xt30_pair", -56.4, -110.0, 119.6), wp("bay_xt30_pair", -56.2, -104.5, 118.8), AN("bay_xt30_pair", "bat_pos")], 6.2, 3.1, m_pwr, 60)
+    cable("power_balance_lead", [wp("battery_3s", bxc, -93.0, zbt + 0.5), wp("battery_3s", bxc, -93.0, zbt + 1.6), wp("battery_3s", -24.0, -106.0, zbt + 1.6),
+                                 wp("electronics_enclosure", -34.0, -109.5, zbt + 1.6), wp("electronics_enclosure", -37.0, -112.5, zbt + 2.5)] + corner(4.2)[1:] +
+          [wp("bay_balance_plug", -56.5, -125.4, 124.6), wp("bay_balance_plug", -57.9, -121.6, 125.4), wp("bay_balance_plug", -57.9, -118.1, 126.2), AN("bay_balance_plug", "wires")], 5.6, 1.4, m_sig, 120)
+    # robot pigtail (14 AWG, ours): out of the XT30's bottom, up behind it inside the cradle, back in through the window: red to the switch's
+    # middle lug, black to the Mini560's IN- pad
+    for col, k_out, y_ in (("red", "out_pos", -102.5), ("black", "out_neg", -107.5)):
+        tail = ([wp("electronics_enclosure", -46.0, -123.4, 117.6), wp("electronics_enclosure", -40.0, -121.6, 116.6), wp("electronics_enclosure", -38.6, -118.0, 113.0), wp("bay_switch_joints", -38.5, -112.0, 110.0),
+                 wp("bay_switch_joints", -37.5, -107.0, 109.0), AN("bay_switch_joints", "lug_com")] if col == "red" else
+                [wp("electronics_enclosure", -46.0, -123.3, 121.0), wp("electronics_enclosure", -38.5, -114.0, 121.5), wp("ubec", -30.0, -113.5, 121.0), wp("ubec", -25.2, -113.2, 122.4), AN("bay_mini560_joints", "in_neg")])
+        yr_ = y_ - (1.8 if col == "red" else -0.3)                         # risers 1.8 / 0.3 apart from the XT30 contacts: clear of the camera cradle rib
+        cable(f"power_pigtail_{col}", [AN("bay_xt30_pair", k_out), wp("bay_xt30_pair", -56.2, y_, 87.5), wp("bay_xt30_pair", -57.6, yr_, 86.0), wp("bay_xt30_pair", -60.2, yr_, 86.6),
+                                      wp("bay_xt30_pair", -61.2, yr_, 90.0), wp("bay_xt30_pair", -61.2, yr_, 117.6),
+                                      wp("bay_xt30_pair", -61.0, -112.0, 119.0 + (1.5 if col == "black" else 0.0)),
+                                      wp("bay_xt30_pair", -58.0, -126.2, 119.6 + (1.5 if col == "black" else 0.0))] + tail, 3.1, 3.1, m_pwr, 150)
+    cable("power_switch_to_regulator", [AN("bay_switch_joints", "lug_b"), wp("bay_switch_joints", -35.0, -108.0, 117.0), wp("ubec", -36.6, -113.0, 123.0),
+                                        AN("bay_mini560_joints", "in_pos")], 1.9, 1.9, m_pwr, 60)
+    cable("power_regulator_to_adapter_5V", [AN("bay_mini560_joints", "out_pos"), wp("ubec", -36.6, -84.6, 123.0), wp("imu", -44.0, -84.8, 122.8), wp("imu", -49.3, -84.6, 121.2),
+                                            wp("imu", -49.4, -84.5, 112.0), wp("imu", -49.4, -84.4, 104.0), wp("servo_adapter", -49.2, -87.8, 99.0), wp("servo_adapter", -48.5, -87.5, 88.0),
+                                            ad_term], 2.2, 2.2, m_pwr, 90)
+    cable("signal_uart", [ad_uart, wp("servo_adapter", -49.4, -101.0, 96.0), wp("imu", -49.6, -100.0, 108.0), wp("imu", -49.9, -94.0, 116.0), wp("imu", -49.6, -85.6, 119.0),
+                          wp("electronics_enclosure", -47.0, -76.6, 121.0), wp("electronics_enclosure", -40.0, -75.6, 125.0), wp("electronics_enclosure", -10.0, -75.6, 125.5),
+                          wp("electronics_enclosure", 7.0, -75.4, 125.8), wp("electronics_enclosure", 8.6, -70.2, 127.2), wp("body_lid", 9.4, -69.6, 130.5), wp("bay_uno_uart_plug", 9.4, -69.0, 136.0),
+                          wp("bay_uno_uart_plug", 9.4, -68.0, 141.5), AN("bay_uno_uart_plug", "wires")], 2.6, 1.3, m_sig, 220)
+    flank = lambda dy, dz: [wp("electronics_enclosure", -46.0, -124.0 + dy, 120.5 + dz), wp("electronics_enclosure", -38.8, -124.2 + dy, 121.8 + dz),
+                            wp("electronics_enclosure", -30.0, -124.4 + dy, 124.8 + dz), wp("electronics_enclosure", -20.0, -124.4 + dy, 125.5 + dz)]
+    to_power_plug = [wp("body_lid", -12.0, -124.8, 125.8), wp("body_lid", -10.5, -130.4, 128.6), wp("bay_uno_power_plug", -9.9, -133.8, 136.0),
+                     wp("bay_uno_power_plug", -9.9, -133.8, 142.0), AN("bay_uno_power_plug", "wires")]
+    cable("power_uno_VIN_GND", [AN("bay_switch_joints", "lug_b"), wp("bay_switch_joints", -38.0, -110.0, 116.0), wp("electronics_enclosure", -39.0, -117.5, 119.0),
+                                wp("electronics_enclosure", -40.5, -123.0, 120.0)] + flank(0, 0)[1:] + to_power_plug,
+          3.2, 1.6, m_pwr, 220)
+    cable("signal_uart_gnd", [ad_uart, wp("servo_adapter", -49.6, -104.0, 97.0), wp("imu", -49.6, -104.0, 113.5), wp("imu", -49.6, -116.0, 114.5),
+                              wp("electronics_enclosure", -48.0, -121.6, 118.5)] + flank(-1.0, -0.6) + to_power_plug,
+          1.3, 1.3, m_sig, 220)
+    cable("signal_imu_qwiic_to_uno", [AN("bay_imu_qwiic", "cable"), wp("bay_imu_qwiic", -44.0, -121.3, 118.5), wp("electronics_enclosure", -44.0, -124.3, 122.0),
+                                     wp("electronics_enclosure", -33.0, -124.4, 125.8), wp("body_lid", -31.3, -131.0, 127.5), wp("body_lid", -31.3, -131.5, 134.0),
+                                     UQ(21.5, -3.5, 134.7), UQ(21.5, 0.6, 134.7)], 2.6, 2.6, m_sig, 100)
 else:
     cable("power_battery_to_regulator", [top_of("battery_3s")] + riser(-93.6)[::-1] + [wp("electronics_enclosure", -14.0, -89.0, 90.0), top_of("ubec")], 2.4, 2.4, m_pwr)
     cable("power_regulator_to_adapter_6V", [top_of("ubec"), wp("electronics_enclosure", -30.0, -88.0, 88.0), wp("electronics_enclosure", -30.0, -96.0, 78.0), ad_term], 2.4, 2.4, m_pwr)
@@ -412,8 +447,32 @@ if "head_face" in bpy.data.objects:
         cable("usb_camera_to_hub", [top_of("usb_hub"), wp("electronics_enclosure", -11.5, -87.5, 123.0), wp("electronics_enclosure", -8.0, -93.5, 122.0), wp("body_frame", -2.5, -95.0, 118.5),
                                    wp("body_frame", 14.0, -106.0, 124.0)] + neck_way + cam_end, 3.2, 3.2, usb_mat, 400)
     else:
-        cable("usb_camera_to_uno", [wp("uno_q", -62.0, -88.9, 134.7), wp("uno_q", -62.0, -104.0, 134.7), wp("body_lid", -56.0, -123.0, 128.0), wp("body_lid", -20.0, -129.5, 126.5),
-                                   wp("body_frame", 8.0, -128.5, 126.5)] + neck_way + cam_end, 3.2, 3.2, usb_mat, 400)
+        if "bay_usb_a_plug" in bpy.data.objects:                        # 2026-11-19: rigid right-angle adapter, plug downward in the rear cradle
+            _uc = bpy.data.objects["bay_usb_a_plug"]["anchors"]["cable"]
+            usb_start = [wp("bay_usb_a_plug", *_uc), wp("bay_usb_a_plug", _uc[0], _uc[1], _uc[2] - 4.5), wp("bay_usb_a_plug", _uc[0] - 4.0, _uc[1] - 1.5, _uc[2] - 7.5),
+                         wp("bay_usb_a_plug", -67.5, -95.0, 96.0), wp("bay_usb_a_plug", -67.5, -101.0, 110.0), wp("bay_usb_a_plug", -67.5, -112.0, 124.0),
+                         wp("electronics_enclosure", -60.0, -126.5, 124.0), wp("electronics_enclosure", -50.0, -126.4, 123.5), wp("electronics_enclosure", -38.8, -126.2, 122.0),
+                         wp("electronics_enclosure", -20.0, -125.8, 125.6), wp("body_frame", -2.0, -128.8, 126.3), wp("body_frame", 8.0, -131.0, 129.0), wp("body_frame", 17.8, -129.5, 129.0)]
+        else:
+            usb_start = [wp("uno_q", -62.0, -88.9, 134.7), wp("uno_q", -62.0, -104.0, 134.7), wp("body_lid", -56.0, -123.0, 128.0), wp("body_lid", -20.0, -129.5, 126.5),
+                         wp("body_frame", 8.0, -128.5, 126.5)]
+        if "cam_ov5640_b" in bpy.data.objects:
+            # 2026-11-19: in the head by a path search (clearance >= 1.7 mm to every part at rest, the jaw closed AND fully open): from
+            # the U out beside the floor opening on the right, up the head's right side, over the jaw to a join point; there the camera
+            # cable's 4-wire JST lead (~3.6 x 0.9) takes over: behind the board's end and into the plug, its wires turning back in the
+            # 1.5 mm left past the plug (head_shell_v2.py plug_room). Each waypoint rides on its part (U / yaw block / head).
+            head_way = [wp("head_pitch_u", 21.0, -111.0, 180.0), wp("head_pitch_u", 21.0, -111.5, 188.5), wp("head_pitch_u", 21.0, -113.0, 189.5), wp("yaw_block", 21.0, -131.0, 189.8),
+                        wp("yaw_block", 24.5, -131.2, 191.5), wp("head_base", 25.5, -129.5, 198.5), wp("head_base", 30.5, -124.5, 207.5),
+                        wp("head_base", 44.5, -124.5, 209.5), wp("head_dome", 52.5, -124.5, 217.5), wp("head_dome", 64.5, -124.5, 217.5),
+                        wp("head_base", 72.5, -123.5, 212.5)]
+            cable("usb_camera_to_uno", usb_start + neck_way[:3] + head_way, 3.2, 3.2, usb_mat, 400)
+            _px, _py, _pz = bpy.data.objects["cam_ov5640_b"]["socket_xyz"]
+            cable("usb_camera_lead", [wp("head_base", 72.5, -123.5, 212.5), wp("head_base", 73.8, -125.6, 209.6), wp("head_face", 76.6, -126.4, 209.0),
+                                      wp("head_face", 80.0, -126.4, 209.2), wp("head_face", 82.4, -126.8, 209.6), wp("head_face", 83.45, -128.8, 209.9),
+                                      wp("head_face", 83.45, -132.4, 210.2), wp("cam_ov5640_b", 84.8, -133.5, 210.4), wp("cam_ov5640_b", 86.9, -133.55, 210.5),
+                                      wp("cam_ov5640_b", _px, _py, _pz + 0.5)], 3.6, 0.9, usb_mat, 60)
+        else:
+            cable("usb_camera_to_uno", usb_start + neck_way + cam_end, 3.2, 3.2, usb_mat, 400)
     if "light_led_5mm" in bpy.data.objects:                             # separate light (with the (A)/(C) camera); the (B) strip has its own LED
       cable("signal_light_to_uno", [UQ(39.1, 50.8), UQ(39.1, 50.8, 144.6), UQ(39.1, 55.3, 139.5), wp("uno_q", 5.0, -72.0, 131.0 + UZ / 2), wp("body_frame", 18.0, -92.0, 127.0)] + neck_way +
             [wp("head_dome", 66.0, -112.0, 228.0), wp("head_face", 80.0, -86.0, 226.0)], 2.0, 1.0, m_sig, 400)                                                              # ~D9 (PWM) + GND
@@ -494,6 +553,12 @@ for name, pts, width, thick, mat, limit in specs:
     if PARTIAL and len(full) < 2:
         continue
     ob, length = K["ribbon"]("wire_" + name, [W(o, p) for o, p in full], width * SC, thick * SC, coll, mat)
+    if name in ("usb_camera_lead",):                                       # flat lead: keep its width vertical (wires side by side as they
+        ob.data.twist_mode = "Z_UP"                                        # leave the plug, 1.0 pitch), not turned by the bends
+    if name in ("power_battery_leads",):                                   # the two 14 AWG leads side by side, flat: width horizontal (they
+        ob.data.twist_mode = "Z_UP"                                        # pass 5.45 mm under the regulator's ledges)
+        for bp in ob.data.splines[0].bezier_points:
+            bp.tilt = 1.5707963
     if EX is None:
         report.append((name, length, limit))
         routes.append((name, [(o, Vector(p)) for o, p in full], limit))

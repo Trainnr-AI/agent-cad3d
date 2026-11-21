@@ -25,12 +25,17 @@ run driver $T/checks/driver_access.py $A/driver.json &
 run motion $T/leg_motion_check.py $A/motion.json &
 run cable_reach $T/wiring.py $A/cable_reach.json &
 run cable_pinch $T/cable_pinch_check.py $A/cable_pinch.json &
+( python3 $T/anim_to_paths.py projects/xgoduck_scs0009/data/build_args/bay_assembly_anim.json "$OUT/bay_paths.json" \
+    --allow projects/xgoduck_scs0009/data/build_args/bay_assembly_allow.json > /dev/null
+  python3 -c "import json,sys; p=sys.argv[1]; d=json.load(open(p)); d['fast']=True; json.dump(d, open(p, 'w'))" "$OUT/bay_paths.json"
+  run bay_paths $T/assembly_path_check.py "$OUT/bay_paths.json" ) &        # the bay's build order = bay_assembly_anim.json (the animation)
 wait
 echo "=== summary ($OUT)"
 grep -h "joints differing\|printed parts checked" "$OUT"/rest_pose.log "$OUT"/printed_parts.log
 grep -h "fits checked\|FAIL" "$OUT/fit.log"
 echo "assembly paths: $(grep -c '^OK' "$OUT/asm.log") OK; not OK:"; grep "^BLOCKED\|^FAIL" "$OUT/asm.log" | cut -c1-160
 grep -h "^OK\|^BLOCKED" "$OUT/segment_paths.log"
+echo "bay assembly moves: $(grep -c '^OK' "$OUT/bay_paths.log") OK; not OK:"; grep "^BLOCKED" "$OUT/bay_paths.log" | cut -c1-160
 grep -h "screw audit" "$OUT/screws.log"
 grep -h "poses checked" "$OUT/motion.log"
 grep -h "too short" "$OUT/cable_reach.log"

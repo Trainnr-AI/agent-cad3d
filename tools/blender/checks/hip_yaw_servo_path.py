@@ -8,14 +8,22 @@ def wt(o):
     bm=bmesh.new(); bm.from_mesh(o.data); bm.transform(o.matrix_world); t=BVHTree.FromBMesh(bm); bm.free(); return t
 obst=[o for o in bpy.data.objects if o.type=='MESH' and o.visible_get() and ".x" not in o.name and not o.name.startswith(("chip_","scs_left_hip_yaw","wire_","wm_","left_hip_yaw_","body_lid","uno","imu","electronics","battery","servo_adapter","ubec","power_switch","enclosure","cable_stub","head","cam","neck","scs_neck","scs_head","yaw_block","jaw","dome","mouth","scs_mouth","left_","right_","scs_right","scs_left_hip_roll","scs_left_hip_pitch","scs_left_knee","scs_left_ankle")) and not any("explode" in c.name for c in o.users_collection)]
 case=bpy.data.objects["scs_left_hip_yaw_case"]
+# 2026-11-20: the whole servo moves - case + output spline + case screws (the case alone missed the spline: it hits the body at
+# lift 8.5, where the case passes). Their vertices are taken in the case's frame, so hits(M) moves them together.
+SV=[bpy.data.objects[n] for n in ("scs_left_hip_yaw_case","scs_left_hip_yaw_spline","scs_left_hip_yaw_case_screws") if n in bpy.data.objects]
+CV,CP=[],[]
+for o_ in SV:
+    k_=len(CV); Mrel=case.matrix_world.inverted()@o_.matrix_world
+    CV+=[Mrel@v.co for v in o_.data.vertices]; CP+=[[k_+i for i in p.vertices] for p in o_.data.polygons]
 cb=[case.matrix_world@Vector(c) for c in case.bound_box]
 lo=Vector([min(v[i] for v in cb) for i in range(3)])-Vector((0.06,0.06,0.03)); hi=Vector([max(v[i] for v in cb) for i in range(3)])+Vector((0.06,0.06,0.03))
+hi.z+=0.015; lo.z-=0.015                                   # the spline sticks out past the case
 near=[]
 for o in obst:
     ob=[o.matrix_world@Vector(c) for c in o.bound_box]
     if all(min(v[i] for v in ob)<hi[i] and max(v[i] for v in ob)>lo[i] for i in range(3)): near.append((o.name,wt(o)))
 def hits(M):
-    vs=[M@v.co for v in case.data.vertices]; tc=BVHTree.FromPolygons(vs,[p.vertices[:] for p in case.data.polygons])
+    vs=[M@v for v in CV]; tc=BVHTree.FromPolygons(vs,CP)
     r=[]
     for n,t in near:
         pr=tc.overlap(t)
@@ -33,7 +41,7 @@ def hits(M):
             if c%2==1: dep=max(dep,dist*1000)
         if dep>0.05: r.append(f"{n} ({dep:.2f} mm deep)")
     return r
-for h in (5.5,6.0,6.5,7.0,7.5,8.0,8.5):
+for h in (8.5,9.0,9.5,10.0,10.5,11.0):
     for d,name in ((Vector((1,0,0)),"+x front"),(Vector((-1,0,0)),"-x rear"),(Vector((0,1,0)),"+y left/out"),(Vector((0,-1,0)),"-y in")):
         first=None
         for k in range(0,41,2):
