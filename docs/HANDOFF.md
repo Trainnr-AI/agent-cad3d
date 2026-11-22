@@ -184,7 +184,7 @@ Blender collections: `duck_v2_exploded` + `wiring_exploded` + `duck_v2_labels`, 
 - **Tolerance coupon** (`tools/blender/parts/tolerance_coupon.py`, collection `coupon` in the .blend, STLs via
   `tools/blender/export_print.py` `{"collections":["coupon"], ...}` -> `exports/xgoduck_scs0009/print_coupon/`): knee rotor
   (full horn + 6702 seat), knee cap boss, trimmed-horn plate, bar (693 seat, M3 nut trap, M2 / M3 pilots, M2 clearance, 28 mm
-  bridge), servo collar - 13 g, built from the same joint_v2 code as the robot. Test procedure: ASSEMBLY.md step 2.
+  bridge), servo collar, + (2026-11-22) the lying-down boss with / without supports - 20 g, built from the same joint_v2 code as the robot. Test procedure: ASSEMBLY.md step 2.
 
 ## State after the session of 2026-11-15 (branch `review-fixes-2026-11-15`) - REVIEW.md "Independent review fixes"
 
@@ -253,8 +253,8 @@ OrcaSlicer 2.5.2 headless (`tools/slicer/`, skill `.claude/skills/slice-print/`;
 `tools/slicer/slice_project.sh projects/xgoduck_scs0009/data/build_args/slicing.json` (Bambu X1C 0.4, Bambu PLA Basic, the test-guide
 settings). Results and chosen orientations: `projects/xgoduck_scs0009/print/slicing/README.md`. Main finding: in every orientation the
 slicer puts support on some bearing seats - the hip-yaw / knee shoulders (meant to bridge; the knee-rotor coupon tests that) and the
-Ø15 bosses that must print lying down in the L-brackets, yaw connectors and yaw block, plus the head base's roll bore (no coupon
-covers these). Design change or extra coupon = user decision, open.
+Ø15 bosses that must print lying down in the L-brackets, yaw connectors, yaw block and head-pitch U (coupon added: `coupon_link_boss_sup`
+/ `_nosup` decides), plus the head base's roll bore (no coupon). Open until the coupon is back.
 
 ## Open items / next steps
 

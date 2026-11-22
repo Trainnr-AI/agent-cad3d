@@ -77,9 +77,9 @@ STL files (mm, as modelled; one closed piece each, checked on export): `exports/
 | switch_plate (2026-11-20) | 1 | 1.5 | | | |
 | head_visor (2026-11-20) | 1 | 2.6 | **Total** (31 parts + jig) | | **311 g solid** |
 
-**Tolerance coupon (designed 2026-11-14, print first):** 5 small pieces cut by the same joint-library code as the robot -
+**Tolerance coupon (designed 2026-11-14, print first):** 7 small pieces cut by the same joint-library code as the robot -
 knee rotor (6702 seat, full horn pocket + crush ribs), knee cap centre, trimmed-horn plate, a bar (693 seat, M3 nut trap, M2 pilot /
-clearance, M3 pilot, 28 mm bridge) and a servo collar; 12.9 g solid PLA in all (`tools/blender/parts/tolerance_coupon.py`,
+clearance, M3 pilot, 28 mm bridge), a servo collar, and (2026-11-22) the lying-down boss twice (with / without supports); 19.6 g solid PLA in all (`tools/blender/parts/tolerance_coupon.py`,
 collection `coupon`). Test procedure and the constants to adjust: ASSEMBLY.md step 2. Not counted in the total above.
 
 **Full-horn joints (decided 2026-11-13, rollout in progress):** the bearing joints that take the full horn get a small bolt-on **bearing cap**, 2 × M2 × 6 socket (row 19): **knees: 2 more prints**.

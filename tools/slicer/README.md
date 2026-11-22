@@ -5,11 +5,11 @@ seat, servo pocket, horn pocket, nut trap, board slot) - and picks each part's p
 
 ```
 scripts/setup_orca.sh                                                   # once: OrcaSlicer 2.5.2
-tools/slicer/slice_project.sh projects/xgoduck_scs0009/data/build_args/slicing.json   # ~20 min, output in exports/<project>/slicing/
+tools/slicer/slice_project.sh projects/xgoduck_scs0009/data/build_args/slicing.json   # ~6 min, output in exports/<project>/slicing/
 open -a OrcaSlicer exports/xgoduck_scs0009/slicing/project/xgoduck_scs0009_parts.3mf
 ```
 
-Works on a copy of the .blend in headless Blender (the live session is never touched). The Claude skill
+Works on a copy of the .blend in headless Blender via `tools/blender/run_headless.py` (the live session is never touched). The Claude skill
 `.claude/skills/slice-print/SKILL.md` describes how to run and report it.
 
 | Script | Runs in | Does |
@@ -22,7 +22,6 @@ Works on a copy of the .blend in headless Blender (the live session is never tou
 | `support_contacts.py` | Blender | puts each support point back on the model and names the parts its contact surface mates with (`details`: shoulder vs bore, radius from the bearing axis) |
 | `pick_orientation.py` | python | per part: fewest fit-surface contacts, then other mating faces, then least support; `orientation_overrides` win |
 | `summarize.py` | python | hours, grams, extruded / support / solid cm3 of the sliced project |
-| `run_headless.py` | Blender | runs any ARGS-style tool script with `Blender -b copy.blend --python run_headless.py -- script.py '<json>'` |
 
 Orientation tags: `px` = the model's +X points up when printing, `mx` = -X up, `py`, `my`, `pz`, `mz` likewise.
 

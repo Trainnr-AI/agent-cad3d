@@ -1,5 +1,5 @@
 """Map slicer support-interface points back onto each part in the assembled model and name what the touched surface mates with.
-Runs inside Blender (headless: tools/slicer/run_headless.py). Read-only on the scene.
+Runs inside Blender (headless: tools/blender/run_headless.py). Read-only on the scene.
 
 For each "<orientation>/<part>" in pts.json: undo the export (print-up rotation + on-bed centring, see export_print.py) using the
 G-code wall footprint, cast a ray from each interface point up (print frame) onto the part (<= 1.5 mm), then list every other

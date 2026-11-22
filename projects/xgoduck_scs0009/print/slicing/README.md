@@ -45,8 +45,8 @@ the lid and visor have support only under screw heads.
 | head_face | the two camera nut pockets | minor clean-up |
 | neck cradle, enclosure | servo pocket ends; IMU slot walls | minor clean-up |
 
-Options: if the knee-rotor coupon bridges cleanly, slice the shoulders with support blockers (no support there). For the lying-down
-bosses and the head-base bore no coupon exists: a coupon for a lying-down Ø15 boss, or a design change (split parts so every seat
-prints standing up, or a printable boss shape).
+Options: if the knee-rotor coupon bridges cleanly, slice the shoulders with support blockers (no support there). The lying-down
+bosses now have a coupon (2026-11-22: `coupon_link_boss_sup` / `_nosup` in `../test_batch/`, ASSEMBLY.md step 2): its result
+decides support / no support / design change for those 5 parts. The head-base roll bore has no coupon yet.
 
 Not checked: fit tolerance (only the coupon decides), how cleanly support snaps off, strength.

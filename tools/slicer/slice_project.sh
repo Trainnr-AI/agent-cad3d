@@ -5,7 +5,7 @@
 #
 #   tools/slicer/slice_project.sh <slicing.json> [out_dir]
 # slicing.json (e.g. projects/xgoduck_scs0009/data/build_args/slicing.json) names the .blend, the collections, the printer /
-# process / filament profiles and overrides. out_dir defaults to exports/<project>/slicing/ (git-ignored). ~20 min for 29 parts.
+# process / filament profiles and overrides. out_dir defaults to exports/<project>/slicing/ (git-ignored). ~6 min for 29 parts.
 # Env: BLENDER (binary), ORCA (binary), JOBS (parallel slices, default 6).
 set -euo pipefail
 ROOT=$(cd "$(dirname "$0")/../.." && pwd)
@@ -26,7 +26,7 @@ mkdir -p "$OUT"
 echo "== 1 profiles"; python3 "$T/fetch_profiles.py" "$CFG" "$OUT/profiles"
 echo "== 2 export (copy of $BLEND)"
 cp "$BLEND" "$OUT/model_copy.blend"
-"$BLENDER" -b "$OUT/model_copy.blend" --python "$T/run_headless.py" -- "$T/export_orientations.py" \
+"$BLENDER" -b "$OUT/model_copy.blend" --python "$ROOT/tools/blender/run_headless.py" -- "$T/export_orientations.py" \
   "{\"collections\": $COLS, \"out_dir\": \"$OUT/orient\", \"export_tool\": \"$ROOT/tools/blender/export_print.py\"}" 2>&1 | grep -E "exported|Error"
 echo "== 3 slice every part x 6 orientations ($JOBS at a time)"
 ls "$OUT"/orient/*/*.stl | xargs -P "$JOBS" -I{} sh -c \
@@ -34,7 +34,7 @@ ls "$OUT"/orient/*/*.stl | xargs -P "$JOBS" -I{} sh -c \
   "$T/orca.sh" "$OUT"
 echo "== 4 support contacts"
 (cd "$OUT/oslice" && python3 "$T/gcode_support_pts.py" "$OUT/orient_pts.json" */*)
-"$BLENDER" -b "$OUT/model_copy.blend" --python "$T/run_headless.py" -- "$T/support_contacts.py" \
+"$BLENDER" -b "$OUT/model_copy.blend" --python "$ROOT/tools/blender/run_headless.py" -- "$T/support_contacts.py" \
   "{\"pts\": \"$OUT/orient_pts.json\", \"out\": \"$OUT/orient_contacts.json\"}" > "$OUT/orient_contacts.log" 2>&1
 tail -1 "$OUT/orient_contacts.log"
 echo "== 5 pick orientations"
@@ -52,7 +52,7 @@ python3 -c "
 import json
 P = json.load(open('$OUT/orient_pts.json')); c = json.load(open('$OUT/chosen_orientation.json'))
 json.dump({t + '/' + p: P[t + '/' + p] for p, t in c.items()}, open('$OUT/chosen_pts.json', 'w'))"
-"$BLENDER" -b "$OUT/model_copy.blend" --python "$T/run_headless.py" -- "$T/support_contacts.py" \
+"$BLENDER" -b "$OUT/model_copy.blend" --python "$ROOT/tools/blender/run_headless.py" -- "$T/support_contacts.py" \
   "{\"pts\": \"$OUT/chosen_pts.json\", \"out\": \"$OUT/chosen_contacts.json\", \"details\": true}" > "$OUT/chosen_contacts.log" 2>&1
 python3 -c "
 import json

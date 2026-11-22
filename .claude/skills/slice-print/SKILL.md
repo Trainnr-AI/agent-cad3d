@@ -15,7 +15,7 @@ works when Blender is closed. Tools are in `tools/slicer/` (see its README for e
    names (OrcaSlicer system profile names, at the pinned `orca_tag`), `process_overrides` (must match what the print service
    will use; for the nanoduck they are the test-print guide's settings), `orientation_overrides` (each with its reason in `_why`).
    Ask the user which printer and material the service uses if it is not in the config; otherwise keep the config.
-3. `tools/slicer/slice_project.sh <slicing.json>` - about 20 min for 29 parts. Run it in the background and tell the user the
+3. `tools/slicer/slice_project.sh <slicing.json>` - about 6 min for 29 parts on an M-series Mac. Run it in the background and tell the user the
    duration up front. Output (git-ignored) in `exports/<project>/slicing/`:
    - `project/<project>_parts.3mf` - the chosen orientations on plates, sliced: `open -a OrcaSlicer <file>` to show the user
      (Preview tab + layer slider shows supports and bridges);
