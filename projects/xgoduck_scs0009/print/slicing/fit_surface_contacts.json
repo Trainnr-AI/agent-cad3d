@@ -1,0 +1,247 @@
+{
+ "pz/body_frame": {
+  "right_hip_yaw_brg_6702ZZ": {
+   "axial_face": 49,
+   "radial_face": 0,
+   "other": 0,
+   "r_min": 8.8,
+   "r_max": 9.7
+  },
+  "left_hip_yaw_brg_6702ZZ": {
+   "axial_face": 52,
+   "radial_face": 0,
+   "other": 0,
+   "r_min": 8.8,
+   "r_max": 10.1
+  }
+ },
+ "pz/electronics_enclosure": {
+  "imu": {
+   "axial_face": 0,
+   "radial_face": 40,
+   "other": 0,
+   "r_min": 11.8,
+   "r_max": 16.0
+  }
+ },
+ "pz/head_base": {
+  "scs_mouth_case": {
+   "axial_face": 10,
+   "radial_face": 0,
+   "other": 0,
+   "r_min": 13.4,
+   "r_max": 14.6
+  },
+  "head_roll_brg_6702ZZ": {
+   "axial_face": 0,
+   "radial_face": 178,
+   "other": 0,
+   "r_min": 10.5,
+   "r_max": 10.5
+  }
+ },
+ "px/head_face": {
+  "cam_nuts_M2": {
+   "axial_face": 74,
+   "radial_face": 0,
+   "other": 0,
+   "r_min": 0.5,
+   "r_max": 3.7
+  }
+ },
+ "my/head_pitch_u": {
+  "head_yaw_brg_6702ZZ": {
+   "axial_face": 0,
+   "radial_face": 127,
+   "other": 0,
+   "r_min": 7.4,
+   "r_max": 7.4
+  },
+  "scs_head_yaw_horn_cross": {
+   "axial_face": 0,
+   "radial_face": 22,
+   "other": 0,
+   "r_min": 6.2,
+   "r_max": 6.4
+  },
+  "scs_head_yaw_case": {
+   "axial_face": 0,
+   "radial_face": 12,
+   "other": 0,
+   "r_min": 13.2,
+   "r_max": 13.2
+  }
+ },
+ "mx/left_l_bracket": {
+  "left_hip_pitch_brg_6702ZZ": {
+   "axial_face": 0,
+   "radial_face": 87,
+   "other": 0,
+   "r_min": 7.4,
+   "r_max": 7.4
+  },
+  "scs_left_hip_pitch_horn_cross": {
+   "axial_face": 0,
+   "radial_face": 22,
+   "other": 0,
+   "r_min": 6.2,
+   "r_max": 6.4
+  },
+  "scs_left_hip_pitch_case": {
+   "axial_face": 0,
+   "radial_face": 12,
+   "other": 0,
+   "r_min": 13.2,
+   "r_max": 13.2
+  }
+ },
+ "py/left_shin": {
+  "left_knee_brg_6702ZZ": {
+   "axial_face": 482,
+   "radial_face": 0,
+   "other": 0,
+   "r_min": 7.5,
+   "r_max": 9.7
+  },
+  "scs_left_ankle_case": {
+   "axial_face": 0,
+   "radial_face": 22,
+   "other": 0,
+   "r_min": 15.2,
+   "r_max": 15.7
+  },
+  "left_ankle_nut_M3": {
+   "axial_face": 4,
+   "radial_face": 0,
+   "other": 0,
+   "r_min": 3.6,
+   "r_max": 3.6
+  },
+  "scs_left_knee_horn_cross": {
+   "axial_face": 2,
+   "radial_face": 0,
+   "other": 0,
+   "r_min": 10.4,
+   "r_max": 10.4
+  }
+ },
+ "py/left_thigh": {
+  "scs_left_knee_case": {
+   "axial_face": 0,
+   "radial_face": 2,
+   "other": 0,
+   "r_min": 12.7,
+   "r_max": 12.7
+  }
+ },
+ "mx/left_yaw_connector": {
+  "left_hip_yaw_brg_6702ZZ": {
+   "axial_face": 0,
+   "radial_face": 129,
+   "other": 0,
+   "r_min": 7.4,
+   "r_max": 7.5
+  },
+  "scs_left_hip_yaw_horn_cross": {
+   "axial_face": 0,
+   "radial_face": 30,
+   "other": 0,
+   "r_min": 6.2,
+   "r_max": 6.4
+  }
+ },
+ "py/neck_cradle": {
+  "scs_head_pitch_case": {
+   "axial_face": 0,
+   "radial_face": 22,
+   "other": 0,
+   "r_min": 15.2,
+   "r_max": 15.2
+  },
+  "scs_neck_pitch_case": {
+   "axial_face": 0,
+   "radial_face": 16,
+   "other": 0,
+   "r_min": 15.2,
+   "r_max": 15.2
+  }
+ },
+ "mx/right_l_bracket": {
+  "right_hip_pitch_brg_6702ZZ": {
+   "axial_face": 0,
+   "radial_face": 87,
+   "other": 0,
+   "r_min": 7.4,
+   "r_max": 7.4
+  },
+  "scs_right_hip_pitch_horn_cross": {
+   "axial_face": 0,
+   "radial_face": 22,
+   "other": 0,
+   "r_min": 6.2,
+   "r_max": 6.4
+  },
+  "scs_right_hip_pitch_case": {
+   "axial_face": 0,
+   "radial_face": 12,
+   "other": 0,
+   "r_min": 13.2,
+   "r_max": 13.2
+  }
+ },
+ "my/right_shin": {
+  "right_knee_brg_6702ZZ": {
+   "axial_face": 427,
+   "radial_face": 0,
+   "other": 0,
+   "r_min": 9.4,
+   "r_max": 9.7
+  },
+  "scs_right_ankle_case": {
+   "axial_face": 0,
+   "radial_face": 24,
+   "other": 0,
+   "r_min": 15.2,
+   "r_max": 15.7
+  },
+  "right_ankle_nut_M3": {
+   "axial_face": 2,
+   "radial_face": 0,
+   "other": 0,
+   "r_min": 3.6,
+   "r_max": 3.6
+  }
+ },
+ "mx/right_yaw_connector": {
+  "right_hip_yaw_brg_6702ZZ": {
+   "axial_face": 0,
+   "radial_face": 129,
+   "other": 0,
+   "r_min": 7.4,
+   "r_max": 7.5
+  },
+  "scs_right_hip_yaw_horn_cross": {
+   "axial_face": 0,
+   "radial_face": 30,
+   "other": 0,
+   "r_min": 6.2,
+   "r_max": 6.4
+  }
+ },
+ "pz/yaw_block": {
+  "head_roll_brg_6702ZZ": {
+   "axial_face": 0,
+   "radial_face": 141,
+   "other": 0,
+   "r_min": 7.4,
+   "r_max": 7.4
+  },
+  "scs_head_roll_horn_cross": {
+   "axial_face": 0,
+   "radial_face": 26,
+   "other": 0,
+   "r_min": 6.2,
+   "r_max": 6.4
+  }
+ }
+}

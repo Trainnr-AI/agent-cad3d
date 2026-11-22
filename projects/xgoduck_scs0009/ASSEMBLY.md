@@ -13,7 +13,7 @@ shafts ≤ Ø3 mm, caliper.
    screws (length under the head, head Ø and height). The model assumes horn screw M2 × 4 (head Ø3.5 × 1.3) and mounting screws
    ≤ 7.2 mm long. Longer mounting screws: put an M2 nut from the Robu set under the head as a spacer.
 2. **Print the tolerance coupon** first: send the folder `projects/xgoduck_scs0009/print/test_batch/` to the printing service (its
-   PDF guide + 6 print-ready STLs, about 13 g: the 5 coupon pieces, built by `tools/blender/parts/tolerance_coupon.py` from the
+   PDF guide + 8 print-ready STLs, about 20 g: the 7 coupon pieces, built by `tools/blender/parts/tolerance_coupon.py` from the
    same joint code as the robot's parts, and the horn trim jig; see `print/README.md`). Same printer, filament and settings
    as for the robot. Test with the real parts:
    - `coupon_knee_rotor` (print the bearing-seat face down): a **6702ZZ** presses into the Ø21.1 seat by hand and sits flat, and
@@ -25,6 +25,12 @@ shafts ≤ Ø3 mm, caliper.
      Ø3.3 hole; an **M2 x 6** threads into the Ø1.7 pilot with a firm but even feel (no splitting) and slips through the Ø2.4 hole;
      an **M3 x 8** forms its thread in the Ø2.5 pilot; the 28 mm bridge underneath is flat (sag < 0.5 mm).
    - `coupon_servo_collar`: slides over the **servo body** with a little play, no force.
+   - `coupon_link_boss_sup` (1 dimple, printed lying down WITH supports) and `coupon_link_boss_nosup` (2 dimples, no supports):
+     the Ø14.9 boss slides into a **6702ZZ**'s bore without force and the bearing turns freely, with no high spot where the
+     boss's underside was supported / sagged; a **trimmed horn** pushes into the pocket, no wobble. Note how easily the supports
+     came off. If the unsupported one fits as well, the L-brackets, yaw connectors, yaw block and head-pitch U print without
+     support at the boss (support blockers in the slicer); if neither fits, those parts need a design change (open, see
+     `print/slicing/README.md`).
    If holes come out tight (FDM holes often print 0.1-0.2 mm small) or the horn is loose, tell the agent the measurements: the
    fits are constants in `tools/blender/parts/joint_v2.py` (SEAT_D, BOSS_D, HORN_CLEAR, RIB_INTERF, PILOT_D, CLEAR_D, BP_SEAT_D,
    NUT_AF, SADDLE_CLEAR) - change them, rebuild, re-check, re-print the coupon.

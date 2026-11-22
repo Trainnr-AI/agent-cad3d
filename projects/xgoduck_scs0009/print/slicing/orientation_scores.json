@@ -1,0 +1,2662 @@
+{
+ "body_frame": [
+  {
+   "tag": "pz",
+   "fit_contacts": 101,
+   "mate_contacts": 0,
+   "support_g": 1.32,
+   "part_g": 15.4,
+   "minutes": 51,
+   "align_err_mm": 0.84,
+   "touches": {
+    "right_hip_yaw_brg_6702ZZ": 49,
+    "left_hip_yaw_brg_6702ZZ": 52
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 358,
+   "mate_contacts": 284,
+   "support_g": 9.48,
+   "part_g": 23.6,
+   "minutes": 88,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_neck_pitch_horn_cross": 25,
+    "body_neck_bearing_plate": 24,
+    "scs_right_hip_yaw_case": 152,
+    "right_hip_yaw_ear_screws_M2x6st,scs_right_hip_yaw_case": 16,
+    "scs_left_hip_yaw_case": 149,
+    "left_hip_yaw_ear_screws_M2x6st,scs_left_hip_yaw_case": 16,
+    "electronics_enclosure": 220,
+    "wire_hub_G_socketC": 28,
+    "wire_hub_G": 12
+   },
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 430,
+   "mate_contacts": 20,
+   "support_g": 5.45,
+   "part_g": 19.7,
+   "minutes": 70,
+   "align_err_mm": 1.06,
+   "touches": {
+    "neck_screw_M2x4kit": 20,
+    "scs_left_hip_yaw_case": 118,
+    "left_hip_yaw_brg_6702ZZ": 194,
+    "scs_right_hip_yaw_case": 118
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 583,
+   "mate_contacts": 34,
+   "support_g": 5.75,
+   "part_g": 19.9,
+   "minutes": 70,
+   "align_err_mm": 0.78,
+   "touches": {
+    "scs_right_hip_yaw_case": 133,
+    "scs_left_hip_yaw_case": 130,
+    "right_hip_yaw_brg_6702ZZ": 175,
+    "left_hip_yaw_brg_6702ZZ": 145,
+    "body_neck_bearing_plate": 34
+   },
+   "trusted": true
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 1428,
+   "mate_contacts": 181,
+   "support_g": 6.86,
+   "part_g": 21.0,
+   "minutes": 76,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_right_hip_yaw_case": 242,
+    "body_neck_bearing_plate": 157,
+    "body_neck_bearing_plate,neck_plate_screws_M2x6st": 6,
+    "right_hip_yaw_brg_6702ZZ": 206,
+    "scs_left_hip_yaw_case": 234,
+    "scs_neck_pitch_horn_cross": 746,
+    "neck_screw_M2x4kit": 18
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 374,
+   "mate_contacts": 43,
+   "support_g": 6.66,
+   "part_g": 20.9,
+   "minutes": 71,
+   "align_err_mm": 5.51,
+   "touches": {
+    "body_neck_bearing_plate": 7,
+    "scs_left_hip_yaw_case": 97,
+    "left_hip_yaw_brg_6702ZZ": 89,
+    "right_hip_yaw_brg_6702ZZ": 91,
+    "scs_right_hip_yaw_case": 97,
+    "wire_hub_G_socketC": 36
+   },
+   "trusted": false
+  }
+ ],
+ "body_lid": [
+  {
+   "tag": "mz",
+   "fit_contacts": 0,
+   "mate_contacts": 26,
+   "support_g": 3.91,
+   "part_g": 13.6,
+   "minutes": 38,
+   "align_err_mm": 0.84,
+   "touches": {
+    "uno_screws_M3x8": 18,
+    "body_lid_screws_M2x6st": 8
+   },
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 0,
+   "mate_contacts": 1000,
+   "support_g": 4.56,
+   "part_g": 14.3,
+   "minutes": 41,
+   "align_err_mm": 0.84,
+   "touches": {
+    "body_lid_screws_M2x6st,electronics_enclosure": 176,
+    "electronics_enclosure": 698,
+    "uno_screws_M3x8": 126
+   },
+   "trusted": true
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 47,
+   "mate_contacts": 430,
+   "support_g": 3.84,
+   "part_g": 13.2,
+   "minutes": 42,
+   "align_err_mm": 1.45,
+   "touches": {
+    "uno_cover": 384,
+    "uno_cover,uno_cover_screws_M2x6st": 38,
+    "uno_cover_screws_M2x6st": 2,
+    "uno_cover,unoq_pcb": 20,
+    "unoq_pcb": 19,
+    "ubec": 8,
+    "electronics_enclosure": 6
+   },
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 59,
+   "mate_contacts": 718,
+   "support_g": 4.66,
+   "part_g": 14.0,
+   "minutes": 44,
+   "align_err_mm": 1.29,
+   "touches": {
+    "uno_cover": 658,
+    "uno_cover,uno_cover_screws_M2x6st": 20,
+    "uno_cover_screws_M2x6st": 4,
+    "uno_cover,unoq_pcb": 16,
+    "unoq_pcb": 29,
+    "electronics_enclosure": 6,
+    "uno_screws_M3x8,unoq_pcb": 14,
+    "uno_screws_M3x8": 30
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 246,
+   "mate_contacts": 8,
+   "support_g": 6.35,
+   "part_g": 15.7,
+   "minutes": 48,
+   "align_err_mm": 2.84,
+   "touches": {
+    "uno_screws_M3x8": 8,
+    "ubec": 246
+   },
+   "trusted": false
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 308,
+   "mate_contacts": 0,
+   "support_g": 4.14,
+   "part_g": 13.6,
+   "minutes": 44,
+   "align_err_mm": 1.93,
+   "touches": {
+    "ubec": 302,
+    "unoq_pcb": 6
+   },
+   "trusted": false
+  }
+ ],
+ "body_neck_bearing_plate": [
+  {
+   "tag": "py",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 0.0,
+   "part_g": 1.4,
+   "minutes": 5,
+   "align_err_mm": 0.84,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 0.0,
+   "part_g": 1.4,
+   "minutes": 5,
+   "align_err_mm": 0.84,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 50,
+   "mate_contacts": 38,
+   "support_g": 0.23,
+   "part_g": 1.6,
+   "minutes": 7,
+   "align_err_mm": 0.84,
+   "touches": {
+    "body_frame": 18,
+    "neck_plate_screws_M2x6st": 20,
+    "neck_brg_693": 50
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 56,
+   "mate_contacts": 42,
+   "support_g": 0.22,
+   "part_g": 1.6,
+   "minutes": 7,
+   "align_err_mm": 0.84,
+   "touches": {
+    "body_frame": 20,
+    "neck_plate_screws_M2x6st": 22,
+    "neck_brg_693": 56
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 77,
+   "mate_contacts": 0,
+   "support_g": 0.47,
+   "part_g": 1.9,
+   "minutes": 12,
+   "align_err_mm": 0.84,
+   "touches": {
+    "neck_brg_693": 77
+   },
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 42,
+   "mate_contacts": 0,
+   "support_g": 0.46,
+   "part_g": 1.9,
+   "minutes": 12,
+   "align_err_mm": 3.31,
+   "touches": {
+    "neck_brg_693": 42
+   },
+   "trusted": false
+  }
+ ],
+ "electronics_enclosure": [
+  {
+   "tag": "mz",
+   "fit_contacts": 32,
+   "mate_contacts": 2666,
+   "support_g": 16.09,
+   "part_g": 47.0,
+   "minutes": 128,
+   "align_err_mm": 0.84,
+   "touches": {
+    "uno_cover": 28,
+    "body_lid": 416,
+    "body_lid,body_lid_screws_M2x6st": 16,
+    "imu": 32,
+    "body_frame,enclosure_screws_M2x6st": 124,
+    "body_frame": 354,
+    "servo_adapter": 196,
+    "battery_3s": 1532
+   },
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 40,
+   "mate_contacts": 0,
+   "support_g": 4.21,
+   "part_g": 35.1,
+   "minutes": 73,
+   "align_err_mm": 0.84,
+   "touches": {
+    "imu": 40
+   },
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 50,
+   "mate_contacts": 884,
+   "support_g": 16.43,
+   "part_g": 47.5,
+   "minutes": 141,
+   "align_err_mm": 0.84,
+   "touches": {
+    "imu": 50,
+    "body_frame": 42,
+    "body_lid": 122,
+    "battery_3s": 467,
+    "servo_adapter": 253
+   },
+   "trusted": true
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 54,
+   "mate_contacts": 1281,
+   "support_g": 19.0,
+   "part_g": 50.0,
+   "minutes": 149,
+   "align_err_mm": 0.84,
+   "touches": {
+    "bay_balance_plug": 213,
+    "imu": 54,
+    "body_frame": 44,
+    "body_lid": 128,
+    "battery_3s": 432,
+    "servo_adapter": 56,
+    "switch_plate": 340,
+    "switch_plate,switch_plate_screws_M2x10csk": 68
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 465,
+   "mate_contacts": 733,
+   "support_g": 20.13,
+   "part_g": 51.6,
+   "minutes": 163,
+   "align_err_mm": 0.84,
+   "touches": {
+    "body_frame": 287,
+    "body_lid": 116,
+    "battery_3s": 222,
+    "imu": 465,
+    "uno_cover": 108
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 0,
+   "mate_contacts": 2904,
+   "support_g": 19.43,
+   "part_g": 50.9,
+   "minutes": 166,
+   "align_err_mm": 4.33,
+   "touches": {
+    "body_lid": 78,
+    "battery_3s": 2826
+   },
+   "trusted": false
+  }
+ ],
+ "head_base": [
+  {
+   "tag": "pz",
+   "fit_contacts": 188,
+   "mate_contacts": 125,
+   "support_g": 5.05,
+   "part_g": 22.9,
+   "minutes": 71,
+   "align_err_mm": 0.87,
+   "touches": {
+    "dome_screws_M2x6st": 125,
+    "scs_mouth_case": 10,
+    "head_roll_brg_6702ZZ": 178
+   },
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 295,
+   "mate_contacts": 121,
+   "support_g": 9.91,
+   "part_g": 27.9,
+   "minutes": 98,
+   "align_err_mm": 0.87,
+   "touches": {
+    "head_dome": 41,
+    "dome_screws_M2x6st": 74,
+    "scs_mouth_case": 40,
+    "scs_head_roll_case": 134,
+    "head_roll_brg_6702ZZ": 121,
+    "jaw_pivot_screw_M2x6st": 6
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 336,
+   "mate_contacts": 8,
+   "support_g": 12.01,
+   "part_g": 30.0,
+   "minutes": 96,
+   "align_err_mm": 0.86,
+   "touches": {
+    "scs_mouth_case": 122,
+    "head_dome": 8,
+    "head_roll_brg_6702ZZ": 214
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 498,
+   "mate_contacts": 175,
+   "support_g": 12.08,
+   "part_g": 29.6,
+   "minutes": 98,
+   "align_err_mm": 0.86,
+   "touches": {
+    "head_dome": 63,
+    "scs_head_roll_case": 394,
+    "head_roll_ear_screws_M2x6st,scs_head_roll_case": 50,
+    "scs_mouth_case": 54,
+    "head_face": 100,
+    "head_dome,head_face": 12
+   },
+   "trusted": true
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 585,
+   "mate_contacts": 418,
+   "support_g": 11.89,
+   "part_g": 30.0,
+   "minutes": 105,
+   "align_err_mm": 0.88,
+   "touches": {
+    "head_dome": 23,
+    "head_jaw": 283,
+    "head_jaw,jaw_pivot_screw_M2x6st": 44,
+    "scs_head_roll_case": 163,
+    "dome_screws_M2x6st": 68,
+    "head_roll_brg_6702ZZ": 140,
+    "scs_mouth_case": 248,
+    "mouth_ear_screws_M2x6st,scs_mouth_case": 34
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 768,
+   "mate_contacts": 2806,
+   "support_g": 12.43,
+   "part_g": 30.1,
+   "minutes": 116,
+   "align_err_mm": 0.85,
+   "touches": {
+    "scs_head_roll_case": 502,
+    "jaw_pivot_screw_M2x6st": 34,
+    "scs_mouth_case": 77,
+    "head_dome": 2290,
+    "dome_screws_M2x6st,head_dome": 133,
+    "head_dome,head_face": 30,
+    "head_face": 268,
+    "dome_screws_M2x6st": 51,
+    "head_roll_brg_6702ZZ": 189
+   },
+   "trusted": true
+  }
+ ],
+ "head_dome": [
+  {
+   "tag": "mz",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 6.54,
+   "part_g": 30.0,
+   "minutes": 98,
+   "align_err_mm": 0.85,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 0,
+   "mate_contacts": 890,
+   "support_g": 12.35,
+   "part_g": 35.9,
+   "minutes": 105,
+   "align_err_mm": 0.84,
+   "touches": {
+    "head_base": 19,
+    "head_face": 855,
+    "head_base,head_face": 16
+   },
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 0,
+   "mate_contacts": 2854,
+   "support_g": 19.22,
+   "part_g": 42.8,
+   "minutes": 168,
+   "align_err_mm": 0.85,
+   "touches": {
+    "head_base": 1219,
+    "dome_screws_M2x6st": 16,
+    "dome_screws_M2x6st,head_base": 77,
+    "head_face": 1492,
+    "head_base,head_face": 50
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 0,
+   "mate_contacts": 96,
+   "support_g": 14.21,
+   "part_g": 38.0,
+   "minutes": 108,
+   "align_err_mm": 18.22,
+   "touches": {
+    "head_face": 50,
+    "head_roll_ear_screws_M2x6st": 46
+   },
+   "trusted": false
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 0,
+   "mate_contacts": 434,
+   "support_g": 14.98,
+   "part_g": 38.5,
+   "minutes": 132,
+   "align_err_mm": 5.02,
+   "touches": {
+    "head_base": 48,
+    "head_face": 386
+   },
+   "trusted": false
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 0,
+   "mate_contacts": 859,
+   "support_g": 14.68,
+   "part_g": 38.3,
+   "minutes": 132,
+   "align_err_mm": 2.18,
+   "touches": {
+    "head_base": 202,
+    "head_face": 657
+   },
+   "trusted": false
+  }
+ ],
+ "head_face": [
+  {
+   "tag": "px",
+   "fit_contacts": 74,
+   "mate_contacts": 20,
+   "support_g": 2.2,
+   "part_g": 9.5,
+   "minutes": 28,
+   "align_err_mm": 0.62,
+   "touches": {
+    "mouth_ear_screws_M2x6st": 18,
+    "cam_nuts_M2": 22,
+    "cam_nuts_M2,head_dome": 52,
+    "head_dome": 2
+   },
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 251,
+   "mate_contacts": 0,
+   "support_g": 2.6,
+   "part_g": 9.9,
+   "minutes": 33,
+   "align_err_mm": 1.04,
+   "touches": {
+    "cam_ov5640_b": 251
+   },
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 33,
+   "mate_contacts": 548,
+   "support_g": 2.32,
+   "part_g": 9.7,
+   "minutes": 36,
+   "align_err_mm": 10.07,
+   "touches": {
+    "head_dome": 548,
+    "cam_nuts_M2,cam_screws_M2x6st": 4,
+    "cam_nuts_M2": 18,
+    "cam_nuts_M2,cam_ov5640_b": 3,
+    "cam_ov5640_b": 8
+   },
+   "trusted": false
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 58,
+   "mate_contacts": 238,
+   "support_g": 3.49,
+   "part_g": 10.8,
+   "minutes": 37,
+   "align_err_mm": 15.96,
+   "touches": {
+    "head_dome": 151,
+    "cam_ov5640_b": 8,
+    "cam_nuts_M2": 42,
+    "cam_nuts_M2,cam_ov5640_b": 8,
+    "head_visor": 87
+   },
+   "trusted": false
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 112,
+   "mate_contacts": 392,
+   "support_g": 5.39,
+   "part_g": 12.7,
+   "minutes": 44,
+   "align_err_mm": 1.83,
+   "touches": {
+    "cam_ov5640_b": 88,
+    "cam_ov5640_b,cam_screws_M2x6st": 4,
+    "cam_nuts_M2,cam_ov5640_b": 20,
+    "head_dome": 376,
+    "mouth_ear_screws_M2x6st": 16
+   },
+   "trusted": false
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 257,
+   "mate_contacts": 690,
+   "support_g": 4.02,
+   "part_g": 11.3,
+   "minutes": 39,
+   "align_err_mm": 4.23,
+   "touches": {
+    "head_dome": 527,
+    "head_visor": 163,
+    "cam_ov5640_b": 257
+   },
+   "trusted": false
+  }
+ ],
+ "head_jaw": [
+  {
+   "tag": "pz",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 0.22,
+   "part_g": 6.6,
+   "minutes": 19,
+   "align_err_mm": 0.87,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 0.91,
+   "part_g": 7.8,
+   "minutes": 25,
+   "align_err_mm": 0.84,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 40,
+   "mate_contacts": 0,
+   "support_g": 3.85,
+   "part_g": 10.1,
+   "minutes": 35,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_mouth_horn_cross": 40
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 40,
+   "mate_contacts": 0,
+   "support_g": 6.03,
+   "part_g": 12.4,
+   "minutes": 49,
+   "align_err_mm": 0.85,
+   "touches": {
+    "scs_mouth_horn_cross": 40
+   },
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 14,
+   "mate_contacts": 304,
+   "support_g": 2.77,
+   "part_g": 9.3,
+   "minutes": 38,
+   "align_err_mm": 2.33,
+   "touches": {
+    "scs_mouth_horn_screw": 14,
+    "head_base": 288,
+    "head_base,jaw_pivot_screw_M2x6st": 12,
+    "jaw_pivot_screw_M2x6st": 4
+   },
+   "trusted": false
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 324,
+   "mate_contacts": 0,
+   "support_g": 2.68,
+   "part_g": 9.3,
+   "minutes": 37,
+   "align_err_mm": 1.64,
+   "touches": {
+    "scs_mouth_horn_cross": 296,
+    "scs_mouth_horn_cross,scs_mouth_horn_screw": 18,
+    "scs_mouth_horn_screw": 10
+   },
+   "trusted": false
+  }
+ ],
+ "head_pitch_bearing_plate": [
+  {
+   "tag": "my",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 0.0,
+   "part_g": 1.9,
+   "minutes": 6,
+   "align_err_mm": 0.84,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 0.32,
+   "part_g": 2.3,
+   "minutes": 7,
+   "align_err_mm": 0.84,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 46,
+   "mate_contacts": 0,
+   "support_g": 0.35,
+   "part_g": 2.4,
+   "minutes": 13,
+   "align_err_mm": 0.84,
+   "touches": {
+    "head_pitch_brg_693": 46
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 52,
+   "mate_contacts": 2,
+   "support_g": 0.35,
+   "part_g": 2.4,
+   "minutes": 13,
+   "align_err_mm": 0.84,
+   "touches": {
+    "head_pitch_brg_693": 52,
+    "head_pitch_plate_screws_M2x6st": 2
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 68,
+   "mate_contacts": 0,
+   "support_g": 0.11,
+   "part_g": 2.1,
+   "minutes": 10,
+   "align_err_mm": 0.84,
+   "touches": {
+    "head_pitch_brg_693": 68
+   },
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 84,
+   "mate_contacts": 0,
+   "support_g": 0.82,
+   "part_g": 2.8,
+   "minutes": 12,
+   "align_err_mm": 0.84,
+   "touches": {
+    "head_pitch_brg_693": 84
+   },
+   "trusted": true
+  }
+ ],
+ "head_pitch_u": [
+  {
+   "tag": "my",
+   "fit_contacts": 161,
+   "mate_contacts": 0,
+   "support_g": 0.27,
+   "part_g": 8.3,
+   "minutes": 26,
+   "align_err_mm": 0.84,
+   "touches": {
+    "head_yaw_brg_6702ZZ": 127,
+    "scs_head_yaw_horn_cross": 22,
+    "scs_head_yaw_case": 12
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 193,
+   "mate_contacts": 82,
+   "support_g": 0.67,
+   "part_g": 8.5,
+   "minutes": 22,
+   "align_err_mm": 0.84,
+   "touches": {
+    "head_yaw_brg_6702ZZ": 92,
+    "head_pitch_plate_screws_M2x6st": 82,
+    "scs_head_yaw_horn_cross": 101
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 247,
+   "mate_contacts": 84,
+   "support_g": 0.71,
+   "part_g": 8.7,
+   "minutes": 23,
+   "align_err_mm": 0.84,
+   "touches": {
+    "head_yaw_brg_6702ZZ": 120,
+    "head_pitch_plate_screws_M2x6st": 84,
+    "scs_head_yaw_horn_cross": 107,
+    "scs_head_pitch_horn_cross": 20
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 266,
+   "mate_contacts": 32,
+   "support_g": 2.27,
+   "part_g": 9.9,
+   "minutes": 35,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_head_yaw_horn_cross": 248,
+    "head_yaw_screw_M2x4kit": 32,
+    "scs_head_pitch_horn_cross": 18
+   },
+   "trusted": true
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 924,
+   "mate_contacts": 28,
+   "support_g": 3.71,
+   "part_g": 11.8,
+   "minutes": 40,
+   "align_err_mm": 0.84,
+   "touches": {
+    "head_yaw_brg_6702ZZ": 116,
+    "scs_head_yaw_horn_cross": 52,
+    "scs_head_pitch_horn_cross": 756,
+    "head_pitch_screw_M2x4kit": 28
+   },
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 0,
+   "mate_contacts": 516,
+   "support_g": 4.88,
+   "part_g": 12.6,
+   "minutes": 49,
+   "align_err_mm": 2.48,
+   "touches": {
+    "head_pitch_bearing_plate": 512,
+    "head_pitch_bearing_plate,head_pitch_plate_screws_M2x6st": 4
+   },
+   "trusted": false
+  }
+ ],
+ "head_visor": [
+  {
+   "tag": "mx",
+   "fit_contacts": 0,
+   "mate_contacts": 50,
+   "support_g": 0.45,
+   "part_g": 2.9,
+   "minutes": 10,
+   "align_err_mm": 0.84,
+   "touches": {
+    "cam_screws_M2x6st": 50
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 64,
+   "mate_contacts": 754,
+   "support_g": 1.47,
+   "part_g": 3.8,
+   "minutes": 14,
+   "align_err_mm": 0.71,
+   "touches": {
+    "head_face": 754,
+    "cam_ov5640_b": 64
+   },
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 136,
+   "mate_contacts": 5,
+   "support_g": 0.26,
+   "part_g": 2.8,
+   "minutes": 8,
+   "align_err_mm": 0.65,
+   "touches": {
+    "head_face": 3,
+    "cam_ov5640_b": 132,
+    "cam_ov5640_b,head_face": 4,
+    "cam_screws_M2x6st": 2
+   },
+   "trusted": true
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 44,
+   "mate_contacts": 4,
+   "support_g": 2.35,
+   "part_g": 5.0,
+   "minutes": 29,
+   "align_err_mm": 14.7,
+   "touches": {
+    "cam_ov5640_b": 44,
+    "cam_screws_M2x6st": 4
+   },
+   "trusted": false
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 69,
+   "mate_contacts": 34,
+   "support_g": 0.88,
+   "part_g": 3.5,
+   "minutes": 27,
+   "align_err_mm": 5.58,
+   "touches": {
+    "head_face": 34,
+    "cam_ov5640_b": 69
+   },
+   "trusted": false
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 198,
+   "mate_contacts": 4,
+   "support_g": 0.34,
+   "part_g": 2.8,
+   "minutes": 8,
+   "align_err_mm": 1.71,
+   "touches": {
+    "cam_ov5640_b": 158,
+    "cam_screws_M2x6st": 4,
+    "cam_ov5640_b,head_face": 40
+   },
+   "trusted": false
+  }
+ ],
+ "left_foot": [
+  {
+   "tag": "pz",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 1.85,
+   "part_g": 21.2,
+   "minutes": 69,
+   "align_err_mm": 0.84,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 0,
+   "mate_contacts": 22,
+   "support_g": 2.23,
+   "part_g": 21.6,
+   "minutes": 63,
+   "align_err_mm": 0.85,
+   "touches": {
+    "left_foot_bearing_plate": 22
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 0,
+   "mate_contacts": 162,
+   "support_g": 0.75,
+   "part_g": 20.3,
+   "minutes": 57,
+   "align_err_mm": 0.86,
+   "touches": {
+    "left_foot_bearing_plate": 162
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 0,
+   "mate_contacts": 162,
+   "support_g": 1.57,
+   "part_g": 21.1,
+   "minutes": 61,
+   "align_err_mm": 0.86,
+   "touches": {
+    "left_foot_bearing_plate": 162
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 0,
+   "mate_contacts": 214,
+   "support_g": 6.62,
+   "part_g": 25.8,
+   "minutes": 92,
+   "align_err_mm": 0.85,
+   "touches": {
+    "left_foot_bearing_plate": 214
+   },
+   "trusted": true
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 752,
+   "mate_contacts": 379,
+   "support_g": 3.7,
+   "part_g": 23.1,
+   "minutes": 73,
+   "align_err_mm": 0.85,
+   "touches": {
+    "left_foot_bearing_plate": 305,
+    "left_foot_bearing_plate,left_foot_plate_screws_M2x6st": 54,
+    "scs_left_ankle_horn_cross": 752,
+    "left_ankle_screw_M2x4kit": 20
+   },
+   "trusted": true
+  }
+ ],
+ "left_foot_bearing_plate": [
+  {
+   "tag": "py",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 0.0,
+   "part_g": 1.6,
+   "minutes": 5,
+   "align_err_mm": 0.84,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 0.0,
+   "part_g": 1.6,
+   "minutes": 5,
+   "align_err_mm": 0.84,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 67,
+   "mate_contacts": 0,
+   "support_g": 0.8,
+   "part_g": 2.5,
+   "minutes": 13,
+   "align_err_mm": 1.24,
+   "touches": {
+    "left_ankle_brg_693": 67
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 67,
+   "mate_contacts": 16,
+   "support_g": 0.58,
+   "part_g": 2.3,
+   "minutes": 10,
+   "align_err_mm": 0.85,
+   "touches": {
+    "left_ankle_brg_693": 67,
+    "left_foot_plate_screws_M2x6st": 16
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 75,
+   "mate_contacts": 16,
+   "support_g": 0.58,
+   "part_g": 2.3,
+   "minutes": 10,
+   "align_err_mm": 0.85,
+   "touches": {
+    "left_ankle_brg_693": 75,
+    "left_foot_plate_screws_M2x6st": 16
+   },
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 0,
+   "mate_contacts": 8,
+   "support_g": 0.35,
+   "part_g": 2.1,
+   "minutes": 12,
+   "align_err_mm": 3.93,
+   "touches": {
+    "left_foot_plate_screws_M2x6st": 8
+   },
+   "trusted": false
+  }
+ ],
+ "left_knee_cap": [
+  {
+   "tag": "py",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 0.0,
+   "part_g": 2.6,
+   "minutes": 9,
+   "align_err_mm": 0.84,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 0,
+   "mate_contacts": 26,
+   "support_g": 0.34,
+   "part_g": 3.1,
+   "minutes": 11,
+   "align_err_mm": 0.84,
+   "touches": {
+    "left_knee_cap_screws_M2x6": 26
+   },
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 66,
+   "mate_contacts": 99,
+   "support_g": 1.04,
+   "part_g": 3.8,
+   "minutes": 17,
+   "align_err_mm": 0.84,
+   "touches": {
+    "left_knee_brg_6702ZZ": 66,
+    "left_thigh": 64,
+    "left_knee_cap_screws_M2x6": 35
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 144,
+   "mate_contacts": 42,
+   "support_g": 0.74,
+   "part_g": 3.5,
+   "minutes": 16,
+   "align_err_mm": 0.84,
+   "touches": {
+    "left_knee_cap_screws_M2x6": 42,
+    "left_knee_brg_6702ZZ": 144
+   },
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 340,
+   "mate_contacts": 165,
+   "support_g": 0.88,
+   "part_g": 3.4,
+   "minutes": 13,
+   "align_err_mm": 0.89,
+   "touches": {
+    "left_knee_brg_6702ZZ": 328,
+    "left_knee_brg_6702ZZ,left_shin": 12,
+    "left_shin": 165
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 60,
+   "mate_contacts": 0,
+   "support_g": 0.33,
+   "part_g": 3.1,
+   "minutes": 10,
+   "align_err_mm": 2.56,
+   "touches": {
+    "left_knee_brg_6702ZZ": 60
+   },
+   "trusted": false
+  }
+ ],
+ "left_l_bracket": [
+  {
+   "tag": "mx",
+   "fit_contacts": 121,
+   "mate_contacts": 0,
+   "support_g": 0.22,
+   "part_g": 5.3,
+   "minutes": 19,
+   "align_err_mm": 0.84,
+   "touches": {
+    "left_hip_pitch_brg_6702ZZ": 87,
+    "scs_left_hip_pitch_horn_cross": 22,
+    "scs_left_hip_pitch_case": 12
+   },
+   "trusted": true
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 127,
+   "mate_contacts": 0,
+   "support_g": 2.04,
+   "part_g": 7.1,
+   "minutes": 28,
+   "align_err_mm": 0.84,
+   "touches": {
+    "left_hip_roll_brg_6702ZZ": 101,
+    "scs_left_hip_roll_horn_cross": 26
+   },
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 228,
+   "mate_contacts": 0,
+   "support_g": 0.83,
+   "part_g": 6.1,
+   "minutes": 20,
+   "align_err_mm": 0.84,
+   "touches": {
+    "left_hip_pitch_brg_6702ZZ": 65,
+    "left_hip_roll_brg_6702ZZ": 115,
+    "scs_left_hip_pitch_horn_cross": 18,
+    "scs_left_hip_roll_horn_cross": 30
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 253,
+   "mate_contacts": 0,
+   "support_g": 0.83,
+   "part_g": 6.0,
+   "minutes": 20,
+   "align_err_mm": 0.85,
+   "touches": {
+    "left_hip_pitch_brg_6702ZZ": 123,
+    "left_hip_roll_brg_6702ZZ": 74,
+    "scs_left_hip_pitch_horn_cross": 26,
+    "scs_left_hip_roll_horn_cross": 22,
+    "scs_left_hip_roll_case": 8
+   },
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 505,
+   "mate_contacts": 20,
+   "support_g": 1.49,
+   "part_g": 6.5,
+   "minutes": 25,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_left_hip_pitch_horn_cross": 258,
+    "left_hip_pitch_screw_M2x4kit": 20,
+    "left_hip_roll_brg_6702ZZ": 175,
+    "scs_left_hip_roll_horn_cross": 72
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 514,
+   "mate_contacts": 156,
+   "support_g": 2.09,
+   "part_g": 7.1,
+   "minutes": 27,
+   "align_err_mm": 0.84,
+   "touches": {
+    "left_hip_pitch_brg_6702ZZ": 66,
+    "scs_left_hip_pitch_horn_cross": 22,
+    "scs_left_hip_roll_case": 6,
+    "left_hip_roll_screw_M2x4kit": 30,
+    "scs_left_hip_roll_horn_cross": 238,
+    "left_hip_roll_brg_6702ZZ": 182,
+    "left_yaw_connector": 126
+   },
+   "trusted": true
+  }
+ ],
+ "left_shin": [
+  {
+   "tag": "py",
+   "fit_contacts": 506,
+   "mate_contacts": 92,
+   "support_g": 0.56,
+   "part_g": 8.7,
+   "minutes": 26,
+   "align_err_mm": 0.84,
+   "touches": {
+    "left_knee_brg_6702ZZ": 482,
+    "scs_left_ankle_case": 18,
+    "left_knee_screw_M2x4kit": 92,
+    "left_ankle_nut_M3,scs_left_ankle_case": 4,
+    "scs_left_knee_horn_cross": 2
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 719,
+   "mate_contacts": 0,
+   "support_g": 3.06,
+   "part_g": 11.3,
+   "minutes": 40,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_left_knee_horn_cross": 32,
+    "left_knee_brg_6702ZZ": 96,
+    "scs_left_ankle_case": 546,
+    "left_ankle_nut_M3,scs_left_ankle_case": 13,
+    "left_ankle_nut_M3": 32
+   },
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 728,
+   "mate_contacts": 0,
+   "support_g": 3.17,
+   "part_g": 11.5,
+   "minutes": 40,
+   "align_err_mm": 0.85,
+   "touches": {
+    "scs_left_ankle_case": 496,
+    "left_ankle_nut_M3": 63,
+    "left_ankle_nut_M3,scs_left_ankle_case": 17,
+    "left_knee_brg_6702ZZ": 150,
+    "left_knee_brg_6702ZZ,left_knee_cap": 2
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 1372,
+   "mate_contacts": 40,
+   "support_g": 3.79,
+   "part_g": 12.2,
+   "minutes": 43,
+   "align_err_mm": 0.84,
+   "touches": {
+    "left_foot_bearing_plate": 40,
+    "scs_left_ankle_case": 1254,
+    "scs_left_knee_horn_cross": 26,
+    "left_knee_brg_6702ZZ": 92
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 1376,
+   "mate_contacts": 40,
+   "support_g": 3.69,
+   "part_g": 12.1,
+   "minutes": 42,
+   "align_err_mm": 0.84,
+   "touches": {
+    "left_foot_bearing_plate": 40,
+    "left_knee_brg_6702ZZ": 92,
+    "scs_left_ankle_case": 1260,
+    "scs_left_knee_horn_cross": 24
+   },
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 1511,
+   "mate_contacts": 34,
+   "support_g": 4.16,
+   "part_g": 12.4,
+   "minutes": 47,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_left_ankle_case": 546,
+    "left_ankle_ear_screws_M2x6st,scs_left_ankle_case": 24,
+    "scs_left_knee_horn_cross": 707,
+    "left_knee_screw_M2x4kit": 34,
+    "left_ankle_nut_M3,scs_left_ankle_case": 74,
+    "scs_left_ankle_case_screws": 62,
+    "left_knee_brg_6702ZZ": 2,
+    "left_ankle_nut_M3": 48,
+    "left_ankle_nut_M3,left_ankle_screw_M3x8": 48
+   },
+   "trusted": true
+  }
+ ],
+ "left_thigh": [
+  {
+   "tag": "py",
+   "fit_contacts": 2,
+   "mate_contacts": 0,
+   "support_g": 1.2,
+   "part_g": 10.3,
+   "minutes": 38,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_left_knee_case": 2
+   },
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 441,
+   "mate_contacts": 94,
+   "support_g": 7.03,
+   "part_g": 16.1,
+   "minutes": 62,
+   "align_err_mm": 0.61,
+   "touches": {
+    "scs_left_knee_case": 72,
+    "left_hip_pitch_brg_6702ZZ": 142,
+    "left_shin": 92,
+    "left_knee_cap,left_shin": 2,
+    "scs_left_hip_pitch_case": 227
+   },
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 708,
+   "mate_contacts": 24,
+   "support_g": 8.88,
+   "part_g": 17.9,
+   "minutes": 73,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_left_hip_pitch_case": 216,
+    "scs_left_knee_case": 464,
+    "wire_hub_LTD": 24,
+    "left_knee_ear_screws_M2x6st,scs_left_knee_case": 16,
+    "left_hip_pitch_ear_screws_M2x6st,scs_left_hip_pitch_case": 12
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 716,
+   "mate_contacts": 155,
+   "support_g": 5.59,
+   "part_g": 14.7,
+   "minutes": 53,
+   "align_err_mm": 0.84,
+   "touches": {
+    "wire_hub_LTD": 41,
+    "scs_left_knee_case": 372,
+    "scs_left_hip_pitch_case": 128,
+    "left_shin": 108,
+    "left_thigh_cover": 6,
+    "left_hip_pitch_brg_6702ZZ": 216
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 352,
+   "mate_contacts": 0,
+   "support_g": 5.62,
+   "part_g": 14.7,
+   "minutes": 53,
+   "align_err_mm": 3.42,
+   "touches": {
+    "scs_left_hip_pitch_case": 60,
+    "left_hip_pitch_brg_6702ZZ": 64,
+    "scs_left_knee_case": 228
+   },
+   "trusted": false
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 401,
+   "mate_contacts": 1,
+   "support_g": 4.76,
+   "part_g": 13.9,
+   "minutes": 53,
+   "align_err_mm": 3.66,
+   "touches": {
+    "scs_left_hip_pitch_case": 188,
+    "wire_hub_LTA": 1,
+    "left_hip_pitch_brg_6702ZZ": 103,
+    "scs_left_knee_case": 110
+   },
+   "trusted": false
+  }
+ ],
+ "left_yaw_connector": [
+  {
+   "tag": "mx",
+   "fit_contacts": 159,
+   "mate_contacts": 0,
+   "support_g": 0.57,
+   "part_g": 5.3,
+   "minutes": 19,
+   "align_err_mm": 0.84,
+   "touches": {
+    "left_hip_yaw_brg_6702ZZ": 129,
+    "scs_left_hip_yaw_horn_cross": 30
+   },
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 363,
+   "mate_contacts": 0,
+   "support_g": 2.41,
+   "part_g": 7.1,
+   "minutes": 28,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_left_hip_roll_case": 239,
+    "left_hip_roll_brg_6702ZZ": 124
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 418,
+   "mate_contacts": 0,
+   "support_g": 2.25,
+   "part_g": 6.9,
+   "minutes": 28,
+   "align_err_mm": 0.84,
+   "touches": {
+    "left_hip_yaw_brg_6702ZZ": 108,
+    "scs_left_hip_roll_case": 248,
+    "left_hip_roll_ear_screws_M2x6st,scs_left_hip_roll_case": 32,
+    "scs_left_hip_yaw_horn_cross": 30
+   },
+   "trusted": true
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 550,
+   "mate_contacts": 0,
+   "support_g": 2.12,
+   "part_g": 6.9,
+   "minutes": 27,
+   "align_err_mm": 0.84,
+   "touches": {
+    "left_hip_roll_brg_6702ZZ": 121,
+    "left_hip_yaw_brg_6702ZZ": 93,
+    "scs_left_hip_roll_case": 288,
+    "scs_left_hip_yaw_horn_cross": 48
+   },
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 555,
+   "mate_contacts": 0,
+   "support_g": 2.39,
+   "part_g": 7.2,
+   "minutes": 28,
+   "align_err_mm": 0.7,
+   "touches": {
+    "left_hip_yaw_brg_6702ZZ": 78,
+    "scs_left_hip_roll_case": 288,
+    "scs_left_hip_yaw_horn_cross": 57,
+    "left_hip_roll_brg_6702ZZ": 132
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 561,
+   "mate_contacts": 24,
+   "support_g": 1.98,
+   "part_g": 6.7,
+   "minutes": 28,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_left_hip_yaw_horn_cross": 278,
+    "left_hip_yaw_screw_M2x4kit": 24,
+    "left_hip_yaw_brg_6702ZZ": 4,
+    "scs_left_hip_roll_case": 106,
+    "left_hip_roll_brg_6702ZZ": 173
+   },
+   "trusted": true
+  }
+ ],
+ "neck_cradle": [
+  {
+   "tag": "py",
+   "fit_contacts": 38,
+   "mate_contacts": 0,
+   "support_g": 0.16,
+   "part_g": 6.9,
+   "minutes": 24,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_head_pitch_case": 22,
+    "scs_neck_pitch_case": 16
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 110,
+   "mate_contacts": 0,
+   "support_g": 1.01,
+   "part_g": 7.6,
+   "minutes": 21,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_head_pitch_case": 66,
+    "scs_neck_pitch_case": 44
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 112,
+   "mate_contacts": 0,
+   "support_g": 1.01,
+   "part_g": 7.6,
+   "minutes": 21,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_neck_pitch_case": 66,
+    "scs_head_pitch_case": 46
+   },
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 958,
+   "mate_contacts": 0,
+   "support_g": 4.94,
+   "part_g": 11.7,
+   "minutes": 41,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_neck_pitch_case": 404,
+    "neck_nut_M3,scs_neck_pitch_case": 34,
+    "neck_nut_M3": 41,
+    "scs_head_pitch_case": 439,
+    "head_pitch_nut_M3": 25,
+    "head_pitch_nut_M3,scs_head_pitch_case": 15
+   },
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 1584,
+   "mate_contacts": 0,
+   "support_g": 3.31,
+   "part_g": 9.9,
+   "minutes": 42,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_neck_pitch_case_screws": 60,
+    "scs_neck_pitch_case": 542,
+    "scs_neck_pitch_case,scs_neck_pitch_case_screws": 8,
+    "neck_nut_M3,scs_neck_pitch_case": 76,
+    "scs_head_pitch_case_screws": 68,
+    "scs_head_pitch_case": 552,
+    "scs_head_pitch_case,scs_head_pitch_case_screws": 10,
+    "head_pitch_nut_M3,scs_head_pitch_case": 72,
+    "head_pitch_nut_M3": 48,
+    "head_pitch_nut_M3,head_pitch_screw_M3x8": 48,
+    "neck_nut_M3": 52,
+    "neck_nut_M3,neck_screw_M3x8": 48
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 991,
+   "mate_contacts": 0,
+   "support_g": 4.08,
+   "part_g": 10.8,
+   "minutes": 39,
+   "align_err_mm": 1.53,
+   "touches": {
+    "scs_head_pitch_case": 450,
+    "head_pitch_nut_M3": 34,
+    "head_pitch_nut_M3,scs_head_pitch_case": 22,
+    "scs_neck_pitch_case": 449,
+    "neck_nut_M3": 18,
+    "neck_nut_M3,scs_neck_pitch_case": 18
+   },
+   "trusted": false
+  }
+ ],
+ "right_foot": [
+  {
+   "tag": "pz",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 1.85,
+   "part_g": 21.2,
+   "minutes": 68,
+   "align_err_mm": 0.85,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 0,
+   "mate_contacts": 20,
+   "support_g": 2.21,
+   "part_g": 21.6,
+   "minutes": 63,
+   "align_err_mm": 0.85,
+   "touches": {
+    "right_foot_bearing_plate": 20
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 0,
+   "mate_contacts": 162,
+   "support_g": 0.75,
+   "part_g": 20.3,
+   "minutes": 57,
+   "align_err_mm": 0.86,
+   "touches": {
+    "right_foot_bearing_plate": 162
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 0,
+   "mate_contacts": 162,
+   "support_g": 1.58,
+   "part_g": 21.1,
+   "minutes": 61,
+   "align_err_mm": 0.86,
+   "touches": {
+    "right_foot_bearing_plate": 162
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 0,
+   "mate_contacts": 213,
+   "support_g": 6.63,
+   "part_g": 25.8,
+   "minutes": 92,
+   "align_err_mm": 0.84,
+   "touches": {
+    "right_foot_bearing_plate": 213
+   },
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 777,
+   "mate_contacts": 381,
+   "support_g": 3.53,
+   "part_g": 22.9,
+   "minutes": 72,
+   "align_err_mm": 0.85,
+   "touches": {
+    "right_foot_bearing_plate": 307,
+    "right_foot_bearing_plate,right_foot_plate_screws_M2x6st": 54,
+    "scs_right_ankle_horn_cross": 777,
+    "right_ankle_screw_M2x4kit": 20
+   },
+   "trusted": true
+  }
+ ],
+ "right_foot_bearing_plate": [
+  {
+   "tag": "py",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 0.0,
+   "part_g": 1.6,
+   "minutes": 5,
+   "align_err_mm": 0.84,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 0.0,
+   "part_g": 1.6,
+   "minutes": 5,
+   "align_err_mm": 0.84,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 0,
+   "mate_contacts": 37,
+   "support_g": 0.35,
+   "part_g": 2.1,
+   "minutes": 12,
+   "align_err_mm": 1.07,
+   "touches": {
+    "right_foot_plate_screws_M2x6st": 37
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 52,
+   "mate_contacts": 16,
+   "support_g": 0.58,
+   "part_g": 2.3,
+   "minutes": 10,
+   "align_err_mm": 0.85,
+   "touches": {
+    "right_ankle_brg_693": 52,
+    "right_foot_plate_screws_M2x6st": 16
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 65,
+   "mate_contacts": 14,
+   "support_g": 0.58,
+   "part_g": 2.2,
+   "minutes": 10,
+   "align_err_mm": 0.85,
+   "touches": {
+    "right_ankle_brg_693": 65,
+    "right_foot_plate_screws_M2x6st": 14
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 78,
+   "mate_contacts": 0,
+   "support_g": 0.83,
+   "part_g": 2.6,
+   "minutes": 13,
+   "align_err_mm": 0.46,
+   "touches": {
+    "right_ankle_brg_693": 78
+   },
+   "trusted": true
+  }
+ ],
+ "right_knee_cap": [
+  {
+   "tag": "my",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 0.0,
+   "part_g": 2.6,
+   "minutes": 9,
+   "align_err_mm": 0.84,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 69,
+   "mate_contacts": 38,
+   "support_g": 0.34,
+   "part_g": 3.1,
+   "minutes": 10,
+   "align_err_mm": 0.85,
+   "touches": {
+    "right_knee_brg_6702ZZ": 69,
+    "right_thigh": 38
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 130,
+   "mate_contacts": 40,
+   "support_g": 0.76,
+   "part_g": 3.5,
+   "minutes": 16,
+   "align_err_mm": 0.84,
+   "touches": {
+    "right_knee_cap_screws_M2x6": 40,
+    "right_knee_brg_6702ZZ": 130
+   },
+   "trusted": true
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 318,
+   "mate_contacts": 164,
+   "support_g": 0.81,
+   "part_g": 3.3,
+   "minutes": 12,
+   "align_err_mm": 0.89,
+   "touches": {
+    "right_knee_brg_6702ZZ": 306,
+    "right_shin": 164,
+    "right_knee_brg_6702ZZ,right_shin": 12
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 0.21,
+   "part_g": 3.0,
+   "minutes": 10,
+   "align_err_mm": 3.1,
+   "touches": {},
+   "trusted": false
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 47,
+   "mate_contacts": 75,
+   "support_g": 1.06,
+   "part_g": 3.8,
+   "minutes": 17,
+   "align_err_mm": 2.48,
+   "touches": {
+    "right_knee_brg_6702ZZ": 47,
+    "right_thigh": 32,
+    "right_knee_cap_screws_M2x6": 43
+   },
+   "trusted": false
+  }
+ ],
+ "right_l_bracket": [
+  {
+   "tag": "mx",
+   "fit_contacts": 121,
+   "mate_contacts": 0,
+   "support_g": 0.22,
+   "part_g": 5.3,
+   "minutes": 19,
+   "align_err_mm": 0.84,
+   "touches": {
+    "right_hip_pitch_brg_6702ZZ": 87,
+    "scs_right_hip_pitch_horn_cross": 22,
+    "scs_right_hip_pitch_case": 12
+   },
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 121,
+   "mate_contacts": 0,
+   "support_g": 1.94,
+   "part_g": 7.1,
+   "minutes": 28,
+   "align_err_mm": 0.84,
+   "touches": {
+    "right_hip_roll_brg_6702ZZ": 95,
+    "scs_right_hip_roll_horn_cross": 26
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 249,
+   "mate_contacts": 0,
+   "support_g": 0.83,
+   "part_g": 6.0,
+   "minutes": 19,
+   "align_err_mm": 0.84,
+   "touches": {
+    "right_hip_pitch_brg_6702ZZ": 121,
+    "right_hip_roll_brg_6702ZZ": 72,
+    "scs_right_hip_pitch_horn_cross": 26,
+    "scs_right_hip_roll_horn_cross": 22,
+    "scs_right_hip_roll_case": 8
+   },
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 253,
+   "mate_contacts": 0,
+   "support_g": 0.85,
+   "part_g": 6.1,
+   "minutes": 20,
+   "align_err_mm": 0.84,
+   "touches": {
+    "right_hip_pitch_brg_6702ZZ": 79,
+    "right_hip_roll_brg_6702ZZ": 124,
+    "scs_right_hip_roll_horn_cross": 26,
+    "scs_right_hip_pitch_horn_cross": 24
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 533,
+   "mate_contacts": 144,
+   "support_g": 2.08,
+   "part_g": 7.1,
+   "minutes": 27,
+   "align_err_mm": 0.84,
+   "touches": {
+    "right_hip_pitch_brg_6702ZZ": 77,
+    "scs_right_hip_pitch_horn_cross": 22,
+    "scs_right_hip_roll_case": 6,
+    "scs_right_hip_roll_horn_cross": 240,
+    "right_hip_roll_screw_M2x4kit": 32,
+    "right_hip_roll_brg_6702ZZ": 180,
+    "right_yaw_connector": 112,
+    "right_hip_roll_brg_6702ZZ,right_yaw_connector": 8
+   },
+   "trusted": true
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 727,
+   "mate_contacts": 126,
+   "support_g": 1.65,
+   "part_g": 6.7,
+   "minutes": 25,
+   "align_err_mm": 0.84,
+   "touches": {
+    "right_hip_pitch_screw_M2x4kit": 18,
+    "scs_right_hip_pitch_horn_cross": 256,
+    "right_hip_pitch_brg_6702ZZ": 249,
+    "right_thigh": 108,
+    "right_hip_roll_brg_6702ZZ": 150,
+    "scs_right_hip_roll_horn_cross": 72
+   },
+   "trusted": true
+  }
+ ],
+ "right_shin": [
+  {
+   "tag": "my",
+   "fit_contacts": 451,
+   "mate_contacts": 90,
+   "support_g": 0.57,
+   "part_g": 8.7,
+   "minutes": 26,
+   "align_err_mm": 0.84,
+   "touches": {
+    "right_knee_brg_6702ZZ": 427,
+    "right_knee_screw_M2x4kit": 90,
+    "right_ankle_nut_M3,scs_right_ankle_case": 2,
+    "scs_right_ankle_case": 22
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 714,
+   "mate_contacts": 0,
+   "support_g": 3.01,
+   "part_g": 11.3,
+   "minutes": 40,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_right_knee_horn_cross": 25,
+    "right_knee_brg_6702ZZ": 92,
+    "scs_right_ankle_case": 554,
+    "right_ankle_nut_M3": 32,
+    "right_ankle_nut_M3,scs_right_ankle_case": 11
+   },
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 721,
+   "mate_contacts": 0,
+   "support_g": 3.15,
+   "part_g": 11.5,
+   "minutes": 40,
+   "align_err_mm": 0.85,
+   "touches": {
+    "scs_right_ankle_case": 494,
+    "right_ankle_nut_M3": 61,
+    "right_ankle_nut_M3,scs_right_ankle_case": 18,
+    "right_knee_brg_6702ZZ": 148
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 1357,
+   "mate_contacts": 40,
+   "support_g": 3.83,
+   "part_g": 12.2,
+   "minutes": 43,
+   "align_err_mm": 0.84,
+   "touches": {
+    "right_foot_bearing_plate": 40,
+    "right_knee_brg_6702ZZ": 89,
+    "scs_right_ankle_case": 1249,
+    "scs_right_knee_horn_cross": 19
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 1366,
+   "mate_contacts": 46,
+   "support_g": 3.86,
+   "part_g": 12.2,
+   "minutes": 43,
+   "align_err_mm": 0.84,
+   "touches": {
+    "right_foot_bearing_plate": 46,
+    "right_knee_brg_6702ZZ": 94,
+    "scs_right_ankle_case": 1248,
+    "scs_right_knee_horn_cross": 24
+   },
+   "trusted": true
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 1533,
+   "mate_contacts": 36,
+   "support_g": 4.23,
+   "part_g": 12.5,
+   "minutes": 47,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_right_ankle_case": 547,
+    "right_ankle_ear_screws_M2x6st,scs_right_ankle_case": 24,
+    "scs_right_knee_horn_cross": 728,
+    "right_knee_screw_M2x4kit": 36,
+    "scs_right_ankle_case_screws": 64,
+    "right_ankle_nut_M3,scs_right_ankle_case": 74,
+    "right_ankle_nut_M3": 48,
+    "right_ankle_nut_M3,right_ankle_screw_M3x8": 48
+   },
+   "trusted": true
+  }
+ ],
+ "right_thigh": [
+  {
+   "tag": "my",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 1.19,
+   "part_g": 10.2,
+   "minutes": 38,
+   "align_err_mm": 0.84,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 620,
+   "mate_contacts": 8,
+   "support_g": 4.84,
+   "part_g": 14.0,
+   "minutes": 54,
+   "align_err_mm": 0.69,
+   "touches": {
+    "scs_right_hip_pitch_case": 258,
+    "scs_right_knee_case": 144,
+    "right_thigh_cover": 8,
+    "right_hip_pitch_brg_6702ZZ": 218
+   },
+   "trusted": true
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 689,
+   "mate_contacts": 0,
+   "support_g": 8.66,
+   "part_g": 17.7,
+   "minutes": 72,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_right_hip_pitch_case": 215,
+    "scs_right_knee_case": 446,
+    "right_knee_ear_screws_M2x6st,scs_right_knee_case": 16,
+    "right_hip_pitch_ear_screws_M2x6st,scs_right_hip_pitch_case": 12
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 422,
+   "mate_contacts": 43,
+   "support_g": 5.31,
+   "part_g": 14.4,
+   "minutes": 52,
+   "align_err_mm": 3.75,
+   "touches": {
+    "wire_hub_RTD": 24,
+    "wire_plug_lead_right_knee_b": 2,
+    "scs_right_knee_case": 228,
+    "scs_right_hip_pitch_case": 123,
+    "right_shin": 10,
+    "right_thigh_cover": 7,
+    "right_hip_pitch_brg_6702ZZ": 71
+   },
+   "trusted": false
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 426,
+   "mate_contacts": 126,
+   "support_g": 7.04,
+   "part_g": 16.2,
+   "minutes": 62,
+   "align_err_mm": 2.31,
+   "touches": {
+    "scs_right_knee_case": 85,
+    "right_thigh_cover": 16,
+    "right_shin": 80,
+    "scs_right_hip_pitch_case": 258,
+    "wire_plug_lead_right_knee_b": 24,
+    "wire_plug_ext_right_thigh_D_to_A_b": 6,
+    "right_hip_pitch_brg_6702ZZ": 83
+   },
+   "trusted": false
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 432,
+   "mate_contacts": 15,
+   "support_g": 5.39,
+   "part_g": 14.6,
+   "minutes": 52,
+   "align_err_mm": 2.39,
+   "touches": {
+    "scs_right_hip_pitch_case": 95,
+    "right_thigh_cover": 15,
+    "right_hip_pitch_brg_6702ZZ": 86,
+    "scs_right_knee_case": 251
+   },
+   "trusted": false
+  }
+ ],
+ "right_yaw_connector": [
+  {
+   "tag": "mx",
+   "fit_contacts": 159,
+   "mate_contacts": 0,
+   "support_g": 0.58,
+   "part_g": 5.3,
+   "minutes": 19,
+   "align_err_mm": 0.84,
+   "touches": {
+    "right_hip_yaw_brg_6702ZZ": 129,
+    "scs_right_hip_yaw_horn_cross": 30
+   },
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 310,
+   "mate_contacts": 0,
+   "support_g": 2.28,
+   "part_g": 7.0,
+   "minutes": 28,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_right_hip_roll_case": 192,
+    "right_hip_roll_brg_6702ZZ": 118
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 417,
+   "mate_contacts": 0,
+   "support_g": 2.31,
+   "part_g": 7.0,
+   "minutes": 28,
+   "align_err_mm": 0.84,
+   "touches": {
+    "right_hip_yaw_brg_6702ZZ": 105,
+    "scs_right_hip_roll_case": 250,
+    "right_hip_roll_ear_screws_M2x6st,scs_right_hip_roll_case": 32,
+    "scs_right_hip_yaw_horn_cross": 30
+   },
+   "trusted": true
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 544,
+   "mate_contacts": 0,
+   "support_g": 2.27,
+   "part_g": 7.0,
+   "minutes": 27,
+   "align_err_mm": 0.84,
+   "touches": {
+    "right_hip_yaw_brg_6702ZZ": 85,
+    "scs_right_hip_roll_case": 288,
+    "scs_right_hip_yaw_horn_cross": 44,
+    "right_hip_roll_brg_6702ZZ": 127
+   },
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 546,
+   "mate_contacts": 0,
+   "support_g": 2.09,
+   "part_g": 6.9,
+   "minutes": 26,
+   "align_err_mm": 0.84,
+   "touches": {
+    "right_hip_roll_brg_6702ZZ": 122,
+    "right_hip_yaw_brg_6702ZZ": 84,
+    "scs_right_hip_roll_case": 286,
+    "scs_right_hip_yaw_horn_cross": 54
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 561,
+   "mate_contacts": 24,
+   "support_g": 2.03,
+   "part_g": 6.7,
+   "minutes": 28,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_right_hip_yaw_horn_cross": 284,
+    "right_hip_yaw_screw_M2x4kit": 24,
+    "right_hip_yaw_brg_6702ZZ": 6,
+    "scs_right_hip_roll_case": 111,
+    "right_hip_roll_brg_6702ZZ": 160
+   },
+   "trusted": true
+  }
+ ],
+ "switch_plate": [
+  {
+   "tag": "py",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 0.0,
+   "part_g": 1.5,
+   "minutes": 7,
+   "align_err_mm": 0.84,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 0.28,
+   "part_g": 1.8,
+   "minutes": 7,
+   "align_err_mm": 0.84,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 0,
+   "mate_contacts": 28,
+   "support_g": 0.15,
+   "part_g": 1.6,
+   "minutes": 7,
+   "align_err_mm": 0.66,
+   "touches": {
+    "bay_switch_hw": 28
+   },
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 0,
+   "mate_contacts": 49,
+   "support_g": 0.25,
+   "part_g": 1.7,
+   "minutes": 7,
+   "align_err_mm": 0.84,
+   "touches": {
+    "bay_switch_hw,power_switch": 16,
+    "bay_switch_hw": 33
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 0,
+   "mate_contacts": 50,
+   "support_g": 0.15,
+   "part_g": 1.6,
+   "minutes": 7,
+   "align_err_mm": 0.49,
+   "touches": {
+    "bay_switch_hw": 28,
+    "electronics_enclosure": 22
+   },
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 0,
+   "mate_contacts": 170,
+   "support_g": 0.12,
+   "part_g": 1.6,
+   "minutes": 7,
+   "align_err_mm": 0.84,
+   "touches": {
+    "bay_switch_hw": 170
+   },
+   "trusted": true
+  }
+ ],
+ "uno_cover": [
+  {
+   "tag": "mz",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 0.09,
+   "part_g": 6.6,
+   "minutes": 14,
+   "align_err_mm": 0.84,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "pz",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 6.82,
+   "part_g": 13.6,
+   "minutes": 54,
+   "align_err_mm": 0.84,
+   "touches": {},
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 148,
+   "mate_contacts": 354,
+   "support_g": 4.34,
+   "part_g": 10.8,
+   "minutes": 37,
+   "align_err_mm": 0.84,
+   "touches": {
+    "body_lid": 330,
+    "unoq_pcb": 140,
+    "body_lid,unoq_pcb": 8,
+    "body_lid,uno_cover_screws_M2x6st": 24
+   },
+   "trusted": true
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 232,
+   "mate_contacts": 592,
+   "support_g": 5.8,
+   "part_g": 12.2,
+   "minutes": 43,
+   "align_err_mm": 0.84,
+   "touches": {
+    "unoq_pcb": 218,
+    "body_lid": 556,
+    "body_lid,unoq_pcb": 14,
+    "body_lid,uno_cover_screws_M2x6st": 36
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 234,
+   "mate_contacts": 367,
+   "support_g": 6.46,
+   "part_g": 12.7,
+   "minutes": 44,
+   "align_err_mm": 0.46,
+   "touches": {
+    "body_lid": 363,
+    "body_lid,electronics_enclosure": 4,
+    "unoq_pcb": 234
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 0,
+   "mate_contacts": 0,
+   "support_g": 1.64,
+   "part_g": 8.0,
+   "minutes": 27,
+   "align_err_mm": 9.59,
+   "touches": {},
+   "trusted": false
+  }
+ ],
+ "yaw_block": [
+  {
+   "tag": "pz",
+   "fit_contacts": 167,
+   "mate_contacts": 0,
+   "support_g": 0.55,
+   "part_g": 6.0,
+   "minutes": 20,
+   "align_err_mm": 0.84,
+   "touches": {
+    "head_roll_brg_6702ZZ": 141,
+    "scs_head_roll_horn_cross": 26
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mz",
+   "fit_contacts": 318,
+   "mate_contacts": 0,
+   "support_g": 2.64,
+   "part_g": 8.2,
+   "minutes": 32,
+   "align_err_mm": 0.84,
+   "touches": {
+    "head_roll_brg_6702ZZ": 79,
+    "scs_head_yaw_case": 205,
+    "head_yaw_ear_screws_M2x6st,scs_head_yaw_case": 12,
+    "scs_head_roll_horn_cross": 22
+   },
+   "trusted": true
+  },
+  {
+   "tag": "my",
+   "fit_contacts": 460,
+   "mate_contacts": 0,
+   "support_g": 1.52,
+   "part_g": 7.0,
+   "minutes": 26,
+   "align_err_mm": 0.85,
+   "touches": {
+    "scs_head_yaw_case": 148,
+    "head_roll_brg_6702ZZ": 112,
+    "scs_head_roll_case": 4,
+    "scs_head_roll_horn_cross": 26,
+    "head_yaw_brg_6702ZZ": 170
+   },
+   "trusted": true
+  },
+  {
+   "tag": "py",
+   "fit_contacts": 513,
+   "mate_contacts": 0,
+   "support_g": 1.56,
+   "part_g": 7.1,
+   "minutes": 27,
+   "align_err_mm": 0.85,
+   "touches": {
+    "head_roll_brg_6702ZZ": 166,
+    "scs_head_roll_horn_cross": 44,
+    "scs_head_yaw_case": 127,
+    "head_yaw_brg_6702ZZ": 176
+   },
+   "trusted": true
+  },
+  {
+   "tag": "px",
+   "fit_contacts": 712,
+   "mate_contacts": 17,
+   "support_g": 2.63,
+   "part_g": 8.1,
+   "minutes": 33,
+   "align_err_mm": 0.84,
+   "touches": {
+    "scs_head_roll_horn_cross": 232,
+    "head_roll_screw_M2x4kit": 17,
+    "head_roll_brg_6702ZZ": 31,
+    "scs_head_yaw_case": 274,
+    "head_yaw_brg_6702ZZ": 175
+   },
+   "trusted": true
+  },
+  {
+   "tag": "mx",
+   "fit_contacts": 280,
+   "mate_contacts": 0,
+   "support_g": 2.77,
+   "part_g": 8.3,
+   "minutes": 33,
+   "align_err_mm": 5.96,
+   "touches": {
+    "scs_head_yaw_case": 246,
+    "head_yaw_brg_6702ZZ": 34
+   },
+   "trusted": false
+  }
+ ]
+}

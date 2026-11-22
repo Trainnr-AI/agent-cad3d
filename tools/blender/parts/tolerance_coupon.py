@@ -1,6 +1,6 @@
 """Tolerance coupon: the fits of the nanoduck printed at their real sizes, from the SAME joint-library code that cuts the robot's
 parts (so a fit that works here works there). Print it first, with the real horn, bearings, nuts, screws and a servo in hand.
-Five small pieces in the collection `coupon`, laid out side by side away from the robot (re-running replaces them):
+Seven small pieces in the collection `coupon`, laid out side by side away from the robot (re-running replaces them):
 
   coupon_knee_rotor   = the knee shin's horn/bearing plate (c2m_rotor_features): full X horn pocket + crush ribs, clamp hole +
                         counterbore, 6702ZZ seat Ø21.1 x 4 open to the top face, relief under the inner ring. Print seat face DOWN.
@@ -11,6 +11,8 @@ Five small pieces in the collection `coupon`, laid out side by side away from th
                         M2 clearance Ø2.4, M3 pilot Ø2.5 (blind, Uno Q posts), and the 28 mm bridge (1.6 mm roof over a 28 x 8
                         channel, like the knee holder's base). Print flat (the channel is underneath and prints as a bridge).
   coupon_servo_collar = the servo body (12.1 x 23.3) + 0.25 clearance all round, 1.35 walls, 8 high (the bearing caps' saddles).
+  coupon_link_boss_sup / _nosup = a type-C rotor's centre (link_features) on a foot, printed with the joint axis LYING DOWN
+                        (print up = +Y), with / without supports: 1 / 2 dimples. See piece 6 below.
 
 ARGS = {"joint_lib": ".../joint_v2.py", "base_lib": ".../joint_orig_style.py", "dims": ".../scs0009_dims.py",
         "collection": "coupon", "origin": [0.30, 0.15, 0.0]}
@@ -80,6 +82,21 @@ wt = L["SADDLE_T"]
 add5 = [box(nb(), -hl - wt, hl + wt, -hw - wt, hw + wt, 0.0, L["SADDLE_DEPTH"], M5)]
 sub5 = [box(nb(), -hl, hl, -hw, hw, -0.5, L["SADDLE_DEPTH"] + 0.5, M5)]
 parts.append(L["build_part"]("coupon_servo_collar", [comb(add5)], sub5, coll, mat))
+
+# 6. lying-down boss: a type-C rotor's centre (link_features: Ø14.9 boss into the 6702 bore, shoulder on the inner ring, trimmed X
+#    pocket inside the boss, clamp hole + counterbore) on a foot, so it prints with the joint axis LYING DOWN - as the L-brackets,
+#    yaw connectors, yaw block and head-pitch U must (two bearing axes at right angles). The slicing check (print/slicing/) puts
+#    support under the boss (r 7.4) and in the horn pocket (r 6.2) there. Two copies: _sup printed WITH tree supports (as the robot
+#    would be), _nosup WITHOUT (does the boss underside / pocket roof come out usable anyway?). Marks on the plate's outer face:
+#    1 dimple = _sup, 2 dimples = _nosup. Print up = +Y (foot on the bed).
+FOOT_Y = (-16.5, -13.5)
+for k, (stem, dimples) in enumerate((("coupon_link_boss_sup", 1), ("coupon_link_boss_nosup", 2))):
+    M6 = T(70 + 30 * k, -60)
+    la, ls, lr = L["link_features"](M6, [(-7.0, FOOT_Y[0]), (7.0, FOOT_Y[0])])
+    la = la + [box(nb(), -7.0, 7.0, FOOT_Y[0], FOOT_Y[1], L["BOSS_Z0"], L["PLATE_Z1"], M6)]   # foot: the full depth, stands steady
+    ls = ls + [cyl(nb(), -3.0 + 6.0 * i if dimples == 2 else 0.0, -11.0, L["PLATE_Z1"] - 0.6, L["PLATE_Z1"] + 0.5, 1.6 + 0.07 * i,
+                   16 + 2 * i, M6) for i in range(dimples)]
+    parts.append(L["build_part"](stem, [comb(la)], ls, coll, mat, lr))
 
 out = []
 for o in parts:
