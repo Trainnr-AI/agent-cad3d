@@ -106,15 +106,16 @@ if "neck" in args.get("parts", ["legs", "neck"]):
     if HAS_BODY:                                                  # motor body stays; the electronics bay comes off the back, taken apart in build
         BK = Vector((-2.2 * G, 0, 0))                             # order (as data/build_args/bay_explode.json: offsets from the enclosure, mm)
         off["body_frame"] = Z * 0
-        bay = args.get("bay", {"electronics_enclosure": [0, 0, 0], "enclosure_screws_M2x6st": [0, 0, -30], "servo_adapter": [-50, 0, 30],
-                               "imu": [-92, 0, 62], "bay_imu_qwiic": [-92, 0, 62], "power_switch": [8, 0, 92],
-                               "bay_switch_hw": [8, 0, 92], "bay_switch_joints": [8, 0, 92], "switch_plate": [8, 0, 92], "switch_plate_screws_M2x10csk": [8, 22, 92], "battery_3s": [58, 0, 52], "bay_xt30_pair": [-62, 0, -18],
-                               "bay_balance_plug": [-62, 0, -18], "bay_usb_a_plug": [-62, 0, 165], "bay_usb_adapter_L": [-62, 0, 165],
-                               "ubec": [0, 0, 132], "bay_mini560_joints": [0, 0, 132], "body_lid": [0, 0, 148], "body_lid_screws_M2x6st": [0, 0, 166],
-                               "uno_q": [0, 0, 186], "unoq_pcb": [0, 0, 186], "unoq_headers": [0, 0, 186], "unoq_usbc": [0, 0, 186],
-                               "unoq_pins": [0, 0, 186], "unoq_bottom_connectors": [0, 0, 186], "unoq_top_parts": [0, 0, 186],
-                               "bay_uno_power_plug": [0, 0, 200], "bay_uno_uart_plug": [0, 0, 200], "uno_screws_M3x8": [0, 0, 208],
-                               "uno_screw_M2x6": [0, 0, 208], "uno_cover": [0, 0, 236], "uno_cover_screws_M2x6st": [0, -26, 236]})   # = bay_explode.json (the bay sheet), incl. the bay_* connectors
+        bay = args.get("bay", {"electronics_enclosure": [0, 0, 0], "enclosure_screws_M2x6st": [0, 0, -30], "servo_adapter": [-50, 0, 30], "imu": [-92, 0, 62],
+                               "bay_imu_qwiic": [-92, 0, 62], "power_switch": [8, 0, 92], "bay_switch_hw": [8, 0, 92], "bay_switch_joints": [8, 0, 92],
+                               "switch_plate": [8, 0, 92], "switch_plate_screws_M2x10csk": [8, 22, 92], "battery_3s": [58, 0, 52], "bay_xt30_pair": [-62, 0, -18],
+                               "bay_balance_plug": [-62, 0, -18], "bay_usb_a_plug": [-62, 0, 165], "bay_usb_adapter_L": [-62, 0, 165], "body_lid": [0, 0, 148],
+                               "body_lid_screws_M2x6st": [0, 0, 166], "uno_q": [0, 0, 186], "unoq_pcb": [0, 0, 186], "unoq_headers": [0, 0, 186],
+                               "unoq_usbc": [0, 0, 186], "unoq_pins": [0, 0, 186], "unoq_bottom_connectors": [0, 0, 186], "unoq_top_parts": [0, 0, 186],
+                               "bay_uno_power_plug": [0, 0, 200], "bay_uno_uart_plug": [0, 0, 200], "uno_screws_M3x8": [0, 0, 208], "uno_screw_M2x6": [0, 0, 208],
+                               "uno_cover": [0, 0, 236], "switch_lug_plugs": [8, 0, 92], "mini560_pcb": [-45, 0, 236], "mini560_parts": [-45, 0, 236],
+                               "mini560_plugs": [-45, 0, 236], "splices_x3": [-45, 0, 236], "mini560_back_plate": [-70, 0, 236],
+                               "uno_cover_screw_R_M2x6st": [0, -26, 236], "uno_cover_screw_L_M2x6st": [0, 26, 236]})   # = bay_explode.json "objects" minus body_frame (KEEP IN SYNC; 2026-11-25: was the soldered bay's)
         for n_, v_ in bay.items():
             off[n_] = BK + Vector(v_)
     cradle = Z * (1.5 * G) + (Vector((1.6 * G, 0, 0)) if HAS_BODY else Z * 0)      # forward, clear of the body's contents

@@ -1691,55 +1691,6 @@
   },
   {
    "group": "electronics",
-   "a": "ubec",
-   "b": "electronics_enclosure",
-   "expect": "clear",
-   "note": "ubec vs enclosure"
-  },
-  {
-   "group": "electronics",
-   "a": "ubec",
-   "b": "body_lid",
-   "expect": "clear",
-   "note": "ubec vs top plate"
-  },
-  {
-   "group": "electronics",
-   "a": "ubec",
-   "b": "body_frame",
-   "expect": "clear",
-   "note": "ubec vs motor body"
-  },
-  {
-   "group": "electronics",
-   "a": "ubec",
-   "b": "scs_left_hip_yaw_case",
-   "expect": "clear",
-   "note": "ubec vs left hip-yaw servo"
-  },
-  {
-   "group": "electronics",
-   "a": "ubec",
-   "b": "scs_right_hip_yaw_case",
-   "expect": "clear",
-   "note": "ubec vs right hip-yaw servo"
-  },
-  {
-   "group": "electronics",
-   "a": "ubec",
-   "b": "body_lid_screws_M2x6st",
-   "expect": "clear",
-   "note": "ubec vs body_lid_screws_M2x6st"
-  },
-  {
-   "group": "electronics",
-   "a": "ubec",
-   "b": "enclosure_screws_M2x6st",
-   "expect": "clear",
-   "note": "ubec vs enclosure_screws_M2x6st"
-  },
-  {
-   "group": "electronics",
    "a": "imu",
    "b": "electronics_enclosure",
    "expect": "clear",
@@ -1804,13 +1755,6 @@
   {
    "group": "electronics",
    "a": "uno_q",
-   "b": "ubec",
-   "expect": "clear",
-   "note": "uno_q vs ubec"
-  },
-  {
-   "group": "electronics",
-   "a": "uno_q",
    "b": "imu",
    "expect": "clear",
    "note": "uno_q vs imu"
@@ -1825,13 +1769,6 @@
   {
    "group": "electronics",
    "a": "battery_3s",
-   "b": "ubec",
-   "expect": "clear",
-   "note": "battery_3s vs ubec"
-  },
-  {
-   "group": "electronics",
-   "a": "battery_3s",
    "b": "imu",
    "expect": "clear",
    "note": "battery_3s vs imu"
@@ -1839,23 +1776,9 @@
   {
    "group": "electronics",
    "a": "servo_adapter",
-   "b": "ubec",
-   "expect": "clear",
-   "note": "servo_adapter vs ubec"
-  },
-  {
-   "group": "electronics",
-   "a": "servo_adapter",
    "b": "imu",
    "expect": "clear",
    "note": "servo_adapter vs imu"
-  },
-  {
-   "group": "electronics",
-   "a": "ubec",
-   "b": "imu",
-   "expect": "clear",
-   "note": "ubec vs imu"
   },
   {
    "group": "left knee (full horn, C2M)",
@@ -2609,20 +2532,6 @@
   {
    "group": "body: switch plate, rear cradles, cover (2026-11-20)",
    "a": "switch_plate",
-   "b": "ubec",
-   "expect": "clear",
-   "note": "switch plate under the Mini560"
-  },
-  {
-   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
-   "a": "switch_plate",
-   "b": "bay_mini560_joints",
-   "expect": "clear",
-   "note": "switch plate under the Mini560's solder joints"
-  },
-  {
-   "group": "body: switch plate, rear cradles, cover (2026-11-20)",
-   "a": "switch_plate",
    "b": "body_lid",
    "expect": "clear",
    "note": "switch plate under the lid"
@@ -2794,6 +2703,727 @@
    "b": "head_roll_ear_screws_M2x6st",
    "expect": "clear",
    "note": "dome over the roll servo's ear screws (no pocket)"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_pcb",
+   "b": "uno_cover",
+   "expect": "clear",
+   "note": "mini560_pcb vs uno_cover"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_pcb",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "mini560_pcb vs electronics_enclosure"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_pcb",
+   "b": "body_lid",
+   "expect": "clear",
+   "note": "mini560_pcb vs body_lid"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_pcb",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "mini560_pcb vs body_frame"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_pcb",
+   "b": "unoq_pcb",
+   "expect": "clear",
+   "note": "mini560_pcb vs unoq_pcb"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_pcb",
+   "b": "unoq_headers",
+   "expect": "clear",
+   "note": "mini560_pcb vs unoq_headers"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_pcb",
+   "b": "unoq_pins",
+   "expect": "clear",
+   "note": "mini560_pcb vs unoq_pins"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_pcb",
+   "b": "unoq_top_parts",
+   "expect": "clear",
+   "note": "mini560_pcb vs unoq_top_parts"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_pcb",
+   "b": "unoq_usbc",
+   "expect": "clear",
+   "note": "mini560_pcb vs unoq_usbc"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_pcb",
+   "b": "bay_balance_plug",
+   "expect": "clear",
+   "note": "mini560_pcb vs bay_balance_plug"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_pcb",
+   "b": "bay_usb_adapter_L",
+   "expect": "clear",
+   "note": "mini560_pcb vs bay_usb_adapter_L"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_pcb",
+   "b": "bay_usb_a_plug",
+   "expect": "clear",
+   "note": "mini560_pcb vs bay_usb_a_plug"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_pcb",
+   "b": "bay_xt30_pair",
+   "expect": "clear",
+   "note": "mini560_pcb vs bay_xt30_pair"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_pcb",
+   "b": "uno_cover_screw_R_M2x6st",
+   "expect": "clear",
+   "note": "mini560_pcb vs uno_cover_screw_R_M2x6st"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_pcb",
+   "b": "uno_cover_screw_L_M2x6st",
+   "expect": "clear",
+   "note": "mini560_pcb vs uno_cover_screw_L_M2x6st"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_pcb",
+   "b": "battery_3s",
+   "expect": "clear",
+   "note": "mini560_pcb vs battery_3s"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_pcb",
+   "b": "servo_adapter",
+   "expect": "clear",
+   "note": "mini560_pcb vs servo_adapter"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_parts",
+   "b": "uno_cover",
+   "expect": "clear",
+   "note": "mini560_parts vs uno_cover"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_parts",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "mini560_parts vs electronics_enclosure"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_parts",
+   "b": "body_lid",
+   "expect": "clear",
+   "note": "mini560_parts vs body_lid"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_parts",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "mini560_parts vs body_frame"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_parts",
+   "b": "unoq_pcb",
+   "expect": "clear",
+   "note": "mini560_parts vs unoq_pcb"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_parts",
+   "b": "unoq_headers",
+   "expect": "clear",
+   "note": "mini560_parts vs unoq_headers"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_parts",
+   "b": "unoq_pins",
+   "expect": "clear",
+   "note": "mini560_parts vs unoq_pins"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_parts",
+   "b": "unoq_top_parts",
+   "expect": "clear",
+   "note": "mini560_parts vs unoq_top_parts"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_parts",
+   "b": "unoq_usbc",
+   "expect": "clear",
+   "note": "mini560_parts vs unoq_usbc"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_parts",
+   "b": "bay_balance_plug",
+   "expect": "clear",
+   "note": "mini560_parts vs bay_balance_plug"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_parts",
+   "b": "bay_usb_adapter_L",
+   "expect": "clear",
+   "note": "mini560_parts vs bay_usb_adapter_L"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_parts",
+   "b": "bay_usb_a_plug",
+   "expect": "clear",
+   "note": "mini560_parts vs bay_usb_a_plug"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_parts",
+   "b": "bay_xt30_pair",
+   "expect": "clear",
+   "note": "mini560_parts vs bay_xt30_pair"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_parts",
+   "b": "uno_cover_screw_R_M2x6st",
+   "expect": "clear",
+   "note": "mini560_parts vs uno_cover_screw_R_M2x6st"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_parts",
+   "b": "uno_cover_screw_L_M2x6st",
+   "expect": "clear",
+   "note": "mini560_parts vs uno_cover_screw_L_M2x6st"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_parts",
+   "b": "battery_3s",
+   "expect": "clear",
+   "note": "mini560_parts vs battery_3s"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_parts",
+   "b": "servo_adapter",
+   "expect": "clear",
+   "note": "mini560_parts vs servo_adapter"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_plugs",
+   "b": "uno_cover",
+   "expect": "clear",
+   "note": "mini560_plugs vs uno_cover"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_plugs",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "mini560_plugs vs electronics_enclosure"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_plugs",
+   "b": "body_lid",
+   "expect": "clear",
+   "note": "mini560_plugs vs body_lid"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_plugs",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "mini560_plugs vs body_frame"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_plugs",
+   "b": "unoq_pcb",
+   "expect": "clear",
+   "note": "mini560_plugs vs unoq_pcb"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_plugs",
+   "b": "unoq_headers",
+   "expect": "clear",
+   "note": "mini560_plugs vs unoq_headers"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_plugs",
+   "b": "unoq_pins",
+   "expect": "clear",
+   "note": "mini560_plugs vs unoq_pins"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_plugs",
+   "b": "unoq_top_parts",
+   "expect": "clear",
+   "note": "mini560_plugs vs unoq_top_parts"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_plugs",
+   "b": "unoq_usbc",
+   "expect": "clear",
+   "note": "mini560_plugs vs unoq_usbc"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_plugs",
+   "b": "bay_balance_plug",
+   "expect": "clear",
+   "note": "mini560_plugs vs bay_balance_plug"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_plugs",
+   "b": "bay_usb_adapter_L",
+   "expect": "clear",
+   "note": "mini560_plugs vs bay_usb_adapter_L"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_plugs",
+   "b": "bay_usb_a_plug",
+   "expect": "clear",
+   "note": "mini560_plugs vs bay_usb_a_plug"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_plugs",
+   "b": "bay_xt30_pair",
+   "expect": "clear",
+   "note": "mini560_plugs vs bay_xt30_pair"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_plugs",
+   "b": "uno_cover_screw_R_M2x6st",
+   "expect": "clear",
+   "note": "mini560_plugs vs uno_cover_screw_R_M2x6st"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_plugs",
+   "b": "uno_cover_screw_L_M2x6st",
+   "expect": "clear",
+   "note": "mini560_plugs vs uno_cover_screw_L_M2x6st"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_plugs",
+   "b": "battery_3s",
+   "expect": "clear",
+   "note": "mini560_plugs vs battery_3s"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_plugs",
+   "b": "servo_adapter",
+   "expect": "clear",
+   "note": "mini560_plugs vs servo_adapter"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "uno_cover",
+   "expect": "clear",
+   "note": "splices_x3 vs uno_cover"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "splices_x3 vs electronics_enclosure"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "body_lid",
+   "expect": "clear",
+   "note": "splices_x3 vs body_lid"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "splices_x3 vs body_frame"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "unoq_pcb",
+   "expect": "clear",
+   "note": "splices_x3 vs unoq_pcb"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "unoq_headers",
+   "expect": "clear",
+   "note": "splices_x3 vs unoq_headers"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "unoq_pins",
+   "expect": "clear",
+   "note": "splices_x3 vs unoq_pins"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "unoq_top_parts",
+   "expect": "clear",
+   "note": "splices_x3 vs unoq_top_parts"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "unoq_usbc",
+   "expect": "clear",
+   "note": "splices_x3 vs unoq_usbc"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "bay_balance_plug",
+   "expect": "clear",
+   "note": "splices_x3 vs bay_balance_plug"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "bay_usb_adapter_L",
+   "expect": "clear",
+   "note": "splices_x3 vs bay_usb_adapter_L"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "bay_usb_a_plug",
+   "expect": "clear",
+   "note": "splices_x3 vs bay_usb_a_plug"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "bay_xt30_pair",
+   "expect": "clear",
+   "note": "splices_x3 vs bay_xt30_pair"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "uno_cover_screw_R_M2x6st",
+   "expect": "clear",
+   "note": "splices_x3 vs uno_cover_screw_R_M2x6st"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "uno_cover_screw_L_M2x6st",
+   "expect": "clear",
+   "note": "splices_x3 vs uno_cover_screw_L_M2x6st"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "battery_3s",
+   "expect": "clear",
+   "note": "splices_x3 vs battery_3s"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "servo_adapter",
+   "expect": "clear",
+   "note": "splices_x3 vs servo_adapter"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "uno_cover",
+   "expect": "clear",
+   "note": "mini560_back_plate vs uno_cover"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "mini560_back_plate vs electronics_enclosure"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "body_lid",
+   "expect": "clear",
+   "note": "mini560_back_plate vs body_lid"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "mini560_back_plate vs body_frame"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "unoq_pcb",
+   "expect": "clear",
+   "note": "mini560_back_plate vs unoq_pcb"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "unoq_headers",
+   "expect": "clear",
+   "note": "mini560_back_plate vs unoq_headers"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "unoq_pins",
+   "expect": "clear",
+   "note": "mini560_back_plate vs unoq_pins"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "unoq_top_parts",
+   "expect": "clear",
+   "note": "mini560_back_plate vs unoq_top_parts"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "unoq_usbc",
+   "expect": "clear",
+   "note": "mini560_back_plate vs unoq_usbc"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "bay_balance_plug",
+   "expect": "clear",
+   "note": "mini560_back_plate vs bay_balance_plug"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "bay_usb_adapter_L",
+   "expect": "clear",
+   "note": "mini560_back_plate vs bay_usb_adapter_L"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "bay_usb_a_plug",
+   "expect": "clear",
+   "note": "mini560_back_plate vs bay_usb_a_plug"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "bay_xt30_pair",
+   "expect": "clear",
+   "note": "mini560_back_plate vs bay_xt30_pair"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "uno_cover_screw_R_M2x6st",
+   "expect": "clear",
+   "note": "mini560_back_plate vs uno_cover_screw_R_M2x6st"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "uno_cover_screw_L_M2x6st",
+   "expect": "clear",
+   "note": "mini560_back_plate vs uno_cover_screw_L_M2x6st"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "battery_3s",
+   "expect": "clear",
+   "note": "mini560_back_plate vs battery_3s"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "servo_adapter",
+   "expect": "clear",
+   "note": "mini560_back_plate vs servo_adapter"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "mini560_pcb",
+   "expect": "clear",
+   "note": "mini560_back_plate vs mini560_pcb"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "mini560_parts",
+   "expect": "clear",
+   "note": "mini560_back_plate vs mini560_parts"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "mini560_back_plate",
+   "b": "mini560_plugs",
+   "expect": "clear",
+   "note": "mini560_back_plate vs mini560_plugs"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "mini560_plugs",
+   "expect": "clear",
+   "note": "splices_x3 vs mini560_plugs"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "mini560_parts",
+   "expect": "clear",
+   "note": "splices_x3 vs mini560_parts"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "splices_x3",
+   "b": "mini560_pcb",
+   "expect": "clear",
+   "note": "splices_x3 vs mini560_pcb"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "switch_lug_plugs",
+   "b": "switch_plate",
+   "expect": "clear",
+   "note": "switch housings vs switch_plate"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "switch_lug_plugs",
+   "b": "power_switch",
+   "expect": "clear",
+   "note": "switch housings vs power_switch"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "switch_lug_plugs",
+   "b": "electronics_enclosure",
+   "expect": "clear",
+   "note": "switch housings vs electronics_enclosure"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "switch_lug_plugs",
+   "b": "servo_adapter",
+   "expect": "clear",
+   "note": "switch housings vs servo_adapter"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "switch_lug_plugs",
+   "b": "battery_3s",
+   "expect": "clear",
+   "note": "switch housings vs battery_3s"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "switch_lug_plugs",
+   "b": "body_lid",
+   "expect": "clear",
+   "note": "switch housings vs body_lid"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "switch_lug_plugs",
+   "b": "imu",
+   "expect": "clear",
+   "note": "switch housings vs imu"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "switch_lug_plugs",
+   "b": "bay_imu_qwiic",
+   "expect": "clear",
+   "note": "switch housings vs bay_imu_qwiic"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "switch_lug_plugs",
+   "b": "switch_plate_screws_M2x10csk",
+   "expect": "clear",
+   "note": "switch housings vs switch_plate_screws_M2x10csk"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "switch_lug_plugs",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "switch housings vs body_frame"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "switch_lug_plugs",
+   "b": "unoq_pcb",
+   "expect": "clear",
+   "note": "switch housings vs unoq_pcb"
+  },
+  {
+   "group": "body: all-Dupont bay (2026-11-25)",
+   "a": "switch_lug_plugs",
+   "b": "unoq_pins",
+   "expect": "clear",
+   "note": "switch housings vs unoq_pins"
   }
  ],
  "json_out": "<out>/fit.json"

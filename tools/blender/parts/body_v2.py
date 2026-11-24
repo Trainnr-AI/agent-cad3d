@@ -326,7 +326,7 @@ if VBAT:
     # between them, so a knock goes into the bay, not the Uno Q's USB-C socket (parts/bay_parts.py draws the adapter and plug)
     if args.get("usb_cradle", True):
         _uy, _uw, _ud, _uz0 = args.get("usb_y", -88.9), args.get("usb_cradle_w", 17.0), args.get("usb_cradle_d", 12.3), args.get("usb_cradle_z0", 100.0)
-        for sgn in (-1, 1):
+        for sgn in ((1,) if args.get("mini560_hood", False) else (-1, 1)):   # 2026-11-25: the Mini560 box's right wall (on the hood) is the left guide
             ya_, yb_ = sorted((_uy + sgn * (_uw / 2 + 0.5), _uy + sgn * (_uw / 2 + 0.5 + T)))
             enc.append(box(XR - _ud, XR + 0.3, ya_, yb_, _uz0, ZP_FRONT - 0.5))
             enc_cuts.append(box(XR - _ud + 3.0, XR - 2.0, ya_ - 0.5, yb_ + 0.5, _uz0 + 8.0, _uz0 + 11.0))        # zip-tie slot (3 x 4)
@@ -341,12 +341,13 @@ if VBAT:
         # 2026-11-20: the balance plug's fin ran 0.1 mm into the lid and the Uno Q's board and 1.2 mm through the cover's rear wall (all
         # three overhang the rear face; the fit audit had no such pairs). Now it keeps 0.1 / 0.3 / 0.3 from them, and its joint to the
         # wall reaches down to z 122.1 (just over the battery leads, which lie flat behind the wall at z 118.4..121.6): 1.6 x 5.3 mm.
-        FIN = (-114.85, -113.25)
-        enc.append(box(XR - 1.3, XR + 0.3, FIN[0], FIN[1], 122.1, 124.35))                                        # root, under the lid's level
-        enc.append(box(XR - _cd, XR + 0.1, FIN[0], FIN[1], 124.3, 127.4))                                         # on the wall's outer skin, 0.1 from the lid
-        enc.append(box(XR - _cd, XR - 0.1, FIN[0], FIN[1], 127.3, 129.8))                                         # beside the lid / board
-        enc.append(box(XR - _cd, XR - 1.6, FIN[0], FIN[1], 129.7, 141.0))                                         # behind the cover
-        enc_cuts.append(box(XR - _cd + 3.0, XR - 2.0, FIN[0] - 0.5, FIN[1] + 0.5, 134.0, 137.0))                 # zip-tie slot
+        FIN = (-114.85 + args.get("balance_dy", 0.0), -113.25 + args.get("balance_dy", 0.0))   # balance_dy: moved with the plug (2026-11-25: -2.6 for the Mini560 box)
+        if not args.get("mini560_hood", False):                                 # 2026-11-25: with the Mini560 box on the hood, the box's left wall
+            enc.append(box(XR - 1.3, XR + 0.3, FIN[0], FIN[1], 122.1, 124.35))  #   takes the fin's place (zip-tie slot in that wall)
+            enc.append(box(XR - _cd, XR + 0.1, FIN[0], FIN[1], 124.3, 127.4))                                         # on the wall's outer skin, 0.1 from the lid
+            enc.append(box(XR - _cd, XR - 0.1, FIN[0], FIN[1], 127.3, 129.8))                                         # beside the lid / board
+            enc.append(box(XR - _cd, XR - 1.6, FIN[0], FIN[1], 129.7, 141.0))                                         # behind the cover
+            enc_cuts.append(box(XR - _cd + 3.0, XR - 2.0, FIN[0] - 0.5, FIN[1] + 0.5, 134.0, 137.0))                 # zip-tie slot
         ya_, yb_, z0_, z1_, zs_ = -111.6, -110.5, 109.0, 115.0, 110.5                                            # the XT30's right rib (from z 109:
         enc.append(box(XR - _cd, XR + 0.3, ya_, yb_, z0_, z1_))                                                 #  the IMU pilot below, z 106.7)
         enc_cuts.append(box(XR - _cd + 3.0, XR - 2.0, ya_ - 0.5, yb_ + 0.5, zs_, zs_ + 3.0))                    # zip-tie slot
@@ -461,6 +462,7 @@ if TRAY:                                                                    # wa
     if AUDIO:
         lid_sub.append(box(UX0 - 1.0, UX0 + T + 1.0, CY + 4.0, CY + 18.0, ZL + LID_T + 5.0, zw + 1.0))            # rear wall: the USB-C cable comes down from the board's socket here
     lid_sub.append(box(ux1 - T - 1.0, ux1 + 1.0, CY - 20.0, CY - 8.0, ZL + LID_T + 2.0, ZL + LID_T + 9.0))    # front wall: cables on toward the neck
+    lid_sub.append(box(UX0 + 57.0, UX0 + 66.0, uy1 - T - 1.0, uy1 + 1.0, ZL + LID_T + 2.0, ZL + LID_T + 9.0))   # left wall, under D0/D1 (2026-11-25): the UART jumpers come up here from under the board to the plugs' tops
     for i in range(6 if AUDIO else 0):                                      # sound holes in the left wall, in front of the speaker
         for k in range(3):
             lid_sub.append(box(UX0 + 22.5 + 4.0 * i, UX0 + 24.5 + 4.0 * i, uy1 - T - 0.5, uy1 + 0.5, ZL + LID_T + 3.0 + 4.0 * k, ZL + LID_T + 5.0 + 4.0 * k))
@@ -520,7 +522,8 @@ REG["z1"] = ZL - 0.95                                                       # PC
 #                                                                             Uno Q's underside parts (datasheet: < 2 mm), 7 mm over the battery
 REG["z0"] = REG["z1"] - REG["pcb"]
 SWV = dict(x0=-48.0, x1=-36.0, y0=CY + 14.0, y1=CY + 20.0)                   # (12 x 6 x 6, slider out of the left side opening) under the lid
-if VBAT:
+REG_OUT = args.get("reg_outside", False)                                    # 2026-11-25: Mini560 (pins + Dupont plugs) in a box on the hood: no lid slot
+if VBAT and not REG_OUT:
     for x0_, x1_, l0, l1 in ((RG["x0"] - 1.45, RG["x0"] - 0.25, RG["x0"] - 0.3, RG["x0"] + 0.8), (RG["x1"] + 0.25, RG["x1"] + 1.45, RG["x1"] - 0.8, RG["x1"] + 0.3)):
         lid_add.append(box(x0_, x1_, RG["y0"], RG["y1"], REG["z0"] - 1.6, ZL + 0.3))                  # side rail
         lid_add.append(box(l0, l1, RG["y0"], RG["y1"], REG["z0"] - 1.6, REG["z0"] - 0.2))            # ledge under the board's edge (0.2 play)
@@ -542,7 +545,7 @@ if TRAY and args.get("uno_cover", False):
     cap = hull([(x, y, z) for y in (uy0 - CG - CT, uy1 + CG + CT) for x, z in ((xo0, zc0), (xo1, zc0), (xo1, zt_ - CHF), (xo1 - CHF, zt_), (xo0, zt_))])
     cap_cut = [hull([(x, y, z) for y in (uy0 - CG, uy1 + CG) for x, z in ((UX0 - CG, zc0 - 1.0), (ux1 + CG, zc0 - 1.0), (ux1 + CG, zt_ - CHF - 0.5), (ux1 + CG - CHF + 0.5, zc1), (UX0 - CG, zc1))]),
                box(UX0 + 30.5, UX0 + 59.5, uy0 + 3.6, uy0 + 21.5, zc1 - 0.5, zc1 + CT + 0.5),                    # window over the LED matrix (board x 31.3..58.8, y 4.4..20.7: scaled from the datasheet drawing)
-               box(UX0 - CG - CT - 0.5, UX0 + 1.0, uy0 + 28.8, uy0 + 46.8, zc0 - 1.0, uno_z + UNO["pcb"] + 8.0),   # USB-C -> USB-A adapter at the rear (17 wide + 0.5 each side)
+               box(UX0 - CG - CT - 0.5, UX0 + 1.0, args.get("usb_y", -88.9) - 9.0, args.get("usb_y", -88.9) + 9.0, zc0 - 1.0, uno_z + UNO["pcb"] + 8.0),   # USB-C -> USB-A adapter at the rear (17 wide + 0.5 each side), follows the cradle
                box(UX0 + 38.5, UX0 + 49.0, uy0 - CG - CT - 0.5, uy0 + 1.0, zc0 - 1.0, uno_z + UNO["pcb"] + 12.5),  # wires: right-angle plug on JANALOG 6-8 (right)
                box(UX0 + 17.0, UX0 + 26.0, uy0 - CG - CT - 0.5, uy0 + 1.0, zc0 - 1.0, uno_z + UNO["pcb"] + 5.0),   # Qwiic plug (right)
                box(UX0 + 35.0, UX0 + 43.0, uy1 - 1.0, uy1 + CG + CT + 0.5, zc0 - 1.0, uno_z + UNO["pcb"] + 11.0),  # light wires (left)
@@ -552,7 +555,56 @@ if TRAY and args.get("uno_cover", False):
     for hx, hy in [h for h in UNO_HOLES if h != UNO_M2]:                 # 2026-11-15: room round the M3 heads (dk 5.5 + 0.5 all round): they
         cap_cut.append(L["add_cyl"](L["new_bm"](), UX0 + hx - HOME.x, UY0 + hy - HOME.y,       # overhang the board's edge by 0.2 and sat 0.09
                                     uno_z + UNO["pcb"] - 0.6 - HOME.z, uno_z + UNO["pcb"] + 3.5 - HOME.z, 6.5, 28, Mt))   # from the skirt (0.6 under the head's overhang)
-    uno_cover = L["build_part"]("uno_cover", [cap], cap_cut, coll, L["material"]("uno_cover", (0.25, 0.3, 0.38, 1)))
+    cap_add, cap_ribs = [cap], []
+    if args.get("mini560_hood", False):
+        # 2026-11-25: Mini560 BOX on the hood's rear wall (user: straight pins + Dupont plugs, no soldering; no room inside). The board
+        # stands on edge, components toward the bay (0.4 play), its four plugs in a chamber behind it with the three heat-shrink splices;
+        # a back plate slides down behind two lips so no plug can be pulled off; wire window toward the lid's rear notch. Between the
+        # balance plug (moved 2.4 right) and the USB cradle (moved 2.4 left). Prints with the hood (upside down): no overhang.
+        BXy0, BXy1 = CY - 17.6, CY + 2.2                                    # 0.4 from the USB adapter (its socket fixes it), balance plug moved 2.6 right
+        # 2026-11-25 (harness): the PCB stands at the BACK of the box, components toward the back plate, its four pins + Dupont plugs toward
+        # the bay, and a 6.5 mm WIRE SPACE between the plugs' ends and the inner wall where every wire meets: the 4 plug wires, the 3
+        # heat-shrink splices, the pigtail from below (notch in the floor), the Uno Q's wires from above (open top) and the bay's wires
+        # through the window at the lid's rear notch. (Was: components toward the bay, plugs in a chamber behind - the window led to the
+        # component side and the plugs' wires had 1 mm to the back plate.)
+        DEPTH = 30.2                                                        # wall 1.2 + wires 6.5 + plugs 14.5 + PCB 1.2 + parts 4.2 + 0.4 + plate 1.0 + lips 1.2
+        BXx0, BXx1 = xo0 - DEPTH, xo0                                       # behind the hood's rear face; the legs' swept space is free to x -102
+        BXz0, BXz1 = 117.0, zt_                                             # bottom 1 mm over the XT30 pair (z 116); top = the hood's top
+        WALL, INNER, BOT = 0.8, CT, 3.0
+        CAVx0, CAVx1, CAVy0, CAVy1, CAVz0 = BXx0 - 0.5, BXx1 - INNER, BXy0 + WALL, BXy1 - WALL, BXz0 + BOT
+        PCBx = (BXx0 + 2.2 + 0.4 + 4.2, BXx0 + 2.2 + 0.4 + 4.2 + 1.2)        # Mini560 PCB (1.2) = x -77.7..-76.5; parts to -81.9, 0.4 from the plate
+        cap_add.append(box(BXx0, BXx1 + 0.3, BXy0, BXy1, BXz0, BXz1))
+        cap_cut += [box(CAVx0, CAVx1, CAVy0, CAVy1, CAVz0, BXz1 + 1.0),                                       # cavity: open at the back and the top
+                    box(BXx1 - INNER - 0.5, BXx1 + 1.4, CY - 12.0, CAVy1 - 0.5, 125.0, 134.0),                  # wire window toward the lid's rear notch (y -12..+1.4); +1.4: +1.0 left a 0.2 mm skin
+                    box(-60.5, BXx1 + 1.0, CY - 9.5, CY - 1.0, BXz0 - 0.5, CAVz0 + 0.5),                      # the pigtail's two 14 AWG wires from below, up into the wire space (-60.5: they grazed -59.0)
+                    box(-59.8, BXx1 + 1.0, BXy0 - 0.6, CY - 9.0, BXz0 - 0.5, 122.0),                        # 2026-11-25: the battery's 14 AWG leads (flat 6.2 x 3.1) come in
+                    #                                                                                     under the splices to the XT30's top: the floor (z 117-120) was in their way
+                    box(BXx1 - 6.5, BXx1 - 3.5, BXy0 - 0.5, BXy0 + WALL + 0.5, 134.0, 137.0),                 # zip-tie slot: the balance plug ties to this wall
+                    box(BXx1 - 6.5, BXx1 - 3.5, BXy1 - WALL - 0.5, BXy1 + 0.5, 118.0, 121.0),                  # zip-tie slot: the camera's USB plug ties to this wall
+                    # 2026-11-25: guide grooves 0.25 deep in both side walls where the PCB's edges slide (the cavity left 0.1 a side: printed
+                    # inside walls come out 0.1-0.2 small, the board would jam); 0.35 a side now, 0.55 of wall left along the groove
+                    box(PCBx[0] - 0.25, PCBx[1] + 0.25, CAVy0 - 0.25, CAVy0 + 0.05, CAVz0 - 0.3, BXz1 + 1.0),
+                    box(PCBx[0] - 0.25, PCBx[1] + 0.25, CAVy1 - 0.05, CAVy1 + 0.25, CAVz0 - 0.3, BXz1 + 1.0)]
+        cap_ribs += [box(PCBx[1] + 0.2, PCBx[1] + 1.4, CAVy0 - 0.3, CAVy0 + 1.0, CAVz0 - 0.3, BXz1 - 0.01),    # rails in front of the PCB (plug side)
+                     box(PCBx[1] + 0.2, PCBx[1] + 1.4, CAVy1 - 1.0, CAVy1 + 0.3, CAVz0 - 0.3, BXz1 - 0.01),
+                     box(BXx0 + 0.3, BXx0 + 1.2, CAVy0 - 0.3, CAVy0 + 1.5, CAVz0 - 0.3, BXz1 - 0.01),          # lips for the slide-in back plate
+                     box(BXx0 + 0.3, BXx0 + 1.2, CAVy1 - 1.5, CAVy1 + 0.3, CAVz0 - 0.3, BXz1 - 0.01)]
+        cover_parts.append(finish("mini560_back_plate", L["build_part"]("mini560_back_plate",
+                                  [box(BXx0 + 1.2, BXx0 + 2.2, CAVy0 + 0.1, CAVy1 - 0.1, CAVz0 + 0.1, BXz1)],
+                                  [], coll, L["material"]("uno_cover", (0.25, 0.3, 0.38, 1)))))
+    if args.get("straight_plugs", False):
+        # 2026-11-25: the user's plain jumper wires stand 14 mm over the POWER header (JANALOG 6-8: VIN, GND, UART GND): a TUNNEL on the
+        # hood over them - pocket 0.4 wider than the 3 housings, 1.0 walls, open at the top for the wires, two 0.3 lips at the top edge
+        # the housings snap under. (D0/D1 stand beyond the hood's front edge in the open: 24 mm free under the head; keeper to follow.)
+        PITCH, JAx = 2.54, lambda pin: 26.4 + PITCH / 2 + (pin - 1) * PITCH
+        tx0, tx1 = UX0 + JAx(6) - PITCH / 2, UX0 + JAx(8) + PITCH / 2            # 3 pins along x
+        ty = UY0 + 2.54                                                          # JANALOG row
+        tz0, tz1 = uno_z + UNO["pcb"] + 8.5, uno_z + UNO["pcb"] + 8.5 + 14.0     # header top .. housing top
+        cap_add.append(box(tx0 - 1.2 - 0.2, tx1 + 1.2 + 0.2, ty - 1.47 - 1.0, ty + 1.47 + 1.0, zt_ - CT - 0.5, tz1 + 1.2))
+        cap_cut.append(box(tx0 - 0.2, tx1 + 0.2, ty - 1.47, ty + 1.47, tz0 - 1.0, tz1 + 2.0))
+        cap_ribs += [box(tx0 + 0.5, tx1 - 0.5, ty - 1.47 - 0.3, ty - 1.47 + 0.3, tz1 + 0.4, tz1 + 1.2),
+                     box(tx0 + 0.5, tx1 - 0.5, ty + 1.47 - 0.3, ty + 1.47 + 0.3, tz1 + 0.4, tz1 + 1.2)]
+    uno_cover = L["build_part"]("uno_cover", cap_add, cap_cut, coll, L["material"]("uno_cover", (0.25, 0.3, 0.38, 1)), cap_ribs)
     if args.get("neck_sweep"):
         # the neck and the head-pitch U swing down over the board's front when the neck leans back (STAND +20, SIT +29 deg;
         # the board sits 12.5 mm higher for the audio tray): cut the cover above the lowest height they reach, 1.5 mm clear,
@@ -571,9 +623,10 @@ if TRAY and args.get("uno_cover", False):
         uno_cover["neck_sweep_cut"] = str(args["neck_sweep"])
     uno_cover = finish("uno_cover", uno_cover)
     uno_cover["optional"] = True
-    cv_scr = L["pan_screw_dummy"]("uno_cover_screws_M2x6st", [(MYf, CVS["a"][0] - HOME.x, -(CVS["a"][1] - HOME.z), uy0 - CG - CT - HOME.y, +1),
-                                                              (MYf, CVS["b"][0] - HOME.x, -(CVS["b"][1] - HOME.z), uy1 + CG + CT - HOME.y, -1)], coll)
-    cover_parts = [uno_cover, cv_scr]
+    # one object per screw (2026-11-25): they go in from opposite sides, so the assembly animation moves them separately
+    cv_scr_r = L["pan_screw_dummy"]("uno_cover_screw_R_M2x6st", [(MYf, CVS["a"][0] - HOME.x, -(CVS["a"][1] - HOME.z), uy0 - CG - CT - HOME.y, +1)], coll)
+    cv_scr_l = L["pan_screw_dummy"]("uno_cover_screw_L_M2x6st", [(MYf, CVS["b"][0] - HOME.x, -(CVS["b"][1] - HOME.z), uy1 + CG + CT - HOME.y, -1)], coll)
+    cover_parts = [uno_cover, cv_scr_r, cv_scr_l]
 us = L["new_bm"]()
 for hx, hy in [h for h in UNO_HOLES if h != UNO_M2]:                      # M3x8 socket-head screws: through the board (1.6) into the posts (6.4)
     L["add_cyl"](us, UX0 + hx - HOME.x, UY0 + hy - HOME.y, uno_z + UNO["pcb"] - HOME.z, uno_z + UNO["pcb"] + 3.0 - HOME.z, 5.5, 24, Mt)
@@ -647,7 +700,8 @@ else:
     _rb = box(RG["x0"], RG["x1"], RG["y0"], RG["y1"], REG["z0"], REG["z1"])                         # Mini560 5 V 5 A: PCB
     _rp = box(RG["x0"] + 0.2, RG["x1"] - 0.2, RG["y0"] + 4.0, RG["y1"] - 4.0, REG["z1"], REG["z1"] + REG["parts"])   # its parts (envelope: to the long edges, clear of the end pads)
     _rp.to_mesh(_tmp := bpy.data.meshes.new("t")); _rb.from_mesh(_tmp); bpy.data.meshes.remove(_tmp)
-    elec.append(L["to_object"]("ubec", _rb, ecoll, L["material"]("elec_ubec", (0.75, 0.1, 0.1, 1))))
+    if not args.get("reg_outside", False):                                   # 2026-11-25: the Mini560 lives in the box on the hood (power_column.py draws it)
+        elec.append(L["to_object"]("ubec", _rb, ecoll, L["material"]("elec_ubec", (0.75, 0.1, 0.1, 1))))
 BAT = ELEC["battery_3s"]
 shelf = shelf_screws = None
 if not VBAT:

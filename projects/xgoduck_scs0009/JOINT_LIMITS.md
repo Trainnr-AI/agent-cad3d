@@ -37,7 +37,7 @@ the position at two known angles) before writing limits. Example: a joint zero a
 | hip pitch L / R | -90..+85 / -85..+90 | unchanged | alone: clear over the range | 5 deg sweep |
 | knee L / R | -90..+68 / -68..+90 | unchanged | alone: clear | 5 deg sweep |
 | ankle L / R | -86..+90 / -90..+86 | **L -85..+90, R -90..+85** | -86: the foot comes to the thigh | 2026-11-18, any knee 0..30: at **-85** foot to thigh 0.65, to shin 0.51; at -86 the thigh drops to 0.17 (was the limit until 2026-11-18); at +90 0.50 from the shin |
-| neck pitch | -80..+40 | **-80..+30** (user: option A) | +40 alone: head base vs Uno Q cover 71 mm3 | corners >= 1.36 mm |
+| neck pitch | -80..+40 | **-80..+20** + interlock (2026-11-25, was +30) | +40 alone: head base vs Uno Q cover 71 mm3; **from +17 the cable hub / plugs on the head-pitch U meet the Uno Q's D0/D1 jumper housing** (all-Dupont bay: it stands 14 mm over the header) | map 2026-11-25 below: >= 0.77 mm inside the interlock |
 | head pitch | -45..+65 | **-5..+65** (user: option A) | neck +10..+40 with head -45..-5: U / bearing plate vs head base | corners >= 1.36 mm |
 | head yaw | -150..+150 | **+-150** | alone: clear | 5 deg sweep |
 | head roll | -25..+25 | **+-15** + software interlock (user) | yawed, the U meets the head's floor | grid; 2026-11-15: 0.25 deg x 1 deg grid, interlock narrowed to +-1 deg of yaw |
@@ -48,9 +48,25 @@ limits. SIT was replaced 2026-11-13 (the original hip -30 / knee 60 face-plants)
 hip roll -4 (left; right mirrored), neck 20, head 20, reached from STAND in a straight line over 3 s with the IMU ankle balance on
 (REVIEW.md "MuJoCo on the rebuilt parts; sit and stand").
 
-**Neck / head pitch (user: A):** A = neck -80..+30, head -5..+65 (keeps STAND and SIT; the head can no longer tilt below -5 at any
+**Neck / head pitch (user: A; neck forward now +20 + interlock, see below):** A = neck -80..+30, head -5..+65 (keeps STAND and SIT; the head can no longer tilt below -5 at any
 neck angle, although it is clear down to -45 with the neck at 0 or back). B = neck -80..+20, head -25..+65 (more head range;
 SIT's neck 28.6 no longer fits).
+
+**Neck forward x head pitch (2026-11-25, all-Dupont bay):** the head chain's hub Y and the plugs beside it ride on the head-pitch U;
+their seat was chosen to clear only to neck +19.5 (wiring.py: "full neck-forward is not needed"), and the Uno Q's D0/D1 plain jumper
+housing now stands 14 mm over its header in that sweep. Clearance (mm; v = overlap mm3) from `leg_motion_check` geometry:
+
+| neck \ head | -5 | 0 | 5 | 10 | 20 | 30 | 35 | 40 | 45 | 55 | 65 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 14 | 1.47 | 2.65 | >4 | >4 | >4 | >4 | >4 | 3.25 | 2.03 | 1.76 | 1.85 |
+| 15 | 0.92 | 2.18 | 3.44 | >4 | >4 | >4 | >4 | 2.73 | 1.49 | 1.06 | 1.14 |
+| 17 | 0.0v | 1.23 | 2.20 | 3.22 | >4 | >4 | 3.06 | 1.70 | 0.43 | 0.1v | 0.1v |
+| 20 | 3.5v | 0.2v | 0.77 | 1.80 | >4 | 2.56 | 1.42 | 0.22 | 2.0v | 7.5v | 7.3v |
+| 21 | 6.1v | 1.3v | 0.29 | 1.30 | 3.55 | 2.04 | 0.89 | 0.1v | 4.3v | 11.7v | 12.3v |
+
+**Firmware: neck <= +15 any head pitch (-5..+65); neck +15..+20 only with head pitch +5..+35; never above +20** (>= 0.77 mm everywhere
+allowed). STAND and SIT (neck 20, head 20) keep ~4 mm. A hardware alternative keeps +30: a lower D0/D1 connection (the soldered
+right-angle header of the earlier design stood 2.5 mm; without solder it needs a right-angle pin adapter) - not done.
 
 **Head yaw x head roll: no useful box exists; user: software interlock.** At head yaw 0 the head rolls +-25 freely. Yawed, the U's arm ends sit off
 the roll axis just under the head base's floor (12-13 mm from it), and roll dips the floor onto them by about r x sin(roll): at

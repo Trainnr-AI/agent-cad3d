@@ -93,7 +93,8 @@ part("bay_xt30_pair", [lambda b: bx(b, XT["x0"], XT["x1"], XT["y0"], XT["y1"], X
      {"bat_pos": ((XT["x0"] + XT["x1"]) / 2, XT["y1"] - 2.5, XT["z1"]), "bat_neg": ((XT["x0"] + XT["x1"]) / 2, XT["y0"] + 2.5, XT["z1"]),
       "out_pos": ((XT["x0"] + XT["x1"]) / 2, XT["y1"] - 2.5, XT["z0"]), "out_neg": ((XT["x0"] + XT["x1"]) / 2, XT["y0"] + 2.5, XT["z0"])})
 # balance plug (JST-XH 4-pin housing 12.4 x 5.75 x 7.0) standing at the rear right above the bay, wires down, mouth up
-BP = dict(x0=XR_ - 1.4 - 7.0, x1=XR_ - 1.4, y0=-121.0, y1=-115.25, z0=128.5, z1=140.9)    # rear right ABOVE the bay's top, behind the Uno Q
+_bdy = args.get("balance_dy", 0.0)                                           # 2026-11-25: -2.4 (moved right for the Mini560 box on the hood)
+BP = dict(x0=XR_ - 1.4 - 7.0, x1=XR_ - 1.4, y0=-121.0 + _bdy, y1=-115.25 + _bdy, z0=128.5, z1=140.9)    # rear right ABOVE the bay's top, behind the Uno Q
 #   cover (0.1 from its rear wall), mouth UP (the charger lead plugs in from above); clear of the cable corner below (z < 124)
 part("bay_balance_plug", [lambda b: bx(b, BP["x0"], BP["x1"], BP["y0"], BP["y1"], BP["z0"], BP["z1"])], (0.95, 0.95, 0.92, 1),
      {"wires": ((BP["x0"] + BP["x1"]) / 2, (BP["y0"] + BP["y1"]) / 2, BP["z0"])})
@@ -110,15 +111,16 @@ LUG = {k: (scx, sy0 - 1.5, scz + dz) for k, dz in (("lug_a", -4.7), ("lug_com", 
 part("bay_switch_joints", [lambda b, dz=dz: bx(b, scx - 1.3, scx + 1.3, sy0 - 3.0, sy0 + 2.0, scz + dz - 1.3, scz + dz + 1.3) for dz in (-4.7, 0.0, 4.7)],
      (0.15, 0.15, 0.15, 1), LUG)                                            # solder joint + 3 mm heat-shrink on each lug
 
-# ---- Mini560 solder pads: IN at the -y end, OUT at the +y end (wires leave along y, under the board's ends)
-(rx0, ry0, rz0), (rx1, ry1, rz1) = lay_of("ubec")
-rcx = (rx0 + rx1) / 2
-# maker's drawing (user 2026-11-19): 30 x 18, castellated pad pairs (2.54 pitch) at both short ends, pad centres 26 apart along the board;
-# "+" pair centre 3.85 from one long edge, "-" pair centre 2.73 from the other. Here: "+" toward the rear (x0), IN at the -y end (EN side).
-PADS = {"in_pos": (rx0 + 3.85, ry0 + 2.0, rz0 - 1.0), "in_neg": (rx1 - 2.73, ry0 + 2.0, rz0 - 1.0),
-        "out_pos": (rx0 + 3.85, ry1 - 2.0, rz0 - 1.0), "out_neg": (rx1 - 2.73, ry1 - 2.0, rz0 - 1.0)}
-part("bay_mini560_joints", [lambda b, p=p: bx(b, p[0] - 1.2, p[0] + 1.2, p[1] - 1.2, p[1] + 1.2, p[2] - 1.2, p[2] + 1.0) for p in PADS.values()],
-     (0.8, 0.8, 0.82, 1), PADS)
+if not args.get("reg_outside", False):                                      # 2026-11-25: Mini560 on the hood (pins + plugs): no solder pads here
+    # ---- Mini560 solder pads: IN at the -y end, OUT at the +y end (wires leave along y, under the board's ends)
+    (rx0, ry0, rz0), (rx1, ry1, rz1) = lay_of("ubec")
+    rcx = (rx0 + rx1) / 2
+    # maker's drawing (user 2026-11-19): 30 x 18, castellated pad pairs (2.54 pitch) at both short ends, pad centres 26 apart along the board;
+    # "+" pair centre 3.85 from one long edge, "-" pair centre 2.73 from the other. Here: "+" toward the rear (x0), IN at the -y end (EN side).
+    PADS = {"in_pos": (rx0 + 3.85, ry0 + 2.0, rz0 - 1.0), "in_neg": (rx1 - 2.73, ry0 + 2.0, rz0 - 1.0),
+            "out_pos": (rx0 + 3.85, ry1 - 2.0, rz0 - 1.0), "out_neg": (rx1 - 2.73, ry1 - 2.0, rz0 - 1.0)}
+    part("bay_mini560_joints", [lambda b, p=p: bx(b, p[0] - 1.2, p[0] + 1.2, p[1] - 1.2, p[1] + 1.2, p[2] - 1.2, p[2] + 1.0) for p in PADS.values()],
+         (0.8, 0.8, 0.82, 1), PADS)
 
 # ---- Uno Q: right-angle male headers on its female headers (board frame -> layout: x - 52.8, y - 126.67; z from the board)
 (ux0, uy0, uz0), (ux1, uy1, uz1) = lay_of("unoq_pcb")
@@ -138,10 +140,24 @@ def ra_header(n, bx_first, by_row, out_sign):
 
 
 JA = lambda pin: 26.4 + PITCH / 2 + (pin - 1) * PITCH                       # JANALOG pin -> board x (14 pins from x 26.4)
-part("bay_uno_power_plug", ra_header(3, JA(6), 2.54, -1), (0.1, 0.1, 0.1, 1),
-     {"wires": (JA(7) - 52.8, 2.54 - 126.67 - 9.0, utop + HDR + 1.4)})
-part("bay_uno_uart_plug", ra_header(2, 60.9, 50.8, +1), (0.1, 0.1, 0.1, 1),
-     {"wires": (62.2 - 52.8, 50.8 - 126.67 + 9.0, utop + HDR + 1.4)})
+
+
+def straight_plugs(n, bx_first, by_row):
+    """n Dupont male-ended jumper housings (2.54 x 2.54 x 14) standing on the female header; wires leave their tops"""
+    x0 = bx_first - 52.8 - PITCH / 2
+    yr = by_row - 126.67
+    zt = utop + HDR
+    return [lambda b: bx(b, x0, x0 + n * PITCH, yr - 1.27, yr + 1.27, zt, zt + 14.0)]
+
+
+if args.get("straight_plugs", False):                                         # 2026-11-25: the user's plain jumper wires (no right-angle headers)
+    part("bay_uno_power_plug", straight_plugs(3, JA(6), 2.54), (0.1, 0.1, 0.1, 1), {"wires": (JA(7) - 52.8, 2.54 - 126.67, utop + HDR + 14.5)})
+    part("bay_uno_uart_plug", straight_plugs(2, 60.9, 50.8), (0.1, 0.1, 0.1, 1), {"wires": (62.2 - 52.8, 50.8 - 126.67, utop + HDR + 14.5)})
+else:
+    part("bay_uno_power_plug", ra_header(3, JA(6), 2.54, -1), (0.1, 0.1, 0.1, 1),
+         {"wires": (JA(7) - 52.8, 2.54 - 126.67 - 9.0, utop + HDR + 1.4)})
+    part("bay_uno_uart_plug", ra_header(2, 60.9, 50.8, +1), (0.1, 0.1, 0.1, 1),
+         {"wires": (62.2 - 52.8, 50.8 - 126.67 + 9.0, utop + HDR + 1.4)})
 
 # ---- Qwiic: IMU sockets (both short ends, opposite corners) + the plug in its right (-y) socket; plug in the Uno Q's socket
 (ix0, iy0, iz0), (ix1, iy1, iz1) = lay_of("imu")

@@ -11,7 +11,8 @@ with the knee following); squat-like (pitch, knee) pairs; neck and head-pitch sw
 Extreme combinations are left out on purpose: they pass through the body on the original duck too.
 
 ARGS = {"robot": "duck_scs0009", "out": "/abs/swept.npz", "voxel_mm": 1.5, "clear_mm": 1.5,
-        "box_mm": [[-75, 60], [-45, 45], [-90, 35]] (trunk frame: x, y, z), "seed_mm": [5, 0, -8], "skip_prefix": ["wire_", "cable_stub"]}
+        "box_mm": [[-75, 60], [-45, 45], [-90, 35]] (trunk frame: x, y, z), "seed_mm": [5, 0, -8], "skip_prefix": ["wire_", "cable_stub"],
+        "ranges_deg": {"neck_pitch": [-80, 30], ...}}   # optional: firmware limits instead of the MJCF ranges (sim/joint_ranges_v2.json "joints")
 """
 import math
 
@@ -27,6 +28,10 @@ BOX = np.array(args.get("box_mm", [[-75, 60], [-45, 45], [-90, 35]]), float)
 trunk = bpy.data.objects[f"{R}:trunk_base"]
 joints = {e["joint"]: e for e in bpy.data.objects if e.name.startswith(R + ":") and e.type == "EMPTY" and "joint" in e and e.users_collection}   # (in the scene: not a stray copy pulled in by a library load)
 q0 = {n: e.rotation_quaternion.copy() for n, e in joints.items()}
+RANGE = {n: list(e["joint_range"]) for n, e in joints.items()}                 # radians, from the MJCF
+for n, (lo, hi) in args.get("ranges_deg", {}).items():                         # firmware limits override (degrees)
+    if n in RANGE:
+        RANGE[n] = [math.radians(lo), math.radians(hi)]
 skip = tuple(args.get("skip_prefix", ["wire_", "cable_stub"]))
 movers = []
 for e in joints.values():
@@ -77,7 +82,7 @@ def pose(q):
 
 
 def rng_of(j, k, n):
-    lo, hi = joints[j]["joint_range"]
+    lo, hi = RANGE[j]
     return lo + (hi - lo) * k / (n - 1)
 
 
@@ -110,8 +115,8 @@ for j in ("neck_pitch", "head_pitch", "head_yaw", "head_roll"):
     for k in range(13):
         do({j: rng_of(j, k, 13)})
 # 2. walking range: half of the yaw / roll range at the corners, with hip pitch +-45 deg and the knee following it
-yl, yh = joints["left_hip_yaw"]["joint_range"]
-rl, rh = joints["left_hip_roll"]["joint_range"]
+yl, yh = RANGE["left_hip_yaw"]
+rl, rh = RANGE["left_hip_roll"]
 for yaw in (yl / 2, 0.0, yh / 2):
     for roll in (rl / 2, 0.0, rh / 2):
         for p in (-0.8, -0.4, 0.0, 0.4, 0.8):

@@ -9,9 +9,12 @@ shafts ≤ Ø3 mm, caliper.
 
 ## 0. Before printing / building
 
-1. **Measure** a servo's horn (hub Ø and height, plate thickness, arm widths, tip-to-tip), its horn screw and its mounting
-   screws (length under the head, head Ø and height). The model assumes horn screw M2 × 4 (head Ø3.5 × 1.3) and mounting screws
-   ≤ 7.2 mm long. Longer mounting screws: put an M2 nut from the Robu set under the head as a spacer.
+1. **Screws (2026-11-25): the servos' own screws are NOT used.** Their horn screw (~3.5 mm) gets ~1.3 mm of thread in the shaft
+   (the coupon's did not reach); their mounting screws (~7.5-8 mm, washer head) bottom out in 21 of the 30 ear pads and their heads
+   do not fit at the head-roll and beak ears. Every horn clamp and every ear: **M2 × 6 button head** (BOM row 21; head ≤ Ø3.5 × 1.3,
+   1.3 mm hex key). **First thread one M2 × 6 into a servo's output shaft by hand** (servo unpowered, horn held): it must turn in
+   smoothly - the shaft's thread was read as M2 × 0.4 from a photo. Still measure a horn: hub height and plate thickness (nominal in
+   the model; the pocket roof has a Ø5.2 × 0.35 recess for the ring on its top face).
 2. **Print the tolerance coupon** first: send the folder `projects/xgoduck_scs0009/print/test_batch/` to the printing service (its
    PDF guide + 8 print-ready STLs, about 20 g: the 7 coupon pieces, built by `tools/blender/parts/tolerance_coupon.py` from the
    same joint code as the robot's parts, and the horn trim jig; see `print/README.md`). Same printer, filament and settings
@@ -61,7 +64,7 @@ shafts ≤ Ø3 mm, caliper.
    square, until it sits on the lip. It should go in by hand or with a vice and stay put; if it drops in loose or needs
    hammering, the seat size is off: stop and report (section 0, item 2). Spin each one by hand: smooth, no grit.
 
-General rule for the joints: **the joint's clamp screw (the servo's own horn screw) goes in before the next servo is fitted**:
+General rule for the joints: **the joint's clamp screw (M2 × 6 button head, BOM row 21) goes in before the next servo is fitted**:
 its head faces the next servo (hip yaw: 0.3 mm from the hip-roll servo case; head yaw: 4.7 mm from the head-pitch servo).
 
 ## 1. Body
@@ -70,17 +73,18 @@ its head faces the next servo (hip yaw: 0.3 mm from the hip-roll servo case; hea
 2. **Right hip-yaw servo**: straight down into its saddle ✓. **Left hip-yaw servo** ✓: lift it **~10 mm** above its seat (window
    9.5-10.5 mm), slide it in from **either side** under the neck fork, then down. (2026-11-20: re-checked with the whole servo -
    case, output spline and case screws; the old "~7.5 mm" came from a check that moved the case alone: at 8.5 mm the spline hits.)
-3. Servo ear screws: the kit's mounting screws, except the **left servo's front ear**: an **M2 × 6 socket screw with the
+3. Servo ear screws: M2 × 6 button head (BOM row 21), except the **left servo's front ear**: an **M2 × 6 socket screw with the
    ball-end key at 20-25°** (the neck fork is 8 mm above it) ✓.
 3b. **Before the bay: section 3 steps 1-2 for BOTH legs** (yaw connector + horn screw, hip-roll servo + ear screws). With the bay
    in place the hip-roll servo cannot get into the yaw connector - the battery is in its way (whole-robot path check, 2026-11-20).
 4. **Electronics bay** - exact layout, screws and wires: `data/bay_assembly_sheet.png` (exploded, numbered as below; model
    2026-11-19: every part, connector, screw and wire at its real size, all wires clear of all parts). Bench work first:
-   - **Solder** (20 AWG for power, cut female-female jumper wires for signals; heat-shrink every joint):
-     servo adapter's back pins: DC+ / DC- (5 V in) and UART TX / RX / GND; **tape over its 3 front UART pins** (they point at the
-     battery). Mini560 pads **from below**: IN+ (from the switch), IN- (pigtail black), OUT+ / OUT- (to the adapter). Switch
-     lugs: middle = pigtail red, one outer = Mini560 IN+ and the Uno Q's VIN wire. Uno Q plugs: **right-angle 2.54 mm male
-     header pins** - 3 pins (JANALOG 6 UART-GND, 7 GND, 8 VIN) and 2 pins (D0 = adapter TX, D1 = adapter RX).
+   - **No soldering in the bay (2026-11-25: the user's parts as they are).** The Mini560 has straight pins soldered at its 4 pads and
+     takes 4 female jumper housings; the switch takes 2 housings pushed onto its lugs; the Uno Q takes plain jumper housings on its
+     female headers (3 on JANALOG 6-7-8, 2 on D0 / D1); the adapter's 5 V goes into its **screw terminal** (stripped jumper ends),
+     its UART into its 4-pin header (**header type open**: a straight header needs 14 mm behind the rear wall - REVIEW.md 2026-11-25).
+     The only joints are **3 heat-shrink splices** in the Mini560 box's wire space: pigtail red -> jumper to the switch's COM lug;
+     pigtail black -> Mini560 IN- + Uno Q GND; switch ON lug -> Mini560 IN+ + Uno Q VIN. Jumper wires throughout (BOM row 14b).
    1. Bay enclosure onto the motor body (its tongue slides under the deck): **3 x M2 x 10 countersunk** (Phillips) **up from under
       the robot** through the tongue into the deck, heads flush ✓ (2026-11-20: was driven inside the bay through its rear wall - now
       the bay comes off without opening it).
@@ -91,30 +95,39 @@ its head faces the next servo (hip yaw: 0.3 mm from the hip-roll servo case; hea
       (peel it off to remove). Check the board's hole size on arrival: the pegs are Ø1.9 (M2 holes are Ø2.2-2.5).
    4. **Switch plate** (2026-11-20: a separate printed part - the switch block used to be part of the enclosure and stopped the
       servo adapter going in). **On the bench:** drop the M6 nut into the plate's hex pocket (open side), screw the switch in from
-      the other side by turning its body until snug, lever up / down; solder its 3 wires (middle = pigtail red, one outer =
-      Mini560 IN+ and the Uno Q's VIN wire). **In the bay:** lower the plate with the switch **~9.5 mm in from the left wall** (a lid
+      the other side by turning its body until snug, lever up / down (no wires yet). **In the bay:** lower the plate with the switch **~9.5 mm in from the left wall** (a lid
       post's support is right above its place at the wall), then slide it **out onto the wall** - the lever goes out through the
-      wall's hole; **2 x M2 x 10 countersunk** from outside into the plate, heads flush ✓.
+      wall's hole; **2 x M2 x 10 countersunk** from outside into the plate, heads flush ✓. Then **push the 2 jumper housings onto its lugs** from
+      inside the open bay (the lugs stand in a vertical row, pointing across the bay: middle = COM, the lower lug = ON with the lever
+      up); their ends stop 2.3 mm short of the right wall (2026-11-25, path-checked).
    5. **Battery** (60 x 30 x 20): hook-and-loop on the floor, at the front. Its main leads and balance lead go back over its top and
       **out of the rear-right window**. Its main leads must reach **~75 mm** from the pack's top to its XT30 (round the corner to the
       middle of the rear face): **measure before buying / on arrival**.
    6. **Rear cradles**: the battery's XT30 into the robot's pigtail, the pair standing in the **middle of the rear face** (battery half on
       top; the right foot reaches the rear right below z 109), the pigtail looping down and up behind it and back in through the
-      window. The **balance plug** stands **above the bay at the rear right**, behind the Uno Q cover, mouth up, against its fin.
-      Zip ties on both. **Unplug the battery at the XT30; charge through the balance plug from above** - nothing to open.
-   7. **Mini560**: slide it into the lid's slot (rails + ledges) **component side up**, its parts standing up through the window.
-   8. **Lid**: **4 x M2 x 6 socket** into the bay posts ✓ (before the Uno Q: it covers them).
-   9. **Uno Q**: **3 x M3 x 8** + **1 x M2 x 6** (the hole by the digital header) ✓. Plugs: the 3-pin on **JANALOG 6-7-8** - one pin
+      window. The **balance plug** stands **above the bay at the rear right**, mouth up, and is zip-tied to the **right wall of the
+      Mini560 box** at step 10 (it comes off with the hood: unplug it before lifting the hood). Zip tie on the XT30 pair now. **Unplug the battery at the XT30; charge through the balance plug from above** - nothing to open.
+   7. **Lid**: **4 x M2 x 6 socket** into the bay posts ✓ (before the Uno Q: it covers them). (2026-11-25: no regulator slot in it
+      any more - the Mini560 lives in the box on the hood, step 10.)
+   8. **Uno Q**: **3 x M3 x 8** + **1 x M2 x 6** (the hole by the digital header) ✓. Plugs: the 3-pin on **JANALOG 6-7-8** - one pin
       over puts 12 V on A0 and destroys the microcontroller, one the other way shorts the battery: mark it (paint dot on pin 6's
-      side), check against the board's labels before the first power-up, **hot-glue it**; the 2-pin on D0 / D1; Qwiic. Power, UART
-      ground and Qwiic come up outside the bay's right wall (under the lid's edge), UART along the left wall.
-   10. **Camera USB**: the rigid right-angle USB-C -> USB-A adapter into the Uno Q's rear socket, **mouth down**; the camera's
-      USB-A plug into it from below, lying in the **rear-left cradle**, 1 zip tie. Its cable loops up the rear-right corner and
+      side), check against the board's labels before the first power-up, **hot-glue it**; the 2-pin on D0 / D1; Qwiic. 2026-11-25, plain
+      housings: the 3 on JANALOG 6-7-8 stand in the **hood's tunnel** (open top, two lips), their wires come **over the hood's roof**
+      from the Mini560 box (VIN, GND) and from the adapter (UART GND); the D0 / D1 pair stands in the open beyond the hood's front
+      edge, its wires come from under the board along its left side and up through the lid's left notch; the Qwiic cable comes up
+      outside the bay's right wall under the lid's edge and into the socket through the hood's cut-out.
+   9. **Camera USB**: the rigid right-angle USB-C -> USB-A adapter into the Uno Q's rear socket, **mouth down**; the camera's
+      USB-A plug into it from below, lying against the rear wall between the cradle rib and the Mini560 box's left wall; zip-tied to
+      that wall at step 10. Its cable loops up the rear-right corner and
       forward along the right side to the neck. In the head (do this when building the head): the camera's JST plug into the strip's socket, its 4 wires
       turned back **right at the plug** into the 1.5 mm pocket past it, behind the board's end, through the face's hollow and the
       slot in the face's D-panel (right side); the cable then runs over the jaw, down the head's right side and out beside the floor
       opening to the head-pitch U. Turn the head through yaw +-150 and pitch, and open the beak, before closing the dome: nothing may pull.
-   11. Uno Q cover (optional): **2 x M2 x 6** through its sides ✓.
+   10. **Hood with the Mini560 box** (2026-11-25): hood down over the Uno Q, **1 x M2 x 6 from each side**. Then the Mini560, its 4
+      jumper housings on, **down into the box from the top**: plugs toward the bay, board against the two rails at the back, parts
+      toward the back; the 3 splices lie in the wire space in front of the plugs; the pigtail comes up through the notch in the box's
+      floor, the bay wires through the window at the lid's rear notch, the Uno Q wires out of the open top over the roof. **Back plate**
+      slides down behind the two lips (nothing can pull a plug off). Zip-tie the balance plug (right wall) and the camera plug (left wall).
 5. Before the first power-up: switch off, battery plugged, check the Uno Q plug position again; then the heat test (section 5).
 
 ## 2. Neck and head
@@ -202,7 +215,7 @@ rear-right cradle: unplug after play, charge there):
 
 ## Not yet checked in the model
 
-The horn shape (pockets drawn from the kit photo; hub and plate thickness nominal), the real kit screws, battery thickness (bay
+The horn shape (pockets drawn from the kit photo; hub and plate thickness nominal), the M2 thread in the servo shaft (photo), battery thickness (bay
 designed for 21 mm), IMU hole spacing (estimated), the SCS0009's steps per degree and protection registers (JOINT_LIMITS.md) - all on
 arrival of the parts. Print the tolerance coupon first (section 0, item 2). The cable pinch check models each cable span as a straight
 line between its clips: confirm the routing on the first assembled leg.

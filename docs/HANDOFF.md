@@ -1,4 +1,4 @@
-# Handoff — where the project stands (updated 2026-11-18)
+# Handoff — where the project stands (updated 2026-11-25)
 
 > **Design CLOSED for the first build (2026-11-18).** Parts, limits, assembly and power are final; next is physical: send
 > `projects/xgoduck_scs0009/print/test_batch/` to the printer, measure the coupon with the real bearings / screws / servo, then
@@ -31,6 +31,8 @@ claude                                                          # approve the 'b
 - **Blender on the Windows side instead of in WSL:** start it there, then
   `BLENDER_HOST=$(ip route show default | awk '{print $3}') python3 scripts/blender_doctor.py`
   (or enable WSL mirrored networking so `localhost` works). Set the same host in `.mcp.json` env.
+- **macOS**: `./scripts/setup.sh` (brew installs Blender), `open -a Blender projects/xgoduck_scs0009/xgoduck_scs0009.blend`, then
+  `python3 scripts/blender_doctor.py` and `claude` as above (the .blend keeps port 9877). `mjpython` for the MuJoCo viewer.
 - **Long Blender jobs** (booleans, sweeps): `BLENDER_TIMEOUT=1800 python3 scripts/blender_doctor.py ...`.
 - **Simulation** needs only `uv`: `uv run --with mujoco python -I tools/sim/servo_tests.py ...`.
   Native viewer: `uv run --with mujoco python tools/sim/mujoco_showcase.py <scenes>` (on Linux plain
@@ -256,6 +258,33 @@ slicer puts support on some bearing seats - the hip-yaw / knee shoulders (meant 
 Ø15 bosses that must print lying down in the L-brackets, yaw connectors, yaw block and head-pitch U (coupon added: `coupon_link_boss_sup`
 / `_nosup` decides), plus the head base's roll bore (no coupon). Open until the coupon is back.
 
+## All-Dupont bay (2026-11-25, branch bay-dupont-2026-11-25) - REVIEW.md "The all-Dupont bay"
+
+The user's parts as they are, no soldering: Mini560 with straight pins + jumper housings in a **box on the hood** (`body_v2.json`
+`mini560_hood`, `reg_outside`, `straight_plugs`, `balance_dy -2.6`; dummies: `tools/blender/parts/power_column.py` -> collection
+`power_hw`), plain housings on the Uno Q (hood tunnel; D0/D1 in the open), switch housings pushed on its lugs, IMU via Qwiic, the
+harness redrawn (`wiring.py`), the exploded view (`bay_exploded`) and the 10-step animation (scene `bay_assembly`) regenerated and
+path-checked, docs / BOM / labels updated. Build order after a pull: `body_v2.py` (its json) -> `uno_q.py` -> `bay_parts.py`
+(`balance_dy -2.6, straight_plugs, reg_outside`) -> `power_column.py` -> `wiring.py` (`wiring.json`) -> `explode_list.py`
+(`bay_explode.json`) -> `assembly_anim.py` (`bay_assembly_anim.json`); the .blend on the branch already holds all of it.
+Open from this session: (a) the adapter's UART header (straight = slot through the rear wall + XT30 pair 30 mm lower, or right-angle),
+(b) switch lever trimmed to <= 6 mm proud (user's OK), (c) D0/D1 keeper, (d) wire-vs-part audit of the new routes, (e) slicing of
+hood + box / lid / back plate, `full_check.sh`. `git stash list` on the WSL machine holds the user's 2026-11-23 local .blend save
+(not needed).
+2026-11-25 later: the exploded view's wiring + labels were still the soldered bay's (`wiring_bay_exploded`, `bay_labels` never rebuilt)
+- rebuilt (`wiring.py` + `wiring_bay_exploded.json`, `sheet_labels.py` + `bay_labels.json`) and `data/bay_assembly_sheet.png`
+re-rendered; the animation now shows the harness (each wire appears in the step it is plugged in: `"wires"` in
+`bay_assembly_anim.json`), `data/bay_anim_step10.png` re-rendered. For (d): at the assembled pose 19 wire / part pairs touch or
+cross (REVIEW.md 2026-11-25 "Wires in the animation") - not audited yet.
+Horn connections (2026-11-25, test print): the servo's screw did not reach the shaft - the kit horn has a raised ring on its top face.
+All 15 seats now have a Ø5.2 x 0.35 recess for it (`joint_v2.top_ring_recess`; existing parts cut by `parts/horn_ring_recess.py`); 4 coupon
+STLs updated - **reprint those 4 and try the kit screw**. Every seat is 2.2 mm from the head seat to the spline tip, so the kit screw
+(~3.5 mm from the photo) gets ~1.3 mm of thread: likely switch to M2 x 6 button head x 15 (BOM row 21, REVIEW "Horn connections").
+Deep review (2026-11-25, REVIEW "Deep review of every joint and the bay"): **one bought M2 x 6 button head for every horn and ear (44;
+the servos' own screws are not used)**, neck forward limit +20 + interlock (JOINT_LIMITS), the camera cable / battery leads / jumpers
+re-routed round the Mini560 box (+ 5 cuts in the box: `parts/hood_box_fixes.py`), the motion and fit checks made to cover the bay
+again, the exploded view and the whole-robot animation regenerated. Before buying: thread one M2 x 6 into a servo shaft by hand.
+
 ## Open items / next steps
 
 1. **Staged build** (agreed): print the coupon -> adjust fits (constants in `tools/blender/parts/joint_v2.py`: SEAT_D, BOSS_D,
@@ -269,6 +298,8 @@ slicer puts support on some bearing seats - the hip-yaw / knee shoulders (meant 
 5. Not checked: fall loads on horns / one-sided joints (no retention clip, user decision); ankle beyond +-23 combined with the
    hip; both-legs check with the ankle moved.
 7. Walking feasibility: the independent review's single-support check (one foot) fails - see the 2026-11-15 state above.
+9. All-Dupont bay (2026-11-25): adapter UART header decision, lever trim OK, D0/D1 keeper, wire audit, sheet, slicing,
+   full check - see the section above.
 8. Cable routing: decide clips / guides for the chafe points of the cable pinch check (walking: body frame edge; head yaw: U,
    yaw block). The check models straight spans: confirm on the first assembled leg.
 6. The trainnr robot `xgoduck_scs0009_v2i` has the earlier SIT angles (re-onboard as a new name if needed: onboarding never
