@@ -82,6 +82,12 @@
      ],
      "frames": 36
     }
+   ],
+   "wires": [
+    "wire_ext_left_body_to_thigh",
+    "wire_plug_ext_left_body_to_thigh_b",
+    "wire_ext_adapter_to_gap",
+    "wire_plug_ext_adapter_to_gap_b"
    ]
   },
   {
@@ -188,6 +194,10 @@
      ],
      "frames": 36
     }
+   ],
+   "wires": [
+    "wire_power_switch_to_splice",
+    "wire_power_splice_to_switch_COM"
    ]
   },
   {
@@ -211,6 +221,10 @@
      ],
      "frames": 40
     }
+   ],
+   "wires": [
+    "wire_power_battery_leads",
+    "wire_power_balance_lead"
    ]
   },
   {
@@ -252,6 +266,10 @@
      ],
      "frames": 24
     }
+   ],
+   "wires": [
+    "wire_power_pigtail_red",
+    "wire_power_pigtail_black"
    ]
   },
   {
@@ -359,6 +377,12 @@
      ],
      "frames": 20
     }
+   ],
+   "wires": [
+    "wire_power_uno_VIN_GND",
+    "wire_signal_uart",
+    "wire_signal_uart_gnd",
+    "wire_signal_imu_qwiic_to_uno"
    ]
   },
   {
@@ -400,6 +424,9 @@
      ],
      "frames": 24
     }
+   ],
+   "wires": [
+    "wire_usb_camera_to_uno"
    ]
   },
   {
@@ -515,6 +542,12 @@
      ],
      "frames": 24
     }
+   ],
+   "wires": [
+    "wire_power_splice_to_mini560_IN_pos",
+    "wire_power_splice_to_mini560_IN_neg",
+    "wire_power_mini560_out_pos_to_adapter_5V",
+    "wire_power_mini560_out_neg_to_adapter_5V"
    ]
   }
  ],

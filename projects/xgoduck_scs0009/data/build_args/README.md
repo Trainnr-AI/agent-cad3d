@@ -11,6 +11,12 @@
 
 Head (after `head_shell_v2.py` builds the dome):
 
+4d. 2026-11-25 (review): `tools/blender/parts/horn_screw_standins.py` - the 15 horn-screw stand-ins as the M2 x 6 button head, seated on
+   each part's counterbore floor (names kept); `tools/blender/parts/hood_box_fixes.py` - five cuts in the Mini560 box on the hood
+   (battery-lead slot, window skin, pigtail notch, two PCB guide grooves), also in body_v2.py for a rebuild. Both idempotent.
+4c. 2026-11-25: `tools/blender/parts/horn_ring_recess.py` (no args) cut the horn top-face ring recess (Ø5.2 x 0.35) IN PLACE into the
+   12 parts holding the 15 horn seats; parts rebuilt from now on get it from joint_v2 (`top_ring_recess`). Idempotent; safe to re-run.
+
 4b. 2026-11-20: DO NOT rebuild `head_shell_v2.py` parts ["base", "dome"] - from the original source meshes it now gives broken parts
    (masses in the billions, stray geometry, dropped posts) and overwrites jaw_soft["front_screws"] (must stay 73.06, -130.9 / 73.06, -69.12).
    The base and dome are edited in place: `tools/blender/parts/head_rear_screws.py` (once; flags on head_dome: rear_screw_x, base_giveway)
@@ -25,8 +31,8 @@ Head (after `head_shell_v2.py` builds the dome):
 Exploded views (after any rebuild: their '.x' / '.hx' copies keep the old meshes until regenerated):
 
 6. `tools/blender/explode_all.py` with `{"collection":"duck_v2_exploded","offset":[0,-0.45,0],"scale":1.5,"gap":30}` - the whole
-   duck: legs and neck opened along their joint axes, the head taken apart, the bay behind the body in build order (181 elements, 2026-11-19: the bay laid out as bay_explode.json, incl. the bay_* connectors;
-   3 "(missing)" names - hip_yaw_support, body_neck_mount, scs_head_roll_horn_screw - are old names, expected).
+   duck: legs and neck opened along their joint axes, the head taken apart, the bay behind the body in build order (189 elements on 2026-11-25; the bay laid out as bay_explode.json, incl. the bay_* connectors - explode_all.py keeps its OWN copy
+   of that layout: keep them in sync; 2 "(missing)" names - hip_yaw_support, body_neck_mount - are old names, expected).
 7. `tools/blender/wiring.py` with `wiring_exploded.json` - the cables drawn on that exploded copy (collection wiring_exploded).
 8. `tools/blender/explode_list.py` with `bay_explode.json` + `wiring.py` with `wiring_bay_exploded.json` - the bay sheet.
 8b. `tools/blender/sheet_labels.py` with `bay_labels.json`: numbered labels + leader lines on the bay sheet; render with closeup.py
@@ -39,5 +45,5 @@ Exploded views (after any rebuild: their '.x' / '.hx' copies keep the old meshes
 
 Whole-robot assembly animation (2026-11-20): `tools/blender/robot_assembly_seq.py` (in Blender: reads asm.json, segment_paths.json, the
 screw audit's screws.json with axes, bay_assembly_anim.json; writes robot_assembly_anim.json) -> `tools/blender/assembly_anim.py` with that
-JSON (scene robot_assembly, 43 steps, 180 s). Its moves are path-checked with `tools/blender/anim_to_paths.py` (+ bay_assembly_allow.json,
+JSON (scene robot_assembly, 42 steps, 199 s on 2026-11-25 - regenerate it after any bay_assembly_anim.json change). Its moves are path-checked with `tools/blender/anim_to_paths.py` (+ bay_assembly_allow.json,
 `fast`, step 1 mm) -> `assembly_path_check.py`: 458 segments, all OK on 2026-11-21 (~25 min in 4 parallel Blenders).

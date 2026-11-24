@@ -268,9 +268,22 @@ path-checked, docs / BOM / labels updated. Build order after a pull: `body_v2.py
 (`balance_dy -2.6, straight_plugs, reg_outside`) -> `power_column.py` -> `wiring.py` (`wiring.json`) -> `explode_list.py`
 (`bay_explode.json`) -> `assembly_anim.py` (`bay_assembly_anim.json`); the .blend on the branch already holds all of it.
 Open from this session: (a) the adapter's UART header (straight = slot through the rear wall + XT30 pair 30 mm lower, or right-angle),
-(b) switch lever trimmed to <= 6 mm proud (user's OK), (c) D0/D1 keeper, (d) wire-vs-part audit of the new routes, (e) sheet
-re-render, slicing of hood + box / lid / back plate, `full_check.sh`. `git stash list` on the WSL machine holds the user's
-2026-11-23 local .blend save (not needed).
+(b) switch lever trimmed to <= 6 mm proud (user's OK), (c) D0/D1 keeper, (d) wire-vs-part audit of the new routes, (e) slicing of
+hood + box / lid / back plate, `full_check.sh`. `git stash list` on the WSL machine holds the user's 2026-11-23 local .blend save
+(not needed).
+2026-11-25 later: the exploded view's wiring + labels were still the soldered bay's (`wiring_bay_exploded`, `bay_labels` never rebuilt)
+- rebuilt (`wiring.py` + `wiring_bay_exploded.json`, `sheet_labels.py` + `bay_labels.json`) and `data/bay_assembly_sheet.png`
+re-rendered; the animation now shows the harness (each wire appears in the step it is plugged in: `"wires"` in
+`bay_assembly_anim.json`), `data/bay_anim_step10.png` re-rendered. For (d): at the assembled pose 19 wire / part pairs touch or
+cross (REVIEW.md 2026-11-25 "Wires in the animation") - not audited yet.
+Horn connections (2026-11-25, test print): the servo's screw did not reach the shaft - the kit horn has a raised ring on its top face.
+All 15 seats now have a Ø5.2 x 0.35 recess for it (`joint_v2.top_ring_recess`; existing parts cut by `parts/horn_ring_recess.py`); 4 coupon
+STLs updated - **reprint those 4 and try the kit screw**. Every seat is 2.2 mm from the head seat to the spline tip, so the kit screw
+(~3.5 mm from the photo) gets ~1.3 mm of thread: likely switch to M2 x 6 button head x 15 (BOM row 21, REVIEW "Horn connections").
+Deep review (2026-11-25, REVIEW "Deep review of every joint and the bay"): **one bought M2 x 6 button head for every horn and ear (44;
+the servos' own screws are not used)**, neck forward limit +20 + interlock (JOINT_LIMITS), the camera cable / battery leads / jumpers
+re-routed round the Mini560 box (+ 5 cuts in the box: `parts/hood_box_fixes.py`), the motion and fit checks made to cover the bay
+again, the exploded view and the whole-robot animation regenerated. Before buying: thread one M2 x 6 into a servo shaft by hand.
 
 ## Open items / next steps
 

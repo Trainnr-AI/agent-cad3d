@@ -23,7 +23,28 @@
 "servo_adapter": "trunk_base",
 "imu": "trunk_base",
 "yaw_block": "yaw_roll_motion",
-"ubec": "trunk_base",
+"bay_balance_plug": "trunk_base",
+"bay_imu_qwiic": "trunk_base",
+"bay_switch_hw": "trunk_base",
+"bay_switch_joints": "trunk_base",
+"bay_uno_power_plug": "trunk_base",
+"bay_uno_uart_plug": "trunk_base",
+"bay_usb_a_plug": "trunk_base",
+"bay_usb_adapter_L": "trunk_base",
+"bay_xt30_pair": "trunk_base",
+"enclosure_screws_M2x6st": "trunk_base",
+"mini560_back_plate": "trunk_base",
+"mini560_parts": "trunk_base",
+"mini560_pcb": "trunk_base",
+"mini560_plugs": "trunk_base",
+"splices_x3": "trunk_base",
+"switch_lug_plugs": "trunk_base",
+"switch_plate": "trunk_base",
+"switch_plate_screws_M2x10csk": "trunk_base",
+"uno_screw_M2x6": "trunk_base",
+"unoq_bottom_connectors": "trunk_base",
+"unoq_top_parts": "trunk_base",
+"unoq_usbc": "trunk_base",
 "electronics_enclosure": "trunk_base",
 "unoq_pcb": "trunk_base",
 "unoq_headers": "trunk_base",
@@ -506,13 +527,43 @@
 "head_pitch": 1.1344640137963142,
 "head_yaw": 2.6179938779914944
 },
-"SIT (28.6, 65)": {
+"SIT": {
+"left_hip_yaw": -0.05235987755982989,
+"left_hip_roll": -0.06981317007977318,
+"left_hip_pitch": 1.2217304763960306,
+"left_knee": 0.3141592653589793,
+"left_ankle": -0.2792526803190927,
+"neck_pitch": 0.3490658503988659,
+"head_pitch": 0.3490658503988659,
+"right_hip_yaw": 0.05235987755982989,
+"right_hip_roll": 0.06981317007977318,
+"right_hip_pitch": -1.2217304763960306,
+"right_knee": -0.3141592653589793,
+"right_ankle": 0.2792526803190927
+},
+"old SIT (28.6, 65), not used since 2026-11-13": {
 "left_hip_pitch": -0.5236,
 "left_knee": 1.0472,
 "right_hip_pitch": 0.5236,
 "right_knee": -1.0472,
 "neck_pitch": 0.5,
 "head_pitch": 1.1344640137963142
+},
+"interlock corner neck 15 head -5": {
+"neck_pitch": 0.2617993877991494,
+"head_pitch": -0.08726646259971647
+},
+"interlock corner neck 15 head 65": {
+"neck_pitch": 0.2617993877991494,
+"head_pitch": 1.1344640137963142
+},
+"interlock corner neck 20 head 5": {
+"neck_pitch": 0.3490658503988659,
+"head_pitch": 0.08726646259971647
+},
+"interlock corner neck 20 head 35": {
+"neck_pitch": 0.3490658503988659,
+"head_pitch": 0.6108652381980153
 },
 "FOLD (40, 57)": {
 "left_hip_pitch": 1.5707963267948966,

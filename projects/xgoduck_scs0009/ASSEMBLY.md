@@ -9,9 +9,12 @@ shafts ≤ Ø3 mm, caliper.
 
 ## 0. Before printing / building
 
-1. **Measure** a servo's horn (hub Ø and height, plate thickness, arm widths, tip-to-tip), its horn screw and its mounting
-   screws (length under the head, head Ø and height). The model assumes horn screw M2 × 4 (head Ø3.5 × 1.3) and mounting screws
-   ≤ 7.2 mm long. Longer mounting screws: put an M2 nut from the Robu set under the head as a spacer.
+1. **Screws (2026-11-25): the servos' own screws are NOT used.** Their horn screw (~3.5 mm) gets ~1.3 mm of thread in the shaft
+   (the coupon's did not reach); their mounting screws (~7.5-8 mm, washer head) bottom out in 21 of the 30 ear pads and their heads
+   do not fit at the head-roll and beak ears. Every horn clamp and every ear: **M2 × 6 button head** (BOM row 21; head ≤ Ø3.5 × 1.3,
+   1.3 mm hex key). **First thread one M2 × 6 into a servo's output shaft by hand** (servo unpowered, horn held): it must turn in
+   smoothly - the shaft's thread was read as M2 × 0.4 from a photo. Still measure a horn: hub height and plate thickness (nominal in
+   the model; the pocket roof has a Ø5.2 × 0.35 recess for the ring on its top face).
 2. **Print the tolerance coupon** first: send the folder `projects/xgoduck_scs0009/print/test_batch/` to the printing service (its
    PDF guide + 8 print-ready STLs, about 20 g: the 7 coupon pieces, built by `tools/blender/parts/tolerance_coupon.py` from the
    same joint code as the robot's parts, and the horn trim jig; see `print/README.md`). Same printer, filament and settings
@@ -61,7 +64,7 @@ shafts ≤ Ø3 mm, caliper.
    square, until it sits on the lip. It should go in by hand or with a vice and stay put; if it drops in loose or needs
    hammering, the seat size is off: stop and report (section 0, item 2). Spin each one by hand: smooth, no grit.
 
-General rule for the joints: **the joint's clamp screw (the servo's own horn screw) goes in before the next servo is fitted**:
+General rule for the joints: **the joint's clamp screw (M2 × 6 button head, BOM row 21) goes in before the next servo is fitted**:
 its head faces the next servo (hip yaw: 0.3 mm from the hip-roll servo case; head yaw: 4.7 mm from the head-pitch servo).
 
 ## 1. Body
@@ -70,7 +73,7 @@ its head faces the next servo (hip yaw: 0.3 mm from the hip-roll servo case; hea
 2. **Right hip-yaw servo**: straight down into its saddle ✓. **Left hip-yaw servo** ✓: lift it **~10 mm** above its seat (window
    9.5-10.5 mm), slide it in from **either side** under the neck fork, then down. (2026-11-20: re-checked with the whole servo -
    case, output spline and case screws; the old "~7.5 mm" came from a check that moved the case alone: at 8.5 mm the spline hits.)
-3. Servo ear screws: the kit's mounting screws, except the **left servo's front ear**: an **M2 × 6 socket screw with the
+3. Servo ear screws: M2 × 6 button head (BOM row 21), except the **left servo's front ear**: an **M2 × 6 socket screw with the
    ball-end key at 20-25°** (the neck fork is 8 mm above it) ✓.
 3b. **Before the bay: section 3 steps 1-2 for BOTH legs** (yaw connector + horn screw, hip-roll servo + ear screws). With the bay
    in place the hip-roll servo cannot get into the yaw connector - the battery is in its way (whole-robot path check, 2026-11-20).
@@ -212,7 +215,7 @@ rear-right cradle: unplug after play, charge there):
 
 ## Not yet checked in the model
 
-The horn shape (pockets drawn from the kit photo; hub and plate thickness nominal), the real kit screws, battery thickness (bay
+The horn shape (pockets drawn from the kit photo; hub and plate thickness nominal), the M2 thread in the servo shaft (photo), battery thickness (bay
 designed for 21 mm), IMU hole spacing (estimated), the SCS0009's steps per degree and protection registers (JOINT_LIMITS.md) - all on
 arrival of the parts. Print the tolerance coupon first (section 0, item 2). The cable pinch check models each cable span as a straight
 line between its clips: confirm the routing on the first assembled leg.

@@ -575,10 +575,16 @@ if TRAY and args.get("uno_cover", False):
         PCBx = (BXx0 + 2.2 + 0.4 + 4.2, BXx0 + 2.2 + 0.4 + 4.2 + 1.2)        # Mini560 PCB (1.2) = x -77.7..-76.5; parts to -81.9, 0.4 from the plate
         cap_add.append(box(BXx0, BXx1 + 0.3, BXy0, BXy1, BXz0, BXz1))
         cap_cut += [box(CAVx0, CAVx1, CAVy0, CAVy1, CAVz0, BXz1 + 1.0),                                       # cavity: open at the back and the top
-                    box(BXx1 - INNER - 0.5, BXx1 + 1.0, CY - 12.0, CAVy1 - 0.5, 125.0, 134.0),                  # wire window toward the lid's rear notch (y -12..+1.4)
-                    box(-59.0, BXx1 + 1.0, CY - 9.5, CY - 1.0, BXz0 - 0.5, CAVz0 + 0.5),                      # the pigtail's two 14 AWG wires from below, up into the wire space
+                    box(BXx1 - INNER - 0.5, BXx1 + 1.4, CY - 12.0, CAVy1 - 0.5, 125.0, 134.0),                  # wire window toward the lid's rear notch (y -12..+1.4); +1.4: +1.0 left a 0.2 mm skin
+                    box(-60.5, BXx1 + 1.0, CY - 9.5, CY - 1.0, BXz0 - 0.5, CAVz0 + 0.5),                      # the pigtail's two 14 AWG wires from below, up into the wire space (-60.5: they grazed -59.0)
+                    box(-59.8, BXx1 + 1.0, BXy0 - 0.6, CY - 9.0, BXz0 - 0.5, 122.0),                        # 2026-11-25: the battery's 14 AWG leads (flat 6.2 x 3.1) come in
+                    #                                                                                     under the splices to the XT30's top: the floor (z 117-120) was in their way
                     box(BXx1 - 6.5, BXx1 - 3.5, BXy0 - 0.5, BXy0 + WALL + 0.5, 134.0, 137.0),                 # zip-tie slot: the balance plug ties to this wall
-                    box(BXx1 - 6.5, BXx1 - 3.5, BXy1 - WALL - 0.5, BXy1 + 0.5, 118.0, 121.0)]                  # zip-tie slot: the camera's USB plug ties to this wall
+                    box(BXx1 - 6.5, BXx1 - 3.5, BXy1 - WALL - 0.5, BXy1 + 0.5, 118.0, 121.0),                  # zip-tie slot: the camera's USB plug ties to this wall
+                    # 2026-11-25: guide grooves 0.25 deep in both side walls where the PCB's edges slide (the cavity left 0.1 a side: printed
+                    # inside walls come out 0.1-0.2 small, the board would jam); 0.35 a side now, 0.55 of wall left along the groove
+                    box(PCBx[0] - 0.25, PCBx[1] + 0.25, CAVy0 - 0.25, CAVy0 + 0.05, CAVz0 - 0.3, BXz1 + 1.0),
+                    box(PCBx[0] - 0.25, PCBx[1] + 0.25, CAVy1 - 0.05, CAVy1 + 0.25, CAVz0 - 0.3, BXz1 + 1.0)]
         cap_ribs += [box(PCBx[1] + 0.2, PCBx[1] + 1.4, CAVy0 - 0.3, CAVy0 + 1.0, CAVz0 - 0.3, BXz1 - 0.01),    # rails in front of the PCB (plug side)
                      box(PCBx[1] + 0.2, PCBx[1] + 1.4, CAVy1 - 1.0, CAVy1 + 0.3, CAVz0 - 0.3, BXz1 - 0.01),
                      box(BXx0 + 0.3, BXx0 + 1.2, CAVy0 - 0.3, CAVy0 + 1.5, CAVz0 - 0.3, BXz1 - 0.01),          # lips for the slide-in back plate

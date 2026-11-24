@@ -31,6 +31,17 @@ HORN_CLEAR, RIB_INTERF, RIB_R = 0.20, 0.25, 0.5      # loose walls; ribs (1 mm w
 CLEAR_D, PILOT_D = 2.4, 1.7                          # M2 clearance; M2 pilot (2026-11-13: 2.3 / 1.6 -> 2.4 / 1.7: FDM holes print
 #                                                      0.1-0.2 small; M2 machine screws thread into PLA, the servo's self-tappers too)
 HUB_D, HORN_TOP, PLATE_T_HORN = HORN_HUB_D, J_HORN_HUB_Z[1], HORN_PLATE_T
+# 2026-11-25 (user's printed coupon + photos): the kit horn's TOP face (the side in our pocket) has a small raised ring round its
+# screw hole, so the printed part sat on the ring and the servo's screw no longer reached the shaft. Recess in the pocket roof
+# round the centre: Ø5.2 (ring read from the photo as Ø4.5-5, +margin; inside the hub's Ø6.9 opening, so the arms still carry)
+# x 0.35 above the roof (the ring's height could not be read; 0.35 + the roof's 0.1 clearance = rings up to 0.45 sit free; the
+# screw head (Ø3.5) spans most of it). The floor under the screw head is 0.95 at every seat -> 0.60 (3 layers at 0.2) left.
+TOP_RING_D, TOP_RING_H = 5.2, 0.35
+
+
+def top_ring_recess(M):
+    """cutter: recess in the horn pocket's roof for the raised ring round the horn's screw hole (its top face)"""
+    return add_cyl(new_bm(), 0, 0, HORN_TOP, HORN_TOP + 0.1 + TOP_RING_H, TOP_RING_D, 40, M)
 # ---- type C
 BRG_ID, BRG_OD, BRG_W = 15.0, 21.0, 4.0              # 6702ZZ (ISO thin-section 61702): sold everywhere. The original
 #                                                      duck's 16x22x4 ("ET2216") is a niche size - not used.
@@ -49,9 +60,10 @@ PLATE_T = 4.5                                        # 4.5 (not 4.0): = FLOOR_T,
 PLATE_Z1 = PLATE_Z0 + PLATE_T                        # 9.9
 # screws (user 2026-11-13: few screw types, all standard; machine screws from Robu; each servo's packaging has its horn screw)
 SOCKET_HEAD = (3.8, 2.0)                             # M2 x 6 socket head (Robu EasyMech: dk 3.7, k 2.0): every M2 screw but the joints'
-KIT_SCREW = HORN_SCREW                               # (2.0, 4.0, 3.5, 1.3): the servo's own horn screw, M2 x 4 (head size INFERRED)
+KIT_SCREW = (2.0, 6.0, 3.5, 1.3)                     # 2026-11-25: joint clamp screw = bought M2 x 6 button head (ISO 7380) - the
+#                                                      servo's own (~3.5 mm, user's photo) left ~1.3 mm in the shaft (BOM row 21)
 KIT_SEAT = HORN_TOP + 0.1 + 1.0                      # 5.4: joint clamp screw head seat, 1.0 of floor over the horn pocket ->
-#                                                      thread 1.8 into the shaft (spline tip 3.2; the shaft hole ends at -1.8)
+#                                                      M2 x 6: thread 3.8 into the shaft (spline tip 3.2; the shaft hole ends at -1.8)
 CB_D, CB_Z = 4.4, KIT_SEAT                           # counterbore 4.4: the kit screw's pan head may be up to Ø4.0
 # ---- type F
 FLOOR_T = 4.5                                        # = PLATE_T: a type-C rotor plate and a type-F floor can be one plate.
@@ -205,7 +217,7 @@ def link_features(M, plate_outline_mm=None, angle_deg=0.0):
     add = [add_hull(new_bm(), [(x, y, z) for x, y in pts for z in (PLATE_Z0, PLATE_Z1)], M),
            add_cyl(new_bm(), 0, 0, BOSS_Z0, PLATE_Z0 + 1.0, BOSS_D, 64, M),
            add_cyl(new_bm(), 0, 0, LIP + BRG_W, PLATE_Z0 + 0.6, SHOULDER_D, 48, M)]
-    sub = [pocket_cutter(M, BOSS_Z0 - 0.5, HORN_TOP + 0.1, TRIM_R, angle_deg),
+    sub = [pocket_cutter(M, BOSS_Z0 - 0.5, HORN_TOP + 0.1, TRIM_R, angle_deg), top_ring_recess(M),
            combine_cutters([add_cyl(new_bm(), 0, 0, BOSS_Z0 - 1.1, PLATE_Z1 + 1.1, CLEAR_D, 20, M),      # clamp hole + counterbore
                             add_cyl(new_bm(), 0, 0, CB_Z, PLATE_Z1 + 0.9, CB_D, 26, M)])]                # as ONE cutter
     return add, sub, []
@@ -319,7 +331,7 @@ def horn_plate_features(M, plate_outline_mm=None, angle_deg=45.0, trim_r=None):
     r = (trim_r + HORN_CLEAR + 1.8) if trim_r else ARM_R_FULL
     pts = [(r * math.cos(2 * math.pi * i / 64), r * math.sin(2 * math.pi * i / 64)) for i in range(64)] + list(plate_outline_mm or [])
     add = [add_hull(new_bm(), [(x, y, z) for x, y in pts for z in ARM_Z], M)]
-    sub = [pocket_cutter(M, ARM_Z[0] - 0.5, HORN_TOP + 0.1, trim_r, angle_deg),
+    sub = [pocket_cutter(M, ARM_Z[0] - 0.5, HORN_TOP + 0.1, trim_r, angle_deg), top_ring_recess(M),
            combine_cutters([add_cyl(new_bm(), 0, 0, ARM_Z[0] - 1, ARM_Z[1] + 1, CLEAR_D, 20, M),          # clamp hole + counterbore
                             add_cyl(new_bm(), 0, 0, KIT_SEAT, ARM_Z[1] + 1, CB_D, 26, M)])]           # (kit horn screw, as type C)
     return add, sub, []
@@ -401,7 +413,7 @@ def c2_rotor_features(M, plate_outline_mm=None, angle_deg=45.0):
            add_cyl(new_bm(), 0, 0, ARM_Z[1] - 0.02, C2_BRG_Z[0], SHOULDER_D, 48, M),
            add_cyl(new_bm(), 0, 0, ARM_Z[1] - 0.03, C2_BRG_Z[1] + 0.1, BOSS_D, 64, M)]
     top = C2_BRG_Z[1] + 0.1
-    sub = [pocket_cutter(M, ARM_Z[0] - 0.5, HORN_TOP + 0.1, None, angle_deg),
+    sub = [pocket_cutter(M, ARM_Z[0] - 0.5, HORN_TOP + 0.1, None, angle_deg), top_ring_recess(M),
            combine_cutters([add_cyl(new_bm(), 0, 0, ARM_Z[0] - 1, top + 1, CLEAR_D, 20, M),                         # clamp hole +
                             add_cyl(new_bm(), 0, 0, KIT_SEAT, top + 1, CB_D, 26, M)])]                              # counterbore up the boss
     return add, sub, []
@@ -474,7 +486,7 @@ def c2m_rotor_features(M, plate_outline_mm=None, angle_deg=45.0):
                add_hull(new_bm(), [(x, y, z) for x, y in lo for z in (ARM_Z[0], PLATE_Z0 + 0.6)], M)]
     else:
         add = [add_hull(new_bm(), [(x, y, z) for x, y in disc for z in (ARM_Z[0], PLATE_Z1)], M)]
-    sub = [pocket_cutter(M, ARM_Z[0] - 0.5, HORN_TOP + 0.1, None, angle_deg),
+    sub = [pocket_cutter(M, ARM_Z[0] - 0.5, HORN_TOP + 0.1, None, angle_deg), top_ring_recess(M),
            combine_cutters([add_cyl(new_bm(), 0, 0, ARM_Z[0] - 1.0, KIT_SEAT + 0.3, CLEAR_D, 20, M),
                             add_cyl(new_bm(), 0, 0, KIT_SEAT, C2M_FLOOR_RELIEF[1] + 0.2, CB_D, 26, M),
                             add_cyl(new_bm(), 0, 0, C2M_FLOOR_RELIEF[1], C2M_BRG_Z[0] + 0.3, 2 * C2M_FLOOR_RELIEF[0], 56, M),

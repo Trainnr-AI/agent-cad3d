@@ -1846,3 +1846,88 @@ the housings are tilted on; a switch 1 mm further out in its plate would make it
 objects): `data/bay_exploded_dupont.png`; harness views `data/bay_harness_open_box.png` (hood hidden), `data/bay_harness_rear_left.png`;
 animation frame `data/bay_anim_step10.png`. Printed parts rebuilt this session (enclosure 31.6 g, lid 10.8, hood + box 11.4, back plate
 0.7, switch plate 1.5) are all manifold, one shell each. NOT done: the wire-vs-part audit of the new routes, `full_check.sh`, slicing.
+
+### Wires in the animation; exploded wiring and labels rebuilt (2026-11-25, later)
+
+- The .blend's exploded-view wiring (`wiring_bay_exploded`) and labels (`bay_labels`) were still the soldered bay's (wires to a
+  "regulator", "Mini560 - solder 4 wires", "switch ... 3 wires soldered"): the json / code had changed, the collections were never
+  rebuilt. Rebuilt from `wiring_bay_exploded.json` and `bay_labels.json`: 27 wires, every one in today's harness (the camera lead,
+  which runs into the head, is not drawn in the bay-only view), 13 labels. The other 846 objects of the main scene are unchanged
+  (fingerprint, branch .blend vs rebuilt). `data/bay_assembly_sheet.png` re-rendered (build_args README 8b).
+- The animation had no wires (the branch had dropped main's old list). `bay_assembly_anim.json` now lists the current harness per
+  step, shown once that step's parts are in: 2 servo cables (2), switch jumpers (4), battery + balance leads (5), XT30 pigtails
+  (6), Uno jumpers + Qwiic (8), camera USB (9), the Mini560's 4 jumpers (10) - 20 wires. Moves unchanged, so the path check above
+  still holds (it does not test wires). `data/bay_anim_step10.png` re-rendered.
+- Wire vs part, sampled through the animation and at the assembled pose (BVH overlap, triangle pairs): 19 pairs touch or cross
+  **at the assembled pose**, so they are routes, not animation artefacts - wire ends in their own splices / plugs (splices_x3 x 6
+  wires, balance plug, XT30) are expected; the rest need the wire-vs-part audit (open item d): the hood (`uno_cover`) with 9 wires
+  (battery leads 149 pairs, Uno VIN/GND 73, UART GND 70, camera USB 54 + 56, switch jumpers, pigtails), the lid with the switch
+  jumper (26), the Mini560 plugs with the camera USB cable (28).
+
+### Horn connections reviewed; recess for the horn's top-face ring (2026-11-25)
+
+Test print (user): with the horn in the coupon's pocket the servo's own screw did not reach the shaft. The kit horn's TOP face (the side
+in our pocket) has a small raised ring round its hole (user's photos); the model had it flat, so the printed part sat on the ring.
+Feetech publishes no horn drawing. From the photo (scale: the user's 24.0 mm tip to tip, both diagonals 424-425 px): the screw is
+~3.45 mm under the head with crests 0.36 mm apart (M2 x 0.4 machine thread, not the assumed 4.0; to confirm by hand); the ring
+reads Ø4.5-5, its height could not be read (second photo too blurred).
+
+All 15 horn seats measured on the model (rays along each screw axis): every one is the same stack - counterbore Ø4.36 (knees 5.2),
+floor 0.95 under the head, **2.2 mm from the head seat to the spline tip**, shaft hole 5.0 deep (bottom 7.2 from the seat). So the
+thread in the shaft = screw length - 2.2: kit 4.0 (assumed) 1.8, kit ~3.45 (photo) ~1.25, M2 x 5 2.8, M2 x 6 3.8 (1.2 short of the
+hole's bottom). Room above a 1.3 kit head: hip yaw 0.38 (the hip-roll servo case), hip pitch 3.11, head yaw 4.77, hip roll 4.95,
+beak ~3.1, the rest > 6. The beak's screw STAND-IN sits 1.1 mm too deep in the jaw (display only; its real seat is as the others).
+
+Change: recess Ø5.2 x 0.35 in the pocket roof round the centre (`joint_v2.TOP_RING_D/H`, `top_ring_recess` in all four pocket
+builders; cut in place into the existing parts by `parts/horn_ring_recess.py`, Manifold boolean): rings up to 0.45 (0.35 + the roof's
+0.1 clearance) now sit free; floor under the head 0.95 -> 0.60 (3 layers). 12 parts changed (both L-brackets, both yaw connectors,
+both shins, both feet, body frame, head-pitch U, yaw block, jaw): each still one shell, 0 non-manifold edges, ~5.9 mm3 removed per
+seat; the other 834 objects unchanged (fingerprint). Coupon: knee rotor, trim plate, both link bosses rebuilt (STLs updated); the
+other 4 test files byte-identical.
+
+Screws: the M2 x 6 socket heads (row 19) fit 13 of the 15 seats (not the hip yaws: 0.38 room for a 0.7 taller head); an M2 x 6
+button head (ISO 7380, Ø3.5 x 1.1) fits all 15 at rest. NOT checked: the ring's real height (if > 0.45 the rest still lifts the part),
+the screw length (photo, +-0.3), the bigger heads through the joints' full motion, the reprinted coupon.
+
+### Deep review of every joint and the bay - defects found and fixed (2026-11-25)
+
+Prompted by the coupon (the servo's horn screw did not reach). Method: every bought-part dimension the model assumes (grep NOMINAL /
+ASSUMED / ESTIMATED / stand-in), the user's photos of the servo's bag (scale: the horn, 24.0 tip to tip), then the full check suite
+(`scripts/full_check.sh`) plus targeted probes. Found and fixed:
+
+1. **Horn screw** (all 15 seats): ~3.5 mm under the head, M2 x 0.4 (photo) -> ~1.3 mm in the shaft. Horn top-face ring recessed
+   (above). Joint clamp screw now a bought **M2 x 6 button head** (BOM row 21): stand-ins rebuilt on each part's counterbore floor
+   (`parts/horn_screw_standins.py`; the beak's sat 1.1 mm deep), screw audit 3.1-3.3 mm in the spline (was 1.5-1.9), tips clear.
+2. **Ear screws**: the kit's mounting screws are ~7.5-8 mm with a washer head; 21 of the 30 ear pads take at most 7.45-7.55 (half
+   of those end 0.75 mm before a bearing lip) and the head-roll / beak ear heads have 0.28 / 0.13 mm for a Ø3.5 x 1.3 head. -> the
+   same M2 x 6 button head for every ear (= the stand-ins' envelope): one screw type for 44 places instead of two kit types.
+3. **Neck forward vs the Uno Q's D0/D1 housing** (new with the all-Dupont bay: plain housing 14 mm tall): the head chain's hub Y and
+   plugs on the head-pitch U hit it from neck +19.5 with the head low or high (SIT / STAND at neck 20 head 20 clear by ~4 mm).
+   Firmware: neck <= +15 any head; +15..+20 only with head +5..+35; never above +20 (JOINT_LIMITS.md, >= 0.77 mm). Hardware option
+   (keeps +30): a lower D0/D1 connection - not done.
+4. **Cables through the Mini560 box** (wire-vs-part audit, item d): measured as tube penetration, not triangle overlap. The camera
+   cable was drawn twice (a new bay part + the old rear route through the box 3.1 mm and its plugs 2.3 mm) -> one cable over the
+   hood's roof, straight on to the cradle (needs 382 of its 400 mm within the firmware limits; the old route 387). Battery leads
+   through the box floor (2.0 mm: the box sits 1 mm over the XT30) -> slot in the floor + rear wall (`parts/hood_box_fixes.py`,
+   body_v2.py). Switch jumpers through the IMU (1.5) -> round its end and over it. Mini560 OUT pair and UART GND through the splices
+   (1.5 / 0.85) -> above them / beside them. UART pair through the Uno Q board's edge (1.2) -> out past the edge first. POWER trio
+   over the tunnel's wall (1.0) -> over it at z 157.2. A 0.2 mm skin left by the window cut (the jumpers ran through it) -> cut.
+   Pigtails on the notch edge (0.7) -> notch 1.5 mm wider. Left (explained): cable ends inside their own connector / splice (9),
+   grazes <= 0.57 mm at the lid notch (4), the servo-cable spans in the legs / neck known from the pinch check (7).
+5. **Mini560 board in its box**: 0.1 mm a side (printed inside walls come out 0.1-0.2 small) -> 0.25 mm guide grooves in both
+   walls: 0.35 a side, the board's closest points now the designed 0.2 to its rails and floor.
+6. **Checks that no longer checked the bay**: `motion.json` crashed on `ubec` (the motion sweep had not run on this branch) and left
+   out 22 body-mounted bay parts; `fit.json` had 13 pairs with removed parts and none for the Mini560 / splices / switch housings;
+   the motion sweep's SIT pose was the one replaced 2026-11-13. Fixed: 22 parts added, 103 fit pairs added (all clear), SIT and the
+   interlock's corners as poses. `explode_all.py` kept its own (old) copy of the bay layout and `robot_assembly_anim.json` still
+   placed the regulator: both regenerated (189 elements; 42 steps, 199 s).
+7. **BOM printed masses**: hood 6.7 -> 11.1 g (the box), lid 9.9 -> 10.8, enclosure 32.6 -> 31.6, + back plate 0.7: total 317 g.
+
+Checked and left: the beak's horn pocket reads 0.094 mm at two points at the arms' roots (a sloped face of the jaw; the arms are
+designed for 0.25 mm of rib press) - no change. Model parts changed by all of this: the 15 horn-screw stand-ins and the hood (+ the
+12 recessed parts above); every other object unchanged (fingerprint). Results on the fixed model: rest pose ok; printed parts 30,
+no problems; fits 489, 1 not as designed (the known left hip-pitch servo touch); assembly paths 55 OK + the hip-yaw L-path; bay moves
+44/44; segment paths ok; screw audit 23 flags, all dispositioned (wall 0.13 = spline-teeth sampling, case "bite" = 1 sample in 720);
+motion 42 colliding poses, none inside the limits + interlock; cable reach 1 SHORT (battery leads: BOM row 4); cable pinch 25 at
+rest / 18 in motion (was 38 / 19). NOT verified: the shaft thread by hand, the horn's hub height, the ring's height (> 0.45 still
+lifts the part), the bigger screw heads through full motion, a reprint.
