@@ -171,7 +171,8 @@
 "right_knee_ear_screws_M2x6st": "upper_leg_right",
 "right_knee_screw_M2x4kit": "leg_2",
 "right_thigh_cover_screws_M2x6st": "upper_leg_right",
-"uno_cover_screws_M2x6st": "trunk_base",
+"uno_cover_screw_R_M2x6st": "trunk_base",
+"uno_cover_screw_L_M2x6st": "trunk_base",
 "uno_screws_M3x8": "trunk_base",
 "left_knee_cap": "upper_leg_left",
 "right_knee_cap": "upper_leg_right"

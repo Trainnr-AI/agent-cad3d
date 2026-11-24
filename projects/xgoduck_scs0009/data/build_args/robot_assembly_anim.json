@@ -971,7 +971,25 @@
     },
     {
      "objects": [
-      "uno_cover_screws_M2x6st"
+      "uno_cover_screw_R_M2x6st"
+     ],
+     "path": [
+      [
+       0,
+       -20,
+       0
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 20
+    },
+    {
+     "objects": [
+      "uno_cover_screw_L_M2x6st"
      ],
      "path": [
       [
@@ -985,8 +1003,7 @@
        0
       ]
      ],
-     "frames": 20,
-     "split_axis": 1
+     "frames": 20
     }
    ],
    "wires": []

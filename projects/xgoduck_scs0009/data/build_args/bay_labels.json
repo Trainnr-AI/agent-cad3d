@@ -5,12 +5,6 @@
  "gap_mm": 22.0,
  "labels": [
   {
-   "target": "electronics_enclosure.x.001",
-   "side": "R",
-   "dz_mm": 6,
-   "text": "1  BAY ENCLOSURE -> motor body\n3x M2x10 countersunk (Phillips) UP from under the robot,\nthrough the tongue into the deck"
-  },
-  {
    "target": "enclosure_screws_M2x6st.x.001",
    "side": "R",
    "dz_mm": -12,
@@ -23,10 +17,16 @@
    "text": "   motor body (hip-yaw servos, neck)"
   },
   {
+   "target": "electronics_enclosure.x.001",
+   "side": "R",
+   "dz_mm": 6,
+   "text": "1  BAY ENCLOSURE -> motor body\n3x M2x10 countersunk (Phillips) UP from under the robot,\nthrough the tongue into the deck"
+  },
+  {
    "target": "servo_adapter.x.001",
    "side": "L",
    "dz_mm": 0,
-   "text": "2  SERVO ADAPTER (Waveshare A)  - no screws:\nslides down into the rib slots. Solder first, on its back pins:\n5 V in (DC+ DC-, 20 AWG) and UART TX RX GND.\nCap the 3 front UART pins (tape)"
+   "text": "2  SERVO ADAPTER (Waveshare A)  - no screws:\nslides down into the rib slots. 5 V in on its screw terminal\n(Mini560 OUT+ / OUT-), UART on its 4-pin header (3 jumpers:\nTX RX GND - header type open, see REVIEW 2026-11-25)"
   },
   {
    "target": "imu.x.001",
@@ -38,7 +38,7 @@
    "target": "power_switch.x.001",
    "side": "R",
    "dz_mm": 0,
-   "text": "4  SWITCH PLATE (bench: M6 nut into its pocket, switch screwed in,\n3 wires soldered) - down 9.5 mm in from the wall, out onto it;\n2x M2x10 countersunk from outside"
+   "text": "4  SWITCH PLATE (bench: M6 nut into its pocket, switch screwed in)\n- down 9.5 mm in from the wall, out onto it; 2x M2x10 countersunk\nfrom outside. Then PUSH the 2 jumper housings onto its lugs from\ninside (middle + lower lug) - no solder"
   },
   {
    "target": "battery_3s.x.001",
@@ -50,37 +50,37 @@
    "target": "bay_xt30_pair.x",
    "side": "L",
    "dz_mm": 0,
-   "text": "6  XT30 pair + balance plug - rear-right cradle, 1 zip tie.\nUnplug here; charge through the balance plug here"
-  },
-  {
-   "target": "ubec.x.001",
-   "side": "R",
-   "dz_mm": 0,
-   "text": "7  MINI560 5 V - solder 4 wires from below (20 AWG),\nslide into the lid's slot, parts UP through the window"
+   "text": "6  XT30 pair + balance plug - XT30 in the rear cradle (1 zip tie);\nbalance plug zip-tied to the Mini560 box's right wall.\nUnplug here; charge through the balance plug here"
   },
   {
    "target": "body_lid.x.001",
    "side": "L",
    "dz_mm": 0,
-   "text": "8  LID - 4x M2x6 socket into the bay posts\n(before the Uno Q: it covers them)"
+   "text": "7  LID - 4x M2x6 socket into the bay posts\n(before the Uno Q: it covers them)"
   },
   {
    "target": "unoq_pcb.x",
    "side": "R",
    "dz_mm": 0,
-   "text": "9  UNO Q - 3x M3x8 + 1x M2x6 (hole by the digital header).\nPlugs: 3-pin right-angle on JANALOG 6-7-8 (UART GND, GND, VIN)\n- mark + hot-glue; 2-pin on D0/D1; Qwiic; USB adapter"
+   "text": "8  UNO Q - 3x M3x8 + 1x M2x6 (hole by the digital header).\nPlain jumper housings: 3 on JANALOG 6-7-8 (UART GND, GND, VIN)\nunder the hood's tunnel; 2 on D0/D1 in the open; Qwiic; USB adapter"
   },
   {
    "target": "bay_usb_adapter_L.x",
    "side": "L",
    "dz_mm": 0,
-   "text": "10 USB-C -> USB-A right-angle adapter, mouth DOWN;\ncamera plug in the rear-left cradle, 1 zip tie"
+   "text": "9  USB-C -> USB-A right-angle adapter, mouth DOWN;\ncamera plug zip-tied to the Mini560 box's left wall"
+  },
+  {
+   "target": "mini560_pcb.x",
+   "side": "R",
+   "dz_mm": 0,
+   "text": "10 MINI560 in the HOOD'S BOX (no solder: its 4 pins + jumper housings)\n- down into the box from the top, plugs toward the bay, splices\nin front of them; back plate slides down behind the lips"
   },
   {
    "target": "uno_cover.x.001",
    "side": "L",
    "dz_mm": 0,
-   "text": "11 UNO Q COVER (optional) - 2x M2x6 through its sides"
+   "text": "10 HOOD with the Mini560 box - 1x M2x6 from each side;\nits wires leave over the roof into the tunnel (VIN, GND, UART GND)"
   }
  ]
 }

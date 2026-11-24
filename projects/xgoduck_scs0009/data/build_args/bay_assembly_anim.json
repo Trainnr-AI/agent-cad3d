@@ -82,12 +82,6 @@
      ],
      "frames": 36
     }
-   ],
-   "wires": [
-    "wire_ext_left_body_to_thigh",
-    "wire_plug_ext_left_body_to_thigh_b",
-    "wire_ext_adapter_to_gap",
-    "wire_plug_ext_adapter_to_gap_b"
    ]
   },
   {
@@ -120,7 +114,7 @@
    ]
   },
   {
-   "title": "4  Switch plate (built on the bench: M6 nut into its hex pocket,\n   switch screwed in by turning its body, 3 wires soldered):\n   down ~9.5 mm in from the wall, then out onto it - lever through the hole;\n   2x M2x10 countersunk from outside",
+   "title": "4  Switch plate (bench: M6 nut into its hex pocket, switch screwed in by\n   turning its body): down ~9.5 mm in from the wall, then out onto it -\n   lever through the hole; 2x M2x10 countersunk from outside. Then the 2\n   jumper housings PUSHED onto its lugs from inside the open bay (no solder;\n   2.3 mm to the wall: tilt them on, straight for the last 2 mm)",
    "moves": [
     {
      "objects": [
@@ -165,6 +159,34 @@
       ]
      ],
      "frames": 24
+    },
+    {
+     "objects": [
+      "switch_lug_plugs"
+     ],
+     "path": [
+      [
+       20,
+       -2.0,
+       60
+      ],
+      [
+       20,
+       -2.0,
+       0
+      ],
+      [
+       0,
+       -2.0,
+       0
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 36
     }
    ]
   },
@@ -189,10 +211,6 @@
      ],
      "frames": 40
     }
-   ],
-   "wires": [
-    "wire_power_battery_leads",
-    "wire_power_balance_lead"
    ]
   },
   {
@@ -234,62 +252,14 @@
      ],
      "frames": 24
     }
-   ],
-   "wires": [
-    "wire_power_pigtail_red",
-    "wire_power_pigtail_black"
    ]
   },
   {
-   "title": "7  Mini560 (wires soldered from below)\n   slides into the lid's rails, parts UP through the window",
+   "title": "7  Lid (no regulator slot any more) onto the bay:\n   4x M2x6 socket into the posts (before the Uno Q: it covers them)",
    "moves": [
     {
      "objects": [
       "body_lid"
-     ],
-     "path": [
-      [
-       0,
-       0,
-       120
-      ],
-      [
-       0,
-       0,
-       60
-      ]
-     ],
-     "frames": 24
-    },
-    {
-     "objects": [
-      "ubec",
-      "bay_mini560_joints"
-     ],
-     "path": [
-      [
-       0,
-       -45,
-       60
-      ],
-      [
-       0,
-       0,
-       60
-      ]
-     ],
-     "frames": 32
-    }
-   ]
-  },
-  {
-   "title": "8  Lid onto the bay: 4x M2x6 socket into the posts\n   (before the Uno Q: it covers them)",
-   "moves": [
-    {
-     "objects": [
-      "body_lid",
-      "ubec",
-      "bay_mini560_joints"
      ],
      "path": [
       [
@@ -323,14 +293,10 @@
      ],
      "frames": 24
     }
-   ],
-   "wires": [
-    "wire_power_switch_to_regulator",
-    "wire_power_regulator_to_adapter_5V"
    ]
   },
   {
-   "title": "9  Uno Q: 3x M3x8 + 1x M2x6;\n   3-pin plug on JANALOG 6-7-8 (mark + hot-glue), 2-pin on D0/D1,\n   Qwiic from the IMU",
+   "title": "8  Uno Q: 3x M3x8 + 1x M2x6; the jumper wires' plugs straight onto\n   JANALOG 6-7-8 (VIN, GND, UART GND) and D0/D1 (UART)",
    "moves": [
     {
      "objects": [
@@ -393,16 +359,10 @@
      ],
      "frames": 20
     }
-   ],
-   "wires": [
-    "wire_power_uno_VIN_GND",
-    "wire_signal_uart",
-    "wire_signal_uart_gnd",
-    "wire_signal_imu_qwiic_to_uno"
    ]
   },
   {
-   "title": "10 Camera USB: right-angle USB-C -> USB-A adapter, mouth DOWN;\n   camera plug in from below, rear-left cradle, 1 zip tie",
+   "title": "9  Camera USB: right-angle USB-C -> USB-A adapter, mouth DOWN;\n   camera plug in from below, rear-left cradle, 1 zip tie",
    "moves": [
     {
      "objects": [
@@ -440,13 +400,10 @@
      ],
      "frames": 24
     }
-   ],
-   "wires": [
-    "wire_usb_camera_to_uno"
    ]
   },
   {
-   "title": "11 Uno Q cover (optional): 2x M2x6 through its sides",
+   "title": "10 Hood with the Mini560 box: hood down, M2x6 from each side;\n   Mini560 (4 jumpers on its pins) down into the box from the top, plugs\n   toward the bay, splices in the wire space in front of them; back plate\n   slides down behind the lips; balance + camera plugs zip-tied to the box",
    "moves": [
     {
      "objects": [
@@ -464,11 +421,29 @@
        0
       ]
      ],
-     "frames": 32
+     "frames": 36
     },
     {
      "objects": [
-      "uno_cover_screws_M2x6st"
+      "uno_cover_screw_R_M2x6st"
+     ],
+     "path": [
+      [
+       0,
+       -20,
+       0
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 16
+    },
+    {
+     "objects": [
+      "uno_cover_screw_L_M2x6st"
      ],
      "path": [
       [
@@ -482,8 +457,63 @@
        0
       ]
      ],
-     "frames": 20,
-     "split_axis": 1
+     "frames": 16
+    },
+    {
+     "objects": [
+      "mini560_pcb",
+      "mini560_parts",
+      "mini560_plugs"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       45
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 32
+    },
+    {
+     "objects": [
+      "splices_x3"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       45
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 28
+    },
+    {
+     "objects": [
+      "mini560_back_plate"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       40
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 24
     }
    ]
   }

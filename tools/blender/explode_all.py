@@ -114,7 +114,7 @@ if "neck" in args.get("parts", ["legs", "neck"]):
                                "uno_q": [0, 0, 186], "unoq_pcb": [0, 0, 186], "unoq_headers": [0, 0, 186], "unoq_usbc": [0, 0, 186],
                                "unoq_pins": [0, 0, 186], "unoq_bottom_connectors": [0, 0, 186], "unoq_top_parts": [0, 0, 186],
                                "bay_uno_power_plug": [0, 0, 200], "bay_uno_uart_plug": [0, 0, 200], "uno_screws_M3x8": [0, 0, 208],
-                               "uno_screw_M2x6": [0, 0, 208], "uno_cover": [0, 0, 236], "uno_cover_screws_M2x6st": [0, -26, 236]})   # = bay_explode.json (the bay sheet), incl. the bay_* connectors
+                               "uno_screw_M2x6": [0, 0, 208], "uno_cover": [0, 0, 236], "uno_cover_screw_R_M2x6st": [0, -26, 236], "uno_cover_screw_L_M2x6st": [0, 26, 236]})   # = bay_explode.json (the bay sheet), incl. the bay_* connectors
         for n_, v_ in bay.items():
             off[n_] = BK + Vector(v_)
     cradle = Z * (1.5 * G) + (Vector((1.6 * G, 0, 0)) if HAS_BODY else Z * 0)      # forward, clear of the body's contents

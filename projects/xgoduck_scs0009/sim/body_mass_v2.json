@@ -694,8 +694,13 @@
      "steel 7.85 g/cm3"
     ],
     [
-     "uno_cover_screws_M2x6st",
-     0.64,
+     "uno_cover_screw_R_M2x6st",
+     0.32,
+     "steel 7.85 g/cm3"
+    ],
+    [
+     "uno_cover_screw_L_M2x6st",
+     0.32,
      "steel 7.85 g/cm3"
     ],
     [

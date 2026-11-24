@@ -131,5 +131,17 @@
  ],
  "head_pitch_brg_693": [
   "head_pitch_bearing_plate"
+ ],
+ "uno_cover_screw_R_M2x6st": [
+  "uno_cover",
+  "body_lid"
+ ],
+ "uno_cover_screw_L_M2x6st": [
+  "uno_cover",
+  "body_lid"
+ ],
+ "switch_lug_plugs": [
+  "bay_switch_joints",
+  "power_switch"
  ]
 }

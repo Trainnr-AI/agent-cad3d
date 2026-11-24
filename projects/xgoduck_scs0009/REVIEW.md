@@ -1785,3 +1785,64 @@ geometry (`anim_to_paths.py` -> `assembly_path_check.py`, 1 mm steps, hits confi
 Checks on the result: full suite - fits 399 / 1 known (+ the face under the dome's edge, 0.23 mm3, fixed after the run: no crossing),
 printed parts 29 one piece, bay moves 42/42, screws 87 / 28 flagged (26 known + the visor's left pair: full engagement in metal nuts),
 motion 35, cable reach 1 (battery leads ~75 mm, BOM), pinch 21; the whole-robot sequence 458/458 segments OK.
+
+## The all-Dupont bay: the user's parts as they are, no soldering (2026-11-25)
+
+User (bench photos): Mini560 with **straight pins soldered at its 4 pads + female jumper housings**; MTS-102 switch with **housings pushed
+on its lugs**; IMU **via Qwiic**; Uno Q with **plain jumper housings** on its female headers; XT30 male pigtail arrived; the pack is a
+**3S 850 mAh, 60 x 30 x 20**. "Go with what I have", "don't bend pins (a slight bend is fine)", "fit the switch without soldering".
+Power chain: battery -> switch -> Mini560 -> servo adapter (screw terminal); Uno Q VIN straight from the switch.
+
+- **Mini560 with pins + housings** needs 18 x 30 x (1.2 + 4.2 + 14.5 + wire room) ~ 26 mm: no such volume inside the bay or on its
+  sides (free-space maps `swept_space.py`, now with `ranges_deg` = the firmware limits; a dovetail / strip bracket outside hit the USB
+  cradle rib). -> a **box on the hood's rear wall** (`body_v2.py` `"mini560_hood"`), printed with the hood (upside down, no overhang):
+  x -84.5..-54.3 (30.2 deep; the legs' swept space is free to x -102), y -17.6..+2.2, z 117..149.9 (1 mm over the XT30 pair). The
+  board stands at the BACK on two rails, components toward the slide-in **back plate** (0.4 play; nothing can pull a plug off), its four
+  plugs toward the bay, and a **6.5 mm wire space** between the plugs' ends and the box's inner wall. Openings: a **window** to the lid's
+  rear notch (z 125..134, y -12..+1.4), a **floor notch** for the pigtail (x -59..-53.3, y -9.5..-1), the open top, and a zip-tie slot
+  in each side wall (balance plug right, camera USB plug left: both now come off with the hood). The balance plug moved 2.6 right
+  (`balance_dy`), its fin and the USB cradle's left rib are gone (the box's walls do their job), the lid has no regulator slot
+  (`reg_outside`), the `ubec` dummy and the solder-pad anchors are gated off. The day's first version had the components toward the bay
+  and the plugs in a chamber behind: drawing the harness showed the window opened on the component side and the plugs' wires had 1 mm
+  to the back plate - flipped (this is why a harness drawing is part of a bay change, not an afterthought).
+- **Uno Q plain housings** stand 14 mm over the headers: a **tunnel** on the hood over JANALOG 6-7-8 (pocket 0.4 wider than the three
+  housings, 1.0 walls, two 0.3 lips, open top for the wires); D0 / D1 stand in the open beyond the hood's front edge (the neck sweep cuts
+  the hood at x 4.2). Head clearance with the firmware limits: 19.5-22.5 mm over the POWER housings, 24 over D0 / D1. Keeper for D0 / D1
+  still to do.
+- **Switch**: stays on the left-wall plate, lugs inward; the two housings sit on the middle and the lower lug (the lugs stand in a
+  vertical row, 4.7 apart - the first dummy had them side by side and the path check caught it), ends 2.3 mm from the right wall,
+  pushed on from inside the open bay (own animation move). Lever down / lever back variants rejected (floor in SIT -13.9 mm; a 30 mm
+  tail). The lever must be trimmed to <= 6 mm proud (else hip pitch back ~ +60 deg) - **user's OK pending**.
+- **Harness** redrawn (`wiring.py`, bay section; anchors on the `parts/power_column.py` dummies, full layout y like `bay_parts.py`):
+  battery leads + balance lead out of the rear-right window (unchanged); pigtail up behind the XT30 pair, through the floor notch into
+  the wire space, to its splices; switch COM / ON jumpers through the window and the lid notch, over the rear wall, past the IMU's top;
+  Mini560 OUT+ / OUT- the same way, then down the 3 mm gap behind the IMU and the 4 mm gap behind the adapter to its screw terminal;
+  UART TX / RX up those gaps, lid notch, UNDER the Uno Q along its left side (z 132.5, the 5.7 mm channel outside its bottom
+  connectors), out of a **new lid notch under D0 / D1** (left wall, x 4.2..13.2), up to the housings' tops; VIN / GND and UART GND out of
+  the box's open top and **over the hood's roof** (1.6 mm above it, 19 mm under the head) into the tunnel; Qwiic as before (right wall,
+  under the lid's edge, into the socket through the hood's cut-out); camera USB from the plug's mouth down, back up behind the USB
+  adapter along the box's left wall and over the roof toward the head. Lengths (mm, straight-segment minimum / what the wire is):
+  battery leads 74 / ~75 needed (BOM), balance 69 / 120, pigtail 54-58 / 150, switch jumpers 40 + 51, splice -> IN 14-20,
+  OUT -> adapter 78-81, UART 142, UART GND 124, VIN / GND 72, Qwiic 44 / 100 - all under 20 cm jumpers. The wires are drawn, not
+  collision-checked against every part this time (the 2026-11-19 wire audit was on the old routes): do that on the macOS session
+  (`fit_audit.py` with the `wire_*` meshes), and confirm the three gaps (3 mm behind the IMU, 4 behind the adapter, 4.5 under the board).
+- **Hood screws** are two objects now (`uno_cover_screw_R/L_M2x6st`): they go in from opposite sides, and as one object the animation
+  drove one of them through the Uno Q's underside (path check). Mass / motion / explode lists renamed.
+- **Open - adapter UART header** (the one real question left): with a straight header on the component side the three housings point at
+  the battery (4.9 mm gap). They only fit pointing BACK through a slot in the rear wall (x -53..-67, y -8.7..+0.3, z 89..97), where the
+  XT30 pair stands: move the pair ~30 mm down the keel's rear face (cradle z 60..86; the spine behind the bay is free there) or use a
+  right-angle header / right-angle jumpers. The drawing routes the UART from the header's solder side as if it were right-angle.
+- Still to do: D0 / D1 keeper; the wire audit above; re-render the labelled sheet (`sheet_labels.py`, texts updated in
+  `bay_labels.json`); slice the hood + box, lid, back plate (`slice-print`); `scripts/full_check.sh`; the lever trim decision.
+
+Checks on the result (2026-11-25, end of session): **fit audit** 42 pairs (box vs balance plug / USB adapter / USB plug / XT30
+pair / enclosure / lid / Uno Q / Mini560 dummies / back plate; switch housings vs everything round them; the two hood screws) - no
+overlap anywhere; gaps: box to the balance plug 0.10, to the USB adapter 0.43, to the XT30 pair 1.0, to the enclosure 1.0, board's
+parts to the back plate 0.4, POWER housings in the tunnel 0.025 (the 5 "not as designed" lines were wrong expectations: clearance holes
+and parts resting on the board). **Assembly animation** `bay_assembly`: 10 steps, 973 frames (41 s), every move path-checked on the
+real geometry: 43 of 44 legs OK; the one left is the switch housings' last 2 mm onto the lugs (the lugs stand 3 mm proud, 2.3 mm of
+straight room to the right wall: the straight leg meets the lug tips by 1.2-3.6 mm3 in its last 2 mm, the wall is clear) - in practice
+the housings are tilted on; a switch 1 mm further out in its plate would make it straight. **Exploded view** `bay_exploded` (38
+objects): `data/bay_exploded_dupont.png`; harness views `data/bay_harness_open_box.png` (hood hidden), `data/bay_harness_rear_left.png`;
+animation frame `data/bay_anim_step10.png`. Printed parts rebuilt this session (enclosure 31.6 g, lid 10.8, hood + box 11.4, back plate
+0.7, switch plate 1.5) are all manifold, one shell each. NOT done: the wire-vs-part audit of the new routes, `full_check.sh`, slicing.

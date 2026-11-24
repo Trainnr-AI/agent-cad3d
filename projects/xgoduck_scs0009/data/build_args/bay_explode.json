@@ -88,16 +88,6 @@
    0,
    165
   ],
-  "ubec": [
-   0,
-   0,
-   132
-  ],
-  "bay_mini560_joints": [
-   0,
-   0,
-   132
-  ],
   "body_lid": [
    0,
    0,
@@ -168,9 +158,44 @@
    0,
    236
   ],
-  "uno_cover_screws_M2x6st": [
+  "switch_lug_plugs": [
+   8,
+   0,
+   92
+  ],
+  "mini560_pcb": [
+   -45,
+   0,
+   236
+  ],
+  "mini560_parts": [
+   -45,
+   0,
+   236
+  ],
+  "mini560_plugs": [
+   -45,
+   0,
+   236
+  ],
+  "splices_x3": [
+   -45,
+   0,
+   236
+  ],
+  "mini560_back_plate": [
+   -70,
+   0,
+   236
+  ],
+  "uno_cover_screw_R_M2x6st": [
    0,
    -26,
+   236
+  ],
+  "uno_cover_screw_L_M2x6st": [
+   0,
+   26,
    236
   ]
  }
