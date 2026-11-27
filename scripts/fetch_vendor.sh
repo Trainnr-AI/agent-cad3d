@@ -28,6 +28,11 @@ fetch LuwuDynamics/xgoduck_hardware e1d5aa4317fe20d3fc7b899ea5bb3365e04d827f xgo
 fetch LuwuDynamics/xgoduck_rl fa621fc77ad9a05d69da13270e86118bdd3603fe xgoduck_rl \
   "/src/mjlab_microduck/robot/xgoduck/" "/src/mjlab_microduck/robot/xgoduck_constants.py" "/LICENSE*" "/README.md"
 
+# KiCad MCP server (PCB design for the UNO Q shield, projects/xgoduck_scs0009/pcb/): v2.9.0 = branch "stable" on 2026-11-28.
+# After the fetch: (cd vendor/KiCAD-MCP-Server && npm ci && <KiCad's python3> -m venv --system-site-packages venv &&
+# venv/bin/pip install -r requirements.txt) - the venv must see KiCad's pcbnew (KiCad 10, brew install --cask kicad).
+fetch mixelpixx/KiCAD-MCP-Server 9dd467c2ba8df09a23490cc0b463f3942e908cae KiCAD-MCP-Server
+
 # Feetech SCS0009 CAD (Pro/E assembly SCS009-20201118-S, STEP export 2023-01-10) as distributed by a reseller.
 # tools/cad/scs0009_from_step.py turns it into tools/blender/parts/scs0009_mesh/*.stl (committed).
 STEP_URL='https://cdn.shopify.com/s/files/1/0673/6848/5000/files/SCS009-20230110-S.stp?v=1761661153'

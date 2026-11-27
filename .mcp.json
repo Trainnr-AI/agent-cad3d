@@ -13,6 +13,18 @@
         "DISABLE_TELEMETRY": "true",
         "BLENDER_PORT": "9877"
       }
+    },
+    "kicad": {
+      "command": "node",
+      "args": [
+        "vendor/KiCAD-MCP-Server/dist/index.js"
+      ],
+      "env": {
+        "NODE_ENV": "production",
+        "LOG_LEVEL": "info",
+        "KICAD_AUTO_LAUNCH": "false",
+        "JAVA_HOME": "/opt/homebrew/opt/openjdk@21"
+      }
     }
   }
 }

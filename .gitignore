@@ -4,3 +4,9 @@ exports/
 __pycache__/
 .DS_Store
 vendor/
+# KiCad local state (lock files, per-user view settings, backups, caches)
+*.lck
+*.kicad_prl
+*-backups/
+.mcp-backups/
+fp-info-cache
