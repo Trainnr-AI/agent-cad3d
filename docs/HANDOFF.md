@@ -283,7 +283,21 @@ STLs updated - **reprint those 4 and try the kit screw**. Every seat is 2.2 mm f
 Deep review (2026-11-25, REVIEW "Deep review of every joint and the bay"): **one bought M2 x 6 button head for every horn and ear (44;
 the servos' own screws are not used)**, neck forward limit +20 + interlock (JOINT_LIMITS), the camera cable / battery leads / jumpers
 re-routed round the Mini560 box (+ 5 cuts in the box: `parts/hood_box_fixes.py`), the motion and fit checks made to cover the bay
-again, the exploded view and the whole-robot animation regenerated. Before buying: thread one M2 x 6 into a servo shaft by hand.
+again, the exploded view and the whole-robot animation regenerated. Shaft thread confirmed M2 (user threaded an M2 x 6 in by hand).
+
+## Bay v2, bigger holes, A1 printing, camera vents, UBEC (2026-11-27/28, branch bay-v2-ubec-2026-11-28) - REVIEW.md from "Bay v2" down
+
+After the first v1 print: **one container + flat lid** (`tools/blender/parts/bay_v2.py`) replaces the enclosure, body lid, Uno Q
+cover, switch plate and Mini560 plate - boards held by slots / grooves / ribs, no screws inside; Uno Q upside down under the lid,
+IMU on its end in wedge grooves, battery in a crush-ridge channel, switch in a wall U-slot, power out of the left wall.
+**Every screw hole +0.4** after the user's test (M2 2.8 / 2.0, M3 3.7 / 2.9; `tools/blender/hole_resize.py`; print
+`parts/hole_gauge.py` first). Hip pitch (leg back) limit 85 -> 80. **Bambu Lab A1, 0.12 mm High Quality** (`slicing.json`;
+`slicing_legs_body_bay.json` = first print: legs + chest + bay, 19 parts, 27 h / 279 g). Camera vents in the head face's brow
+(`tools/blender/camera_vents.py`). **UBEC-8A replaces the Mini560**, in a vented pod outside the top box's rear wall, the lid
+holding it down: the only place clear of the walking envelope / sit path / leg-back 80 (`tools/blender/checks/place_screen.py`;
+every place under the box or behind the column is hit by the stride's back end). Open: the UBEC jumper 5.2 (assumed) vs 6.0 V,
+its own switch, its real size / leads; the MTS-1 switch's real size; ASSEMBLY.md does not yet describe the v2 bay (its order is
+in `data/build_args/bay_v2_assembly_anim.json`, 11 steps).
 
 ## Open items / next steps
 

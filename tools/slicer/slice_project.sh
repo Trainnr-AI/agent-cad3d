@@ -16,6 +16,7 @@ PROJ=$(val project)
 OUT=${2:-$ROOT/exports/$PROJ/slicing}
 BLEND=$ROOT/$(val blend)
 COLS=$(python3 -c "import json; print(json.dumps(json.load(open('$CFG'))['collections']))")
+EXCL=$(python3 -c "import json; print(json.dumps(json.load(open('$CFG')).get('exclude', [])))")
 JOBS=${JOBS:-6}
 if [ -z "${BLENDER:-}" ]; then
   for c in /Applications/Blender.app/Contents/MacOS/Blender "$(command -v blender 2>/dev/null)"; do
@@ -23,14 +24,16 @@ if [ -z "${BLENDER:-}" ]; then
   done
 fi
 mkdir -p "$OUT"
+rm -rf "$OUT/orient" "$OUT/oslice" "$OUT/chosen" "$OUT/project"   # a part removed since the last run must not stay in the plates
 echo "== 1 profiles"; python3 "$T/fetch_profiles.py" "$CFG" "$OUT/profiles"
 echo "== 2 export (copy of $BLEND)"
 cp "$BLEND" "$OUT/model_copy.blend"
 "$BLENDER" -b "$OUT/model_copy.blend" --python "$ROOT/tools/blender/run_headless.py" -- "$T/export_orientations.py" \
-  "{\"collections\": $COLS, \"out_dir\": \"$OUT/orient\", \"export_tool\": \"$ROOT/tools/blender/export_print.py\"}" 2>&1 | grep -E "exported|Error"
+  "{\"collections\": $COLS, \"exclude\": $EXCL, \"out_dir\": \"$OUT/orient\", \"export_tool\": \"$ROOT/tools/blender/export_print.py\"}" 2>&1 | grep -E "exported|Error"
 echo "== 3 slice every part x 6 orientations ($JOBS at a time)"
-ls "$OUT"/orient/*/*.stl | xargs -P "$JOBS" -I{} sh -c \
-  'f="{}"; tag=$(basename "$(dirname "$f")"); n=$(basename "$f" .stl); "$0" "$1/profiles" support "$1/oslice/$tag/$n" "$f" || echo "FAILED $tag/$n"' \
+# each file as a trailing argument (-n 1), not -I{}: BSD xargs caps an -I substituted command at 255 bytes (a longer out_dir broke it)
+ls "$OUT"/orient/*/*.stl | xargs -P "$JOBS" -n 1 sh -c \
+  'f="$2"; tag=$(basename "$(dirname "$f")"); n=$(basename "$f" .stl); "$0" "$1/profiles" support "$1/oslice/$tag/$n" "$f" || echo "FAILED $tag/$n"' \
   "$T/orca.sh" "$OUT"
 echo "== 4 support contacts"
 (cd "$OUT/oslice" && python3 "$T/gcode_support_pts.py" "$OUT/orient_pts.json" */*)

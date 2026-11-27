@@ -1,0 +1,52 @@
+{
+ "project": "xgoduck_scs0009",
+ "blend": "projects/xgoduck_scs0009/xgoduck_scs0009.blend",
+ "collections": [
+  "leg_v2",
+  "neck_v2",
+  "head_v2",
+  "head_shell_v2",
+  "body_v2",
+  "bay_v2",
+  "covers"
+ ],
+ "orca_tag": "v2.5.2",
+ "vendor": "BBL",
+ "machine": "Bambu Lab A1 0.4 nozzle",
+ "process": "0.12mm High Quality @BBL A1",
+ "filament": "Bambu PLA Basic @BBL A1",
+ "process_overrides": {
+  "_why": "2026-11-27 (user): printed on a Bambu Lab A1, high precision / high quality -> 0.12 mm High Quality profile. The test-print guide's walls / infill kept (3 walls, 40 % gyroid); top / bottom 4 layers at 0.20 = 0.8 mm -> 7 layers at 0.12 (0.84 mm). Hole size is in the model (holes +0.4, user's test 2026-11-27), so the slicer's X-Y hole compensation stays 0.",
+  "wall_loops": "3",
+  "top_shell_layers": "7",
+  "bottom_shell_layers": "7",
+  "sparse_infill_density": "40%",
+  "sparse_infill_pattern": "gyroid",
+  "support_type": "tree(auto)",
+  "xy_hole_compensation": "0"
+ },
+ "fit_regex": "_brg_|horn|_case|spline|nut|pcb|imu|cam_ov5640|ubec",
+ "orientation_overrides": {
+  "_why": "electronics_enclosure: +x has no fit contacts but 19 g of support all over the battery pocket and 2.8 h; +z = 4 g, only the IMU slot. head_face: the -y slice aligns badly (10 mm), +x is the best trusted one. 2026-11-27: bay_v2_lid prints top face down (flat; the ribs and the switch tongue point up, no support). bay_v2_container prints UPRIGHT (pz): 0 fit-surface contacts, 27 g support (only under the top box's outside overhang), 8.2 h; the picker ranked pz last only for its slice's alignment error and chose mz, which puts support in the battery channel and the adapter slots.",
+  "bay_v2_lid": "mz",
+  "bay_v2_container": "pz"
+ },
+ "exclude": [
+  "electronics_enclosure",
+  "body_lid",
+  "uno_cover",
+  "switch_plate",
+  "mini560_back_plate",
+  "neck_cradle",
+  "head_pitch_u",
+  "head_pitch_bearing_plate",
+  "yaw_block",
+  "head_base",
+  "head_dome",
+  "head_face",
+  "head_jaw",
+  "head_visor",
+  "body_neck_bearing_plate"
+ ],
+ "_exclude_why": "2026-11-27: the v1 bay's printed parts, replaced by the bay v2 (container + lid, tools/blender/parts/bay_v2.py); kept in the .blend for reference 2026-11-28 (user): first print = legs, chest (body frame) and bay; the neck and head later: neck_cradle, head_pitch_u, head_pitch_bearing_plate, yaw_block, head_base, head_dome, head_face, head_jaw, head_visor, body_neck_bearing_plate (body_neck_bearing_plate goes with the neck: it only carries the neck-pitch bearing)."
+}

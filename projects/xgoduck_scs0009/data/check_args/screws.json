@@ -1,3 +1,14 @@
 {
- "json_out": "<out>/screws.json"
+ "json_out": "<out>/screws.json",
+ "thread": {
+  "M2": [
+   1.06,
+   1.46
+  ],
+  "M3": [
+   1.52,
+   1.9
+  ]
+ },
+ "_why": "2026-11-27: holes enlarged (M2 2.0 / 2.8, M3 2.9 / 3.7, tools/blender/hole_resize.py): bite sampled just outside the pilot, clamp just outside the clearance hole"
 }

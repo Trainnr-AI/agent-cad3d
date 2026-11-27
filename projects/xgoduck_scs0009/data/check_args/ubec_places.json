@@ -1,0 +1,47 @@
+{
+ "motion": "projects/xgoduck_scs0009/data/check_args/motion_v2.json",
+ "limits": "projects/xgoduck_scs0009/sim/joint_ranges_v2.json",
+ "boxes": {
+  "V66_standing_behind_column": [
+   -65.5,
+   -53,
+   -115.6,
+   -84.4,
+   66,
+   123
+  ],
+  "V81_standing_top_into_box": [
+   -65.5,
+   -53,
+   -115.6,
+   -84.4,
+   81,
+   123
+  ],
+  "V95_standing_short": [
+   -65.5,
+   -53,
+   -115.6,
+   -84.4,
+   95,
+   123
+  ],
+  "C1_flat_under_box_rear": [
+   -93,
+   -63,
+   -129.2,
+   -70.8,
+   110.4,
+   123
+  ],
+  "P_rear_pod_now": [
+   -110,
+   -93,
+   -135.1,
+   -62.9,
+   122.6,
+   155
+  ]
+ },
+ "_why": "2026-11-28: where can the UBEC-8A (55 x 28 x 10 + holder) go? Boxes in layout mm. Run: blender -b <blend> --python tools/blender/run_headless.py -- tools/blender/checks/place_screen.py <this> <out_dir>. Result: only P_rear_pod_now is clear of walking (11.3 mm), the sit path (47) and leg-back to 80 (>= 8.2); every place under the top box / behind the column is hit by the stride's back end (hip +45.8, knee -55, ankle -23: the ankle screw / foot)."
+}

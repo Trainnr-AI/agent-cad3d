@@ -23,7 +23,9 @@ src = bpy.data.scenes.get("Scene") or bpy.context.window.scene
 name = args.get("scene", "bay_assembly")
 old = bpy.data.scenes.get(name)
 if old is not None:
-    for o in list(old.collection.all_objects):
+    for ch in list(old.collection.children):                       # collections linked in by other scripts: unlink, never delete
+        old.collection.children.unlink(ch)
+    for o in list(old.collection.objects):                         # only this script's own objects (copies, camera, titles)
         d = o.data
         bpy.data.objects.remove(o, do_unlink=True)
         if d is not None and d.users == 0 and isinstance(d, (bpy.types.TextCurve, bpy.types.Camera)):

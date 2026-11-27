@@ -11,7 +11,8 @@ for c in A["collections"]:
     col = bpy.data.collections.get(c)
     if col:
         names |= {o.name for o in col.objects if o.type == "MESH" and "mass_g_solid_PLA" in o}
+names -= set(A.get("exclude", []))
 for tag in A.get("orientations", list(TAG)):
-    g = {"ARGS": {"collections": A["collections"], "out_dir": f"{A['out_dir']}/{tag}",
+    g = {"ARGS": {"collections": A["collections"], "exclude": A.get("exclude", []), "out_dir": f"{A['out_dir']}/{tag}",
                   "print_up": {n: TAG[tag] for n in names}, "on_bed": True}}
     exec(compile(open(A["export_tool"]).read(), A["export_tool"], "exec"), g)

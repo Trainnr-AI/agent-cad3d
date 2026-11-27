@@ -1,0 +1,22 @@
+{
+ "v2_battery_3s": [
+  "bay_v2_container"
+ ],
+ "v2_imu": [
+  "bay_v2_container"
+ ],
+ "v2_lid_screws_M2x6": [
+  "bay_v2_container",
+  "bay_v2_lid"
+ ],
+ "enclosure_screws_M2x6st": [
+  "body_frame",
+  "bay_v2_container"
+ ],
+ "v2_switch_housing_com": [
+  "v2_switch_pins"
+ ],
+ "v2_switch_housing_on": [
+  "v2_switch_pins"
+ ]
+}

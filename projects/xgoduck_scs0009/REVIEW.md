@@ -1929,5 +1929,88 @@ designed for 0.25 mm of rib press) - no change. Model parts changed by all of th
 no problems; fits 489, 1 not as designed (the known left hip-pitch servo touch); assembly paths 55 OK + the hip-yaw L-path; bay moves
 44/44; segment paths ok; screw audit 23 flags, all dispositioned (wall 0.13 = spline-teeth sampling, case "bite" = 1 sample in 720);
 motion 42 colliding poses, none inside the limits + interlock; cable reach 1 SHORT (battery leads: BOM row 4); cable pinch 25 at
-rest / 18 in motion (was 38 / 19). NOT verified: the shaft thread by hand, the horn's hub height, the ring's height (> 0.45 still
+rest / 18 in motion (was 38 / 19). Shaft thread confirmed M2 by the user (2026-11-25: an M2 x 6 threads in by hand). NOT verified: the horn's hub height, the ring's height (> 0.45 still
 lifts the part), the bigger screw heads through full motion, a reprint.
+
+## Bay v2, bigger holes, whole-robot review for the next print (2026-11-27)
+
+The user printed and assembled the v1 bay: the IMU pegs did not hold, small protrusions / small parts were a problem, assembly was
+fiddly, and M2 would not go into its holes (M3 barely through 3.3). Printer: **Bambu Lab A1**, to be printed at high quality.
+
+1. **Bay v2** (`tools/blender/parts/bay_v2.py`; v1's enclosure, body lid, Uno Q cover, switch plate and Mini560 back plate are kept in
+   the .blend but excluded from printing): one container + one flat lid, 7 x M2 in all (3 deck screws from below, 4 lid screws).
+   - Shape from the space the real motions leave free (`swept_space.py`): v1's narrow **keel** (+-18.5 to z 92 - a +-22 column hit the
+     knee caps by 570 mm3 with the hips yawed in, and the feet in SIT), the wide column above, a top box (x -93..1, y +-29.2,
+     z 123..155) above the hip-yaw servos, the lid z 155..157.
+   - Holders, no screws: Uno Q upside down (pins down) on two 45-deg wall ledges, pressed by two lid ribs, front stops; IMU (BNO086) on
+     its end in two grooves that narrow 1.9 -> 1.55 (the 1.6 PCB wedges); servo adapter in v1's bottom edge slots (its top slots
+     dropped: its parts at the edges pass them on the way down), a relief for its power edge, held at the top by the IMU's grooves /
+     socket and a foam pad; battery in a channel with 4 crush ridges (last ~20 mm of the push); Mini560 on its long edge in a floor
+     groove with end stops; switch (MTS-1, no screw holes) dropped into a U-slot in the right wall between two ribs + stop bar,
+     closed by a tongue of the lid.
+   - Camera: the Uno Q's USB-C at the FRONT; the 90-deg adapter turned sideways, the USB-A plug inside, its cable out of a notch in the
+     right wall to the neck. The plug and adapter go into the Uno before the Uno goes in (path check: no room to plug them in place).
+     The adapter's top is 0.7 under a FLAT lid (the Uno 3.9 lower than first drawn; a bump on the lid could not print without supports).
+   - Power: battery lead, balance lead and the robot pigtail through ONE slot in the left wall beside the battery (the rear wall was
+     106 mm of lead away; the pack's leads are 8-10 cm); XT30 along the outside of the left wall, balance plug in front of it.
+   - Wires: 5 Dupont jumpers on the exact Uno Q pins (from Arduino's Gerbers, `tools/cad/unoq_from_gerber.py`), Qwiic 92 mm of 100.
+2. **Every screw hole +0.4** (`tools/blender/hole_resize.py`, in place, 120 holes in 31 parts; constants in joint_v2.py):
+   M2 clearance 2.4 -> 2.8, pilot 1.7 -> 2.0, M3 clearance 3.3 -> 3.7, pilot 2.5 -> 2.9. Each part one closed piece after; every
+   screw bites / clamps the same parts as before, bite >= 2.5 everywhere. The two front dome screws' locating spigots (0.13 wall
+   round the new pilot) were cut off: 2.8 of thread left. **Hole gauge** (`parts/hole_gauge.py`, 14.5 g): print it first.
+3. **Hip pitch limit (leg back) 85 -> 80** (joint_ranges_v2.json, JOINT_LIMITS.md): at 85 the foot reaches the top box's rear underside
+   corner and the XT30; clear at 80 (walking uses +-45.8, SIT 70).
+4. **Checks (whole robot, saved file)**: printed parts one piece (30); fits 489 (5: the known servo touch 0.11 mm3 + 4 "thread"
+   pairs that now only touch - the screw model is 2.0 like the new pilot); horns 15/15 (tips 0.30, sides 0.19-0.20, ribs, counterbore
+   4.38; the beak's 0.094 as before); assembly paths 55 + the hip-yaw L-path; screws re-audited for the new holes; cable reach: only
+   v1's battery-lead route short (gone); printability as before. Bay v2: fits 63/65 (the 2 thread pairs as above); motion with the
+   firmware limits + interlock: 0 collisions (12 poses incl. SIT, hip pitch 80, neck / head corners; the full sweep's remaining bay hits
+   are all outside the limits or the hip map, as for v1); all 34 assembly moves clear (exact booleans; the path check's fast mode
+   flags 0.06 at near-zero gaps); wires clear of every part.
+5. **A1 slicing** (`slicing.json`: "Bambu Lab A1 0.4 nozzle", "0.12mm High Quality @BBL A1", Bambu PLA Basic, 3 walls, 7 top / 7
+   bottom, 40 % gyroid, tree supports, slicer hole compensation 0): results in `print/slicing_a1_2026-11-27/`. The container prints
+   upright (override: the picker preferred upside down, which puts support in the battery channel and the adapter slots), the lid top
+   face down (no support).
+
+6. **Camera vents** (user: "camera gets hot so add vents for the camera"): the OV5640 (B) board sat in a closed pocket in the head
+   face's brow band. Now 18 slots in the band's bottom wall and 18 in its top wall (1.5 wide, pitch 3.5, x 85.7 -> out through the
+   band's front end, 0.3 in front of the board's face): air in below, out above, across the board's front where its parts are. Open
+   to free air above and below (ray probes: nothing over / under at x > 84.1); the visor closes the slots' front ends, so with the face
+   printed front-up they are open notches (no bridges; unsupported area 1206 mm2 before and after). Builder:
+   `head_shell_v2.py` (camera_vent_slots); the built face cut in place by `tools/blender/camera_vents.py`. head_face 7.41 -> 7.06 g,
+   one piece, 0 non-manifold. PLA softens from ~55-60 C: if the board is still too hot to hold after the vents, print the face +
+   visor in PETG.
+7. **Re-slice (A1) after the vents: 36.1 h, 368 g, 75 g support** (was 40.4 h / 397 / 103). The orientations changed for parts not
+   touched: the earlier run's support contacts were credited to hidden helper copies (`<part>.x` / `.hx` / `x_<part>`) and so
+   undercounted support in servo pockets and bearing seats; this run names the real parts and picked, for every part, the trusted
+   orientation with the fewest fit-surface contacts. Still unavoidable (every trusted orientation has some): shins on the knee
+   bearing seat (458 / 395 points), thighs in the hip-pitch servo pocket (295), yaw connectors in the hip-roll pocket (~213),
+   head_base on the head-roll bearing seat (208), yaw_block (90), body_frame hip-yaw seats (~54 each), L-brackets (~60). Clean
+   those faces or paint support blockers there.
+
+8. **UBEC-8A replaces the Mini560** (user 2026-11-28; listing 55 x 28 x 10, 36 g, 8 A / 15 A burst, 6-36 V in, 5.2/6.0/7.4/8.4 V
+   jumper, two output leads in parallel, an output switch on a lead). Where it can go - screened against everything that moves
+   (`tools/blender/checks/place_screen.py`, `data/check_args/ubec_places.json`; poses that already hit today's bay skipped):
+   | place | walking envelope | STAND->SIT path | leg back (hip pitch) clear to |
+   |---|---|---|---|
+   | pod outside the top box's rear wall (chosen) | 11.3 mm | 47.4 mm | 80 (>= 8.2 mm all the way) |
+   | standing behind the column (behind IMU + adapter), z 66..123 | hit (15 of 629 poses) | 5.9 | - |
+   | standing, top up into the box (z 81..), the Uno above | hit (11) | 6.9 | 30 |
+   | short (z 95..123; would need the Uno moved) | hit (2) | 12.4 | 30 |
+   | flat under the top box's rear | hit (8) | 25.2 | 30 |
+   Every place under the top box / behind the column is reached by the stride's back end (hip +45.8, knee -55, ankle -23: the ankle
+   screw / foot swings up behind the column) - it would cost the walking gait. Inside the box there is no 55 mm of free floor (Uno
+   headers / jumper plugs, IMU, Qwiic). On the lid the jaw passes over it (neck +20, head yaw 150); beside the box the feet reach.
+   The pod: printed with the container, UBEC flat against the rear wall with a 5 mm channel (wires, air), standoff ribs, end stops,
+   vents (back plate, floor, the lid's extension), held down by two lid ribs (0.3), no screws; wires through two open-top notches in
+   the rear wall. 23.5 mm off the floor in SIT. Wiring: IN+/- to the splices (SW+ / BAT-, ~110 mm), OUT: both leads per pole into
+   the adapter's power terminal (~150 mm). Checks: bay fits 58/60 (the 2 thread pairs as before; UBEC clear, lid ribs 0.3 over it),
+   in-limit motion 0 collisions, assembly paths 31/33 (battery ridges and the lid's 0.06 near-touch as before - designed / fast-mode
+   artefacts), wires clear (the OUT pair spaced: 0.27 from the IMU groove), printed parts 30 / one piece, container upright 5500 mm2
+   unsupported (outside overhangs only; was 4443), lid 0. Mass: container 67.7 -> 75.1, lid 15.4 -> 17.8; robot ~705 g (UBEC 36 g,
+   not yet in the sim), trunk CoM ~3 mm back. Open: jumper 5.2 V (assumed) or 6.0 V; the UBEC's own switch (ON and stowed, or a
+   servo-power switch on the pod - needs its size); the UBEC's real size / lead lengths / where the leads leave.
+
+NOT verified: the switch's real dimensions (from a photo - the U-slot, ribs and stop bar follow them), the adapter / plug overmold
+sizes (row 13 assumptions), the IMU board's thickness (1.6 assumed for the wedge), the battery's lead length, a test print of the
+container's holders; support inside some bearing bores (shins, thighs, yaw connectors, yaw block - as in the earlier slicing).

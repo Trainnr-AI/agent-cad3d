@@ -1,0 +1,61 @@
+{
+ "parts": 29,
+ "plates": [
+  {
+   "plate": "plate_1",
+   "hours": 17.89,
+   "g": 192.6,
+   "objects": [
+    "bay_v2_container.stl",
+    "bay_v2_lid.stl",
+    "body_frame.stl",
+    "left_foot.stl",
+    "right_foot.stl",
+    "head_face.stl"
+   ]
+  },
+  {
+   "plate": "plate_2",
+   "hours": 12.39,
+   "g": 120.7,
+   "objects": [
+    "head_dome.stl",
+    "left_thigh_cover.stl",
+    "right_thigh_cover.stl",
+    "head_jaw.stl",
+    "right_thigh.stl",
+    "left_thigh.stl",
+    "head_base.stl",
+    "right_shin.stl",
+    "left_foot_bearing_plate.stl"
+   ]
+  },
+  {
+   "plate": "plate_3",
+   "hours": 7.98,
+   "g": 72.2,
+   "objects": [
+    "left_shin.stl",
+    "head_pitch_u.stl",
+    "head_visor.stl",
+    "neck_cradle.stl",
+    "yaw_block.stl",
+    "right_l_bracket.stl",
+    "left_l_bracket.stl",
+    "left_knee_cap.stl",
+    "right_knee_cap.stl",
+    "left_yaw_connector.stl",
+    "right_yaw_connector.stl",
+    "right_foot_bearing_plate.stl",
+    "body_neck_bearing_plate.stl",
+    "head_pitch_bearing_plate.stl"
+   ]
+  }
+ ],
+ "hours": 38.3,
+ "grams": 386,
+ "support_g": 82,
+ "extruded_cm3": 306.0,
+ "support_cm3": 65.4,
+ "solid_model_cm3": 284.7
+}
