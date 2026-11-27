@@ -71,6 +71,27 @@ def lay_bm(o, tri=True):
     return bm
 
 
+VENT = dict(w=1.5, pitch=3.5, end=1.5)                             # camera vents: slot width, pitch, solid kept at each end of the band
+
+
+def camera_vent_slots(B, Y, bx1, zb0, zb1, WALL, plug_room=1.5):
+    """camera vent slots (layout mm boxes x0, x1, y0, y1, z0, z1): through the brow band's bottom and top walls, in front of the board"""
+    y0, y1 = Y(-B["plug"]) - plug_room + VENT["end"], Y(B["len"]) + 0.3 - VENT["end"]
+    n = int((y1 - y0 - VENT["w"]) // VENT["pitch"]) + 1
+    s = y0 + (y1 - y0 - VENT["w"] - (n - 1) * VENT["pitch"]) / 2
+    x0, x1 = bx1 + 0.3, bx1 + B["hdr"][4] + 0.4 + 0.5                   # board face + 0.3 .. out past the band's front end (fx0)
+    out = []
+    for k in range(n):
+        ya = s + k * VENT["pitch"]
+        out += [(x0, x1, ya, ya + VENT["w"], zb0 - 0.3 - WALL - 0.5, zb0 - 0.1),       # bottom wall
+                (x0, x1, ya, ya + VENT["w"], zb1 + 0.1, zb1 + 0.3 + WALL + 0.5)]       # top wall
+    return out
+
+
+def camera_vent_cutters(B, Y, bx1, zb0, zb1, WALL, plug_room):
+    return [box(new(), *s, ML) for s in camera_vent_slots(B, Y, bx1, zb0, zb1, WALL, plug_room)]
+
+
 def world_bm(o):
     bm = bmesh.new()
     bm.from_mesh(o.data)
@@ -489,6 +510,12 @@ if "face" in PARTS:
                     BZ - B["cam"] / 2 - 0.25, BZ + B["cam"] / 2 + 0.25, ML),                                          # the camera through the front wall
                 box(new(), fx0 - 0.5, fx1 + 0.5, Y(B["led_at"] - B["led"][0] / 2 - 0.4), Y(B["led_at"] + B["led"][0] / 2 + 0.4),
                     BZ - B["led"][1] / 2 - 0.4, BZ + B["led"][1] / 2 + 0.4, ML)]                                    # LED window
+        # 2026-11-27 (user: "camera gets hot so add vents"): the board sits in a closed pocket. A comb of slots through the band's
+        # BOTTOM and TOP walls over the room in front of the board (where its parts are; the back is flat): air in below, out above
+        # (chimney), past the board's front. Hidden under / over the brow; open to free air (nothing above or below at x > 84.1).
+        # Slots stop 0.3 in front of the board's face and run out through the band's front end (the visor closes them there: no
+        # bridges when the face prints front-up). 1.5 wide: no fingers. camera_vents.py cuts the same slots into a built face.
+        cuts += camera_vent_cutters(B, Y, bx1, zb0, zb1, WALL, PR)
         # 2026-11-19: pass-through for the camera's JST lead in the D-panel, right side, behind the brow band (hidden): from the head's
         # inside into the face's hollow, then behind the board to the plug (the panel closed it off: no way in but a 1-2 mm hairline)
         cuts.append(box(new(), GX[0] - 0.6, GX[1] + 0.6, Y(-B["plug"]) + 1.8, Y(-B["plug"]) + 8.8, BZ - 3.0, BZ + 1.0, ML))

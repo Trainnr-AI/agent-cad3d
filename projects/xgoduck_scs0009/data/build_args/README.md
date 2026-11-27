@@ -46,4 +46,4 @@ Exploded views (after any rebuild: their '.x' / '.hx' copies keep the old meshes
 Whole-robot assembly animation (2026-11-20): `tools/blender/robot_assembly_seq.py` (in Blender: reads asm.json, segment_paths.json, the
 screw audit's screws.json with axes, bay_assembly_anim.json; writes robot_assembly_anim.json) -> `tools/blender/assembly_anim.py` with that
 JSON (scene robot_assembly, 42 steps, 199 s on 2026-11-25 - regenerate it after any bay_assembly_anim.json change). Its moves are path-checked with `tools/blender/anim_to_paths.py` (+ bay_assembly_allow.json,
-`fast`, step 1 mm) -> `assembly_path_check.py`: 458 segments, all OK on 2026-11-21 (~25 min in 4 parallel Blenders).
+`fast`, step 1 mm) -> `assembly_path_check.py`: 498 segments, all OK on 2026-11-25 (~70 min in one Blender; 458 on 2026-11-21).

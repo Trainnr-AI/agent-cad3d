@@ -507,7 +507,7 @@ UNO_M2 = (15.24, 50.80)        # this hole is 2.05 mm from the JDIGITAL header's
                                # by 0.7 mm -> one M2 x 6 socket (row 19, dk 3.7) there instead (user 2026-11-15; independent review 2026-11-14)
 for hx, hy in UNO_HOLES:                                                   # M3 thread-forming pilots down the posts and through the plate (M2 at UNO_M2)
     lid_sub.append(L["add_cyl"](L["new_bm"](), UX0 + hx - HOME.x, UY0 + hy - HOME.y, ZL - 1.0 - HOME.z, uno_z + 1.0 - HOME.z,
-                                L["PILOT_D"] if (hx, hy) == UNO_M2 else 2.5, 16, Mt))
+                                L["PILOT_D"] if (hx, hy) == UNO_M2 else L["M3_PILOT_D"], 16, Mt))
 lid_sub.append(box((XR - 9.0) if EXT else XR - 1.0, XR + 9.0, CY - 12.0, CY + 12.0, ZL - 1.0, ZL + LID_T + 1.0))      # wire notch at the rear: battery / IMU / UART wires come up here to the board
 RG = dict(x0=-40.5, x1=-22.5, y0=CY - 15.0, y1=CY + 15.0)                 # Mini560 30 x 18 (maker's drawing, user 2026-11-19; was 29), long side along y
 # 2026-11-18 (independent review: "regulator 0.2 mm from PLA walls ... in a closed bay"): centred between the side walls (was 1 mm

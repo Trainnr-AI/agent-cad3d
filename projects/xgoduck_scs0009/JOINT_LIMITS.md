@@ -34,7 +34,7 @@ the position at two known angles) before writing limits. Example: a joint zero a
 |---|---|---|---|---|
 | hip yaw L / R | -12.6..+25.8 / -25.8..+12.6 | **L -6.3..+19, R -19..+6.3** (+ = foot outward) | outward 25.8: the two L-brackets and yaw connectors collide (today's parts); inward + roll inward: knee caps vs enclosure | box corners 0.57-2.66 mm |
 | hip roll L / R | +-22 | **L -12..+18.5, R -18.5..+12** (- = feet together) | roll -22: the feet collide at any yaw; outward: the hip-yaw bearing comes to the L-bracket | (with hip yaw, as above); hip-yaw bearing to L-bracket (any pitch / yaw): 0.68 mm at 18, **0.56 at 18.5**, 0.43 at 19, 0.30 at 19.5 (was the limit until 2026-11-18) |
-| hip pitch L / R | -90..+85 / -85..+90 | unchanged | alone: clear over the range | 5 deg sweep |
+| hip pitch L / R | **-90..+80 / -80..+90** (2026-11-27; was +85 / -85) | unchanged | alone: clear over the range; bay v2: at 85 the foot reaches the top box's rear underside corner and the XT30 (84.5 mm3), clear at 80 / 75 / 72 | 5 deg sweep; motion check 2026-11-27 |
 | knee L / R | -90..+68 / -68..+90 | unchanged | alone: clear | 5 deg sweep |
 | ankle L / R | -86..+90 / -90..+86 | **L -85..+90, R -90..+85** | -86: the foot comes to the thigh | 2026-11-18, any knee 0..30: at **-85** foot to thigh 0.65, to shin 0.51; at -86 the thigh drops to 0.17 (was the limit until 2026-11-18); at +90 0.50 from the shin |
 | neck pitch | -80..+40 | **-80..+20** + interlock (2026-11-25, was +30) | +40 alone: head base vs Uno Q cover 71 mm3; **from +17 the cable hub / plugs on the head-pitch U meet the Uno Q's D0/D1 jumper housing** (all-Dupont bay: it stands 14 mm over the header) | map 2026-11-25 below: >= 0.77 mm inside the interlock |

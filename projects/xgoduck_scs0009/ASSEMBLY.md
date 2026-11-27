@@ -12,8 +12,8 @@ shafts ≤ Ø3 mm, caliper.
 1. **Screws (2026-11-25): the servos' own screws are NOT used.** Their horn screw (~3.5 mm) gets ~1.3 mm of thread in the shaft
    (the coupon's did not reach); their mounting screws (~7.5-8 mm, washer head) bottom out in 21 of the 30 ear pads and their heads
    do not fit at the head-roll and beak ears. Every horn clamp and every ear: **M2 × 6 button head** (BOM row 21; head ≤ Ø3.5 × 1.3,
-   1.3 mm hex key). **First thread one M2 × 6 into a servo's output shaft by hand** (servo unpowered, horn held): it must turn in
-   smoothly - the shaft's thread was read as M2 × 0.4 from a photo. Still measure a horn: hub height and plate thickness (nominal in
+   1.3 mm hex key). The servo's output shaft takes M2 machine screws (confirmed 2026-11-25: an M2 × 6 threads in by hand). On the
+   bench a bare M2 × 6 bottoms in the 5 mm hole before its head seats - fine; through horn + part it has 1.2 mm to spare. Still measure a horn: hub height and plate thickness (nominal in
    the model; the pocket roof has a Ø5.2 × 0.35 recess for the ring on its top face).
 2. **Print the tolerance coupon** first: send the folder `projects/xgoduck_scs0009/print/test_batch/` to the printing service (its
    PDF guide + 8 print-ready STLs, about 20 g: the 7 coupon pieces, built by `tools/blender/parts/tolerance_coupon.py` from the
@@ -215,7 +215,7 @@ rear-right cradle: unplug after play, charge there):
 
 ## Not yet checked in the model
 
-The horn shape (pockets drawn from the kit photo; hub and plate thickness nominal), the M2 thread in the servo shaft (photo), battery thickness (bay
+The horn shape (pockets drawn from the kit photo; hub and plate thickness nominal), battery thickness (bay
 designed for 21 mm), IMU hole spacing (estimated), the SCS0009's steps per degree and protection registers (JOINT_LIMITS.md) - all on
 arrival of the parts. Print the tolerance coupon first (section 0, item 2). The cable pinch check models each cable span as a straight
 line between its clips: confirm the routing on the first assembled leg.

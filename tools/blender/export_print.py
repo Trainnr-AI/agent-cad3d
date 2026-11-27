@@ -24,6 +24,7 @@ for c in args["collections"]:
     if col:
         names += [o.name for o in col.objects if o.type == "MESH" and "mass_g_solid_PLA" in o]
 names += [n for n in args.get("extra", []) if n in bpy.data.objects]
+names = [n for n in names if n not in set(args.get("exclude", []))]      # e.g. a superseded design's parts still in the .blend
 manifest, refused = [], []
 for n in sorted(set(names)):
     o = bpy.data.objects[n]

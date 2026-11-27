@@ -10,7 +10,7 @@ Poses: every joint alone through its full range; a walking range (half yaw/roll 
 with the knee following); squat-like (pitch, knee) pairs; neck and head-pitch sweeps with the head turned +-90 deg.
 Extreme combinations are left out on purpose: they pass through the body on the original duck too.
 
-ARGS = {"robot": "duck_scs0009", "out": "/abs/swept.npz", "voxel_mm": 1.5, "clear_mm": 1.5,
+ARGS = {"robot": "duck_scs0009", "out": "/abs/swept.npz", "voxel_mm": 1.5, "clear_mm": 1.5, "squat": true, "extra_poses": [],
         "box_mm": [[-75, 60], [-45, 45], [-90, 35]] (trunk frame: x, y, z), "seed_mm": [5, 0, -8], "skip_prefix": ["wire_", "cable_stub"],
         "ranges_deg": {"neck_pitch": [-80, 30], ...}}   # optional: firmware limits instead of the MJCF ranges (sim/joint_ranges_v2.json "joints")
 """
@@ -122,10 +122,15 @@ for yaw in (yl / 2, 0.0, yh / 2):
         for p in (-0.8, -0.4, 0.0, 0.4, 0.8):
             for kn in (0.0, -2 * p * 0.6, 2 * p * 0.6):
                 do(legs({"hip_yaw": yaw, "hip_roll": roll, "hip_pitch": p, "knee": kn, "ankle": -p * 0.5}))
-# 3. squat-like pairs (pitch, knee) with the ankle levelling the foot
-for p in (-1.2, -0.6, 0.6, 1.2):
-    for kn in (-1.5, -0.75, 0.75, 1.5):
-        do(legs({"hip_pitch": p, "knee": kn, "ankle": 0.0}))
+# 3. squat-like pairs (pitch, knee) with the ankle levelling the foot (ARGS "squat": false leaves them out - e.g. when the robot's
+#    real sit / stand path is given in "extra_poses" instead)
+if args.get("squat", True):
+    for p in (-1.2, -0.6, 0.6, 1.2):
+        for kn in (-1.5, -0.75, 0.75, 1.5):
+            do(legs({"hip_pitch": p, "knee": kn, "ankle": 0.0}))
+# 3b. extra whole-robot poses, {joint: deg} with the joints' full names (MJCF signs, both legs given explicitly)
+for q in args.get("extra_poses", []):
+    do({j: math.radians(v) for j, v in q.items()})
 # 4. head: neck sweep with the head turned, head pitch sweep with the head turned
 for k in range(13):
     for hy in (-1.57, 1.57):

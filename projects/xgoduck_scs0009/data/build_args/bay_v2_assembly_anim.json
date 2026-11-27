@@ -1,0 +1,409 @@
+{
+ "scene": "bay_v2_assembly",
+ "context": [
+  "body_frame"
+ ],
+ "fps": 24,
+ "hold": 20,
+ "camera": {
+  "target_mm": [
+   -55,
+   -100,
+   118
+  ],
+  "dist_mm": 320,
+  "elev_deg": 36,
+  "azim_deg": [
+   150,
+   260
+  ],
+  "lens": 50
+ },
+ "play": true,
+ "against_extra": [
+  "left_hip_yaw_brg_6702ZZ",
+  "left_hip_yaw_ear_screws_M2x6st",
+  "right_hip_yaw_brg_6702ZZ",
+  "right_hip_yaw_ear_screws_M2x6st",
+  "scs_left_hip_yaw_case",
+  "scs_left_hip_yaw_case_screws",
+  "scs_left_hip_yaw_horn_cross",
+  "scs_left_hip_yaw_spline",
+  "scs_right_hip_yaw_case",
+  "scs_right_hip_yaw_case_screws",
+  "scs_right_hip_yaw_horn_cross",
+  "scs_right_hip_yaw_spline"
+ ],
+ "engage_mm": {
+  "enclosure_screws_M2x6st": 8.0,
+  "v2_lid_screws_M2x6": 4.0
+ },
+ "highlight": [
+  {
+   "contains": "bay_v2_container",
+   "rgba": [
+    0.45,
+    0.62,
+    0.8,
+    0.28
+   ]
+  }
+ ],
+ "steps": [
+  {
+   "title": "1  Container onto the motor body: tongue under the deck,\n   3x M2 UP from under the robot into the deck",
+   "moves": [
+    {
+     "objects": [
+      "bay_v2_container"
+     ],
+     "path": [
+      [
+       -70,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 36
+    },
+    {
+     "objects": [
+      "enclosure_screws_M2x6st"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       -28
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 24
+    }
+   ]
+  },
+  {
+   "title": "2  Servo bus adapter: its 2 servo cables plugged in first,\n   then down into the column (cables out of the front slot)",
+   "moves": [
+    {
+     "objects": [
+      "v2_servo_adapter"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       120
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 36
+    }
+   ],
+   "wires": [
+    "v2_wire_ext_adapter_to_gap",
+    "v2_wire_ext_left_body_to_thigh"
+   ]
+  },
+  {
+   "title": "3  UBEC (jumper on 5.2 V first): its leads laid into the rear wall's two open notches\n   (IN left, OUT right), then the UBEC down into its pod on the outside of the rear wall",
+   "moves": [
+    {
+     "objects": [
+      "v2_ubec",
+      "v2_ubec_jumper"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       60
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 30
+    }
+   ]
+  },
+  {
+   "title": "4  Wires down the gap behind the IMU's place:\n   UBEC OUT+/- (both leads per pole) -> adapter power terminal;  D0 / D1 / GND -> adapter UART",
+   "wires": [
+    "v2_wire_U_out_pos",
+    "v2_wire_U_out_neg",
+    "v2_wire_D0_RX",
+    "v2_wire_D1_TX",
+    "v2_wire_GND_D"
+   ]
+  },
+  {
+   "title": "5  IMU (on its end) slides down into the two grooves on the column's\n   rear wall until it wedges; Qwiic plugged into its top socket",
+   "moves": [
+    {
+     "objects": [
+      "v2_imu",
+      "v2_bay_imu_qwiic"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       110
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 36
+    }
+   ],
+   "wires": [
+    "v2_wire_QWIIC"
+   ]
+  },
+  {
+   "title": "6  Battery down into the middle of the column",
+   "moves": [
+    {
+     "objects": [
+      "v2_battery_3s"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       130
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 40
+    }
+   ]
+  },
+  {
+   "title": "7  Switch drops into the right wall's U-slot (lever out),\n   Dupont housings on COM and ON",
+   "moves": [
+    {
+     "objects": [
+      "v2_switch_frame",
+      "v2_switch_bushing",
+      "v2_switch_lever",
+      "v2_switch_pins"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       40
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 30
+    },
+    {
+     "objects": [
+      "v2_switch_housing_com",
+      "v2_switch_housing_on"
+     ],
+     "path": [
+      [
+       0,
+       16,
+       0
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 18
+    }
+   ]
+  },
+  {
+   "title": "8  Splices: switch COM <- BAT+, ON -> SW+;  UBEC IN+/- ;\n   Uno VIN / GND leads (their plugs go on in step 10)",
+   "moves": [
+    {
+     "objects": [
+      "v2_splices_x3"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       50
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 24
+    }
+   ],
+   "wires": [
+    "v2_wire_SW_COM",
+    "v2_wire_SW_ON",
+    "v2_wire_U_in_pos",
+    "v2_wire_U_in_neg",
+    "v2_wire_VIN",
+    "v2_wire_GND_P2"
+   ]
+  },
+  {
+   "title": "9  Power out of the left-wall slot by the battery: battery lead -> XT30, balance plug; robot\n   pigtail back in to the splices. Tie them at the slot.",
+   "moves": [
+    {
+     "objects": [
+      "v2_bay_xt30_pair"
+     ],
+     "path": [
+      [
+       0,
+       40,
+       0
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 24
+    },
+    {
+     "objects": [
+      "v2_bay_balance_plug"
+     ],
+     "path": [
+      [
+       0,
+       40,
+       0
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 20
+    }
+   ],
+   "wires": [
+    "v2_wire_BAT_lead",
+    "v2_wire_BAL_lead",
+    "v2_wire_PIG_red",
+    "v2_wire_PIG_black"
+   ]
+  },
+  {
+   "title": "10  Uno Q, ready outside: 5 jumpers + Qwiic plugged in, the camera's USB-A plug in the 90 deg\n    adapter, the adapter in the Uno's USB-C; then upside down onto the two wall ledges, the camera cable dropped into its notch",
+   "moves": [
+    {
+     "objects": [
+      "v2_unoq_pcb",
+      "v2_unoq_headers",
+      "v2_unoq_usbc",
+      "v2_unoq_pins",
+      "v2_unoq_bottom_connectors",
+      "v2_unoq_top_parts",
+      "v2_unoq_qwiic_plug",
+      "v2_plug_D0_RX",
+      "v2_plug_D1_TX",
+      "v2_plug_GND_D",
+      "v2_plug_VIN",
+      "v2_plug_GND_P2",
+      "v2_bay_usb_adapter_L",
+      "v2_bay_usb_a_plug"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       70
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 40
+    }
+   ],
+   "wires": [
+    "v2_wire_CAMERA"
+   ]
+  },
+  {
+   "title": "11  Lid on (its ribs press the Uno, its tongue closes the switch slot),\n    4x M2x6 button head",
+   "moves": [
+    {
+     "objects": [
+      "bay_v2_lid"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       60
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 36
+    },
+    {
+     "objects": [
+      "v2_lid_screws_M2x6"
+     ],
+     "path": [
+      [
+       0,
+       0,
+       16
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ],
+     "frames": 24
+    }
+   ]
+  }
+ ]
+}

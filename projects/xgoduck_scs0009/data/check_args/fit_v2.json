@@ -1,0 +1,432 @@
+{
+ "lib": "<repo>/tools/blender/overlap_sample.py",
+ "step_mm": 0.2,
+ "press_mm3": [
+  0.5,
+  120.0
+ ],
+ "checks": [
+  {
+   "group": "bay v2: body",
+   "a": "bay_v2_container",
+   "b": "body_frame",
+   "expect": "clear",
+   "note": "container on the motor body (tongue under the deck)"
+  },
+  {
+   "group": "bay v2: body",
+   "a": "enclosure_screws_M2x6st",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "deck screws: clearance 2.8 through the tongue"
+  },
+  {
+   "group": "bay v2: body",
+   "a": "enclosure_screws_M2x6st",
+   "b": "body_frame",
+   "expect": "thread",
+   "note": "deck screws into the deck's 2.0 pilots"
+  },
+  {
+   "group": "bay v2: lid",
+   "a": "bay_v2_lid",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "lid on the walls"
+  },
+  {
+   "group": "bay v2: lid",
+   "a": "v2_lid_screws_M2x6",
+   "b": "bay_v2_container",
+   "expect": "thread",
+   "note": "lid screws into the pillars' 2.0 pilots"
+  },
+  {
+   "group": "bay v2: lid",
+   "a": "v2_lid_screws_M2x6",
+   "b": "bay_v2_lid",
+   "expect": "clear",
+   "note": "lid screws: 2.8 clearance in the lid"
+  },
+  {
+   "group": "bay v2: Uno Q",
+   "a": "v2_unoq_pcb",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "Uno on the wall ledges / front stops"
+  },
+  {
+   "group": "bay v2: Uno Q",
+   "a": "v2_unoq_pcb",
+   "b": "bay_v2_lid",
+   "expect": "clear",
+   "note": "lid ribs over the board"
+  },
+  {
+   "group": "bay v2: Uno Q",
+   "a": "v2_unoq_headers",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "Uno on the wall ledges / front stops"
+  },
+  {
+   "group": "bay v2: Uno Q",
+   "a": "v2_unoq_headers",
+   "b": "bay_v2_lid",
+   "expect": "clear",
+   "note": "lid ribs over the board"
+  },
+  {
+   "group": "bay v2: Uno Q",
+   "a": "v2_unoq_usbc",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "Uno on the wall ledges / front stops"
+  },
+  {
+   "group": "bay v2: Uno Q",
+   "a": "v2_unoq_usbc",
+   "b": "bay_v2_lid",
+   "expect": "clear",
+   "note": "lid ribs over the board"
+  },
+  {
+   "group": "bay v2: Uno Q",
+   "a": "v2_unoq_pins",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "Uno on the wall ledges / front stops"
+  },
+  {
+   "group": "bay v2: Uno Q",
+   "a": "v2_unoq_pins",
+   "b": "bay_v2_lid",
+   "expect": "clear",
+   "note": "lid ribs over the board"
+  },
+  {
+   "group": "bay v2: Uno Q",
+   "a": "v2_unoq_bottom_connectors",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "Uno on the wall ledges / front stops"
+  },
+  {
+   "group": "bay v2: Uno Q",
+   "a": "v2_unoq_bottom_connectors",
+   "b": "bay_v2_lid",
+   "expect": "clear",
+   "note": "lid ribs over the board"
+  },
+  {
+   "group": "bay v2: Uno Q",
+   "a": "v2_unoq_top_parts",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "Uno on the wall ledges / front stops"
+  },
+  {
+   "group": "bay v2: Uno Q",
+   "a": "v2_unoq_top_parts",
+   "b": "bay_v2_lid",
+   "expect": "clear",
+   "note": "lid ribs over the board"
+  },
+  {
+   "group": "bay v2: camera",
+   "a": "v2_bay_usb_adapter_L",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "camera adapter / plug in the box"
+  },
+  {
+   "group": "bay v2: camera",
+   "a": "v2_bay_usb_adapter_L",
+   "b": "bay_v2_lid",
+   "expect": "clear",
+   "note": "under the flat lid"
+  },
+  {
+   "group": "bay v2: camera",
+   "a": "v2_bay_usb_a_plug",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "camera adapter / plug in the box"
+  },
+  {
+   "group": "bay v2: camera",
+   "a": "v2_bay_usb_a_plug",
+   "b": "bay_v2_lid",
+   "expect": "clear",
+   "note": "under the flat lid"
+  },
+  {
+   "group": "bay v2: IMU",
+   "a": "v2_imu",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "IMU in its grooves (0.05 squeeze at the bottom: below the sampling)"
+  },
+  {
+   "group": "bay v2: IMU",
+   "a": "v2_bay_imu_qwiic",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "IMU sockets / plug"
+  },
+  {
+   "group": "bay v2: adapter",
+   "a": "v2_servo_adapter",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "adapter in its edge slots"
+  },
+  {
+   "group": "bay v2: adapter",
+   "a": "v2_servo_adapter",
+   "b": "v2_imu",
+   "expect": "clear",
+   "note": "adapter under the IMU"
+  },
+  {
+   "group": "bay v2: adapter",
+   "a": "v2_servo_adapter",
+   "b": "v2_bay_imu_qwiic",
+   "expect": "clear",
+   "note": "adapter under the IMU's bottom socket"
+  },
+  {
+   "group": "bay v2: adapter",
+   "a": "v2_servo_adapter",
+   "b": "v2_battery_3s",
+   "expect": "clear",
+   "note": "adapter behind the battery"
+  },
+  {
+   "group": "bay v2: UBEC",
+   "a": "v2_ubec",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "UBEC in its pod on the rear wall (standoff ribs 0.3, back plate 0.3, on the floor)"
+  },
+  {
+   "group": "bay v2: UBEC",
+   "a": "v2_ubec",
+   "b": "bay_v2_lid",
+   "expect": "clear",
+   "note": "the lid's two ribs 0.3 over the UBEC"
+  },
+  {
+   "group": "bay v2: UBEC",
+   "a": "v2_ubec_jumper",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "voltage jumper header in the pod's IN-end bay"
+  },
+  {
+   "group": "bay v2: UBEC",
+   "a": "v2_ubec_jumper",
+   "b": "bay_v2_lid",
+   "expect": "clear",
+   "note": "jumper header under the lid"
+  },
+  {
+   "group": "bay v2: switch",
+   "a": "v2_switch_frame",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "switch between its ribs, bushing in the U-slot"
+  },
+  {
+   "group": "bay v2: switch",
+   "a": "v2_switch_frame",
+   "b": "bay_v2_lid",
+   "expect": "clear",
+   "note": "lid tongue over the bushing"
+  },
+  {
+   "group": "bay v2: switch",
+   "a": "v2_switch_frame",
+   "b": "v2_splices_x3",
+   "expect": "clear",
+   "note": "splices lying over the housings"
+  },
+  {
+   "group": "bay v2: switch",
+   "a": "v2_switch_bushing",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "switch between its ribs, bushing in the U-slot"
+  },
+  {
+   "group": "bay v2: switch",
+   "a": "v2_switch_bushing",
+   "b": "bay_v2_lid",
+   "expect": "clear",
+   "note": "lid tongue over the bushing"
+  },
+  {
+   "group": "bay v2: switch",
+   "a": "v2_switch_bushing",
+   "b": "v2_splices_x3",
+   "expect": "clear",
+   "note": "splices lying over the housings"
+  },
+  {
+   "group": "bay v2: switch",
+   "a": "v2_switch_lever",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "switch between its ribs, bushing in the U-slot"
+  },
+  {
+   "group": "bay v2: switch",
+   "a": "v2_switch_lever",
+   "b": "bay_v2_lid",
+   "expect": "clear",
+   "note": "lid tongue over the bushing"
+  },
+  {
+   "group": "bay v2: switch",
+   "a": "v2_switch_lever",
+   "b": "v2_splices_x3",
+   "expect": "clear",
+   "note": "splices lying over the housings"
+  },
+  {
+   "group": "bay v2: switch",
+   "a": "v2_switch_pins",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "switch between its ribs, bushing in the U-slot"
+  },
+  {
+   "group": "bay v2: switch",
+   "a": "v2_switch_pins",
+   "b": "bay_v2_lid",
+   "expect": "clear",
+   "note": "lid tongue over the bushing"
+  },
+  {
+   "group": "bay v2: switch",
+   "a": "v2_switch_pins",
+   "b": "v2_splices_x3",
+   "expect": "clear",
+   "note": "splices lying over the housings"
+  },
+  {
+   "group": "bay v2: switch",
+   "a": "v2_switch_housing_com",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "switch between its ribs, bushing in the U-slot"
+  },
+  {
+   "group": "bay v2: switch",
+   "a": "v2_switch_housing_com",
+   "b": "bay_v2_lid",
+   "expect": "clear",
+   "note": "lid tongue over the bushing"
+  },
+  {
+   "group": "bay v2: switch",
+   "a": "v2_switch_housing_com",
+   "b": "v2_splices_x3",
+   "expect": "clear",
+   "note": "splices lying over the housings"
+  },
+  {
+   "group": "bay v2: switch",
+   "a": "v2_switch_housing_on",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "switch between its ribs, bushing in the U-slot"
+  },
+  {
+   "group": "bay v2: switch",
+   "a": "v2_switch_housing_on",
+   "b": "bay_v2_lid",
+   "expect": "clear",
+   "note": "lid tongue over the bushing"
+  },
+  {
+   "group": "bay v2: switch",
+   "a": "v2_switch_housing_on",
+   "b": "v2_splices_x3",
+   "expect": "clear",
+   "note": "splices lying over the housings"
+  },
+  {
+   "group": "bay v2: plugs",
+   "a": "v2_splices_x3",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "clear of the box"
+  },
+  {
+   "group": "bay v2: plugs",
+   "a": "v2_bay_xt30_pair",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "clear of the box"
+  },
+  {
+   "group": "bay v2: plugs",
+   "a": "v2_bay_balance_plug",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "clear of the box"
+  },
+  {
+   "group": "bay v2: plugs",
+   "a": "v2_plug_D0_RX",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "clear of the box"
+  },
+  {
+   "group": "bay v2: plugs",
+   "a": "v2_plug_D1_TX",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "clear of the box"
+  },
+  {
+   "group": "bay v2: plugs",
+   "a": "v2_plug_GND_D",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "clear of the box"
+  },
+  {
+   "group": "bay v2: plugs",
+   "a": "v2_plug_VIN",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "clear of the box"
+  },
+  {
+   "group": "bay v2: plugs",
+   "a": "v2_plug_GND_P2",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "clear of the box"
+  },
+  {
+   "group": "bay v2: plugs",
+   "a": "v2_unoq_qwiic_plug",
+   "b": "bay_v2_container",
+   "expect": "clear",
+   "note": "clear of the box"
+  },
+  {
+   "group": "bay v2: battery",
+   "a": "v2_battery_3s",
+   "b": "bay_v2_container",
+   "expect": "press",
+   "note": "battery in its channel: 4 crush ridges 0.15 into the pack"
+  }
+ ],
+ "json_out": "<out>/fit_v2.json",
+ "_why": "2026-11-27: fits of the bay v2"
+}

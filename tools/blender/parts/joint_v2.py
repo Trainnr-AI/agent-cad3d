@@ -28,8 +28,11 @@ for _k in ("J", "new_bm", "add_box", "add_cyl", "add_annulus", "add_hull", "to_o
 
 # ---- shared: horn pocket
 HORN_CLEAR, RIB_INTERF, RIB_R = 0.20, 0.25, 0.5      # loose walls; ribs (1 mm wide: printable) take up the play
-CLEAR_D, PILOT_D = 2.4, 1.7                          # M2 clearance; M2 pilot (2026-11-13: 2.3 / 1.6 -> 2.4 / 1.7: FDM holes print
-#                                                      0.1-0.2 small; M2 machine screws thread into PLA, the servo's self-tappers too)
+CLEAR_D, PILOT_D = 2.8, 2.0                          # M2 clearance; M2 pilot. 2026-11-27 (user's printed test: M2 would not go into
+#                                                      the 2.4 / 1.7 holes, M3 barely through 3.3 - FDM holes print ~0.3-0.4 small): 2.4 / 1.7 -> 2.8 / 2.0
+#                                                      (2026-11-13 was 2.3 / 1.6 -> 2.4 / 1.7). M2 machine screws thread into PLA, the servo's
+#                                                      self-tappers too. Existing parts: tools/blender/hole_resize.py.
+M3_CLEAR_D, M3_PILOT_D = 3.7, 2.9                    # M3 clearance / thread-forming pilot (2026-11-27: 3.3 / 2.5 -> 3.7 / 2.9)
 HUB_D, HORN_TOP, PLATE_T_HORN = HORN_HUB_D, J_HORN_HUB_Z[1], HORN_PLATE_T
 # 2026-11-25 (user's printed coupon + photos): the kit horn's TOP face (the side in our pocket) has a small raised ring round its
 # screw hole, so the printed part sat on the ring and the servo's screw no longer reached the shaft. Recess in the pocket roof
@@ -71,7 +74,7 @@ FLOOR_T = 4.5                                        # = PLATE_T: a type-C rotor
 #                                                      of the servo bottom (with a 4.0 floor it touched it);
 #                                                      holds a captive M3 nut (2.4) under the servo bottom
 FLOOR_Z = (J_BOTTOM - FLOOR_T, J_BOTTOM)             # -29.75 .. -25.25
-NUT_AF, NUT_T, NUT_HOLE_D = 5.5 + 0.25, 2.4 + 0.2, 3.3
+NUT_AF, NUT_T, NUT_HOLE_D = 5.5 + 0.25, 2.4 + 0.2, M3_CLEAR_D
 RING_ISLAND_D, RING_RECESS_D, RING_RECESS_H = 4.5, 16.0, 0.5   # floor underside: Ø16 x 0.5 recess round a flush Ø4.5
 #                                                      island -> the 693's inner ring bears on the island, the bearing plate
 #                                                      clears the floor by 0.5, and the floor's face stays flat (print bed)
